@@ -15907,7 +15907,7 @@ classes:
     class_uri: fluxnova_bpmn_model_fluxnova:FluxnovaValue
 metamodel_version: 1.11.0
 source_file: fluxnova_bpm_platform.yaml
-source_file_date: '2026-05-14T22:44:31'
+source_file_date: '2026-05-14T23:28:42'
 source_file_size: 4463
-generation_date: '2026-05-14T22:44:41'
+generation_date: '2026-05-14T23:28:55'
 
