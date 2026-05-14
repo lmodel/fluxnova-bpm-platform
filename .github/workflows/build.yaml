@@ -10,10 +10,10 @@ env:
   SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION || '' }}
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  # push:
+  #   branches:
+  #     - main
+  # pull_request:
   workflow_dispatch:
 
 concurrency:

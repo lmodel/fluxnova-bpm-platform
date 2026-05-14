@@ -108,12 +108,16 @@ linkml_meta = LinkMLMeta({'annotations': {'class_count': {'tag': 'class_count', 
      'name': 'fluxnova_bpm_platform',
      'prefixes': {'bpmn': {'prefix_prefix': 'bpmn',
                            'prefix_reference': 'http://www.omg.org/spec/BPMN/20100524/MODEL#'},
+                  'cis_controls': {'prefix_prefix': 'cis_controls',
+                                   'prefix_reference': 'https://w3id.org/lmodel/cis-controls/'},
                   'dcterms': {'prefix_prefix': 'dcterms',
                               'prefix_reference': 'http://purl.org/dc/terms/'},
                   'fluxnova_bpm_platform': {'prefix_prefix': 'fluxnova_bpm_platform',
                                             'prefix_reference': 'https://w3id.org/TD-Universe/fluxnova-bpm-platform/'},
                   'linkml': {'prefix_prefix': 'linkml',
                              'prefix_reference': 'https://w3id.org/linkml/'},
+                  'nist_csf_v2': {'prefix_prefix': 'nist_csf_v2',
+                                  'prefix_reference': 'https://w3id.org/lmodel/nist-csf-v2/'},
                   'schema': {'prefix_prefix': 'schema',
                              'prefix_reference': 'http://schema.org/'}},
      'see_also': ['https://TD-Universe.github.io/fluxnova-bpm-platform',
@@ -546,6 +550,10 @@ class ByteArray(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     name: Optional[str] = Field(default=None, description="""Human-readable name.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'MeterLog',
@@ -593,6 +601,7 @@ class ByteArray(ConfiguredBaseModel):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     deployment_id: Optional[str] = Field(default=None, description="""Reference to the deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'ResourceDefinition',
@@ -655,7 +664,8 @@ class ByteArray(ConfiguredBaseModel):
                        'ConditionExpression',
                        'CorrelationProperty',
                        'Relationship',
-                       'ResourceParameter']} })
+                       'ResourceParameter'],
+         'related_mappings': ['stix:type', 'unified_cyber_ontology:state']} })
     create_time: Optional[datetime ] = Field(default=None, description="""Creation timestamp.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'ExternalTask',
                        'Task',
@@ -759,6 +769,10 @@ class MeterLog(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     name: str = Field(default=..., description="""Human-readable name.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'MeterLog',
@@ -806,6 +820,7 @@ class MeterLog(ConfiguredBaseModel):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     reporter: Optional[str] = Field(default=None, description="""Identifier of the reporting node.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'REPORTER_'}},
          'domain_of': ['MeterLog']} })
@@ -882,6 +897,7 @@ class Property(ConfiguredBaseModel):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     value: Optional[str] = Field(default=None, description="""Value of this variable instance.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'VALUE_'}},
          'domain_of': ['MeterLog',
@@ -947,6 +963,10 @@ class SchemaLogEntry(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     timestamp: Optional[datetime ] = Field(default=None, description="""Time when this log occurred.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'TIMESTAMP_'}},
          'domain_of': ['MeterLog',
@@ -956,7 +976,8 @@ class SchemaLogEntry(ConfiguredBaseModel):
                        'HistoricIdentityLink',
                        'HistoricJobLog',
                        'UserOperationLogEntry']} })
-    version: Optional[str] = Field(default=None, description="""Version number.""", json_schema_extra = { "linkml_meta": {'domain_of': ['SchemaLogEntry', 'ResourceDefinition']} })
+    version: Optional[str] = Field(default=None, description="""Version number.""", json_schema_extra = { "linkml_meta": {'domain_of': ['SchemaLogEntry', 'ResourceDefinition'],
+         'related_mappings': ['cis_controls:version', 'nist_csf_v2:version']} })
 
 
 class TaskMeterLog(ConfiguredBaseModel):
@@ -1014,6 +1035,10 @@ class TaskMeterLog(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     assignee_hash: Optional[int] = Field(default=None, description="""Hash of the assignee for aggregation.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column',
                                         'value': 'ASSIGNEE_HASH_'}},
@@ -1086,6 +1111,10 @@ class Authorization(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     type: AuthorizationType = Field(default=..., description="""Type discriminator.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'Authorization',
@@ -1104,7 +1133,8 @@ class Authorization(ConfiguredBaseModel):
                        'ConditionExpression',
                        'CorrelationProperty',
                        'Relationship',
-                       'ResourceParameter']} })
+                       'ResourceParameter'],
+         'related_mappings': ['stix:type', 'unified_cyber_ontology:state']} })
     group_id: Optional[str] = Field(default=None, description="""Reference to a group.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Authorization',
                        'IdentityLink',
                        'Membership',
@@ -1168,7 +1198,8 @@ class Group(ConfiguredBaseModel):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'annotations': {'sql_table': {'tag': 'sql_table', 'value': 'ACT_ID_GROUP'}},
          'from_schema': 'https://w3id.org/TD-Universe/fluxnova-bpm-platform/identity',
-         'in_subset': ['identity', 'fluxnova_bpm']})
+         'in_subset': ['identity', 'fluxnova_bpm'],
+         'related_mappings': ['d3f:Group', 'oscal:Group']})
 
     id: str = Field(default=..., description="""Unique identifier.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'MeterLog',
@@ -1216,6 +1247,10 @@ class Group(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     name: Optional[str] = Field(default=None, description="""Human-readable name.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'MeterLog',
@@ -1263,6 +1298,7 @@ class Group(ConfiguredBaseModel):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     type: Optional[str] = Field(default=None, description="""Type discriminator.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'Authorization',
@@ -1281,7 +1317,8 @@ class Group(ConfiguredBaseModel):
                        'ConditionExpression',
                        'CorrelationProperty',
                        'Relationship',
-                       'ResourceParameter']} })
+                       'ResourceParameter'],
+         'related_mappings': ['stix:type', 'unified_cyber_ontology:state']} })
 
 
 class IdentityInfo(ConfiguredBaseModel):
@@ -1338,6 +1375,10 @@ class IdentityInfo(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     user_id: Optional[str] = Field(default=None, description="""Reference to a user.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Authorization',
                        'IdentityInfo',
@@ -1366,7 +1407,8 @@ class IdentityInfo(ConfiguredBaseModel):
                        'ConditionExpression',
                        'CorrelationProperty',
                        'Relationship',
-                       'ResourceParameter']} })
+                       'ResourceParameter'],
+         'related_mappings': ['stix:type', 'unified_cyber_ontology:state']} })
     key: Optional[str] = Field(default=None, description="""Business key for the definition.""", json_schema_extra = { "linkml_meta": {'domain_of': ['IdentityInfo', 'ResourceDefinition']} })
     value: Optional[str] = Field(default=None, description="""Value of this variable instance.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'VALUE_'}},
          'domain_of': ['MeterLog',
@@ -1435,6 +1477,10 @@ class IdentityLink(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     group_id: Optional[str] = Field(default=None, description="""Reference to a group.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Authorization',
                        'IdentityLink',
@@ -1458,7 +1504,8 @@ class IdentityLink(ConfiguredBaseModel):
                        'ConditionExpression',
                        'CorrelationProperty',
                        'Relationship',
-                       'ResourceParameter']} })
+                       'ResourceParameter'],
+         'related_mappings': ['stix:type', 'unified_cyber_ontology:state']} })
     user_id: Optional[str] = Field(default=None, description="""Reference to a user.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Authorization',
                        'IdentityInfo',
                        'IdentityLink',
@@ -1617,6 +1664,10 @@ class Tenant(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     name: Optional[str] = Field(default=None, description="""Human-readable name.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'MeterLog',
@@ -1664,6 +1715,7 @@ class Tenant(ConfiguredBaseModel):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
 
 
@@ -1723,6 +1775,10 @@ class TenantMembership(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     tenant_id: str = Field(default=..., description="""Multi-tenancy discriminator.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'IdentityLink',
@@ -1781,7 +1837,10 @@ class User(ConfiguredBaseModel):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'annotations': {'sql_table': {'tag': 'sql_table', 'value': 'ACT_ID_USER'}},
          'from_schema': 'https://w3id.org/TD-Universe/fluxnova-bpm-platform/identity',
-         'in_subset': ['identity', 'fluxnova_bpm']})
+         'in_subset': ['identity', 'fluxnova_bpm'],
+         'related_mappings': ['ocsf:User',
+                              'stix:UserAccount',
+                              'uco_master:UserAccount']})
 
     id: str = Field(default=..., description="""Unique identifier.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'MeterLog',
@@ -1829,6 +1888,10 @@ class User(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     first_name: Optional[str] = Field(default=None, description="""First name.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'FIRST_'}},
          'domain_of': ['User']} })
@@ -1904,6 +1967,10 @@ class CaseExecution(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     case_instance_id: Optional[str] = Field(default=None, description="""Reference to the case instance.""", json_schema_extra = { "linkml_meta": {'domain_of': ['CaseExecution',
                        'CaseSentryPart',
@@ -2047,6 +2114,10 @@ class CaseSentryPart(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     case_instance_id: Optional[str] = Field(default=None, description="""Reference to the case instance.""", json_schema_extra = { "linkml_meta": {'domain_of': ['CaseExecution',
                        'CaseSentryPart',
@@ -2087,7 +2158,8 @@ class CaseSentryPart(ConfiguredBaseModel):
                        'ConditionExpression',
                        'CorrelationProperty',
                        'Relationship',
-                       'ResourceParameter']} })
+                       'ResourceParameter'],
+         'related_mappings': ['stix:type', 'unified_cyber_ontology:state']} })
     source_case_execution_id: Optional[str] = Field(default=None, description="""Reference to the source case execution.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column',
                                         'value': 'SOURCE_CASE_EXEC_ID_'}},
          'domain_of': ['CaseSentryPart']} })
@@ -2199,6 +2271,10 @@ class EventSubscription(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     event_type: str = Field(default=..., description="""The event subscriptions type. \"message\" identifies message event subscriptions, \"signal\" identifies signal event subscription, \"compensation\" identifies event subscriptions used for compensation ev...""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'EVENT_TYPE_'}},
          'domain_of': ['EventSubscription']} })
@@ -2250,7 +2326,9 @@ class EventSubscription(ConfiguredBaseModel):
                                         'value': 'CONFIGURATION_'}},
          'domain_of': ['EventSubscription', 'Incident', 'Batch', 'HistoricIncident']} })
     created: datetime  = Field(default=..., description="""The time this event subscription was created.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'CREATED_'}},
-         'domain_of': ['EventSubscription']} })
+         'domain_of': ['EventSubscription'],
+         'related_mappings': ['stix:created',
+                              'unified_cyber_ontology:objectCreatedTime']} })
     tenant_id: Optional[str] = Field(default=None, description="""Multi-tenancy discriminator.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'IdentityLink',
                        'TenantMembership',
@@ -2342,6 +2420,10 @@ class Execution(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     root_process_instance_id: Optional[str] = Field(default=None, description="""Root process instance for history cleanup.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'Authorization',
@@ -2569,6 +2651,10 @@ class ExternalTask(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     worker_id: Optional[str] = Field(default=None, description="""Id of the worker that fetched the external task most recently.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'WORKER_ID_'}},
          'domain_of': ['ExternalTask', 'HistoricExternalTaskLog']} })
@@ -2782,6 +2868,10 @@ class Incident(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     incident_timestamp: datetime  = Field(default=..., description="""Time when the incident happened.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column',
                                         'value': 'INCIDENT_TIMESTAMP_'}},
@@ -2959,6 +3049,10 @@ class Task(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     execution_id: Optional[str] = Field(default=None, description="""Reference to the execution.""", json_schema_extra = { "linkml_meta": {'domain_of': ['EventSubscription',
                        'ExternalTask',
@@ -3083,11 +3177,20 @@ class Task(ConfiguredBaseModel):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     parent_task_id: Optional[str] = Field(default=None, description="""The parent task for which this task is a subtask""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column',
                                         'value': 'PARENT_TASK_ID_'}},
          'domain_of': ['Task', 'HistoricTaskInstance']} })
     description: Optional[str] = Field(default=None, description="""Human-readable description.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Task', 'Attachment', 'HistoricTaskInstance'],
+         'related_mappings': ['cis_controls:description',
+                              'core:description',
+                              'cwe:description',
+                              'kev_catalog:short_description',
+                              'nist_csf_v2:prose',
+                              'schema:description',
+                              'stix:description',
+                              'unified_cyber_ontology:description'],
          'slot_uri': 'schema:description'} })
     task_definition_key: Optional[str] = Field(default=None, description="""The id of the activity in the process defining this task or null if this is not related to a process""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'TASK_DEF_KEY_'}},
          'domain_of': ['Task', 'HistoricTaskInstance']} })
@@ -3224,6 +3327,10 @@ class VariableInstance(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     type: str = Field(default=..., description="""Type discriminator.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'Authorization',
@@ -3242,7 +3349,8 @@ class VariableInstance(ConfiguredBaseModel):
                        'ConditionExpression',
                        'CorrelationProperty',
                        'Relationship',
-                       'ResourceParameter']} })
+                       'ResourceParameter'],
+         'related_mappings': ['stix:type', 'unified_cyber_ontology:state']} })
     name: str = Field(default=..., description="""Human-readable name.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'MeterLog',
                        'Property',
@@ -3289,6 +3397,7 @@ class VariableInstance(ConfiguredBaseModel):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     execution_id: Optional[str] = Field(default=None, description="""Reference to the execution.""", json_schema_extra = { "linkml_meta": {'domain_of': ['EventSubscription',
                        'ExternalTask',
@@ -3506,6 +3615,10 @@ class Attachment(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     user_id: Optional[str] = Field(default=None, description="""Reference to a user.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Authorization',
                        'IdentityInfo',
@@ -3563,8 +3676,17 @@ class Attachment(ConfiguredBaseModel):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     description: Optional[str] = Field(default=None, description="""Human-readable description.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Task', 'Attachment', 'HistoricTaskInstance'],
+         'related_mappings': ['cis_controls:description',
+                              'core:description',
+                              'cwe:description',
+                              'kev_catalog:short_description',
+                              'nist_csf_v2:prose',
+                              'schema:description',
+                              'stix:description',
+                              'unified_cyber_ontology:description'],
          'slot_uri': 'schema:description'} })
     type: Optional[str] = Field(default=None, description="""Type discriminator.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'Authorization',
@@ -3583,7 +3705,8 @@ class Attachment(ConfiguredBaseModel):
                        'ConditionExpression',
                        'CorrelationProperty',
                        'Relationship',
-                       'ResourceParameter']} })
+                       'ResourceParameter'],
+         'related_mappings': ['stix:type', 'unified_cyber_ontology:state']} })
     task_id: Optional[str] = Field(default=None, description="""Reference to the task.""", json_schema_extra = { "linkml_meta": {'domain_of': ['IdentityLink',
                        'VariableInstance',
                        'Attachment',
@@ -3629,7 +3752,8 @@ class Attachment(ConfiguredBaseModel):
                        'HistoricVariableInstance',
                        'UserOperationLogEntry']} })
     url: Optional[str] = Field(default=None, description="""The remote URL in case this is remote content. If the attachment content was uploaded with an input stream, then this method returns null and the content can be fetched with .""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'URL_'}},
-         'domain_of': ['Attachment']} })
+         'domain_of': ['Attachment'],
+         'related_mappings': ['stix:url', 'unified_cyber_ontology:URL']} })
     content_id: Optional[str] = Field(default=None, description="""Reference to the content.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'CONTENT_ID_'}},
          'domain_of': ['Attachment']} })
     tenant_id: Optional[str] = Field(default=None, description="""Multi-tenancy discriminator.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
@@ -3749,6 +3873,10 @@ class Comment(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     type: Optional[str] = Field(default=None, description="""Type discriminator.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'Authorization',
@@ -3767,7 +3895,8 @@ class Comment(ConfiguredBaseModel):
                        'ConditionExpression',
                        'CorrelationProperty',
                        'Relationship',
-                       'ResourceParameter']} })
+                       'ResourceParameter'],
+         'related_mappings': ['stix:type', 'unified_cyber_ontology:state']} })
     event_time: datetime  = Field(default=..., description="""Timestamp for event time.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'TIME_'}},
          'domain_of': ['Comment', 'HistoricDetail']} })
     user_id: Optional[str] = Field(default=None, description="""Reference to a user.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Authorization',
@@ -3943,6 +4072,10 @@ class Filter(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     resource_type: str = Field(default=..., description="""Numeric type of the authorized resource.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column',
                                         'value': 'RESOURCE_TYPE_'}},
@@ -3993,6 +4126,7 @@ class Filter(ConfiguredBaseModel):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     owner: Optional[str] = Field(default=None, description="""The userId of the person that is responsible for this task. This is used when a task is delegated.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'OWNER_'}},
          'domain_of': ['Task', 'Filter', 'HistoricTaskInstance']} })
@@ -4057,6 +4191,10 @@ class Deployment(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     name: Optional[str] = Field(default=None, description="""Human-readable name.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'MeterLog',
@@ -4104,6 +4242,7 @@ class Deployment(ConfiguredBaseModel):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     deploy_time: Optional[datetime ] = Field(default=None, description="""Timestamp for deploy time.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'DEPLOY_TIME_'}},
          'domain_of': ['Deployment']} })
@@ -4204,6 +4343,10 @@ class ResourceDefinition(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     key: Optional[str] = Field(default=None, description="""Business key for the definition.""", json_schema_extra = { "linkml_meta": {'domain_of': ['IdentityInfo', 'ResourceDefinition']} })
     name: Optional[str] = Field(default=None, description="""Human-readable name.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
@@ -4252,8 +4395,10 @@ class ResourceDefinition(ConfiguredBaseModel):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
-    version: Optional[int] = Field(default=None, description="""Version number.""", json_schema_extra = { "linkml_meta": {'domain_of': ['SchemaLogEntry', 'ResourceDefinition']} })
+    version: Optional[int] = Field(default=None, description="""Version number.""", json_schema_extra = { "linkml_meta": {'domain_of': ['SchemaLogEntry', 'ResourceDefinition'],
+         'related_mappings': ['cis_controls:version', 'nist_csf_v2:version']} })
     category: Optional[str] = Field(default=None, description="""Category classification.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceDefinition', 'UserOperationLogEntry', 'BpmnGroup']} })
     deployment_id: Optional[str] = Field(default=None, description="""Reference to the deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'ResourceDefinition',
@@ -4356,6 +4501,10 @@ class CaseDefinition(ResourceDefinition):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     key: str = Field(default=..., description="""Business key for the definition.""", json_schema_extra = { "linkml_meta": {'domain_of': ['IdentityInfo', 'ResourceDefinition']} })
     name: Optional[str] = Field(default=None, description="""Human-readable name.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
@@ -4404,8 +4553,10 @@ class CaseDefinition(ResourceDefinition):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
-    version: int = Field(default=..., description="""Version number.""", json_schema_extra = { "linkml_meta": {'domain_of': ['SchemaLogEntry', 'ResourceDefinition']} })
+    version: int = Field(default=..., description="""Version number.""", json_schema_extra = { "linkml_meta": {'domain_of': ['SchemaLogEntry', 'ResourceDefinition'],
+         'related_mappings': ['cis_controls:version', 'nist_csf_v2:version']} })
     category: Optional[str] = Field(default=None, description="""Category classification.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceDefinition', 'UserOperationLogEntry', 'BpmnGroup']} })
     deployment_id: Optional[str] = Field(default=None, description="""Reference to the deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'ResourceDefinition',
@@ -4515,6 +4666,10 @@ class DecisionDefinition(ResourceDefinition):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     key: str = Field(default=..., description="""Business key for the definition.""", json_schema_extra = { "linkml_meta": {'domain_of': ['IdentityInfo', 'ResourceDefinition']} })
     name: Optional[str] = Field(default=None, description="""Human-readable name.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
@@ -4563,8 +4718,10 @@ class DecisionDefinition(ResourceDefinition):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
-    version: int = Field(default=..., description="""Version number.""", json_schema_extra = { "linkml_meta": {'domain_of': ['SchemaLogEntry', 'ResourceDefinition']} })
+    version: int = Field(default=..., description="""Version number.""", json_schema_extra = { "linkml_meta": {'domain_of': ['SchemaLogEntry', 'ResourceDefinition'],
+         'related_mappings': ['cis_controls:version', 'nist_csf_v2:version']} })
     category: Optional[str] = Field(default=None, description="""Category classification.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceDefinition', 'UserOperationLogEntry', 'BpmnGroup']} })
     deployment_id: Optional[str] = Field(default=None, description="""Reference to the deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'ResourceDefinition',
@@ -4668,6 +4825,10 @@ class DecisionRequirementsDefinition(ResourceDefinition):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     key: str = Field(default=..., description="""Business key for the definition.""", json_schema_extra = { "linkml_meta": {'domain_of': ['IdentityInfo', 'ResourceDefinition']} })
     name: Optional[str] = Field(default=None, description="""Human-readable name.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
@@ -4716,8 +4877,10 @@ class DecisionRequirementsDefinition(ResourceDefinition):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
-    version: int = Field(default=..., description="""Version number.""", json_schema_extra = { "linkml_meta": {'domain_of': ['SchemaLogEntry', 'ResourceDefinition']} })
+    version: int = Field(default=..., description="""Version number.""", json_schema_extra = { "linkml_meta": {'domain_of': ['SchemaLogEntry', 'ResourceDefinition'],
+         'related_mappings': ['cis_controls:version', 'nist_csf_v2:version']} })
     category: Optional[str] = Field(default=None, description="""Category classification.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceDefinition', 'UserOperationLogEntry', 'BpmnGroup']} })
     deployment_id: Optional[str] = Field(default=None, description="""Reference to the deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'ResourceDefinition',
@@ -4821,6 +4984,10 @@ class FormDefinition(ResourceDefinition):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     key: str = Field(default=..., description="""Business key for the definition.""", json_schema_extra = { "linkml_meta": {'domain_of': ['IdentityInfo', 'ResourceDefinition']} })
     name: Optional[str] = Field(default=None, description="""Human-readable name.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
@@ -4869,8 +5036,10 @@ class FormDefinition(ResourceDefinition):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
-    version: int = Field(default=..., description="""Version number.""", json_schema_extra = { "linkml_meta": {'domain_of': ['SchemaLogEntry', 'ResourceDefinition']} })
+    version: int = Field(default=..., description="""Version number.""", json_schema_extra = { "linkml_meta": {'domain_of': ['SchemaLogEntry', 'ResourceDefinition'],
+         'related_mappings': ['cis_controls:version', 'nist_csf_v2:version']} })
     category: Optional[str] = Field(default=None, description="""Category classification.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceDefinition', 'UserOperationLogEntry', 'BpmnGroup']} })
     deployment_id: Optional[str] = Field(default=None, description="""Reference to the deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'ResourceDefinition',
@@ -4989,6 +5158,10 @@ class ProcessDefinition(ResourceDefinition):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     key: str = Field(default=..., description="""Business key for the definition.""", json_schema_extra = { "linkml_meta": {'domain_of': ['IdentityInfo', 'ResourceDefinition']} })
     name: Optional[str] = Field(default=None, description="""Human-readable name.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
@@ -5037,8 +5210,10 @@ class ProcessDefinition(ResourceDefinition):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
-    version: int = Field(default=..., description="""Version number.""", json_schema_extra = { "linkml_meta": {'domain_of': ['SchemaLogEntry', 'ResourceDefinition']} })
+    version: int = Field(default=..., description="""Version number.""", json_schema_extra = { "linkml_meta": {'domain_of': ['SchemaLogEntry', 'ResourceDefinition'],
+         'related_mappings': ['cis_controls:version', 'nist_csf_v2:version']} })
     category: Optional[str] = Field(default=None, description="""Category classification.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceDefinition', 'UserOperationLogEntry', 'BpmnGroup']} })
     deployment_id: Optional[str] = Field(default=None, description="""Reference to the deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'ResourceDefinition',
@@ -5139,6 +5314,10 @@ class Batch(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     type: Optional[str] = Field(default=None, description="""Type discriminator.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'Authorization',
@@ -5157,7 +5336,8 @@ class Batch(ConfiguredBaseModel):
                        'ConditionExpression',
                        'CorrelationProperty',
                        'Relationship',
-                       'ResourceParameter']} })
+                       'ResourceParameter'],
+         'related_mappings': ['stix:type', 'unified_cyber_ontology:state']} })
     total_jobs: Optional[int] = Field(default=None, description="""Total number of jobs.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'TOTAL_JOBS_'}},
          'domain_of': ['Batch', 'HistoricBatch']} })
     jobs_created: Optional[int] = Field(default=None, description="""The jobs created.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'JOBS_CREATED_'}},
@@ -5289,6 +5469,10 @@ class Job(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     type: str = Field(default=..., description="""Type discriminator.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'Authorization',
@@ -5307,7 +5491,8 @@ class Job(ConfiguredBaseModel):
                        'ConditionExpression',
                        'CorrelationProperty',
                        'Relationship',
-                       'ResourceParameter']} })
+                       'ResourceParameter'],
+         'related_mappings': ['stix:type', 'unified_cyber_ontology:state']} })
     lock_expiration_time: Optional[datetime ] = Field(default=None, description="""Time at which the lock expires.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column',
                                         'value': 'LOCK_EXP_TIME_'}},
          'domain_of': ['User', 'ExternalTask', 'Job']} })
@@ -5557,6 +5742,10 @@ class JobDefinition(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     process_definition_id: Optional[str] = Field(default=None, description="""Reference to the process definition.""", json_schema_extra = { "linkml_meta": {'domain_of': ['IdentityLink',
                        'Execution',
@@ -5712,6 +5901,10 @@ class HistoricBatch(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     type: Optional[str] = Field(default=None, description="""Type discriminator.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'Authorization',
@@ -5730,7 +5923,8 @@ class HistoricBatch(ConfiguredBaseModel):
                        'ConditionExpression',
                        'CorrelationProperty',
                        'Relationship',
-                       'ResourceParameter']} })
+                       'ResourceParameter'],
+         'related_mappings': ['stix:type', 'unified_cyber_ontology:state']} })
     total_jobs: Optional[int] = Field(default=None, description="""Total number of jobs.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'TOTAL_JOBS_'}},
          'domain_of': ['Batch', 'HistoricBatch']} })
     jobs_per_seed: Optional[int] = Field(default=None, description="""The jobs per seed.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column',
@@ -5862,6 +6056,10 @@ class HistoricDecisionInputInstance(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     decision_instance_id: str = Field(default=..., description="""The unique identifier of the historic decision instance.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'DEC_INST_ID_'}},
          'domain_of': ['HistoricDecisionInputInstance',
@@ -6041,6 +6239,10 @@ class HistoricDecisionInstance(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     decision_definition_id: str = Field(default=..., description="""The decision definition reference.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'DEC_DEF_ID_'}},
          'domain_of': ['HistoricDecisionInstance']} })
@@ -6285,6 +6487,10 @@ class HistoricDecisionOutputInstance(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     decision_instance_id: str = Field(default=..., description="""The unique identifier of the historic decision instance.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'DEC_INST_ID_'}},
          'domain_of': ['HistoricDecisionInputInstance',
@@ -6472,6 +6678,10 @@ class HistoricDetail(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     type: str = Field(default=..., description="""Type discriminator.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'Authorization',
@@ -6490,7 +6700,8 @@ class HistoricDetail(ConfiguredBaseModel):
                        'ConditionExpression',
                        'CorrelationProperty',
                        'Relationship',
-                       'ResourceParameter']} })
+                       'ResourceParameter'],
+         'related_mappings': ['stix:type', 'unified_cyber_ontology:state']} })
     event_time: datetime  = Field(default=..., description="""Timestamp for event time.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'TIME_'}},
          'domain_of': ['Comment', 'HistoricDetail']} })
     name: str = Field(default=..., description="""Human-readable name.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
@@ -6539,6 +6750,7 @@ class HistoricDetail(ConfiguredBaseModel):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     process_definition_key: Optional[str] = Field(default=None, description="""Key of the process definition.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Execution',
                        'ExternalTask',
@@ -6826,6 +7038,10 @@ class HistoricExternalTaskLog(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     timestamp: datetime  = Field(default=..., description="""Time when this log occurred.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'TIMESTAMP_'}},
          'domain_of': ['MeterLog',
@@ -7064,6 +7280,10 @@ class HistoricIdentityLink(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     timestamp: datetime  = Field(default=..., description="""Time when this log occurred.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'TIMESTAMP_'}},
          'domain_of': ['MeterLog',
@@ -7090,7 +7310,8 @@ class HistoricIdentityLink(ConfiguredBaseModel):
                        'ConditionExpression',
                        'CorrelationProperty',
                        'Relationship',
-                       'ResourceParameter']} })
+                       'ResourceParameter'],
+         'related_mappings': ['stix:type', 'unified_cyber_ontology:state']} })
     user_id: Optional[str] = Field(default=None, description="""Reference to a user.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Authorization',
                        'IdentityInfo',
                        'IdentityLink',
@@ -7275,6 +7496,10 @@ class HistoricIncident(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     process_definition_key: Optional[str] = Field(default=None, description="""Key of the process definition.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Execution',
                        'ExternalTask',
@@ -7514,6 +7739,10 @@ class HistoricJobLog(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     timestamp: datetime  = Field(default=..., description="""Time when this log occurred.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'TIMESTAMP_'}},
          'domain_of': ['MeterLog',
@@ -7767,6 +7996,10 @@ class HistoricScopeInstance(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     root_process_instance_id: Optional[str] = Field(default=None, description="""Root process instance for history cleanup.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'Authorization',
@@ -8009,6 +8242,10 @@ class HistoricActivityInstance(HistoricScopeInstance):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     root_process_instance_id: Optional[str] = Field(default=None, description="""Root process instance for history cleanup.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'Authorization',
@@ -8257,6 +8494,10 @@ class HistoricCaseActivityInstance(HistoricScopeInstance):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     root_process_instance_id: Optional[str] = Field(default=None, description="""Root process instance for history cleanup.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'Authorization',
@@ -8490,6 +8731,10 @@ class HistoricCaseInstance(HistoricScopeInstance):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     root_process_instance_id: Optional[str] = Field(default=None, description="""Root process instance for history cleanup.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'Authorization',
@@ -8711,6 +8956,10 @@ class HistoricProcessInstance(HistoricScopeInstance):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     root_process_instance_id: Optional[str] = Field(default=None, description="""Root process instance for history cleanup.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'Authorization',
@@ -8909,11 +9158,20 @@ class HistoricTaskInstance(HistoricScopeInstance):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     parent_task_id: Optional[str] = Field(default=None, description="""The parent task for which this task is a subtask""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column',
                                         'value': 'PARENT_TASK_ID_'}},
          'domain_of': ['Task', 'HistoricTaskInstance']} })
     description: Optional[str] = Field(default=None, description="""Human-readable description.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Task', 'Attachment', 'HistoricTaskInstance'],
+         'related_mappings': ['cis_controls:description',
+                              'core:description',
+                              'cwe:description',
+                              'kev_catalog:short_description',
+                              'nist_csf_v2:prose',
+                              'schema:description',
+                              'stix:description',
+                              'unified_cyber_ontology:description'],
          'slot_uri': 'schema:description'} })
     owner: Optional[str] = Field(default=None, description="""The userId of the person that is responsible for this task. This is used when a task is delegated.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'OWNER_'}},
          'domain_of': ['Task', 'Filter', 'HistoricTaskInstance']} })
@@ -9015,6 +9273,10 @@ class HistoricTaskInstance(HistoricScopeInstance):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     root_process_instance_id: Optional[str] = Field(default=None, description="""Root process instance for history cleanup.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'Authorization',
@@ -9156,6 +9418,10 @@ class HistoricVariableInstance(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     process_definition_key: Optional[str] = Field(default=None, description="""Key of the process definition.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Execution',
                        'ExternalTask',
@@ -9332,6 +9598,7 @@ class HistoricVariableInstance(ConfiguredBaseModel):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     variable_type: Optional[str] = Field(default=None, description="""The variable type.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'VAR_TYPE_'}},
          'domain_of': ['HistoricDecisionInputInstance',
@@ -9492,6 +9759,10 @@ class UserOperationLogEntry(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     deployment_id: Optional[str] = Field(default=None, description="""Reference to the deployment.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'ResourceDefinition',
@@ -9806,6 +10077,7 @@ class Font(BpmnModelElementInstance):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     size: Optional[float] = Field(default=None, description="""Font size in points.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Font']} })
     bold: Optional[bool] = Field(default=None, description="""Whether the font is rendered in bold.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Font']} })
@@ -9888,6 +10160,7 @@ class Diagram(BpmnModelElementInstance):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     documentation: Optional[str] = Field(default=None, description="""Human-readable documentation attached to this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Diagram']} })
     resolution: Optional[float] = Field(default=None, description="""The resolution of this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Diagram']} })
@@ -9937,6 +10210,10 @@ class Diagram(BpmnModelElementInstance):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     scope: Optional[BpmnModelElementInstance] = Field(default=None, description="""Tests if the element is a scope like process or sub-process.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BpmnModelElementInstance']} })
 
@@ -9998,6 +10275,10 @@ class DiagramElement(BpmnModelElementInstance):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     extension: Optional[Extension] = Field(default=None, description="""Extension element containing additional diagram information.""", json_schema_extra = { "linkml_meta": {'domain_of': ['DiagramElement']} })
     scope: Optional[BpmnModelElementInstance] = Field(default=None, description="""Tests if the element is a scope like process or sub-process.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BpmnModelElementInstance']} })
@@ -10061,6 +10342,10 @@ class Edge(DiagramElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     extension: Optional[Extension] = Field(default=None, description="""Extension element containing additional diagram information.""", json_schema_extra = { "linkml_meta": {'domain_of': ['DiagramElement']} })
     scope: Optional[BpmnModelElementInstance] = Field(default=None, description="""Tests if the element is a scope like process or sub-process.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BpmnModelElementInstance']} })
@@ -10138,6 +10423,10 @@ class LabeledEdge(Edge):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     extension: Optional[Extension] = Field(default=None, description="""Extension element containing additional diagram information.""", json_schema_extra = { "linkml_meta": {'domain_of': ['DiagramElement']} })
     scope: Optional[BpmnModelElementInstance] = Field(default=None, description="""Tests if the element is a scope like process or sub-process.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BpmnModelElementInstance']} })
@@ -10200,6 +10489,10 @@ class Node(DiagramElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     extension: Optional[Extension] = Field(default=None, description="""Extension element containing additional diagram information.""", json_schema_extra = { "linkml_meta": {'domain_of': ['DiagramElement']} })
     scope: Optional[BpmnModelElementInstance] = Field(default=None, description="""Tests if the element is a scope like process or sub-process.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BpmnModelElementInstance']} })
@@ -10263,6 +10556,10 @@ class Label(Node):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     extension: Optional[Extension] = Field(default=None, description="""Extension element containing additional diagram information.""", json_schema_extra = { "linkml_meta": {'domain_of': ['DiagramElement']} })
     scope: Optional[BpmnModelElementInstance] = Field(default=None, description="""Tests if the element is a scope like process or sub-process.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BpmnModelElementInstance']} })
@@ -10326,6 +10623,10 @@ class Plane(Node):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     extension: Optional[Extension] = Field(default=None, description="""Extension element containing additional diagram information.""", json_schema_extra = { "linkml_meta": {'domain_of': ['DiagramElement']} })
     scope: Optional[BpmnModelElementInstance] = Field(default=None, description="""Tests if the element is a scope like process or sub-process.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BpmnModelElementInstance']} })
@@ -10389,6 +10690,10 @@ class Shape(Node):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     extension: Optional[Extension] = Field(default=None, description="""Extension element containing additional diagram information.""", json_schema_extra = { "linkml_meta": {'domain_of': ['DiagramElement']} })
     scope: Optional[BpmnModelElementInstance] = Field(default=None, description="""Tests if the element is a scope like process or sub-process.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BpmnModelElementInstance']} })
@@ -10452,6 +10757,10 @@ class LabeledShape(Shape):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     extension: Optional[Extension] = Field(default=None, description="""Extension element containing additional diagram information.""", json_schema_extra = { "linkml_meta": {'domain_of': ['DiagramElement']} })
     scope: Optional[BpmnModelElementInstance] = Field(default=None, description="""Tests if the element is a scope like process or sub-process.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BpmnModelElementInstance']} })
@@ -10514,6 +10823,10 @@ class Style(BpmnModelElementInstance):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     scope: Optional[BpmnModelElementInstance] = Field(default=None, description="""Tests if the element is a scope like process or sub-process.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BpmnModelElementInstance']} })
 
@@ -10591,6 +10904,10 @@ class BaseElement(BpmnModelElementInstance):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -10607,7 +10924,11 @@ class Artifact(BaseElement):
                          'source_file': {'tag': 'source_file',
                                          'value': 'model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Artifact.java'}},
          'from_schema': 'https://w3id.org/TD-Universe/fluxnova-bpmn-model/instance',
-         'in_subset': ['instance', 'fluxnova_bpmn_model']})
+         'in_subset': ['instance', 'fluxnova_bpmn_model'],
+         'related_mappings': ['d3f:Artifact',
+                              'spdx:Element',
+                              'stix:Artifact',
+                              'unified_cyber_ontology:Item']})
 
     id: str = Field(default=..., description="""Unique identifier.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'MeterLog',
@@ -10655,6 +10976,10 @@ class Artifact(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -10721,6 +11046,10 @@ class Assignment(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -10800,6 +11129,10 @@ class Association(Artifact):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -10864,6 +11197,10 @@ class Auditing(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -10934,6 +11271,10 @@ class CategoryValue(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -10998,6 +11339,10 @@ class ComplexBehaviorDefinition(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -11064,6 +11409,10 @@ class ConversationAssociation(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -11130,6 +11479,7 @@ class ConversationLink(BaseElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     source: Optional[str] = Field(default=None, description="""The source.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'SOURCE_'}},
          'domain_of': ['CaseSentryPart',
@@ -11190,6 +11540,10 @@ class ConversationLink(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -11254,6 +11608,7 @@ class CorrelationKey(BaseElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     correlation_properties: Optional[list[CorrelationProperty]] = Field(default=None, description="""Correlation properties defined in this collaboration.""", json_schema_extra = { "linkml_meta": {'domain_of': ['CorrelationKey']} })
     id: str = Field(default=..., description="""Unique identifier.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
@@ -11302,6 +11657,10 @@ class CorrelationKey(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -11368,6 +11727,10 @@ class CorrelationPropertyBinding(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -11441,6 +11804,10 @@ class CorrelationPropertyRetrievalExpression(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -11507,6 +11874,10 @@ class CorrelationSubscription(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -11581,6 +11952,10 @@ class DataAssociation(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -11654,6 +12029,10 @@ class DataInputAssociation(DataAssociation):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -11727,6 +12106,10 @@ class DataOutputAssociation(DataAssociation):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -11791,6 +12174,7 @@ class DataState(BaseElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     id: str = Field(default=..., description="""Unique identifier.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'MeterLog',
@@ -11838,6 +12222,10 @@ class DataState(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -11902,6 +12290,10 @@ class Definitions(BpmnModelElementInstance):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     name: Optional[str] = Field(default=None, description="""Human-readable name.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'MeterLog',
@@ -11949,6 +12341,7 @@ class Definitions(BpmnModelElementInstance):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     target_namespace: Optional[str] = Field(default=None, description="""Namespace URI for elements defined in this document.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Definitions']} })
     expression_language: Optional[str] = Field(default=None, description="""Default expression language used in this definitions element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Definitions']} })
@@ -11956,7 +12349,8 @@ class Definitions(BpmnModelElementInstance):
     exporter: Optional[str] = Field(default=None, description="""Name of the tool that exported this BPMN document.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Definitions']} })
     exporter_version: Optional[str] = Field(default=None, description="""Version of the exporting tool.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Definitions']} })
     imports: Optional[list[Import]] = Field(default=None, description="""Import declarations referencing external definitions.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Definitions']} })
-    extensions: Optional[list[Extension]] = Field(default=None, description="""Extension elements attached to this definitions element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Definitions']} })
+    extensions: Optional[list[Extension]] = Field(default=None, description="""Extension elements attached to this definitions element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Definitions'],
+         'related_mappings': ['stix:extensions', 'unified_cyber_ontology:hasFacet']} })
     root_elements: Optional[list[RootElement]] = Field(default=None, description="""Top-level elements (processes, messages, signals, etc.) in this definitions.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Definitions']} })
     bpm_diagrams: Optional[list[str]] = Field(default=None, description="""BPMN diagram elements (BPMNDiagram) in the root definitions.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Definitions']} })
     relationships: Optional[list[Relationship]] = Field(default=None, description="""Informal relationships between elements in this model.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Definitions']} })
@@ -12020,6 +12414,10 @@ class Documentation(BpmnModelElementInstance):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     text_format: Optional[str] = Field(default=None, description="""MIME type or format of the documentation text.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Documentation', 'TextAnnotation']} })
     scope: Optional[BpmnModelElementInstance] = Field(default=None, description="""Tests if the element is a scope like process or sub-process.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BpmnModelElementInstance']} })
@@ -12082,6 +12480,10 @@ class Expression(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -12146,6 +12548,10 @@ class ActivationCondition(Expression):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -12210,6 +12616,10 @@ class CompletionCondition(Expression):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -12274,6 +12684,10 @@ class Condition(Expression):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -12354,6 +12768,7 @@ class FlowElement(BaseElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -12404,6 +12819,10 @@ class FlowElement(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -12476,6 +12895,7 @@ class FlowNode(FlowElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -12526,6 +12946,10 @@ class FlowNode(FlowElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -12592,6 +13016,10 @@ class FormalExpression(Expression):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -12627,7 +13055,8 @@ class ConditionExpression(FormalExpression):
                        'ConditionExpression',
                        'CorrelationProperty',
                        'Relationship',
-                       'ResourceParameter']} })
+                       'ResourceParameter'],
+         'related_mappings': ['stix:type', 'unified_cyber_ontology:state']} })
     fluxnova_resource: Optional[str] = Field(default=None, description="""Camunda extensions""", json_schema_extra = { "linkml_meta": {'domain_of': ['ConditionExpression', 'ScriptTask', 'FluxnovaScript']} })
     language: Optional[str] = Field(default=None, description="""The language of this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FormalExpression']} })
     evaluates_to_type: Optional[str] = Field(default=None, description="""The evaluates to type of this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FormalExpression']} })
@@ -12677,6 +13106,10 @@ class ConditionExpression(FormalExpression):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -12750,6 +13183,7 @@ class Gateway(FlowNode):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -12800,6 +13234,10 @@ class Gateway(FlowNode):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -12878,6 +13316,7 @@ class ComplexGateway(Gateway):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -12928,6 +13367,10 @@ class ComplexGateway(Gateway):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -13003,6 +13446,7 @@ class EventBasedGateway(Gateway):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -13053,6 +13497,10 @@ class EventBasedGateway(Gateway):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -13130,6 +13578,7 @@ class ExclusiveGateway(Gateway):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -13180,6 +13629,10 @@ class ExclusiveGateway(Gateway):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -13246,6 +13699,10 @@ class BpmnGroup(Artifact):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -13340,6 +13797,7 @@ class InclusiveGateway(Gateway):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -13390,6 +13848,10 @@ class InclusiveGateway(Gateway):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -13454,6 +13916,7 @@ class InputSet(BaseElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     data_inputs: Optional[list[DataInput]] = Field(default=None, description="""Input data elements of this specification.""", json_schema_extra = { "linkml_meta": {'domain_of': ['InputSet', 'IoSpecification', 'ThrowEvent']} })
     optional_inputs: Optional[list[DataInput]] = Field(default=None, description="""Collection of data input elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['InputSet']} })
@@ -13505,6 +13968,10 @@ class InputSet(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -13569,6 +14036,10 @@ class InteractionNode(ConfiguredBaseModel):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
 
 
@@ -13648,6 +14119,10 @@ class Activity(InteractionNode, FlowNode):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     incoming: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows entering this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
     outgoing: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows leaving this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
@@ -13703,6 +14178,7 @@ class Activity(InteractionNode, FlowNode):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -13801,6 +14277,10 @@ class CallActivity(Activity):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     incoming: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows entering this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
     outgoing: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows leaving this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
@@ -13856,6 +14336,7 @@ class CallActivity(Activity):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -13924,6 +14405,7 @@ class ConversationNode(InteractionNode, BaseElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     participants: Optional[list[Participant]] = Field(default=None, description="""Participants (pools) in this collaboration.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Collaboration', 'ConversationNode']} })
     message_flows: Optional[list[MessageFlow]] = Field(default=None, description="""Message flows between participants in this collaboration.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Collaboration', 'ConversationNode']} })
@@ -13974,6 +14456,10 @@ class ConversationNode(InteractionNode, BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -14040,6 +14526,7 @@ class CallConversation(ConversationNode):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     participants: Optional[list[Participant]] = Field(default=None, description="""Participants (pools) in this collaboration.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Collaboration', 'ConversationNode']} })
     message_flows: Optional[list[MessageFlow]] = Field(default=None, description="""Message flows between participants in this collaboration.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Collaboration', 'ConversationNode']} })
@@ -14090,6 +14577,10 @@ class CallConversation(ConversationNode):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -14154,6 +14645,7 @@ class Conversation(ConversationNode):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     participants: Optional[list[Participant]] = Field(default=None, description="""Participants (pools) in this collaboration.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Collaboration', 'ConversationNode']} })
     message_flows: Optional[list[MessageFlow]] = Field(default=None, description="""Message flows between participants in this collaboration.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Collaboration', 'ConversationNode']} })
@@ -14204,6 +14696,10 @@ class Conversation(ConversationNode):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -14275,6 +14771,10 @@ class Event(InteractionNode, FlowNode):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     incoming: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows entering this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
     outgoing: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows leaving this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
@@ -14330,6 +14830,7 @@ class Event(InteractionNode, FlowNode):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -14405,6 +14906,10 @@ class CatchEvent(Event):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     incoming: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows entering this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
     outgoing: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows leaving this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
@@ -14460,6 +14965,7 @@ class CatchEvent(Event):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -14536,6 +15042,10 @@ class BoundaryEvent(CatchEvent):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     incoming: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows entering this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
     outgoing: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows leaving this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
@@ -14591,6 +15101,7 @@ class BoundaryEvent(CatchEvent):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -14666,6 +15177,10 @@ class IntermediateCatchEvent(CatchEvent):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     incoming: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows entering this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
     outgoing: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows leaving this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
@@ -14721,6 +15236,7 @@ class IntermediateCatchEvent(CatchEvent):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -14795,6 +15311,10 @@ class IoBinding(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -14863,6 +15383,10 @@ class IoSpecification(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -14929,6 +15453,10 @@ class ItemAwareElement(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -14993,6 +15521,7 @@ class DataInput(ItemAwareElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     collection: Optional[bool] = Field(default=None, description="""Whether collection.""", json_schema_extra = { "linkml_meta": {'domain_of': ['DataInput', 'DataObject', 'DataOutput', 'ItemDefinition']} })
     item_subject: Optional[str] = Field(default=None, description="""The item subject of this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ItemAwareElement']} })
@@ -15043,6 +15572,10 @@ class DataInput(ItemAwareElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -15111,6 +15644,7 @@ class DataObject(ItemAwareElement, FlowElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -15161,6 +15695,10 @@ class DataObject(ItemAwareElement, FlowElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -15229,6 +15767,7 @@ class DataObjectReference(ItemAwareElement, FlowElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -15279,6 +15818,10 @@ class DataObjectReference(ItemAwareElement, FlowElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -15343,6 +15886,7 @@ class DataOutput(ItemAwareElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     collection: Optional[bool] = Field(default=None, description="""Whether collection.""", json_schema_extra = { "linkml_meta": {'domain_of': ['DataInput', 'DataObject', 'DataOutput', 'ItemDefinition']} })
     item_subject: Optional[str] = Field(default=None, description="""The item subject of this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ItemAwareElement']} })
@@ -15393,6 +15937,10 @@ class DataOutput(ItemAwareElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -15461,6 +16009,7 @@ class DataStoreReference(ItemAwareElement, FlowElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -15511,6 +16060,10 @@ class DataStoreReference(ItemAwareElement, FlowElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -15575,6 +16128,7 @@ class InputDataItem(DataInput):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     collection: Optional[bool] = Field(default=None, description="""Whether collection.""", json_schema_extra = { "linkml_meta": {'domain_of': ['DataInput', 'DataObject', 'DataOutput', 'ItemDefinition']} })
     item_subject: Optional[str] = Field(default=None, description="""The item subject of this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ItemAwareElement']} })
@@ -15625,6 +16179,10 @@ class InputDataItem(DataInput):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -15689,6 +16247,7 @@ class Lane(BaseElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     partition_element: Optional[str] = Field(default=None, description="""The partitioning element (e.g. performer) represented by this lane.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Lane']} })
     partition_element_child: Optional[str] = Field(default=None, description="""The partition element child of this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Lane']} })
@@ -15740,6 +16299,10 @@ class Lane(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -15804,6 +16367,7 @@ class LaneSet(BaseElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     lanes: Optional[list[Lane]] = Field(default=None, description="""Sub-lanes contained in this lane.""", json_schema_extra = { "linkml_meta": {'domain_of': ['LaneSet']} })
     id: str = Field(default=..., description="""Unique identifier.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
@@ -15852,6 +16416,10 @@ class LaneSet(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -15916,6 +16484,10 @@ class LoopCardinality(Expression):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -15980,6 +16552,10 @@ class LoopCharacteristics(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -16047,6 +16623,7 @@ class MessageFlow(BaseElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     source: Optional[str] = Field(default=None, description="""The source.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'SOURCE_'}},
          'domain_of': ['CaseSentryPart',
@@ -16114,6 +16691,10 @@ class MessageFlow(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -16180,6 +16761,10 @@ class MessageFlowAssociation(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -16244,6 +16829,10 @@ class Monitoring(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -16324,6 +16913,10 @@ class MultiInstanceLoopCharacteristics(LoopCharacteristics):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -16388,6 +16981,7 @@ class Operation(BaseElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     implementation_ref: Optional[str] = Field(default=None, description="""The implementation ref of this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Interface', 'Operation']} })
     in_message: Optional[str] = Field(default=None, description="""The in message of this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Operation']} })
@@ -16439,6 +17033,10 @@ class Operation(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -16503,6 +17101,7 @@ class OutputDataItem(DataOutput):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     collection: Optional[bool] = Field(default=None, description="""Whether collection.""", json_schema_extra = { "linkml_meta": {'domain_of': ['DataInput', 'DataObject', 'DataOutput', 'ItemDefinition']} })
     item_subject: Optional[str] = Field(default=None, description="""The item subject of this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ItemAwareElement']} })
@@ -16553,6 +17152,10 @@ class OutputDataItem(DataOutput):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -16617,6 +17220,7 @@ class OutputSet(BaseElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     data_output_refs: Optional[list[DataOutput]] = Field(default=None, description="""Produced output data references for this output set.""", json_schema_extra = { "linkml_meta": {'domain_of': ['OutputSet']} })
     optional_output_refs: Optional[list[DataOutput]] = Field(default=None, description="""Output data that may or may not be produced.""", json_schema_extra = { "linkml_meta": {'domain_of': ['OutputSet']} })
@@ -16668,6 +17272,10 @@ class OutputSet(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -16747,6 +17355,7 @@ class ParallelGateway(Gateway):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -16797,6 +17406,10 @@ class ParallelGateway(Gateway):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -16862,6 +17475,7 @@ class Participant(InteractionNode, BaseElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     process: Optional[str] = Field(default=None, description="""The process of this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Participant']} })
     interfaces: Optional[list[Interface]] = Field(default=None, description="""Collection of interface elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Participant']} })
@@ -16913,6 +17527,10 @@ class Participant(InteractionNode, BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -16979,6 +17597,10 @@ class ParticipantAssociation(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -17045,6 +17667,10 @@ class ParticipantMultiplicity(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -17109,6 +17735,7 @@ class BpmnProperty(ItemAwareElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     item_subject: Optional[str] = Field(default=None, description="""The item subject of this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ItemAwareElement']} })
     data_state: Optional[str] = Field(default=None, description="""Current state of this data object or data store reference.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ItemAwareElement']} })
@@ -17158,6 +17785,10 @@ class BpmnProperty(ItemAwareElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -17175,6 +17806,10 @@ class Relationship(BaseElement):
                                          'value': 'model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Relationship.java'}},
          'from_schema': 'https://w3id.org/TD-Universe/fluxnova-bpmn-model/instance',
          'in_subset': ['instance', 'fluxnova_bpmn_model'],
+         'related_mappings': ['cve:TaxonomyRelation',
+                              'cwe:Relationship',
+                              'stix:Relationship',
+                              'unified_cyber_ontology:Relationship'],
          'slot_usage': {'sources': {'name': 'sources', 'range': 'string'}}})
 
     type: Optional[str] = Field(default=None, description="""Type discriminator.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
@@ -17194,7 +17829,8 @@ class Relationship(BaseElement):
                        'ConditionExpression',
                        'CorrelationProperty',
                        'Relationship',
-                       'ResourceParameter']} })
+                       'ResourceParameter'],
+         'related_mappings': ['stix:type', 'unified_cyber_ontology:state']} })
     direction: Optional[str] = Field(default=None, description="""Direction of this relationship.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Relationship']} })
     sources: Optional[list[str]] = Field(default=None, description="""The throwing link events that send to this link target.""", json_schema_extra = { "linkml_meta": {'domain_of': ['DataAssociation', 'LinkEventDefinition', 'Relationship']} })
     targets: Optional[list[str]] = Field(default=None, description="""Collection of targets values.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Relationship']} })
@@ -17244,6 +17880,10 @@ class Relationship(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -17308,6 +17948,10 @@ class Rendering(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -17373,6 +18017,10 @@ class ResourceAssignmentExpression(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -17438,6 +18086,7 @@ class ResourceParameter(BaseElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     type: Optional[str] = Field(default=None, description="""Type discriminator.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'Authorization',
@@ -17456,7 +18105,8 @@ class ResourceParameter(BaseElement):
                        'ConditionExpression',
                        'CorrelationProperty',
                        'Relationship',
-                       'ResourceParameter']} })
+                       'ResourceParameter'],
+         'related_mappings': ['stix:type', 'unified_cyber_ontology:state']} })
     required: Optional[bool] = Field(default=None, description="""Whether required.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceParameter']} })
     id: str = Field(default=..., description="""Unique identifier.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'MeterLog',
@@ -17504,6 +18154,10 @@ class ResourceParameter(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -17570,6 +18224,10 @@ class ResourceParameterBinding(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -17634,6 +18292,7 @@ class ResourceRole(BaseElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     resource: Optional[str] = Field(default=None, description="""The resource of this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceRole']} })
     resource_parameter_binding: Optional[list[ResourceParameterBinding]] = Field(default=None, description="""Collection of resource parameter binding elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceRole']} })
@@ -17684,6 +18343,10 @@ class ResourceRole(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -17748,6 +18411,7 @@ class Performer(ResourceRole):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     resource: Optional[str] = Field(default=None, description="""The resource of this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceRole']} })
     resource_parameter_binding: Optional[list[ResourceParameterBinding]] = Field(default=None, description="""Collection of resource parameter binding elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceRole']} })
@@ -17798,6 +18462,10 @@ class Performer(ResourceRole):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -17862,6 +18530,7 @@ class HumanPerformer(Performer):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     resource: Optional[str] = Field(default=None, description="""The resource of this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceRole']} })
     resource_parameter_binding: Optional[list[ResourceParameterBinding]] = Field(default=None, description="""Collection of resource parameter binding elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceRole']} })
@@ -17912,6 +18581,10 @@ class HumanPerformer(Performer):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -17976,6 +18649,7 @@ class PotentialOwner(HumanPerformer):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     resource: Optional[str] = Field(default=None, description="""The resource of this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceRole']} })
     resource_parameter_binding: Optional[list[ResourceParameterBinding]] = Field(default=None, description="""Collection of resource parameter binding elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ResourceRole']} })
@@ -18026,6 +18700,10 @@ class PotentialOwner(HumanPerformer):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -18090,6 +18768,10 @@ class RootElement(BaseElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -18154,6 +18836,7 @@ class CallableElement(RootElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     supported_interfaces: Optional[list[Interface]] = Field(default=None, description="""Collection of interface elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['CallableElement']} })
     io_specification: Optional[str] = Field(default=None, description="""Input and output specification of this activity.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Activity', 'CallableElement']} })
@@ -18204,6 +18887,10 @@ class CallableElement(RootElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -18268,6 +18955,7 @@ class Category(RootElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     category_values: Optional[list[CategoryValue]] = Field(default=None, description="""Category values contained in this category.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Category']} })
     id: str = Field(default=..., description="""Unique identifier.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
@@ -18316,6 +19004,10 @@ class Category(RootElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -18380,6 +19072,7 @@ class Collaboration(RootElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     closed: Optional[bool] = Field(default=None, description="""Whether closed.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Collaboration', 'Process']} })
     participants: Optional[list[Participant]] = Field(default=None, description="""Participants (pools) in this collaboration.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Collaboration', 'ConversationNode']} })
@@ -18437,6 +19130,10 @@ class Collaboration(RootElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -18502,6 +19199,7 @@ class CorrelationProperty(RootElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     type: Optional[str] = Field(default=None, description="""Type discriminator.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'Authorization',
@@ -18520,7 +19218,8 @@ class CorrelationProperty(RootElement):
                        'ConditionExpression',
                        'CorrelationProperty',
                        'Relationship',
-                       'ResourceParameter']} })
+                       'ResourceParameter'],
+         'related_mappings': ['stix:type', 'unified_cyber_ontology:state']} })
     correlation_property_retrieval_expressions: Optional[list[CorrelationPropertyRetrievalExpression]] = Field(default=None, description="""Retrieval expressions for this correlation property.""", json_schema_extra = { "linkml_meta": {'domain_of': ['CorrelationProperty']} })
     id: str = Field(default=..., description="""Unique identifier.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'MeterLog',
@@ -18568,6 +19267,10 @@ class CorrelationProperty(RootElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -18633,6 +19336,7 @@ class DataStore(RootElement, ItemAwareElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     capacity: Optional[int] = Field(default=None, description="""Maximum number of items this data store can hold.""", json_schema_extra = { "linkml_meta": {'domain_of': ['DataStore']} })
     unlimited: Optional[bool] = Field(default=None, description="""Whether unlimited.""", json_schema_extra = { "linkml_meta": {'domain_of': ['DataStore']} })
@@ -18684,6 +19388,10 @@ class DataStore(RootElement, ItemAwareElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -18748,6 +19456,10 @@ class EndPoint(RootElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -18812,6 +19524,7 @@ class Error(RootElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     error_code: Optional[str] = Field(default=None, description="""The error code identifying this error.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Error']} })
     fluxnova_error_message: Optional[str] = Field(default=None, description="""Fluxnova extension property: error message.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Error']} })
@@ -18862,6 +19575,10 @@ class Error(RootElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -18926,6 +19643,7 @@ class Escalation(RootElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     escalation_code: Optional[str] = Field(default=None, description="""The escalation code identifying this escalation.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Escalation']} })
     structure: Optional[str] = Field(default=None, description="""The structure of this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Error', 'Escalation', 'Signal']} })
@@ -18975,6 +19693,10 @@ class Escalation(RootElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -19039,6 +19761,10 @@ class EventDefinition(RootElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -19103,6 +19829,10 @@ class CancelEventDefinition(EventDefinition):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -19169,6 +19899,10 @@ class CompensateEventDefinition(EventDefinition):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -19237,6 +19971,10 @@ class ConditionalEventDefinition(EventDefinition):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -19304,6 +20042,10 @@ class ErrorEventDefinition(EventDefinition):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -19369,6 +20111,10 @@ class EscalationEventDefinition(EventDefinition):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -19433,6 +20179,7 @@ class GlobalConversation(Collaboration):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     closed: Optional[bool] = Field(default=None, description="""Whether closed.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Collaboration', 'Process']} })
     participants: Optional[list[Participant]] = Field(default=None, description="""Participants (pools) in this collaboration.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Collaboration', 'ConversationNode']} })
@@ -19490,6 +20237,10 @@ class GlobalConversation(Collaboration):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -19554,6 +20305,7 @@ class Interface(RootElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     implementation_ref: Optional[str] = Field(default=None, description="""The implementation ref of this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Interface', 'Operation']} })
     operations: Optional[list[Operation]] = Field(default=None, description="""Operations defined by this interface.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Interface']} })
@@ -19603,6 +20355,10 @@ class Interface(RootElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -19670,6 +20426,10 @@ class ItemDefinition(RootElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -19736,6 +20496,7 @@ class LinkEventDefinition(EventDefinition):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     sources: Optional[list[LinkEventDefinition]] = Field(default=None, description="""The throwing link events that send to this link target.""", json_schema_extra = { "linkml_meta": {'domain_of': ['DataAssociation', 'LinkEventDefinition', 'Relationship']} })
     target: Optional[str] = Field(default=None, description="""The catching link event that receives this link.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Association',
@@ -19790,6 +20551,10 @@ class LinkEventDefinition(EventDefinition):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -19854,6 +20619,7 @@ class Message(RootElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     item: Optional[str] = Field(default=None, description="""The item of this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Message']} })
     id: str = Field(default=..., description="""Unique identifier.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
@@ -19902,6 +20668,10 @@ class Message(RootElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -20020,6 +20790,10 @@ class MessageEventDefinition(EventDefinition):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -20037,6 +20811,11 @@ class Process(CallableElement):
                                          'value': 'model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Process.java'}},
          'from_schema': 'https://w3id.org/TD-Universe/fluxnova-bpmn-model/instance',
          'in_subset': ['instance', 'fluxnova_bpmn_model'],
+         'related_mappings': ['d3f:Process',
+                              'ocsf:Process',
+                              'stix:Process',
+                              'uco_master:Process',
+                              'unified_cyber_ontology:Process'],
          'slot_usage': {'properties': {'inlined_as_list': True,
                                        'multivalued': True,
                                        'name': 'properties',
@@ -20115,6 +20894,7 @@ class Process(CallableElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     supported_interfaces: Optional[list[Interface]] = Field(default=None, description="""Collection of interface elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['CallableElement']} })
     io_specification: Optional[str] = Field(default=None, description="""Input and output specification of this activity.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Activity', 'CallableElement']} })
@@ -20165,6 +20945,10 @@ class Process(CallableElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -20181,7 +20965,8 @@ class Resource(RootElement):
                          'source_file': {'tag': 'source_file',
                                          'value': 'model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Resource.java'}},
          'from_schema': 'https://w3id.org/TD-Universe/fluxnova-bpmn-model/instance',
-         'in_subset': ['instance', 'fluxnova_bpmn_model']})
+         'in_subset': ['instance', 'fluxnova_bpmn_model'],
+         'related_mappings': ['d3f:Resource', 'oscal:Resource']})
 
     name: Optional[str] = Field(default=None, description="""Human-readable name.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
                        'MeterLog',
@@ -20229,6 +21014,7 @@ class Resource(RootElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     resource_parameters: Optional[list[ResourceParameter]] = Field(default=None, description="""Parameters defined on this resource.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Resource']} })
     id: str = Field(default=..., description="""Unique identifier.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
@@ -20277,6 +21063,10 @@ class Resource(RootElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -20372,6 +21162,7 @@ class SequenceFlow(FlowElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -20422,6 +21213,10 @@ class SequenceFlow(FlowElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -20486,6 +21281,7 @@ class Signal(RootElement):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     structure: Optional[str] = Field(default=None, description="""The structure of this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Error', 'Escalation', 'Signal']} })
     id: str = Field(default=..., description="""Unique identifier.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
@@ -20534,6 +21330,10 @@ class Signal(RootElement):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -20605,6 +21405,10 @@ class SignalEventDefinition(EventDefinition):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -20690,6 +21494,10 @@ class StartEvent(CatchEvent):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     incoming: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows entering this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
     outgoing: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows leaving this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
@@ -20745,6 +21553,7 @@ class StartEvent(CatchEvent):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -20813,6 +21622,7 @@ class SubConversation(ConversationNode):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     participants: Optional[list[Participant]] = Field(default=None, description="""Participants (pools) in this collaboration.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Collaboration', 'ConversationNode']} })
     message_flows: Optional[list[MessageFlow]] = Field(default=None, description="""Message flows between participants in this collaboration.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Collaboration', 'ConversationNode']} })
@@ -20863,6 +21673,10 @@ class SubConversation(ConversationNode):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -20950,6 +21764,10 @@ class SubProcess(Activity):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     incoming: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows entering this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
     outgoing: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows leaving this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
@@ -21005,6 +21823,7 @@ class SubProcess(Activity):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -21092,6 +21911,10 @@ class BpmnTask(Activity):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     incoming: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows entering this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
     outgoing: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows leaving this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
@@ -21147,6 +21970,7 @@ class BpmnTask(Activity):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -21286,6 +22110,10 @@ class BusinessRuleTask(BpmnTask):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     incoming: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows entering this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
     outgoing: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows leaving this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
@@ -21341,6 +22169,7 @@ class BusinessRuleTask(BpmnTask):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -21428,6 +22257,10 @@ class ManualTask(BpmnTask):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     incoming: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows entering this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
     outgoing: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows leaving this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
@@ -21483,6 +22316,7 @@ class ManualTask(BpmnTask):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -21588,6 +22422,10 @@ class ReceiveTask(BpmnTask):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     incoming: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows entering this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
     outgoing: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows leaving this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
@@ -21643,6 +22481,7 @@ class ReceiveTask(BpmnTask):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -21738,6 +22577,10 @@ class ScriptTask(BpmnTask):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     incoming: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows entering this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
     outgoing: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows leaving this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
@@ -21793,6 +22636,7 @@ class ScriptTask(BpmnTask):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -21939,6 +22783,10 @@ class SendTask(BpmnTask):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     incoming: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows entering this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
     outgoing: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows leaving this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
@@ -21994,6 +22842,7 @@ class SendTask(BpmnTask):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -22132,6 +22981,10 @@ class ServiceTask(BpmnTask):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     incoming: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows entering this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
     outgoing: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows leaving this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
@@ -22187,6 +23040,7 @@ class ServiceTask(BpmnTask):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -22254,6 +23108,10 @@ class TerminateEventDefinition(EventDefinition):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -22334,6 +23192,10 @@ class TextAnnotation(Artifact):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -22405,6 +23267,10 @@ class ThrowEvent(Event):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     incoming: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows entering this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
     outgoing: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows leaving this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
@@ -22460,6 +23326,7 @@ class ThrowEvent(Event):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -22534,6 +23401,10 @@ class EndEvent(ThrowEvent):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     incoming: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows entering this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
     outgoing: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows leaving this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
@@ -22589,6 +23460,7 @@ class EndEvent(ThrowEvent):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -22663,6 +23535,10 @@ class IntermediateThrowEvent(ThrowEvent):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     incoming: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows entering this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
     outgoing: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows leaving this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
@@ -22718,6 +23594,7 @@ class IntermediateThrowEvent(ThrowEvent):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -22785,6 +23662,10 @@ class TimeCycle(Expression):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -22849,6 +23730,10 @@ class TimeDate(Expression):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -22913,6 +23798,10 @@ class TimeDuration(Expression):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -22980,6 +23869,10 @@ class TimerEventDefinition(EventDefinition):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -23068,6 +23961,10 @@ class Transaction(SubProcess):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     incoming: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows entering this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
     outgoing: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows leaving this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
@@ -23123,6 +24020,7 @@ class Transaction(SubProcess):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -23229,6 +24127,10 @@ class UserTask(BpmnTask):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     incoming: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows entering this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
     outgoing: Optional[list[SequenceFlow]] = Field(default=None, description="""Sequence flows leaving this flow node.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowNode']} })
@@ -23284,6 +24186,7 @@ class UserTask(BpmnTask):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     auditing: Optional[str] = Field(default=None, description="""Auditing information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
     monitoring: Optional[str] = Field(default=None, description="""Monitoring information attached to this flow element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FlowElement', 'Process']} })
@@ -23353,6 +24256,7 @@ class BpmnDiagram(Diagram):
                        'ResourceParameter',
                        'ResourceRole',
                        'Signal'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
          'slot_uri': 'schema:name'} })
     documentation: Optional[str] = Field(default=None, description="""Human-readable documentation attached to this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Diagram']} })
     resolution: Optional[float] = Field(default=None, description="""The resolution of this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Diagram']} })
@@ -23402,6 +24306,10 @@ class BpmnDiagram(Diagram):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     scope: Optional[BpmnModelElementInstance] = Field(default=None, description="""Tests if the element is a scope like process or sub-process.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BpmnModelElementInstance']} })
 
@@ -23469,6 +24377,10 @@ class BpmnEdge(LabeledEdge):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     extension: Optional[Extension] = Field(default=None, description="""Extension element containing additional diagram information.""", json_schema_extra = { "linkml_meta": {'domain_of': ['DiagramElement']} })
     scope: Optional[BpmnModelElementInstance] = Field(default=None, description="""Tests if the element is a scope like process or sub-process.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BpmnModelElementInstance']} })
@@ -23533,6 +24445,10 @@ class BpmnLabel(Label):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     extension: Optional[Extension] = Field(default=None, description="""Extension element containing additional diagram information.""", json_schema_extra = { "linkml_meta": {'domain_of': ['DiagramElement']} })
     scope: Optional[BpmnModelElementInstance] = Field(default=None, description="""Tests if the element is a scope like process or sub-process.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BpmnModelElementInstance']} })
@@ -23596,6 +24512,10 @@ class BpmnLabelStyle(Style):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     scope: Optional[BpmnModelElementInstance] = Field(default=None, description="""Tests if the element is a scope like process or sub-process.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BpmnModelElementInstance']} })
 
@@ -23659,6 +24579,10 @@ class BpmnPlane(Plane):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     extension: Optional[Extension] = Field(default=None, description="""Extension element containing additional diagram information.""", json_schema_extra = { "linkml_meta": {'domain_of': ['DiagramElement']} })
     scope: Optional[BpmnModelElementInstance] = Field(default=None, description="""Tests if the element is a scope like process or sub-process.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BpmnModelElementInstance']} })
@@ -23730,6 +24654,10 @@ class BpmnShape(LabeledShape):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     extension: Optional[Extension] = Field(default=None, description="""Extension element containing additional diagram information.""", json_schema_extra = { "linkml_meta": {'domain_of': ['DiagramElement']} })
     scope: Optional[BpmnModelElementInstance] = Field(default=None, description="""Tests if the element is a scope like process or sub-process.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BpmnModelElementInstance']} })
@@ -23856,6 +24784,10 @@ class FluxnovaErrorEventDefinition(ErrorEventDefinition):
                        'Definitions',
                        'Documentation',
                        'InteractionNode'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
          'slot_uri': 'schema:identifier'} })
     documentations: Optional[list[Documentation]] = Field(default=None, description="""Collection of documentation elements associated with this element.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
     extension_elements: Optional[ExtensionElements] = Field(default=None, description="""Extension elements holding vendor-specific metadata.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BaseElement']} })
@@ -24478,7 +25410,8 @@ class FluxnovaPlatformData(ConfiguredBaseModel):
     tasks: Optional[list[Task]] = Field(default=None, description="""User tasks.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FluxnovaPlatformData']} })
     jobs: Optional[list[Job]] = Field(default=None, description="""Asynchronous jobs.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FluxnovaPlatformData']} })
     users: Optional[list[User]] = Field(default=None, description="""Identity users.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FluxnovaPlatformData']} })
-    groups: Optional[list[Group]] = Field(default=None, description="""Identity groups.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FluxnovaPlatformData']} })
+    groups: Optional[list[Group]] = Field(default=None, description="""Identity groups.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FluxnovaPlatformData'],
+         'related_mappings': ['cis_controls:controls', 'nist_csf_v2:groups']} })
     batches: Optional[list[Batch]] = Field(default=None, description="""Batch operations.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FluxnovaPlatformData']} })
 
 

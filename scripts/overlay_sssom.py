@@ -239,27 +239,82 @@ def _ensure_prefixes(
     return changed
 
 
+def _build_name_index(
+    index: dict[str, dict[str, dict[str, list[str]]]],
+) -> dict[str, dict[str, list[str]]]:
+    """Build a reverse lookup: element_local → {linkml_key → [curie, ...]}.
+
+    Used by the ``--name-match`` mode.  For each SSSOM subject ``P:X``, the
+    element local ``X`` maps to:
+    - ``related_mappings``: the subject CURIE ``P:X`` and all mapped objects.
+
+    Only ``related_mappings`` is used (regardless of the original SKOS predicate
+    type) because name-based matching is a weak signal — the fluxnova element
+    having the same local name as an ecosystem element does not imply the same
+    semantic strength as the original ecosystem-to-ecosystem mapping.
+    """
+    name_idx: dict[str, dict[str, list[str]]] = defaultdict(
+        lambda: defaultdict(list)
+    )
+    for subj_prefix, elements in index.items():
+        for local, key_map in elements.items():
+            subject_curie = f"{subj_prefix}:{local}"
+            # Add the subject CURIE as a related_mapping
+            name_idx[local]["related_mappings"].append(subject_curie)
+            # Also collect all mapped objects as related_mappings
+            for values in key_map.values():
+                name_idx[local]["related_mappings"].extend(values)
+    # Deduplicate and sort
+    return {
+        local: {k: sorted(set(v)) for k, v in kmap.items()}
+        for local, kmap in name_idx.items()
+    }
+
+
 def patch_schema(
     schema_path: Path,
     index: dict[str, dict[str, dict[str, list[str]]]],
     curie_registry: dict[str, dict[str, str]],
     dry_run: bool,
     yaml: YAML,
+    name_match: bool = False,
 ) -> int:
     """Read, patch, and (unless *dry_run*) write back *schema_path*.
 
     Returns the number of elements modified (0 = no change).
+
+    Matching strategy (applied in order):
+    1. **Prefix match** (default): ``schema.default_prefix`` must equal the
+       SSSOM subject prefix.  Intended for schemas whose elements ARE the SSSOM
+       subjects (e.g. ecosystem schemas).
+    2. **Name match** (``name_match=True``): fall back to matching element local
+       names against SSSOM subject locals across *all* prefixes.  Injects the
+       matched subject CURIE as ``related_mappings`` and the mapped objects under
+       their original predicate type.  Useful for fluxnova BPM schemas whose
+       class/slot names overlap with ecosystem ontology element names.
     """
     data: CommentedMap = yaml.load(schema_path)
     if not isinstance(data, CommentedMap):
         return 0
 
     default_prefix = data.get("default_prefix") or ""
-    if not default_prefix or default_prefix not in index:
+    if not default_prefix:
         return 0
 
-    element_mappings = index[default_prefix]
-    curie_scope      = curie_registry.get(default_prefix, {})
+    # Determine matching mode
+    if default_prefix in index:
+        element_mappings = index[default_prefix]
+        curie_scope      = curie_registry.get(default_prefix, {})
+        _name_mode       = False
+    elif name_match:
+        element_mappings = _build_name_index(index)
+        # Collect curie scope from all prefixes
+        curie_scope = {}
+        for scope in curie_registry.values():
+            curie_scope.update(scope)
+        _name_mode = True
+    else:
+        return 0
     changed_count    = 0
     used_obj_prefixes: set[str] = set()
 
@@ -351,6 +406,16 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Print per-file detail.",
     )
+    parser.add_argument(
+        "--name-match",
+        action="store_true",
+        help=(
+            "Fall back to element-name matching when the schema's default_prefix "
+            "has no exact SSSOM subject prefix match.  Injects matched subject "
+            "CURIEs as related_mappings and their objects under the original "
+            "predicate type.  Useful for fluxnova BPM schemas."
+        ),
+    )
     args = parser.parse_args(argv)
 
     if not args.mappings_dir.is_dir():
@@ -384,7 +449,10 @@ def main(argv: list[str] | None = None) -> int:
     skipped = 0
 
     for schema_path in schema_files:
-        n = patch_schema(schema_path, index, curie_registry, args.dry_run, yaml_rt)
+        n = patch_schema(
+            schema_path, index, curie_registry, args.dry_run, yaml_rt,
+            name_match=args.name_match,
+        )
         if n:
             status = "DRY-RUN" if args.dry_run else "updated"
             print(f"  {status}: {schema_path.name}  ({n} element(s) modified)")

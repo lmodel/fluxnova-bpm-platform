@@ -1,5 +1,5 @@
 # Auto generated from fluxnova_bpm_platform.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-05-14T23:30:14
+# Generation date: 2026-05-15T00:58:14
 # Schema: fluxnova_bpm_platform
 #
 # id: https://w3id.org/TD-Universe/fluxnova-bpm-platform
@@ -64,6 +64,11 @@ version = "3.0.0-SNAPSHOT"
 
 # Namespaces
 BPMN = CurieNamespace('bpmn', 'http://www.omg.org/spec/BPMN/20100524/MODEL#')
+CIS_CONTROLS = CurieNamespace('cis_controls', 'https://w3id.org/lmodel/cis-controls/')
+CORE = CurieNamespace('core', 'https://w3id.org/lmodel/vulnerability-core/')
+CVE = CurieNamespace('cve', 'https://w3id.org/lmodel/cve/')
+CWE = CurieNamespace('cwe', 'https://w3id.org/lmodel/cwe/')
+D3F = CurieNamespace('d3f', 'http://d3fend.mitre.org/ontologies/d3fend.owl#')
 DCTERMS = CurieNamespace('dcterms', 'http://purl.org/dc/terms/')
 FLUXNOVA_BPM_BASE = CurieNamespace('fluxnova_bpm_base', 'https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/')
 FLUXNOVA_BPM_COLLABORATION = CurieNamespace('fluxnova_bpm_collaboration', 'https://w3id.org/TD-Universe/fluxnova-bpm-platform/collaboration/')
@@ -80,8 +85,16 @@ FLUXNOVA_BPMN_MODEL_DI = CurieNamespace('fluxnova_bpmn_model_di', 'https://w3id.
 FLUXNOVA_BPMN_MODEL_FLUXNOVA = CurieNamespace('fluxnova_bpmn_model_fluxnova', 'https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/')
 FLUXNOVA_BPMN_MODEL_INSTANCE = CurieNamespace('fluxnova_bpmn_model_instance', 'https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/')
 FLUXNOVA_COMMON = CurieNamespace('fluxnova_common', 'https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/')
+KEV_CATALOG = CurieNamespace('kev_catalog', 'https://w3id.org/lmodel/kev-catalog/')
 LINKML = CurieNamespace('linkml', 'https://w3id.org/linkml/')
+NIST_CSF_V2 = CurieNamespace('nist_csf_v2', 'https://w3id.org/lmodel/nist-csf-v2/')
+OCSF = CurieNamespace('ocsf', 'https://w3id.org/lmodel/ocsf/')
+OSCAL = CurieNamespace('oscal', 'https://lmodel.github.io/oscal/')
 SCHEMA = CurieNamespace('schema', 'http://schema.org/')
+SPDX = CurieNamespace('spdx', 'https://lmodel.github.io/spdx/')
+STIX = CurieNamespace('stix', 'https://w3id.org/lmodel/stix/')
+UCO_MASTER = CurieNamespace('uco_master', 'https://lmodel.github.io/uco-master/')
+UNIFIED_CYBER_ONTOLOGY = CurieNamespace('unified_cyber_ontology', 'https://w3id.org/lmodel/uco-master/')
 DEFAULT_ = FLUXNOVA_BPM_PLATFORM
 
 

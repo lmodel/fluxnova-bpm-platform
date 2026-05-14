@@ -98,6 +98,14 @@
     {
       "prefix_prefix": "bpmn",
       "prefix_reference": "http://www.omg.org/spec/BPMN/20100524/MODEL#"
+    },
+    {
+      "prefix_prefix": "cis_controls",
+      "prefix_reference": "https://w3id.org/lmodel/cis-controls/"
+    },
+    {
+      "prefix_prefix": "nist_csf_v2",
+      "prefix_reference": "https://w3id.org/lmodel/nist-csf-v2/"
     }
   ],
   "default_prefix": "fluxnova_bpm_platform",
@@ -1004,6 +1012,10 @@
       "definition_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/groups",
       "description": "Identity groups.",
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform",
+      "related_mappings": [
+        "https://w3id.org/lmodel/cis-controls/controls",
+        "https://w3id.org/lmodel/nist-csf-v2/groups"
+      ],
       "slot_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/groups",
       "owner": "FluxnovaPlatformData",
       "domain_of": [
@@ -1038,6 +1050,12 @@
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common",
       "mappings": [
         "http://schema.org/identifier"
+      ],
+      "related_mappings": [
+        "https://w3id.org/lmodel/cis-controls/id",
+        "https://w3id.org/lmodel/nist-csf-v2/id",
+        "https://w3id.org/lmodel/stix/id",
+        "https://w3id.org/lmodel/uco-master/externalReference"
       ],
       "slot_uri": "http://schema.org/identifier",
       "identifier": true,
@@ -1101,6 +1119,10 @@
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common",
       "mappings": [
         "http://schema.org/name"
+      ],
+      "related_mappings": [
+        "https://w3id.org/lmodel/stix/name",
+        "https://w3id.org/lmodel/uco-master/name"
       ],
       "slot_uri": "http://schema.org/name",
       "owner": "Signal",
@@ -1248,6 +1270,10 @@
       "definition_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type",
       "description": "Type discriminator.",
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common",
+      "related_mappings": [
+        "https://w3id.org/lmodel/stix/type",
+        "https://w3id.org/lmodel/uco-master/state"
+      ],
       "slot_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type",
       "owner": "ResourceParameter",
       "domain_of": [
@@ -1572,6 +1598,10 @@
       "definition_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/version",
       "description": "Version number.",
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base",
+      "related_mappings": [
+        "https://w3id.org/lmodel/cis-controls/version",
+        "https://w3id.org/lmodel/nist-csf-v2/version"
+      ],
       "slot_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/version",
       "owner": "ResourceDefinition",
       "domain_of": [
@@ -1696,6 +1726,10 @@
       ],
       "description": "The remote URL in case this is remote content. If the attachment content was uploaded with an input stream, then this method returns null and the content can be fetched with .",
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/collaboration",
+      "related_mappings": [
+        "https://w3id.org/lmodel/stix/url",
+        "https://w3id.org/lmodel/uco-master/URL"
+      ],
       "slot_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/collaboration/url",
       "owner": "Attachment",
       "domain_of": [
@@ -3958,6 +3992,10 @@
       ],
       "description": "The time this event subscription was created.",
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/runtime",
+      "related_mappings": [
+        "https://w3id.org/lmodel/stix/created",
+        "https://w3id.org/lmodel/uco-master/objectCreatedTime"
+      ],
       "slot_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/runtime/created",
       "owner": "EventSubscription",
       "domain_of": [
@@ -4014,6 +4052,16 @@
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/runtime",
       "mappings": [
         "http://schema.org/description"
+      ],
+      "related_mappings": [
+        "https://w3id.org/lmodel/cis-controls/description",
+        "https://w3id.org/lmodel/vulnerability-core/description",
+        "https://w3id.org/lmodel/cwe/description",
+        "https://w3id.org/lmodel/kev-catalog/short_description",
+        "https://w3id.org/lmodel/nist-csf-v2/prose",
+        "http://schema.org/description",
+        "https://w3id.org/lmodel/stix/description",
+        "https://w3id.org/lmodel/uco-master/description"
       ],
       "slot_uri": "http://schema.org/description",
       "owner": "Task",
@@ -6711,6 +6759,10 @@
       "definition_uri": "https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/extensions",
       "description": "Extension elements attached to this definitions element.",
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpmn-model/instance",
+      "related_mappings": [
+        "https://w3id.org/lmodel/stix/extensions",
+        "https://w3id.org/lmodel/uco-master/hasFacet"
+      ],
       "slot_uri": "https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/extensions",
       "owner": "Definitions",
       "domain_of": [
@@ -9458,6 +9510,10 @@
       "definition_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/groups",
       "description": "Identity groups.",
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform",
+      "related_mappings": [
+        "https://w3id.org/lmodel/cis-controls/controls",
+        "https://w3id.org/lmodel/nist-csf-v2/groups"
+      ],
       "is_a": "groups",
       "domain": "FluxnovaPlatformData",
       "slot_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/groups",
@@ -9500,6 +9556,10 @@
       "definition_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type",
       "description": "Type discriminator.",
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common",
+      "related_mappings": [
+        "https://w3id.org/lmodel/stix/type",
+        "https://w3id.org/lmodel/uco-master/state"
+      ],
       "is_a": "type",
       "domain": "ByteArray",
       "slot_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type",
@@ -9520,6 +9580,10 @@
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common",
       "mappings": [
         "http://schema.org/name"
+      ],
+      "related_mappings": [
+        "https://w3id.org/lmodel/stix/name",
+        "https://w3id.org/lmodel/uco-master/name"
       ],
       "is_a": "name",
       "domain": "MeterLog",
@@ -9569,6 +9633,10 @@
       "mappings": [
         "http://schema.org/name"
       ],
+      "related_mappings": [
+        "https://w3id.org/lmodel/stix/name",
+        "https://w3id.org/lmodel/uco-master/name"
+      ],
       "is_a": "name",
       "domain": "Property",
       "slot_uri": "http://schema.org/name",
@@ -9589,6 +9657,10 @@
       "definition_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/version",
       "description": "Version number.",
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base",
+      "related_mappings": [
+        "https://w3id.org/lmodel/cis-controls/version",
+        "https://w3id.org/lmodel/nist-csf-v2/version"
+      ],
       "is_a": "version",
       "domain": "SchemaLogEntry",
       "slot_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/version",
@@ -9636,6 +9708,10 @@
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common",
       "mappings": [
         "http://schema.org/name"
+      ],
+      "related_mappings": [
+        "https://w3id.org/lmodel/stix/name",
+        "https://w3id.org/lmodel/uco-master/name"
       ],
       "is_a": "name",
       "domain": "Filter",
@@ -9884,6 +9960,10 @@
       "definition_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type",
       "description": "Type discriminator.",
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common",
+      "related_mappings": [
+        "https://w3id.org/lmodel/stix/type",
+        "https://w3id.org/lmodel/uco-master/state"
+      ],
       "is_a": "type",
       "domain": "HistoricDetail",
       "slot_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type",
@@ -9905,6 +9985,10 @@
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common",
       "mappings": [
         "http://schema.org/name"
+      ],
+      "related_mappings": [
+        "https://w3id.org/lmodel/stix/name",
+        "https://w3id.org/lmodel/uco-master/name"
       ],
       "is_a": "name",
       "domain": "HistoricDetail",
@@ -10104,6 +10188,10 @@
       "mappings": [
         "http://schema.org/name"
       ],
+      "related_mappings": [
+        "https://w3id.org/lmodel/stix/name",
+        "https://w3id.org/lmodel/uco-master/name"
+      ],
       "is_a": "name",
       "domain": "HistoricVariableInstance",
       "slot_uri": "http://schema.org/name",
@@ -10150,6 +10238,10 @@
       "definition_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type",
       "description": "Type discriminator.",
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common",
+      "related_mappings": [
+        "https://w3id.org/lmodel/stix/type",
+        "https://w3id.org/lmodel/uco-master/state"
+      ],
       "is_a": "type",
       "domain": "Authorization",
       "slot_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type",
@@ -10226,6 +10318,10 @@
       "definition_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type",
       "description": "Type discriminator.",
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common",
+      "related_mappings": [
+        "https://w3id.org/lmodel/stix/type",
+        "https://w3id.org/lmodel/uco-master/state"
+      ],
       "is_a": "type",
       "domain": "Job",
       "slot_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type",
@@ -10291,6 +10387,10 @@
       "definition_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/version",
       "description": "Version number.",
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base",
+      "related_mappings": [
+        "https://w3id.org/lmodel/cis-controls/version",
+        "https://w3id.org/lmodel/nist-csf-v2/version"
+      ],
       "is_a": "version",
       "domain": "CaseDefinition",
       "slot_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/version",
@@ -10329,6 +10429,10 @@
       "definition_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/version",
       "description": "Version number.",
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base",
+      "related_mappings": [
+        "https://w3id.org/lmodel/cis-controls/version",
+        "https://w3id.org/lmodel/nist-csf-v2/version"
+      ],
       "is_a": "version",
       "domain": "DecisionDefinition",
       "slot_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/version",
@@ -10367,6 +10471,10 @@
       "definition_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/version",
       "description": "Version number.",
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base",
+      "related_mappings": [
+        "https://w3id.org/lmodel/cis-controls/version",
+        "https://w3id.org/lmodel/nist-csf-v2/version"
+      ],
       "is_a": "version",
       "domain": "DecisionRequirementsDefinition",
       "slot_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/version",
@@ -10405,6 +10513,10 @@
       "definition_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/version",
       "description": "Version number.",
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base",
+      "related_mappings": [
+        "https://w3id.org/lmodel/cis-controls/version",
+        "https://w3id.org/lmodel/nist-csf-v2/version"
+      ],
       "is_a": "version",
       "domain": "FormDefinition",
       "slot_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/version",
@@ -10443,6 +10555,10 @@
       "definition_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/version",
       "description": "Version number.",
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base",
+      "related_mappings": [
+        "https://w3id.org/lmodel/cis-controls/version",
+        "https://w3id.org/lmodel/nist-csf-v2/version"
+      ],
       "is_a": "version",
       "domain": "ProcessDefinition",
       "slot_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/version",
@@ -10462,6 +10578,10 @@
       "definition_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type",
       "description": "Type discriminator.",
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common",
+      "related_mappings": [
+        "https://w3id.org/lmodel/stix/type",
+        "https://w3id.org/lmodel/uco-master/state"
+      ],
       "is_a": "type",
       "domain": "VariableInstance",
       "slot_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type",
@@ -10483,6 +10603,10 @@
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common",
       "mappings": [
         "http://schema.org/name"
+      ],
+      "related_mappings": [
+        "https://w3id.org/lmodel/stix/name",
+        "https://w3id.org/lmodel/uco-master/name"
       ],
       "is_a": "name",
       "domain": "VariableInstance",
@@ -10622,6 +10746,10 @@
       "definition_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type",
       "description": "Type discriminator.",
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common",
+      "related_mappings": [
+        "https://w3id.org/lmodel/stix/type",
+        "https://w3id.org/lmodel/uco-master/state"
+      ],
       "is_a": "type",
       "domain": "CorrelationProperty",
       "slot_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type",
@@ -10941,6 +11069,10 @@
       "definition_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type",
       "description": "Type discriminator.",
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common",
+      "related_mappings": [
+        "https://w3id.org/lmodel/stix/type",
+        "https://w3id.org/lmodel/uco-master/state"
+      ],
       "is_a": "type",
       "domain": "ResourceParameter",
       "slot_uri": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type",
@@ -12117,6 +12249,10 @@
       "exact_mappings": [
         "fluxnova_bpm_identity:Group"
       ],
+      "related_mappings": [
+        "d3f:Group",
+        "oscal:Group"
+      ],
       "slots": [
         "id",
         "name",
@@ -12295,6 +12431,11 @@
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/identity",
       "exact_mappings": [
         "fluxnova_bpm_identity:User"
+      ],
+      "related_mappings": [
+        "ocsf:User",
+        "stix:UserAccount",
+        "uco_master:UserAccount"
       ],
       "slots": [
         "id",
@@ -13675,6 +13816,12 @@
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpmn-model/instance",
       "exact_mappings": [
         "fluxnova_bpmn_model_instance:Artifact"
+      ],
+      "related_mappings": [
+        "d3f:Artifact",
+        "spdx:Element",
+        "stix:Artifact",
+        "unified_cyber_ontology:Item"
       ],
       "is_a": "BaseElement",
       "slots": [
@@ -17590,6 +17737,13 @@
       "exact_mappings": [
         "fluxnova_bpmn_model_instance:Process"
       ],
+      "related_mappings": [
+        "d3f:Process",
+        "ocsf:Process",
+        "stix:Process",
+        "uco_master:Process",
+        "unified_cyber_ontology:Process"
+      ],
       "is_a": "CallableElement",
       "slots": [
         "scope",
@@ -17750,6 +17904,12 @@
       "exact_mappings": [
         "fluxnova_bpmn_model_instance:Relationship"
       ],
+      "related_mappings": [
+        "cve:TaxonomyRelation",
+        "cwe:Relationship",
+        "stix:Relationship",
+        "unified_cyber_ontology:Relationship"
+      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -17823,6 +17983,10 @@
       "from_schema": "https://w3id.org/TD-Universe/fluxnova-bpmn-model/instance",
       "exact_mappings": [
         "fluxnova_bpmn_model_instance:Resource"
+      ],
+      "related_mappings": [
+        "d3f:Resource",
+        "oscal:Resource"
       ],
       "is_a": "RootElement",
       "slots": [
@@ -20203,9 +20367,9 @@
   ],
   "metamodel_version": "1.11.0",
   "source_file": "fluxnova_bpm_platform.yaml",
-  "source_file_date": "2026-05-14T23:29:56",
-  "source_file_size": 4463,
-  "generation_date": "2026-05-14T23:30:04",
+  "source_file_date": "2026-05-15T00:57:05",
+  "source_file_size": 4594,
+  "generation_date": "2026-05-15T00:58:05",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/fluxnova_bpm_platform.context.jsonld",

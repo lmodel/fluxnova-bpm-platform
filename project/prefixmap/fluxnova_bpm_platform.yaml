@@ -1,5 +1,10 @@
 {
    "bpmn": "http://www.omg.org/spec/BPMN/20100524/MODEL#",
+   "cis_controls": "https://w3id.org/lmodel/cis-controls/",
+   "core": "https://w3id.org/lmodel/vulnerability-core/",
+   "cve": "https://w3id.org/lmodel/cve/",
+   "cwe": "https://w3id.org/lmodel/cwe/",
+   "d3f": "http://d3fend.mitre.org/ontologies/d3fend.owl#",
    "dcterms": "http://purl.org/dc/terms/",
    "fluxnova_bpm_base": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/",
    "fluxnova_bpm_collaboration": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/collaboration/",
@@ -16,8 +21,16 @@
    "fluxnova_bpmn_model_fluxnova": "https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/",
    "fluxnova_bpmn_model_instance": "https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/",
    "fluxnova_common": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/",
+   "kev_catalog": "https://w3id.org/lmodel/kev-catalog/",
    "linkml": "https://w3id.org/linkml/",
+   "nist_csf_v2": "https://w3id.org/lmodel/nist-csf-v2/",
+   "ocsf": "https://w3id.org/lmodel/ocsf/",
+   "oscal": "https://lmodel.github.io/oscal/",
    "schema": "http://schema.org/",
+   "spdx": "https://lmodel.github.io/spdx/",
+   "stix": "https://w3id.org/lmodel/stix/",
+   "uco_master": "https://lmodel.github.io/uco-master/",
+   "unified_cyber_ontology": "https://w3id.org/lmodel/uco-master/",
    "ActivationCondition": {
       "@id": "fluxnova_bpmn_model_instance:ActivationCondition"
    },

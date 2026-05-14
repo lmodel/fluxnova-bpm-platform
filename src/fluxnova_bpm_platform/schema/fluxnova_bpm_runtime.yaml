@@ -1,17 +1,23 @@
----
 id: https://w3id.org/TD-Universe/fluxnova-bpm-platform/runtime
 name: fluxnova_bpm_runtime
 description: Fluxnova BPM Platform - Runtime module.
 license: Apache-2.0
 source: https://github.com/finos/fluxnova-bpm-platform
 see_also:
-  - https://fluxnova.finos.org/
+- https://fluxnova.finos.org/
 version: 3.0.0-SNAPSHOT
 
 prefixes:
   fluxnova_bpm_runtime: https://w3id.org/TD-Universe/fluxnova-bpm-platform/runtime/
   linkml: https://w3id.org/linkml/
   schema: http://schema.org/
+  cis_controls: https://w3id.org/lmodel/cis-controls/
+  core: https://w3id.org/lmodel/vulnerability-core/
+  cwe: https://w3id.org/lmodel/cwe/
+  kev_catalog: https://w3id.org/lmodel/kev-catalog/
+  nist_csf_v2: https://w3id.org/lmodel/nist-csf-v2/
+  stix: https://w3id.org/lmodel/stix/
+  unified_cyber_ontology: https://w3id.org/lmodel/uco-master/
 default_prefix: fluxnova_bpm_runtime
 default_range: string
 annotations:
@@ -22,10 +28,10 @@ annotations:
   slot_count: 67
 
 imports:
-  - linkml:types
-  - ./fluxnova_bpm_base
-  - ./fluxnova_bpm_repository
-  - ./fluxnova_common
+- linkml:types
+- ./fluxnova_bpm_base
+- ./fluxnova_bpm_repository
+- ./fluxnova_common
 
 slots:
   activity_id:
@@ -99,6 +105,7 @@ slots:
     annotations:
       sql_column: CREATED_
 
+    related_mappings: [stix:created, unified_cyber_ontology:objectCreatedTime]
   current_state:
     range: integer
     description: The current state.
@@ -116,6 +123,8 @@ slots:
     description: Human-readable description.
     slot_uri: schema:description
 
+    related_mappings: [cis_controls:description, core:description, cwe:description, kev_catalog:short_description, 
+        nist_csf_v2:prose, schema:description, stix:description, unified_cyber_ontology:description]
   double_value:
     range: float
     description: Variable value stored as double.
@@ -149,8 +158,8 @@ slots:
   event_type:
     range: string
     required: true
-    description: The event subscriptions type. "message" identifies message event subscriptions, "signal" identifies signal
-      event subscription, "compensation" identifies event subscriptions used for compensation ev...
+    description: The event subscriptions type. "message" identifies message event subscriptions, "signal" identifies 
+      signal event subscription, "compensation" identifies event subscriptions used for compensation ev...
     annotations:
       sql_column: EVENT_TYPE_
 
@@ -245,8 +254,8 @@ slots:
 
   last_updated:
     range: datetime
-    description: The date/time when this task was last updated. All operations that fire count as an update to the task. Returns
-      null if the task was never updated before (i.e. it was only created).
+    description: The date/time when this task was last updated. All operations that fire count as an update to the task.
+      Returns null if the task was never updated before (i.e. it was only created).
     annotations:
       sql_column: LAST_UPDATED_
 
@@ -308,8 +317,8 @@ slots:
 
   retries:
     range: integer
-    description: Number of retries this job has left. Whenever the jobexecutor fails to execute the job, this value is decremented.
-      When it hits zero, the job is supposed to be dead and not retried again (ie a manu...
+    description: Number of retries this job has left. Whenever the jobexecutor fails to execute the job, this value is 
+      decremented. When it hits zero, the job is supposed to be dead and not retried again (ie a manu...
     annotations:
       sql_column: RETRIES_
 
@@ -418,205 +427,206 @@ classes:
   CaseExecution:
     description: Case Execution entity in the process execution runtime.
     slots:
-      - id
-      - case_instance_id
-      - super_case_execution_id
-      - super_execution_id
-      - business_key
-      - parent_id
-      - case_definition_id
-      - activity_id
-      - previous_state
-      - current_state
-      - is_required
-      - tenant_id
+    - id
+    - case_instance_id
+    - super_case_execution_id
+    - super_execution_id
+    - business_key
+    - parent_id
+    - case_definition_id
+    - activity_id
+    - previous_state
+    - current_state
+    - is_required
+    - tenant_id
     in_subset:
-      - runtime
-      - fluxnova_bpm
+    - runtime
+    - fluxnova_bpm
     annotations:
       sql_table: ACT_RU_CASE_EXECUTION
 
   CaseSentryPart:
     description: Case Sentry Part entity in the process execution runtime.
     slots:
-      - id
-      - case_instance_id
-      - case_execution_id
-      - sentry_id
-      - type
-      - source_case_execution_id
-      - standard_event
-      - source
-      - variable_event
-      - variable_name
-      - is_satisfied
-      - tenant_id
+    - id
+    - case_instance_id
+    - case_execution_id
+    - sentry_id
+    - type
+    - source_case_execution_id
+    - standard_event
+    - source
+    - variable_event
+    - variable_name
+    - is_satisfied
+    - tenant_id
     in_subset:
-      - runtime
-      - fluxnova_bpm
+    - runtime
+    - fluxnova_bpm
     annotations:
       sql_table: ACT_RU_CASE_SENTRY_PART
 
   EventSubscription:
     description: A message event subscription exists, if an Execution waits for an event like a message.
     slots:
-      - id
-      - event_type
-      - event_name
-      - execution_id
-      - process_instance_id
-      - activity_id
-      - configuration
-      - created
-      - tenant_id
+    - id
+    - event_type
+    - event_name
+    - execution_id
+    - process_instance_id
+    - activity_id
+    - configuration
+    - created
+    - tenant_id
     in_subset:
-      - runtime
-      - fluxnova_bpm
+    - runtime
+    - fluxnova_bpm
     annotations:
       sql_table: ACT_RU_EVENT_SUBSCR
 
   Execution:
-    description: Represent a 'path of execution' in a process instance. Note that a ProcessInstance also is an execution.
+    description: Represent a 'path of execution' in a process instance. Note that a ProcessInstance also is an 
+      execution.
     slots:
-      - id
-      - root_process_instance_id
-      - process_instance_id
-      - business_key
-      - parent_id
-      - process_definition_id
-      - super_execution_id
-      - super_case_execution_id
-      - case_instance_id
-      - activity_instance_id
-      - activity_id
-      - is_active
-      - is_concurrent
-      - is_scope
-      - is_event_scope
-      - suspension_state
-      - cached_entity_state
-      - sequence_counter
-      - tenant_id
-      - process_definition_key
+    - id
+    - root_process_instance_id
+    - process_instance_id
+    - business_key
+    - parent_id
+    - process_definition_id
+    - super_execution_id
+    - super_case_execution_id
+    - case_instance_id
+    - activity_instance_id
+    - activity_id
+    - is_active
+    - is_concurrent
+    - is_scope
+    - is_event_scope
+    - suspension_state
+    - cached_entity_state
+    - sequence_counter
+    - tenant_id
+    - process_definition_key
     in_subset:
-      - runtime
-      - fluxnova_bpm
+    - runtime
+    - fluxnova_bpm
     annotations:
       sql_table: ACT_RU_EXECUTION
 
   ExternalTask:
-    description: Represents an instance of an external task that is created when a service-task like activity (i.e. service
-      task, send task, ...) with attribute camunda:type="external" is executed.
+    description: Represents an instance of an external task that is created when a service-task like activity (i.e. 
+      service task, send task, ...) with attribute camunda:type="external" is executed.
     slots:
-      - id
-      - worker_id
-      - topic_name
-      - retries
-      - error_message
-      - error_details_id
-      - lock_expiration_time
-      - create_time
-      - suspension_state
-      - execution_id
-      - process_instance_id
-      - process_definition_id
-      - process_definition_key
-      - activity_id
-      - activity_instance_id
-      - tenant_id
-      - priority
-      - last_failure_log_id
+    - id
+    - worker_id
+    - topic_name
+    - retries
+    - error_message
+    - error_details_id
+    - lock_expiration_time
+    - create_time
+    - suspension_state
+    - execution_id
+    - process_instance_id
+    - process_definition_id
+    - process_definition_key
+    - activity_id
+    - activity_instance_id
+    - tenant_id
+    - priority
+    - last_failure_log_id
     in_subset:
-      - runtime
-      - fluxnova_bpm
+    - runtime
+    - fluxnova_bpm
     annotations:
       sql_table: ACT_RU_EXT_TASK
 
   Incident:
-    description: An Incident represents a failure in the execution of a process instance. A possible failure could be for
-      example a failed Job during the execution, so that the job retry is equal zero (job.retries ...
+    description: An Incident represents a failure in the execution of a process instance. A possible failure could be 
+      for example a failed Job during the execution, so that the job retry is equal zero (job.retries ...
     slots:
-      - id
-      - incident_timestamp
-      - incident_message
-      - incident_type
-      - execution_id
-      - activity_id
-      - failed_activity_id
-      - process_instance_id
-      - process_definition_id
-      - cause_incident_id
-      - root_cause_incident_id
-      - configuration
-      - tenant_id
-      - job_definition_id
-      - annotation
+    - id
+    - incident_timestamp
+    - incident_message
+    - incident_type
+    - execution_id
+    - activity_id
+    - failed_activity_id
+    - process_instance_id
+    - process_definition_id
+    - cause_incident_id
+    - root_cause_incident_id
+    - configuration
+    - tenant_id
+    - job_definition_id
+    - annotation
     in_subset:
-      - runtime
-      - fluxnova_bpm
+    - runtime
+    - fluxnova_bpm
     annotations:
       sql_table: ACT_RU_INCIDENT
 
   Task:
     description: Represents one task for a human user.
     slots:
-      - id
-      - execution_id
-      - process_instance_id
-      - process_definition_id
-      - case_execution_id
-      - case_instance_id
-      - case_definition_id
-      - name
-      - parent_task_id
-      - description
-      - task_definition_key
-      - owner
-      - assignee
-      - delegation_state
-      - priority
-      - create_time
-      - last_updated
-      - due_date
-      - follow_up_date
-      - suspension_state
-      - tenant_id
-      - task_state
+    - id
+    - execution_id
+    - process_instance_id
+    - process_definition_id
+    - case_execution_id
+    - case_instance_id
+    - case_definition_id
+    - name
+    - parent_task_id
+    - description
+    - task_definition_key
+    - owner
+    - assignee
+    - delegation_state
+    - priority
+    - create_time
+    - last_updated
+    - due_date
+    - follow_up_date
+    - suspension_state
+    - tenant_id
+    - task_state
     in_subset:
-      - runtime
-      - fluxnova_bpm
+    - runtime
+    - fluxnova_bpm
     annotations:
       sql_table: ACT_RU_TASK
 
   VariableInstance:
     description: A VariableInstance represents a variable in the execution of a process instance.
     slots:
-      - id
-      - type
-      - name
-      - execution_id
-      - process_instance_id
-      - process_definition_id
-      - case_execution_id
-      - case_instance_id
-      - task_id
-      - batch_id
-      - byte_array_id
-      - double_value
-      - long_value
-      - text_value
-      - text2_value
-      - variable_scope_id
-      - sequence_counter
-      - is_concurrent_local
-      - tenant_id
+    - id
+    - type
+    - name
+    - execution_id
+    - process_instance_id
+    - process_definition_id
+    - case_execution_id
+    - case_instance_id
+    - task_id
+    - batch_id
+    - byte_array_id
+    - double_value
+    - long_value
+    - text_value
+    - text2_value
+    - variable_scope_id
+    - sequence_counter
+    - is_concurrent_local
+    - tenant_id
     slot_usage:
       type:
         required: true
       name:
         required: true
     in_subset:
-      - runtime
-      - fluxnova_bpm
+    - runtime
+    - fluxnova_bpm
     annotations:
       sql_table: ACT_RU_VARIABLE

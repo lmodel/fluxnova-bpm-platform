@@ -28,14 +28,23 @@ gen-bpmn-model *FLAGS:
 
 # Regenerate ALL transformer-produced LinkML schemas (reproducible)
 [group('schema generation')]
-gen-all: gen-bpmn-model gen-schema overlay-sssom-mappings
+gen-all: gen-bpmn-model gen-schema gen-sssom overlay-sssom-mappings
+
+# Generate SSSOM mapping files from ecosystem/ LinkML schemas (native-only extraction).
+# Reads *.yaml in ecosystem/, writes fluxnova-*.sssom.tsv to mappings/.
+# Deletes stale SSSOM files whose source prefix no longer has native mappings.
+[group('schema generation')]
+gen-sssom *FLAGS:
+    uv run python scripts/gen_sssom.py {{FLAGS}}
 
 # Apply all SSSOM mappings from mappings/ to generated schema YAML files (deterministic)
 # Reads fluxnova-*.sssom.tsv in sorted order; injects *_mappings and prefixes in-place.
+# --name-match: also injects related_mappings for elements whose names appear as
+#   SSSOM subject locals (covers fluxnova schemas whose prefix differs from SSSOM subjects).
 # Idempotent: running twice produces the same result.
 [group('schema generation')]
 overlay-sssom-mappings *FLAGS:
-    uv run python scripts/overlay_sssom.py {{FLAGS}}
+    uv run python scripts/overlay_sssom.py --name-match {{FLAGS}}
 
 # ============== Schema validation ==============
 

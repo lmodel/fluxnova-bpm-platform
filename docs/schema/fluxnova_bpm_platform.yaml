@@ -82,6 +82,12 @@ prefixes:
   bpmn:
     prefix_prefix: bpmn
     prefix_reference: http://www.omg.org/spec/BPMN/20100524/MODEL#
+  cis_controls:
+    prefix_prefix: cis_controls
+    prefix_reference: https://w3id.org/lmodel/cis-controls/
+  nist_csf_v2:
+    prefix_prefix: nist_csf_v2
+    prefix_reference: https://w3id.org/lmodel/nist-csf-v2/
 default_prefix: fluxnova_bpm_platform
 default_range: string
 subsets:
@@ -802,6 +808,9 @@ slots:
     definition_uri: https://w3id.org/TD-Universe/fluxnova-bpm-platform/groups
     description: Identity groups.
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform
+    related_mappings:
+    - cis_controls:controls
+    - nist_csf_v2:groups
     slot_uri: fluxnova_bpm_platform:groups
     owner: FluxnovaPlatformData
     domain_of:
@@ -830,6 +839,11 @@ slots:
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common
     mappings:
     - schema:identifier
+    related_mappings:
+    - cis_controls:id
+    - nist_csf_v2:id
+    - stix:id
+    - unified_cyber_ontology:externalReference
     slot_uri: schema:identifier
     identifier: true
     owner: InteractionNode
@@ -889,6 +903,9 @@ slots:
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common
     mappings:
     - schema:name
+    related_mappings:
+    - stix:name
+    - unified_cyber_ontology:name
     slot_uri: schema:name
     owner: Signal
     domain_of:
@@ -1011,6 +1028,9 @@ slots:
     definition_uri: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type
     description: Type discriminator.
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common
+    related_mappings:
+    - stix:type
+    - unified_cyber_ontology:state
     slot_uri: fluxnova_common:type
     owner: ResourceParameter
     domain_of:
@@ -1275,6 +1295,9 @@ slots:
     definition_uri: https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/version
     description: Version number.
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/base
+    related_mappings:
+    - cis_controls:version
+    - nist_csf_v2:version
     slot_uri: fluxnova_bpm_base:version
     owner: ResourceDefinition
     domain_of:
@@ -1366,6 +1389,9 @@ slots:
       content was uploaded with an input stream, then this method returns null and
       the content can be fetched with .
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/collaboration
+    related_mappings:
+    - stix:url
+    - unified_cyber_ontology:URL
     slot_uri: fluxnova_bpm_collaboration:url
     owner: Attachment
     domain_of:
@@ -3027,6 +3053,9 @@ slots:
         value: CREATED_
     description: The time this event subscription was created.
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/runtime
+    related_mappings:
+    - stix:created
+    - unified_cyber_ontology:objectCreatedTime
     slot_uri: fluxnova_bpm_runtime:created
     owner: EventSubscription
     domain_of:
@@ -3068,6 +3097,15 @@ slots:
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/runtime
     mappings:
     - schema:description
+    related_mappings:
+    - cis_controls:description
+    - core:description
+    - cwe:description
+    - kev_catalog:short_description
+    - nist_csf_v2:prose
+    - schema:description
+    - stix:description
+    - unified_cyber_ontology:description
     slot_uri: schema:description
     owner: Task
     domain_of:
@@ -5165,6 +5203,9 @@ slots:
     definition_uri: https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/extensions
     description: Extension elements attached to this definitions element.
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpmn-model/instance
+    related_mappings:
+    - stix:extensions
+    - unified_cyber_ontology:hasFacet
     slot_uri: fluxnova_bpmn_model_instance:extensions
     owner: Definitions
     domain_of:
@@ -7336,6 +7377,9 @@ slots:
     definition_uri: https://w3id.org/TD-Universe/fluxnova-bpm-platform/groups
     description: Identity groups.
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform
+    related_mappings:
+    - cis_controls:controls
+    - nist_csf_v2:groups
     is_a: groups
     domain: FluxnovaPlatformData
     slot_uri: fluxnova_bpm_platform:groups
@@ -7372,6 +7416,9 @@ slots:
     definition_uri: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type
     description: Type discriminator.
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common
+    related_mappings:
+    - stix:type
+    - unified_cyber_ontology:state
     is_a: type
     domain: ByteArray
     slot_uri: fluxnova_common:type
@@ -7389,6 +7436,9 @@ slots:
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common
     mappings:
     - schema:name
+    related_mappings:
+    - stix:name
+    - unified_cyber_ontology:name
     is_a: name
     domain: MeterLog
     slot_uri: schema:name
@@ -7426,6 +7476,9 @@ slots:
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common
     mappings:
     - schema:name
+    related_mappings:
+    - stix:name
+    - unified_cyber_ontology:name
     is_a: name
     domain: Property
     slot_uri: schema:name
@@ -7443,6 +7496,9 @@ slots:
     definition_uri: https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/version
     description: Version number.
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/base
+    related_mappings:
+    - cis_controls:version
+    - nist_csf_v2:version
     is_a: version
     domain: SchemaLogEntry
     slot_uri: fluxnova_bpm_base:version
@@ -7480,6 +7536,9 @@ slots:
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common
     mappings:
     - schema:name
+    related_mappings:
+    - stix:name
+    - unified_cyber_ontology:name
     is_a: name
     domain: Filter
     slot_uri: schema:name
@@ -7688,6 +7747,9 @@ slots:
     definition_uri: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type
     description: Type discriminator.
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common
+    related_mappings:
+    - stix:type
+    - unified_cyber_ontology:state
     is_a: type
     domain: HistoricDetail
     slot_uri: fluxnova_common:type
@@ -7706,6 +7768,9 @@ slots:
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common
     mappings:
     - schema:name
+    related_mappings:
+    - stix:name
+    - unified_cyber_ontology:name
     is_a: name
     domain: HistoricDetail
     slot_uri: schema:name
@@ -7864,6 +7929,9 @@ slots:
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common
     mappings:
     - schema:name
+    related_mappings:
+    - stix:name
+    - unified_cyber_ontology:name
     is_a: name
     domain: HistoricVariableInstance
     slot_uri: schema:name
@@ -7900,6 +7968,9 @@ slots:
     definition_uri: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type
     description: Type discriminator.
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common
+    related_mappings:
+    - stix:type
+    - unified_cyber_ontology:state
     is_a: type
     domain: Authorization
     slot_uri: fluxnova_common:type
@@ -7964,6 +8035,9 @@ slots:
     definition_uri: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type
     description: Type discriminator.
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common
+    related_mappings:
+    - stix:type
+    - unified_cyber_ontology:state
     is_a: type
     domain: Job
     slot_uri: fluxnova_common:type
@@ -8016,6 +8090,9 @@ slots:
     definition_uri: https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/version
     description: Version number.
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/base
+    related_mappings:
+    - cis_controls:version
+    - nist_csf_v2:version
     is_a: version
     domain: CaseDefinition
     slot_uri: fluxnova_bpm_base:version
@@ -8048,6 +8125,9 @@ slots:
     definition_uri: https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/version
     description: Version number.
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/base
+    related_mappings:
+    - cis_controls:version
+    - nist_csf_v2:version
     is_a: version
     domain: DecisionDefinition
     slot_uri: fluxnova_bpm_base:version
@@ -8080,6 +8160,9 @@ slots:
     definition_uri: https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/version
     description: Version number.
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/base
+    related_mappings:
+    - cis_controls:version
+    - nist_csf_v2:version
     is_a: version
     domain: DecisionRequirementsDefinition
     slot_uri: fluxnova_bpm_base:version
@@ -8112,6 +8195,9 @@ slots:
     definition_uri: https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/version
     description: Version number.
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/base
+    related_mappings:
+    - cis_controls:version
+    - nist_csf_v2:version
     is_a: version
     domain: FormDefinition
     slot_uri: fluxnova_bpm_base:version
@@ -8144,6 +8230,9 @@ slots:
     definition_uri: https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/version
     description: Version number.
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/base
+    related_mappings:
+    - cis_controls:version
+    - nist_csf_v2:version
     is_a: version
     domain: ProcessDefinition
     slot_uri: fluxnova_bpm_base:version
@@ -8160,6 +8249,9 @@ slots:
     definition_uri: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type
     description: Type discriminator.
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common
+    related_mappings:
+    - stix:type
+    - unified_cyber_ontology:state
     is_a: type
     domain: VariableInstance
     slot_uri: fluxnova_common:type
@@ -8178,6 +8270,9 @@ slots:
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common
     mappings:
     - schema:name
+    related_mappings:
+    - stix:name
+    - unified_cyber_ontology:name
     is_a: name
     domain: VariableInstance
     slot_uri: schema:name
@@ -8286,6 +8381,9 @@ slots:
     definition_uri: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type
     description: Type discriminator.
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common
+    related_mappings:
+    - stix:type
+    - unified_cyber_ontology:state
     is_a: type
     domain: CorrelationProperty
     slot_uri: fluxnova_common:type
@@ -8535,6 +8633,9 @@ slots:
     definition_uri: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/type
     description: Type discriminator.
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common
+    related_mappings:
+    - stix:type
+    - unified_cyber_ontology:state
     is_a: type
     domain: ResourceParameter
     slot_uri: fluxnova_common:type
@@ -9647,6 +9748,9 @@ classes:
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/identity
     exact_mappings:
     - fluxnova_bpm_identity:Group
+    related_mappings:
+    - d3f:Group
+    - oscal:Group
     slots:
     - id
     - name
@@ -9787,6 +9891,10 @@ classes:
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpm-platform/identity
     exact_mappings:
     - fluxnova_bpm_identity:User
+    related_mappings:
+    - ocsf:User
+    - stix:UserAccount
+    - uco_master:UserAccount
     slots:
     - id
     - first_name
@@ -10902,6 +11010,11 @@ classes:
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpmn-model/instance
     exact_mappings:
     - fluxnova_bpmn_model_instance:Artifact
+    related_mappings:
+    - d3f:Artifact
+    - spdx:Element
+    - stix:Artifact
+    - unified_cyber_ontology:Item
     is_a: BaseElement
     slots:
     - scope
@@ -13916,6 +14029,12 @@ classes:
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpmn-model/instance
     exact_mappings:
     - fluxnova_bpmn_model_instance:Process
+    related_mappings:
+    - d3f:Process
+    - ocsf:Process
+    - stix:Process
+    - uco_master:Process
+    - unified_cyber_ontology:Process
     is_a: CallableElement
     slots:
     - scope
@@ -14056,6 +14175,11 @@ classes:
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpmn-model/instance
     exact_mappings:
     - fluxnova_bpmn_model_instance:Relationship
+    related_mappings:
+    - cve:TaxonomyRelation
+    - cwe:Relationship
+    - stix:Relationship
+    - unified_cyber_ontology:Relationship
     is_a: BaseElement
     slots:
     - scope
@@ -14114,6 +14238,9 @@ classes:
     from_schema: https://w3id.org/TD-Universe/fluxnova-bpmn-model/instance
     exact_mappings:
     - fluxnova_bpmn_model_instance:Resource
+    related_mappings:
+    - d3f:Resource
+    - oscal:Resource
     is_a: RootElement
     slots:
     - scope
@@ -15907,7 +16034,7 @@ classes:
     class_uri: fluxnova_bpmn_model_fluxnova:FluxnovaValue
 metamodel_version: 1.11.0
 source_file: fluxnova_bpm_platform.yaml
-source_file_date: '2026-05-14T23:29:56'
-source_file_size: 4463
-generation_date: '2026-05-14T23:30:49'
+source_file_date: '2026-05-15T00:57:05'
+source_file_size: 4594
+generation_date: '2026-05-15T00:58:49'
 
