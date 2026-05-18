@@ -8,7 +8,7 @@ source: https://github.com/finos/fluxnova-bpm-platform
 see_also:
 - https://lmodel.github.io/fluxnova-bpm-platform
 - https://fluxnova.finos.org/
-version: 3.0.0-SNAPSHOT
+version: 2.0.0-SNAPSHOT
 annotations:
   generated_by: scripts/fluxnova_to_linkml.py
   source_pom: pom.xml

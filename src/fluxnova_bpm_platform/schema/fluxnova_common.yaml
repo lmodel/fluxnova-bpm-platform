@@ -4,7 +4,7 @@ description: Shared slot definitions imported by both the Fluxnova BPM persisten
   API schema. Centralizing the slots avoids LinkML import-merge URI conflicts.
 license: Apache-2.0
 source: https://github.com/finos/fluxnova-bpm-platform
-version: 3.0.0-SNAPSHOT
+version: 2.0.0-SNAPSHOT
 annotations:
   generated_by: scripts/fluxnova_to_linkml.py
   purpose: Resolve slot-name collisions between BPM and BPMN Model API schemas.

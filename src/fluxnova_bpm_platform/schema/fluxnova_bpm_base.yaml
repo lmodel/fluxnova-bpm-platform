@@ -5,7 +5,7 @@ license: Apache-2.0
 source: https://github.com/finos/fluxnova-bpm-platform
 see_also:
 - https://fluxnova.finos.org/
-version: 3.0.0-SNAPSHOT
+version: 2.0.0-SNAPSHOT
 
 prefixes:
   fluxnova_bpm_base: https://w3id.org/lmodel/fluxnova-bpm-platform/base/
