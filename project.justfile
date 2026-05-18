@@ -16,7 +16,7 @@ _gen-yaml:
 
 # Generate platform LinkML schema from H2 DDL + Javadoc sources, then overlay mappings
 [group('schema generation')]
-gen-schema *FLAGS:
+gen-linkml *FLAGS:
     uv run python scripts/fluxnova_to_linkml.py {{FLAGS}}
     just overlay-sssom-mappings
 
@@ -28,7 +28,7 @@ gen-bpmn-model *FLAGS:
 
 # Regenerate ALL transformer-produced LinkML schemas (reproducible)
 [group('schema generation')]
-gen-all: gen-bpmn-model gen-schema gen-sssom overlay-sssom-mappings
+gen-all: gen-bpmn-model gen-linkml gen-sssom overlay-sssom-mappings
 
 # Generate SSSOM mapping files from ecosystem/ LinkML schemas (native-only extraction).
 # Reads *.yaml in ecosystem/, writes fluxnova-*.sssom.tsv to mappings/.

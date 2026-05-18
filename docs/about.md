@@ -71,7 +71,7 @@ The maintained workflow in `scripts/` is intentionally limited to three scripts:
   - 336 field→column mappings verified.
   - Zero discrepancies detected on each run.
 
-- `overlay_sssom.py` — deterministically applies all SSSOM mapping files from `src/fluxnova_bpm_platform/mappings/` to the generated LinkML schema YAML files. Runs automatically after every `gen-schema` / `gen-bpmn-model` / `gen-all` invocation. Key properties:
+- `overlay_sssom.py` — deterministically applies all SSSOM mapping files from `src/fluxnova_bpm_platform/mappings/` to the generated LinkML schema YAML files. Runs automatically after every `gen-linkml` / `gen-bpmn-model` / `gen-all` invocation. Key properties:
   - Reads all `fluxnova-*.sssom.tsv` files in **sorted filename order** (deterministic).
   - Matches `subject_id` CURIE prefix against each schema's `default_prefix`.
   - Injects/merges `exact_mappings`, `close_mappings`, `broad_mappings`, `narrow_mappings`, and `related_mappings` into classes, slots, class attributes, and enum permissible_values.
@@ -282,10 +282,10 @@ Valid: `Point-001.yaml`, `Bounds-001.yaml`, `Font-001.yaml` exercise the cross-s
 python scripts/fluxnova_to_linkml.py
 
 # Or via justfile (overlay runs automatically after generation)
-just gen-schema
+just gen-linkml
 
 # Dry-run (report only, no files written)
-just gen-schema --dry-run
+just gen-linkml --dry-run
 
 # Apply SSSOM mappings without regenerating schemas
 just overlay-sssom-mappings
@@ -301,7 +301,7 @@ just overlay-sssom-mappings --dry-run --verbose
 just verify-schema
 
 # Individual recipes
-just gen-all                    # gen-bpmn-model + gen-schema + overlay-sssom-mappings
+just gen-all                    # gen-bpmn-model + gen-linkml + overlay-sssom-mappings
 just overlay-sssom-mappings     # apply SSSOM mappings to generated schemas (idempotent)
 just lint-schema                # linkml-lint over src/fluxnova_bpm_platform/schema/
 just validate-mybatis           # MyBatis ↔ DDL field-name cross-validation
@@ -389,9 +389,9 @@ All ontology/standard cross-walk mappings are stored as [SSSOM](https://mapping-
 `scripts/overlay_sssom.py` reads the mapping files and injects `*_mappings` / `prefixes` entries into the generated LinkML YAML files. It is called automatically as part of every schema generation recipe:
 
 ```
-gen-schema      → fluxnova_to_linkml.py   → overlay_sssom.py
+gen-linkml      → fluxnova_to_linkml.py   → overlay_sssom.py
 gen-bpmn-model  → bpmn_model_to_linkml.py → overlay_sssom.py
-gen-all         → gen-bpmn-model + gen-schema + overlay_sssom.py (final dedup pass)
+gen-all         → gen-bpmn-model + gen-linkml + overlay_sssom.py (final dedup pass)
 ```
 
 Predicate mapping from SSSOM to LinkML:
