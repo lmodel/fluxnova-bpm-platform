@@ -43,7 +43,7 @@ see_also:
 - https://lmodel.github.io/fluxnova-bpm-platform
 - https://fluxnova.finos.org/
 id: https://w3id.org/lmodel/fluxnova-bpm-platform
-version: 3.0.0-SNAPSHOT
+version: 2.0.0-SNAPSHOT
 imports:
 - linkml:types
 - ./fluxnova_common
@@ -16034,7 +16034,7 @@ classes:
     class_uri: fluxnova_bpmn_model_fluxnova:FluxnovaValue
 metamodel_version: 1.11.0
 source_file: fluxnova_bpm_platform.yaml
-source_file_date: '2026-05-15T10:07:20'
+source_file_date: '2026-05-18T11:09:20'
 source_file_size: 4579
-generation_date: '2026-05-15T10:07:32'
+generation_date: '2026-05-18T11:09:30'
 
