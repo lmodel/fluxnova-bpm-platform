@@ -55,16 +55,25 @@ imports:
 - ./fluxnova_bpm_repository
 - ./fluxnova_bpm_runtime
 - ./fluxnova_bpmn_model
+- ./provenance/fluxnova_bpm_provenance
 - fluxnova_bpmn_model_dc
 - fluxnova_bpmn_model_di
 - fluxnova_bpmn_model_instance
 - fluxnova_bpmn_model_bpmndi
 - fluxnova_bpmn_model_fluxnova
+- fluxnova_common
+- fluxnova_bpm_base
+- fluxnova_bpm_runtime
+- fluxnova_bpm_identity
+- fluxnova_bpmn_model_instance
+- provenance/fluxnova_bpm_ai_provenance
 - fluxnova_bpmn_model_dc
 - fluxnova_bpmn_model_di
 - fluxnova_bpmn_model_di
 - fluxnova_bpmn_model_dc
 - fluxnova_bpmn_model_instance
+- fluxnova_common
+- provenance/fluxnova_bpm_provenance
 license: Apache-2.0
 prefixes:
   fluxnova_bpm_platform:
@@ -171,6 +180,35 @@ subsets:
     definition_uri: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model/FluxnovaBpmnModel
     description: All Fluxnova BPMN Model API types.
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model
+  prospective_provenance:
+    name: prospective_provenance
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ProspectiveProvenance
+    description: Provenance entities describing what a workflow is (definitions and
+      contracts).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+  retrospective_provenance:
+    name: retrospective_provenance
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/RetrospectiveProvenance
+    description: Provenance entities describing what a workflow did (runs, observed
+      values, incidents).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+  context_entities:
+    name: context_entities
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ContextEntities
+    description: Supporting entities (agents, environments, runtime components, artifacts,
+      resources).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+  ai_prospective:
+    name: ai_prospective
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiProspective
+    description: Definitions of AI agents, models, and datasets (prospective AI provenance).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+  ai_retrospective:
+    name: ai_retrospective
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiRetrospective
+    description: Per-invocation records of AI model calls, prompts, tool calls, and
+      evaluations.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
 types:
   string:
     name: string
@@ -565,6 +603,320 @@ enums:
         text: REVOKE
         description: Revokes permission.
         meaning: fluxnova_bpm_platform:AuthorizationType/2
+  RunStatus:
+    name: RunStatus
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/RunStatus
+    description: Lifecycle status of a workflow run or step run.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    permissible_values:
+      PENDING:
+        text: PENDING
+        description: Scheduled but not yet started.
+        meaning: schema:PotentialActionStatus
+      ACTIVE:
+        text: ACTIVE
+        description: Currently executing.
+        meaning: schema:ActiveActionStatus
+      COMPLETED:
+        text: COMPLETED
+        description: Finished successfully.
+        meaning: schema:CompletedActionStatus
+      FAILED:
+        text: FAILED
+        description: Terminated with an error.
+        meaning: schema:FailedActionStatus
+      CANCELLED:
+        text: CANCELLED
+        description: Cancelled before completion.
+      SUSPENDED:
+        text: SUSPENDED
+        description: Paused; can be resumed.
+  IncidentStatus:
+    name: IncidentStatus
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/IncidentStatus
+    description: Lifecycle status of an incident.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    permissible_values:
+      OPEN:
+        text: OPEN
+        description: Newly reported, not yet investigated.
+      INVESTIGATING:
+        text: INVESTIGATING
+        description: Currently being investigated or worked on.
+      RESOLVED:
+        text: RESOLVED
+        description: Resolved successfully.
+      IGNORED:
+        text: IGNORED
+        description: Acknowledged but not actioned.
+  DirectionEnum:
+    name: DirectionEnum
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/DirectionEnum
+    description: Direction of data flow for a parameter.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    permissible_values:
+      IN:
+        text: IN
+        description: Input parameter consumed by the workflow or step.
+      OUT:
+        text: OUT
+        description: Output parameter produced by the workflow or step.
+      INOUT:
+        text: INOUT
+        description: Read and updated by the workflow or step.
+      LOCAL:
+        text: LOCAL
+        description: Internal local variable not exposed at the boundary.
+  ParameterScope:
+    name: ParameterScope
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ParameterScope
+    description: Scope at which a parameter or variable is defined.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    permissible_values:
+      WORKFLOW:
+        text: WORKFLOW
+        description: Scoped to the entire workflow.
+      STEP:
+        text: STEP
+        description: Scoped to a single step / activity.
+      TASK:
+        text: TASK
+        description: Scoped to a user or service task.
+      DECISION:
+        text: DECISION
+        description: Scoped to a DMN decision.
+      FORM:
+        text: FORM
+        description: Scoped to a human-task form.
+  AgentKind:
+    name: AgentKind
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/AgentKind
+    description: Kind of agent participating in workflow execution.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    permissible_values:
+      PERSON:
+        text: PERSON
+        description: A natural person.
+        meaning: prov:Person
+      ORGANIZATION:
+        text: ORGANIZATION
+        description: An organizational entity.
+        meaning: prov:Organization
+      SYSTEM:
+        text: SYSTEM
+        description: A software system or automated component.
+        meaning: prov:SoftwareAgent
+      SERVICE_ACCOUNT:
+        text: SERVICE_ACCOUNT
+        description: A non-human service account identity.
+        meaning: prov:SoftwareAgent
+  RuntimeComponentKind:
+    name: RuntimeComponentKind
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/RuntimeComponentKind
+    description: Kind of runtime component participating in orchestration.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    permissible_values:
+      ENGINE:
+        text: ENGINE
+        description: The BPMN process engine itself.
+      REST_API:
+        text: REST_API
+        description: REST API surface fronting the engine.
+      JOB_EXECUTOR:
+        text: JOB_EXECUTOR
+        description: Asynchronous job execution component.
+      HISTORY_EXPORTER:
+        text: HISTORY_EXPORTER
+        description: Component that exports historic data.
+      PLUGIN:
+        text: PLUGIN
+        description: Engine plugin or extension.
+      CONNECTOR:
+        text: CONNECTOR
+        description: Integration connector to an external system.
+      MODELER_DEPLOYER:
+        text: MODELER_DEPLOYER
+        description: Deployment-time modeler/deployer tool.
+  ArtifactKind:
+    name: ArtifactKind
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ArtifactKind
+    description: Classifier for the kind of artifact referenced.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    permissible_values:
+      BPMN_XML:
+        text: BPMN_XML
+        description: BPMN 2.0 XML process model.
+      DMN_XML:
+        text: DMN_XML
+        description: DMN XML decision model.
+      FORM_SCHEMA:
+        text: FORM_SCHEMA
+        description: Form schema (e.g. JSON Schema, embedded form).
+      PAYLOAD:
+        text: PAYLOAD
+        description: Request/response payload for an integration call.
+      DOCUMENT:
+        text: DOCUMENT
+        description: Business document handled by the workflow.
+      LOG:
+        text: LOG
+        description: Diagnostic log file.
+      EXPORT_BUNDLE:
+        text: EXPORT_BUNDLE
+        description: Provenance export bundle file.
+      SCREENSHOT:
+        text: SCREENSHOT
+        description: Screenshot artifact.
+      OTHER:
+        text: OTHER
+        description: Unclassified artifact kind.
+  ImplementationKind:
+    name: ImplementationKind
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ImplementationKind
+    description: Normalized implementation strategy for a step.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    permissible_values:
+      USER_TASK:
+        text: USER_TASK
+        description: Human user task.
+      JAVA_DELEGATE:
+        text: JAVA_DELEGATE
+        description: Java delegate class implementation.
+      EXPRESSION:
+        text: EXPRESSION
+        description: Engine expression evaluation.
+      SCRIPT:
+        text: SCRIPT
+        description: Inline or referenced script.
+      CONNECTOR:
+        text: CONNECTOR
+        description: Connector configuration.
+      CALL_ACTIVITY:
+        text: CALL_ACTIVITY
+        description: Call to another process.
+      BUSINESS_RULE:
+        text: BUSINESS_RULE
+        description: DMN business rule evaluation.
+      EXTERNAL_SERVICE:
+        text: EXTERNAL_SERVICE
+        description: External worker topic (external task pattern).
+      EVENT:
+        text: EVENT
+        description: BPMN event handler.
+      GATEWAY:
+        text: GATEWAY
+        description: BPMN gateway routing.
+      SUBPROCESS:
+        text: SUBPROCESS
+        description: Embedded subprocess.
+  ResourceKind:
+    name: ResourceKind
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ResourceKind
+    description: Kind of execution resource.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    permissible_values:
+      HOST:
+        text: HOST
+        description: A physical or virtual host.
+      CONTAINER:
+        text: CONTAINER
+        description: A container instance.
+      POD:
+        text: POD
+        description: A Kubernetes pod.
+      NODE:
+        text: NODE
+        description: A cluster node.
+      DATABASE:
+        text: DATABASE
+        description: A database instance.
+      QUEUE:
+        text: QUEUE
+        description: A message queue.
+      CLUSTER:
+        text: CLUSTER
+        description: A cluster of nodes.
+      THREAD_POOL:
+        text: THREAD_POOL
+        description: An in-process thread pool.
+      EXTERNAL_API:
+        text: EXTERNAL_API
+        description: An external API endpoint.
+  BPMNElementType:
+    name: BPMNElementType
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/BPMNElementType
+    description: Normalized BPMN element type for a step definition.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    permissible_values:
+      PROCESS:
+        text: PROCESS
+        description: A BPMN process element.
+      START_EVENT:
+        text: START_EVENT
+        description: Start event.
+      END_EVENT:
+        text: END_EVENT
+        description: End event.
+      USER_TASK:
+        text: USER_TASK
+        description: User task.
+      SERVICE_TASK:
+        text: SERVICE_TASK
+        description: Service task.
+      SCRIPT_TASK:
+        text: SCRIPT_TASK
+        description: Script task.
+      BUSINESS_RULE_TASK:
+        text: BUSINESS_RULE_TASK
+        description: Business rule (DMN) task.
+      MANUAL_TASK:
+        text: MANUAL_TASK
+        description: Manual task.
+      CALL_ACTIVITY:
+        text: CALL_ACTIVITY
+        description: Call activity.
+      SUB_PROCESS:
+        text: SUB_PROCESS
+        description: Sub-process.
+      EXCLUSIVE_GATEWAY:
+        text: EXCLUSIVE_GATEWAY
+        description: Exclusive (XOR) gateway.
+      PARALLEL_GATEWAY:
+        text: PARALLEL_GATEWAY
+        description: Parallel (AND) gateway.
+      EVENT_BASED_GATEWAY:
+        text: EVENT_BASED_GATEWAY
+        description: Event-based gateway.
+      INTERMEDIATE_CATCH_EVENT:
+        text: INTERMEDIATE_CATCH_EVENT
+        description: Intermediate catch event.
+      INTERMEDIATE_THROW_EVENT:
+        text: INTERMEDIATE_THROW_EVENT
+        description: Intermediate throw event.
+      BOUNDARY_EVENT:
+        text: BOUNDARY_EVENT
+        description: Boundary event.
+      SEQUENCE_FLOW:
+        text: SEQUENCE_FLOW
+        description: Sequence flow.
+  DataClassification:
+    name: DataClassification
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/DataClassification
+    description: Sensitivity / data-classification label for a parameter value.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    permissible_values:
+      PUBLIC:
+        text: PUBLIC
+        description: Information that may be disclosed publicly.
+      INTERNAL:
+        text: INTERNAL
+        description: For internal use only.
+      CONFIDENTIAL:
+        text: CONFIDENTIAL
+        description: Confidential information.
+      RESTRICTED:
+        text: RESTRICTED
+        description: Restricted / regulated information requiring strict access controls.
   AssociationDirection:
     name: AssociationDirection
     definition_uri: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/AssociationDirection
@@ -724,6 +1076,153 @@ enums:
       bottom_non_initiating:
         text: bottom_non_initiating
         description: Bottom non initiating
+  MessageRole:
+    name: MessageRole
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/MessageRole
+    description: Conversational role of a prompt or response message.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    permissible_values:
+      SYSTEM:
+        text: SYSTEM
+        description: System-level instruction or persona-setting message.
+      USER:
+        text: USER
+        description: End-user input message.
+      ASSISTANT:
+        text: ASSISTANT
+        description: Model-generated response message.
+      TOOL:
+        text: TOOL
+        description: Tool / function result message returned to the model.
+  AiModality:
+    name: AiModality
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiModality
+    description: Input or output modality supported by an AI model.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    related_mappings:
+    - nexus:Modality
+    - airo:Modality
+    permissible_values:
+      TEXT:
+        text: TEXT
+        description: Natural-language text.
+      IMAGE:
+        text: IMAGE
+        description: Still image content.
+      AUDIO:
+        text: AUDIO
+        description: Audio content.
+      VIDEO:
+        text: VIDEO
+        description: Video content.
+      MULTIMODAL:
+        text: MULTIMODAL
+        description: Combined modalities in a single input or output.
+      EMBEDDING:
+        text: EMBEDDING
+        description: Numeric vector embedding.
+  AiInvocationKind:
+    name: AiInvocationKind
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiInvocationKind
+    description: Kind of AI model invocation performed from a workflow step.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    permissible_values:
+      CHAT_COMPLETION:
+        text: CHAT_COMPLETION
+        description: Multi-turn chat completion call.
+      COMPLETION:
+        text: COMPLETION
+        description: Single-turn text completion call.
+      EMBEDDING:
+        text: EMBEDDING
+        description: Embedding generation call.
+      TOOL_USE:
+        text: TOOL_USE
+        description: Invocation that includes tool / function calling.
+      AGENT_LOOP:
+        text: AGENT_LOOP
+        description: Agentic loop with multiple model + tool turns.
+      RETRIEVAL:
+        text: RETRIEVAL
+        description: Retrieval-augmented generation lookup.
+      GUARDRAIL:
+        text: GUARDRAIL
+        description: Guardrail or policy-check invocation.
+  SafetyFlag:
+    name: SafetyFlag
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/SafetyFlag
+    description: 'Safety, policy, or guardrail flag raised by the model, the provider,
+      or
+
+      a local guardrail layer during an AI model invocation. Mapped to
+
+      dpv-risk terms where a stable upstream match exists.'
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    permissible_values:
+      NONE:
+        text: NONE
+        description: No safety flag was raised.
+      POLICY_VIOLATION:
+        text: POLICY_VIOLATION
+        description: Output or input violates a configured content policy.
+      HALLUCINATION_SUSPECTED:
+        text: HALLUCINATION_SUSPECTED
+        description: Output was flagged as likely hallucinated or unsupported by retrieved
+          evidence.
+      JAILBREAK_ATTEMPT:
+        text: JAILBREAK_ATTEMPT
+        description: Input was flagged as attempting to bypass the system instruction.
+      PII_LEAK:
+        text: PII_LEAK
+        description: Output or input contained personally identifiable information.
+      PROMPT_INJECTION:
+        text: PROMPT_INJECTION
+        description: Input was flagged as attempting to override the system instruction.
+      TOXICITY:
+        text: TOXICITY
+        description: Output or input was flagged as toxic.
+  DatasetKind:
+    name: DatasetKind
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/DatasetKind
+    description: Role of a dataset relative to an AI model.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    permissible_values:
+      TRAINING:
+        text: TRAINING
+        description: Used to train the model.
+      FINE_TUNING:
+        text: FINE_TUNING
+        description: Used to fine-tune the model.
+      EVALUATION:
+        text: EVALUATION
+        description: Used to evaluate the model.
+      RAG_CORPUS:
+        text: RAG_CORPUS
+        description: Used as a retrieval corpus at inference time.
+      GROUND_TRUTH:
+        text: GROUND_TRUTH
+        description: Used as ground-truth labels for evaluation or supervised tuning.
+  EvaluatorKind:
+    name: EvaluatorKind
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/EvaluatorKind
+    description: Kind of evaluator that produced an EvaluationResult.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    permissible_values:
+      HUMAN_REVIEW:
+        text: HUMAN_REVIEW
+        description: Human reviewer-assigned score or pass/fail.
+      LLM_AS_JUDGE:
+        text: LLM_AS_JUDGE
+        description: A separate LLM invocation that scored the evaluated invocation.
+      METRIC:
+        text: METRIC
+        description: A deterministic numeric metric (ROUGE, BLEU, exact match, etc.).
+      GUARDRAIL:
+        text: GUARDRAIL
+        description: A guardrail or policy-check layer.
+      STATIC_RULE:
+        text: STATIC_RULE
+        description: A static rule check (regex, schema validation, etc.).
 slots:
   deployments:
     name: deployments
@@ -887,6 +1386,8 @@ slots:
     - Incident
     - Task
     - VariableInstance
+    - NamedThing
+    - ProvenanceBundle
     - Diagram
     - DiagramElement
     - Style
@@ -923,6 +1424,8 @@ slots:
     - ResourceDefinition
     - Task
     - VariableInstance
+    - NamedThing
+    - ProvenanceBundle
     - Font
     - Diagram
     - CallableElement
@@ -981,6 +1484,7 @@ slots:
     owner: SendTask
     domain_of:
     - Comment
+    - ProvenanceIncident
     - CorrelationPropertyRetrievalExpression
     - MessageEventDefinition
     - MessageFlow
@@ -1125,7 +1629,7 @@ slots:
     description: Reference to the deployment.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/base
     slot_uri: fluxnova_bpm_base:deployment_id
-    owner: ResourceDefinition
+    owner: WorkflowDefinition
     domain_of:
     - ByteArray
     - HistoricJobLog
@@ -1133,6 +1637,7 @@ slots:
     - Job
     - JobDefinition
     - ResourceDefinition
+    - WorkflowDefinition
     range: string
   is_generated:
     name: is_generated
@@ -2220,9 +2725,10 @@ slots:
     description: Email address.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/identity
     slot_uri: fluxnova_bpm_identity:email
-    owner: User
+    owner: Agent
     domain_of:
     - User
+    - Agent
     range: string
   first_name:
     name: first_name
@@ -2856,7 +3362,7 @@ slots:
     description: Runtime activity instance identifier.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/runtime
     slot_uri: fluxnova_bpm_runtime:activity_instance_id
-    owner: ExternalTask
+    owner: StepRun
     domain_of:
     - HistoricDecisionInstance
     - HistoricDetail
@@ -2865,6 +3371,7 @@ slots:
     - HistoricVariableInstance
     - Execution
     - ExternalTask
+    - StepRun
     range: string
   annotation:
     name: annotation
@@ -2917,12 +3424,13 @@ slots:
     description: Domain-specific business key.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/runtime
     slot_uri: fluxnova_bpm_runtime:business_key
-    owner: Execution
+    owner: WorkflowRun
     domain_of:
     - HistoricCaseInstance
     - HistoricProcessInstance
     - CaseExecution
     - Execution
+    - WorkflowRun
     range: string
   byte_array_id:
     name: byte_array_id
@@ -3275,10 +3783,11 @@ slots:
     description: Incident message.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/runtime
     slot_uri: fluxnova_bpm_runtime:incident_message
-    owner: Incident
+    owner: StepRun
     domain_of:
     - HistoricIncident
     - Incident
+    - StepRun
     range: string
   incident_timestamp:
     name: incident_timestamp
@@ -3379,10 +3888,11 @@ slots:
     description: Whether this entity is required.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/runtime
     slot_uri: fluxnova_bpm_runtime:is_required
-    owner: CaseExecution
+    owner: ParameterDefinition
     domain_of:
     - HistoricCaseActivityInstance
     - CaseExecution
+    - ParameterDefinition
     range: boolean
   is_satisfied:
     name: is_satisfied
@@ -3660,11 +4170,12 @@ slots:
       supposed to be dead and not retried again (ie a manu...
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/runtime
     slot_uri: fluxnova_bpm_runtime:retries
-    owner: ExternalTask
+    owner: StepRun
     domain_of:
     - HistoricExternalTaskLog
     - Job
     - ExternalTask
+    - StepRun
     range: integer
   root_cause_incident_id:
     name: root_cause_incident_id
@@ -3943,6 +4454,1058 @@ slots:
     domain_of:
     - BpmnModelInstance
     range: Definitions
+  external_ref:
+    name: external_ref
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/external_ref
+    description: External URI, engine identifier, or source reference for this entity.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - schema:url
+    slot_uri: schema:url
+    owner: NamedThing
+    domain_of:
+    - NamedThing
+    range: string
+  definition_version:
+    name: definition_version
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/definition_version
+    description: Version string of the workflow or step definition (semantic version
+      of the BPMN model).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - schema:version
+    slot_uri: schema:version
+    owner: RuntimeComponent
+    domain_of:
+    - WorkflowDefinition
+    - RuntimeComponent
+    range: string
+  generated_at:
+    name: generated_at
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/generated_at
+    description: Timestamp at which the provenance bundle was produced.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - prov:generatedAtTime
+    slot_uri: prov:generatedAtTime
+    owner: ProvenanceBundle
+    domain_of:
+    - ProvenanceBundle
+    range: datetime
+  source_system:
+    name: source_system
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/source_system
+    description: Name or identifier of the system that produced the provenance bundle.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - prov:wasAttributedTo
+    slot_uri: prov:wasAttributedTo
+    owner: ProvenanceBundle
+    domain_of:
+    - ProvenanceBundle
+    range: string
+  schema_version:
+    name: schema_version
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/schema_version
+    description: Version of the provenance schema used for the bundle.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - dcterms:hasVersion
+    slot_uri: dcterms:hasVersion
+    owner: ProvenanceBundle
+    domain_of:
+    - ProvenanceBundle
+    range: string
+  definition_key:
+    name: definition_key
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/definition_key
+    description: Stable engine definition key (BPMN process key).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:definition_key
+    owner: WorkflowDefinition
+    domain_of:
+    - WorkflowDefinition
+    range: string
+  source_model_ref:
+    name: source_model_ref
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/source_model_ref
+    description: Reference to the source BPMN/DMN/CMMN model artifact.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - prov:hadPrimarySource
+    slot_uri: prov:hadPrimarySource
+    owner: WorkflowDefinition
+    domain_of:
+    - WorkflowDefinition
+    range: WorkflowArtifact
+  runtime_component:
+    name: runtime_component
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/runtime_component
+    description: Engine or runtime component associated with the entity.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - schema:instrument
+    slot_uri: schema:instrument
+    owner: WorkflowRun
+    domain_of:
+    - WorkflowDefinition
+    - WorkflowRun
+    range: RuntimeComponent
+  steps:
+    name: steps
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/steps
+    description: Step definitions belonging to a workflow definition.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:steps
+    owner: WorkflowDefinition
+    domain_of:
+    - WorkflowDefinition
+    range: StepDefinition
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  authors:
+    name: authors
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/authors
+    description: Authors or owners of the workflow definition (by-reference; declare
+      full agents under ProvenanceBundle.agents).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:authors
+    owner: WorkflowDefinition
+    domain_of:
+    - WorkflowDefinition
+    range: Agent
+    multivalued: true
+  tags:
+    name: tags
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/tags
+    description: Free-form tag labels.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:tags
+    owner: WorkflowRun
+    domain_of:
+    - WorkflowDefinition
+    - WorkflowRun
+    range: string
+    multivalued: true
+  workflow_definition:
+    name: workflow_definition
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/workflow_definition
+    description: Reference to the owning workflow definition.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - schema:instrument
+    slot_uri: schema:instrument
+    owner: WorkflowRun
+    domain_of:
+    - StepDefinition
+    - WorkflowRun
+    range: WorkflowDefinition
+  bpmn_type:
+    name: bpmn_type
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/bpmn_type
+    description: Normalized BPMN element type for the step.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:bpmn_type
+    owner: StepDefinition
+    domain_of:
+    - StepDefinition
+    range: BPMNElementType
+  implementation_kind:
+    name: implementation_kind
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/implementation_kind
+    description: Normalized implementation strategy for the step.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:implementation_kind
+    owner: StepDefinition
+    domain_of:
+    - StepDefinition
+    range: ImplementationKind
+  decision_ref:
+    name: decision_ref
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/decision_ref
+    description: DMN decision or decision service reference for business rule tasks.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:decision_ref
+    owner: StepDefinition
+    domain_of:
+    - StepDefinition
+    range: string
+  form_ref:
+    name: form_ref
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/form_ref
+    description: Form reference for human tasks.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:form_ref
+    owner: StepDefinition
+    domain_of:
+    - StepDefinition
+    range: string
+  input_parameters:
+    name: input_parameters
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/input_parameters
+    description: Formal input parameter contracts for the step.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:input_parameters
+    owner: StepDefinition
+    domain_of:
+    - StepDefinition
+    range: ParameterDefinition
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  output_parameters:
+    name: output_parameters
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/output_parameters
+    description: Formal output parameter contracts for the step.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:output_parameters
+    owner: StepDefinition
+    domain_of:
+    - StepDefinition
+    range: ParameterDefinition
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  bpmn_extension_names:
+    name: bpmn_extension_names
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/bpmn_extension_names
+    description: Names or identifiers of BPMN extension elements used by the step.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:bpmn_extension_names
+    owner: StepDefinition
+    domain_of:
+    - StepDefinition
+    range: string
+    multivalued: true
+  parameter_scope:
+    name: parameter_scope
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/parameter_scope
+    description: Scope at which the parameter applies (workflow, step, task, decision,
+      form).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:parameter_scope
+    owner: ParameterDefinition
+    domain_of:
+    - ParameterDefinition
+    range: ParameterScope
+  parameter_direction:
+    name: parameter_direction
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/parameter_direction
+    description: Direction of data flow for a parameter (IN, OUT, INOUT, LOCAL).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:parameter_direction
+    owner: ParameterValue
+    domain_of:
+    - ParameterDefinition
+    - ParameterValue
+    range: DirectionEnum
+  declared_type:
+    name: declared_type
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/declared_type
+    description: Declared variable/parameter type as a string.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:declared_type
+    owner: ParameterDefinition
+    domain_of:
+    - ParameterDefinition
+    range: string
+  default_value:
+    name: default_value
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/default_value
+    description: Default value for the parameter in string/JSON form.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:default_value
+    owner: ParameterDefinition
+    domain_of:
+    - ParameterDefinition
+    range: string
+  secret:
+    name: secret
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/secret
+    description: Indicates that values for this parameter must be redacted on export.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:secret
+    owner: ParameterDefinition
+    domain_of:
+    - ParameterDefinition
+    range: boolean
+  allowed_values:
+    name: allowed_values
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/allowed_values
+    description: Enumerated allowed values for the parameter, if constrained.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:allowed_values
+    owner: ParameterDefinition
+    domain_of:
+    - ParameterDefinition
+    range: string
+    multivalued: true
+  agent_kind:
+    name: agent_kind
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/agent_kind
+    description: Kind of agent (person, organization, system, service account).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:agent_kind
+    owner: Agent
+    domain_of:
+    - Agent
+    range: AgentKind
+  role:
+    name: role
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/role
+    description: Roles played by the agent in this context.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:role
+    owner: Agent
+    domain_of:
+    - Agent
+    range: string
+    multivalued: true
+  runtime_name:
+    name: runtime_name
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/runtime_name
+    description: Runtime/platform name (e.g. "Fluxnova BPM Platform").
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - schema:name
+    slot_uri: schema:name
+    owner: Environment
+    domain_of:
+    - Environment
+    range: string
+  runtime_version:
+    name: runtime_version
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/runtime_version
+    description: Runtime/platform version.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - schema:softwareVersion
+    slot_uri: schema:softwareVersion
+    owner: Environment
+    domain_of:
+    - Environment
+    range: string
+  host:
+    name: host
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/host
+    description: Hostname or logical host.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:host
+    owner: ExecutionResource
+    domain_of:
+    - Environment
+    - ExecutionResource
+    range: string
+  region:
+    name: region
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/region
+    description: Region or availability zone.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:region
+    owner: Environment
+    domain_of:
+    - Environment
+    range: string
+  deployment_ref:
+    name: deployment_ref
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/deployment_ref
+    description: Deployment reference or release identifier (Helm chart URI, image
+      tag, etc.).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:deployment_ref
+    owner: Environment
+    domain_of:
+    - Environment
+    range: string
+  configuration_ref:
+    name: configuration_ref
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/configuration_ref
+    description: Reference to an artifact containing applied configuration.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:configuration_ref
+    owner: Environment
+    domain_of:
+    - Environment
+    range: WorkflowArtifact
+  component_kind:
+    name: component_kind
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/component_kind
+    description: Kind of runtime component (engine, REST API, executor, plugin, connector,
+      etc.).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:component_kind
+    owner: RuntimeComponent
+    domain_of:
+    - RuntimeComponent
+    range: RuntimeComponentKind
+  endpoint:
+    name: endpoint
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/endpoint
+    description: API or service endpoint URL.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:endpoint
+    owner: AiAgent
+    domain_of:
+    - RuntimeComponent
+    - ExecutionResource
+    - AiAgent
+    range: string
+  artifact_kind:
+    name: artifact_kind
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/artifact_kind
+    description: Classifier for the kind of artifact (BPMN XML, payload, document,
+      log, etc.).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:artifact_kind
+    owner: WorkflowArtifact
+    domain_of:
+    - WorkflowArtifact
+    range: ArtifactKind
+  media_type:
+    name: media_type
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/media_type
+    description: IANA media type / MIME type of the artifact.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - schema:encodingFormat
+    slot_uri: schema:encodingFormat
+    owner: WorkflowArtifact
+    domain_of:
+    - WorkflowArtifact
+    range: string
+  path_or_uri:
+    name: path_or_uri
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/path_or_uri
+    description: File path or URI locating the artifact content.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - schema:contentUrl
+    slot_uri: schema:contentUrl
+    owner: WorkflowArtifact
+    domain_of:
+    - WorkflowArtifact
+    range: string
+  hash:
+    name: hash
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/hash
+    description: Content hash or checksum string (algorithm-prefixed, e.g. "sha256:...").
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:hash
+    owner: WorkflowArtifact
+    domain_of:
+    - WorkflowArtifact
+    range: string
+  size_in_bytes:
+    name: size_in_bytes
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/size_in_bytes
+    description: Size of the artifact content in bytes.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - schema:contentSize
+    slot_uri: schema:contentSize
+    owner: WorkflowArtifact
+    domain_of:
+    - WorkflowArtifact
+    range: integer
+  produced_by_step_run:
+    name: produced_by_step_run
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/produced_by_step_run
+    description: Step run that produced this artifact or parameter value.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - prov:wasGeneratedBy
+    slot_uri: prov:wasGeneratedBy
+    owner: ParameterValue
+    domain_of:
+    - WorkflowArtifact
+    - ParameterValue
+    range: StepRun
+  consumed_by_step_runs:
+    name: consumed_by_step_runs
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/consumed_by_step_runs
+    description: Step runs that consumed this artifact or parameter value (by-reference).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - prov:used
+    slot_uri: prov:used
+    owner: ParameterValue
+    domain_of:
+    - WorkflowArtifact
+    - ParameterValue
+    range: StepRun
+    multivalued: true
+  parent_workflow_run:
+    name: parent_workflow_run
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/parent_workflow_run
+    description: Parent workflow run when the run is a sub-process invocation.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:parent_workflow_run
+    owner: WorkflowRun
+    domain_of:
+    - WorkflowRun
+    range: WorkflowRun
+  status:
+    name: status
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/status
+    description: Status of the workflow run or step run.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - schema:actionStatus
+    related_mappings:
+    - core:status
+    - nvd:NVDWorkflowStatus
+    slot_uri: schema:actionStatus
+    owner: ToolCall
+    domain_of:
+    - WorkflowRun
+    - StepRun
+    - ToolCall
+    range: RunStatus
+  incident_status:
+    name: incident_status
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/incident_status
+    description: Lifecycle status of an incident.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:incident_status
+    owner: ProvenanceIncident
+    domain_of:
+    - ProvenanceIncident
+    range: IncidentStatus
+  started_at:
+    name: started_at
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/started_at
+    description: Timestamp when execution started.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - schema:startTime
+    slot_uri: schema:startTime
+    owner: ToolCall
+    domain_of:
+    - WorkflowRun
+    - StepRun
+    - ToolCall
+    range: datetime
+  ended_at:
+    name: ended_at
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ended_at
+    description: Timestamp when execution ended (absent for running instances).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - schema:endTime
+    slot_uri: schema:endTime
+    owner: ToolCall
+    domain_of:
+    - WorkflowRun
+    - StepRun
+    - ToolCall
+    range: datetime
+  started_by:
+    name: started_by
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/started_by
+    description: Agent that initiated the workflow run.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - prov:wasAssociatedWith
+    narrow_mappings:
+    - schema:agent
+    slot_uri: prov:wasAssociatedWith
+    owner: WorkflowRun
+    domain_of:
+    - WorkflowRun
+    range: Agent
+  environment:
+    name: environment
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/environment
+    description: Runtime environment in which the run took place.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:environment
+    owner: StepRun
+    domain_of:
+    - WorkflowRun
+    - StepRun
+    range: Environment
+  input_values:
+    name: input_values
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/input_values
+    description: Observed input parameter values at the workflow or step boundary
+      (by-reference; declare full values under ProvenanceBundle.parameter_values).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - schema:object
+    slot_uri: schema:object
+    owner: StepRun
+    domain_of:
+    - WorkflowRun
+    - StepRun
+    range: ParameterValue
+    multivalued: true
+  output_values:
+    name: output_values
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/output_values
+    description: Observed output parameter values at the workflow or step boundary
+      (by-reference; declare full values under ProvenanceBundle.parameter_values).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - schema:result
+    slot_uri: schema:result
+    owner: StepRun
+    domain_of:
+    - WorkflowRun
+    - StepRun
+    range: ParameterValue
+    multivalued: true
+  step_runs:
+    name: step_runs
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/step_runs
+    description: Step run executions belonging to the workflow run.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:step_runs
+    owner: WorkflowRun
+    domain_of:
+    - WorkflowRun
+    range: StepRun
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  incidents:
+    name: incidents
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/incidents
+    description: Incidents recorded against the workflow run.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:incidents
+    owner: WorkflowRun
+    domain_of:
+    - WorkflowRun
+    range: ProvenanceIncident
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  resource_usage:
+    name: resource_usage
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/resource_usage
+    description: Resource usage measurements for the run.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:resource_usage
+    owner: WorkflowRun
+    domain_of:
+    - WorkflowRun
+    range: ResourceUsage
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  workflow_run:
+    name: workflow_run
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/workflow_run
+    description: Parent workflow run for the step run.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:workflow_run
+    owner: StepRun
+    domain_of:
+    - StepRun
+    range: WorkflowRun
+  step_definition:
+    name: step_definition
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/step_definition
+    description: Step definition this run instantiates.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - schema:instrument
+    slot_uri: schema:instrument
+    owner: StepRun
+    domain_of:
+    - StepRun
+    range: StepDefinition
+  parent_step_run:
+    name: parent_step_run
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/parent_step_run
+    description: Parent step run for nested step executions.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:parent_step_run
+    owner: StepRun
+    domain_of:
+    - StepRun
+    range: StepRun
+  informed_by:
+    name: informed_by
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/informed_by
+    description: Step runs whose completion preceded and informed this step run (by-reference).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - prov:wasInformedBy
+    slot_uri: prov:wasInformedBy
+    owner: StepRun
+    domain_of:
+    - StepRun
+    range: StepRun
+    multivalued: true
+  executed_by:
+    name: executed_by
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/executed_by
+    description: Agent (assignee, service account, system) that executed the step.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - prov:wasAssociatedWith
+    narrow_mappings:
+    - schema:agent
+    slot_uri: prov:wasAssociatedWith
+    owner: StepRun
+    domain_of:
+    - StepRun
+    range: Agent
+  execution_resource:
+    name: execution_resource
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/execution_resource
+    description: Resource (pod, container, node, queue) used to execute the step.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:execution_resource
+    owner: ResourceUsage
+    domain_of:
+    - StepRun
+    - ResourceUsage
+    range: ExecutionResource
+  consumed_artifacts:
+    name: consumed_artifacts
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/consumed_artifacts
+    description: Artifacts consumed by the step run (by-reference; declare full artifacts
+      under ProvenanceBundle.artifacts).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - prov:used
+    slot_uri: prov:used
+    owner: StepRun
+    domain_of:
+    - StepRun
+    range: WorkflowArtifact
+    multivalued: true
+  produced_artifacts:
+    name: produced_artifacts
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/produced_artifacts
+    description: Artifacts produced by the step run (by-reference; declare full artifacts
+      under ProvenanceBundle.artifacts).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - prov:generated
+    slot_uri: prov:generated
+    owner: StepRun
+    domain_of:
+    - StepRun
+    range: WorkflowArtifact
+    multivalued: true
+  sequence_no:
+    name: sequence_no
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/sequence_no
+    description: Exporter-assigned ordering number for deterministic serialization.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:sequence_no
+    owner: PromptMessage
+    domain_of:
+    - StepRun
+    - PromptMessage
+    range: integer
+  parameter_definition:
+    name: parameter_definition
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/parameter_definition
+    description: Formal parameter definition this value instantiates.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - schema:exampleOfWork
+    slot_uri: schema:exampleOfWork
+    owner: ParameterValue
+    domain_of:
+    - ParameterValue
+    range: ParameterDefinition
+  observed_type:
+    name: observed_type
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/observed_type
+    description: Runtime-observed concrete type for the actual value.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:observed_type
+    owner: ParameterValue
+    domain_of:
+    - ParameterValue
+    range: string
+  serialized_value:
+    name: serialized_value
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/serialized_value
+    description: Export-safe serialized value (JSON scalar/string/external reference).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:serialized_value
+    owner: ParameterValue
+    domain_of:
+    - ParameterValue
+    range: string
+  value_hash:
+    name: value_hash
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/value_hash
+    description: Hash of the serialized value for deduplication or comparison.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:value_hash
+    owner: ParameterValue
+    domain_of:
+    - ParameterValue
+    range: string
+  observed_at:
+    name: observed_at
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/observed_at
+    description: Timestamp when the value or event was observed.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:observed_at
+    owner: ProvenanceIncident
+    domain_of:
+    - ParameterValue
+    - ProvenanceIncident
+    range: datetime
+  derived_from:
+    name: derived_from
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/derived_from
+    description: Upstream parameter values from which this value was derived (by-reference).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    mappings:
+    - prov:wasDerivedFrom
+    slot_uri: prov:wasDerivedFrom
+    owner: ParameterValue
+    domain_of:
+    - ParameterValue
+    range: ParameterValue
+    multivalued: true
+  redacted:
+    name: redacted
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/redacted
+    description: Whether the serialized value has been redacted for export.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:redacted
+    owner: PromptMessage
+    domain_of:
+    - ParameterValue
+    - PromptMessage
+    range: boolean
+  classification:
+    name: classification
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/classification
+    description: Data classification of the value (public, internal, confidential,
+      restricted).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:classification
+    owner: AiDataset
+    domain_of:
+    - ParameterValue
+    - PromptMessage
+    - AiDataset
+    range: DataClassification
+  metric_name:
+    name: metric_name
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/metric_name
+    description: Metric name (e.g. duration_ms, queue_wait_ms, cpu_seconds, tokens_in).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:metric_name
+    owner: EvaluationResult
+    domain_of:
+    - ResourceUsage
+    - EvaluationResult
+    range: string
+  metric_value:
+    name: metric_value
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/metric_value
+    description: Metric numeric value.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:metric_value
+    owner: EvaluationResult
+    domain_of:
+    - ResourceUsage
+    - EvaluationResult
+    range: decimal
+  metric_unit:
+    name: metric_unit
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/metric_unit
+    description: UCUM or local unit string for the metric.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:metric_unit
+    owner: EvaluationResult
+    domain_of:
+    - ResourceUsage
+    - EvaluationResult
+    range: string
+  measured_for_workflow_run:
+    name: measured_for_workflow_run
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/measured_for_workflow_run
+    description: Workflow run the measurement is associated with.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:measured_for_workflow_run
+    owner: ResourceUsage
+    domain_of:
+    - ResourceUsage
+    range: WorkflowRun
+  measured_for_step_run:
+    name: measured_for_step_run
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/measured_for_step_run
+    description: Step run the measurement is associated with.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:measured_for_step_run
+    owner: ResourceUsage
+    domain_of:
+    - ResourceUsage
+    range: StepRun
+  resource_kind:
+    name: resource_kind
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/resource_kind
+    description: Kind of execution resource.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:resource_kind
+    owner: ExecutionResource
+    domain_of:
+    - ExecutionResource
+    range: ResourceKind
+  labels:
+    name: labels
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/labels
+    description: Free-form key=value labels on the resource.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    related_mappings:
+    - stix:labels
+    - unified_cyber_ontology:tag
+    slot_uri: fluxnova_bpm_provenance:labels
+    owner: ExecutionResource
+    domain_of:
+    - ExecutionResource
+    range: string
+    multivalued: true
+  code:
+    name: code
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/code
+    description: Incident or error code.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:code
+    owner: ProvenanceIncident
+    domain_of:
+    - ProvenanceIncident
+    range: string
+  related_step_run:
+    name: related_step_run
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/related_step_run
+    description: Step run the incident is related to.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:related_step_run
+    owner: ProvenanceIncident
+    domain_of:
+    - ProvenanceIncident
+    range: StepRun
+  related_workflow_run:
+    name: related_workflow_run
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/related_workflow_run
+    description: Workflow run the incident is related to.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:related_workflow_run
+    owner: ProvenanceIncident
+    domain_of:
+    - ProvenanceIncident
+    range: WorkflowRun
+  workflow_definitions:
+    name: workflow_definitions
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/workflow_definitions
+    description: Workflow definitions exported in the bundle.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:workflow_definitions
+    owner: ProvenanceBundle
+    domain_of:
+    - ProvenanceBundle
+    range: WorkflowDefinition
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  workflow_runs:
+    name: workflow_runs
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/workflow_runs
+    description: Workflow runs exported in the bundle.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:workflow_runs
+    owner: ProvenanceBundle
+    domain_of:
+    - ProvenanceBundle
+    range: WorkflowRun
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  agents:
+    name: agents
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/agents
+    description: Agents referenced by the bundle.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:agents
+    owner: ProvenanceBundle
+    domain_of:
+    - ProvenanceBundle
+    range: Agent
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  environments:
+    name: environments
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/environments
+    description: Environments referenced by the bundle.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:environments
+    owner: ProvenanceBundle
+    domain_of:
+    - ProvenanceBundle
+    range: Environment
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  runtime_components:
+    name: runtime_components
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/runtime_components
+    description: Runtime components referenced by the bundle.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:runtime_components
+    owner: ProvenanceBundle
+    domain_of:
+    - ProvenanceBundle
+    range: RuntimeComponent
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  workflow_artifacts:
+    name: workflow_artifacts
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/workflow_artifacts
+    description: Workflow artifacts referenced by the bundle.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:workflow_artifacts
+    owner: ProvenanceBundle
+    domain_of:
+    - ProvenanceBundle
+    range: WorkflowArtifact
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  parameter_values:
+    name: parameter_values
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/parameter_values
+    description: Parameter value observations referenced by the bundle's workflow_runs
+      and step_runs.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:parameter_values
+    owner: ProvenanceBundle
+    domain_of:
+    - ProvenanceBundle
+    range: ParameterValue
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  resources:
+    name: resources
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/resources
+    description: Execution resources (workers, pods, queues, hosts) referenced by
+      the bundle's step_runs.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    slot_uri: fluxnova_bpm_provenance:resources
+    owner: ProvenanceBundle
+    domain_of:
+    - ProvenanceBundle
+    range: ExecutionResource
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
   x:
     name: x
     definition_uri: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_dc/x
@@ -4498,6 +6061,7 @@ slots:
     slot_uri: fluxnova_bpmn_model_instance:called_element
     owner: CallActivity
     domain_of:
+    - StepDefinition
     - CallActivity
     range: string
   fluxnova_async:
@@ -5633,6 +7197,7 @@ slots:
     slot_uri: fluxnova_bpmn_model_instance:implementation_ref
     owner: Operation
     domain_of:
+    - StepDefinition
     - Interface
     - Operation
     range: string
@@ -7264,6 +8829,560 @@ slots:
     multivalued: true
     inlined: true
     inlined_as_list: true
+  model_family:
+    name: model_family
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/model_family
+    description: Model family or product line (e.g. "GPT-4", "Claude 3", "Llama 3",
+      "Mistral 7B").
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    mappings:
+    - schema:productID
+    slot_uri: schema:productID
+    owner: AiModelDescriptor
+    domain_of:
+    - AiAgent
+    - AiModelDescriptor
+    range: string
+  model_name:
+    name: model_name
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/model_name
+    description: Concrete model name (e.g. "gpt-4o-2024-05-13", "claude-3-5-sonnet-20240620").
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    mappings:
+    - schema:name
+    slot_uri: schema:name
+    owner: AiAgent
+    domain_of:
+    - AiAgent
+    range: string
+  model_version:
+    name: model_version
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/model_version
+    description: Released or pinned version identifier for the model.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    mappings:
+    - schema:softwareVersion
+    slot_uri: schema:softwareVersion
+    owner: AiAgent
+    domain_of:
+    - AiAgent
+    range: string
+  provider:
+    name: provider
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/provider
+    description: 'Provider or vendor that hosts the model endpoint (e.g. "openai",
+      "anthropic",
+
+      "azure-openai", "vertex-ai", "self-hosted-vllm").'
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:provider
+    owner: AiAgent
+    domain_of:
+    - AiAgent
+    range: string
+  parameter_count:
+    name: parameter_count
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/parameter_count
+    description: Number of model parameters (where disclosed).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    exact_mappings:
+    - nexus:numParameters
+    slot_uri: fluxnova_bpm_ai_provenance:parameter_count
+    owner: ModelArtifact
+    domain_of:
+    - AiAgent
+    - AiModelDescriptor
+    - ModelArtifact
+    range: integer
+  training_token_count:
+    name: training_token_count
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/training_token_count
+    description: Number of tokens used to train the model (where disclosed).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    exact_mappings:
+    - nexus:numTrainingTokens
+    slot_uri: fluxnova_bpm_ai_provenance:training_token_count
+    owner: AiModelDescriptor
+    domain_of:
+    - AiModelDescriptor
+    range: integer
+  context_window_tokens:
+    name: context_window_tokens
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/context_window_tokens
+    description: Maximum input context window in tokens.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    exact_mappings:
+    - nexus:contextWindowSize
+    slot_uri: fluxnova_bpm_ai_provenance:context_window_tokens
+    owner: AiModelDescriptor
+    domain_of:
+    - AiAgent
+    - AiModelDescriptor
+    range: integer
+  input_modalities:
+    name: input_modalities
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/input_modalities
+    description: Modalities the model accepts as input.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    exact_mappings:
+    - nexus:hasInputModality
+    slot_uri: fluxnova_bpm_ai_provenance:input_modalities
+    owner: AiAgent
+    domain_of:
+    - AiAgent
+    range: AiModality
+    multivalued: true
+  output_modalities:
+    name: output_modalities
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/output_modalities
+    description: Modalities the model produces as output.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    exact_mappings:
+    - nexus:hasOutputModality
+    slot_uri: fluxnova_bpm_ai_provenance:output_modalities
+    owner: AiAgent
+    domain_of:
+    - AiAgent
+    range: AiModality
+    multivalued: true
+  is_part_of_ai_system:
+    name: is_part_of_ai_system
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/is_part_of_ai_system
+    description: 'External CURIE or URI reference to a larger AI system this agent
+      belongs
+
+      to (typically modeled in an AI governance vocabulary such as nexus:AiSystem
+
+      or airo:AISystem). String reference rather than typed slot so the AI
+
+      provenance overlay does not pull in a governance ontology.'
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    related_mappings:
+    - airo:AISystem
+    - nexus:AiSystem
+    slot_uri: fluxnova_bpm_ai_provenance:is_part_of_ai_system
+    owner: AiAgent
+    domain_of:
+    - AiAgent
+    range: string
+  architecture:
+    name: architecture
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/architecture
+    description: Architecture family (e.g. "transformer-decoder", "moe", "mamba",
+      "diffusion").
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:architecture
+    owner: AiModelDescriptor
+    domain_of:
+    - AiModelDescriptor
+    range: string
+  fine_tuning_description:
+    name: fine_tuning_description
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/fine_tuning_description
+    description: Free-text description of fine-tuning applied to the model.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:fine_tuning_description
+    owner: AiModelDescriptor
+    domain_of:
+    - AiModelDescriptor
+    range: string
+  supported_languages:
+    name: supported_languages
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/supported_languages
+    description: ISO 639 language tags supported by the model.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:supported_languages
+    owner: AiModelDescriptor
+    domain_of:
+    - AiModelDescriptor
+    range: string
+    multivalued: true
+  invoked_model:
+    name: invoked_model
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/invoked_model
+    description: AI agent that was invoked to produce the step result.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    mappings:
+    - prov:wasAssociatedWith
+    exact_mappings:
+    - prov:wasAssociatedWith
+    slot_uri: prov:wasAssociatedWith
+    owner: AiModelInvocation
+    domain_of:
+    - AiModelInvocation
+    range: AiAgent
+  invocation_kind:
+    name: invocation_kind
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/invocation_kind
+    description: Kind of invocation (chat completion, tool use, embedding, etc.).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:invocation_kind
+    owner: AiModelInvocation
+    domain_of:
+    - AiModelInvocation
+    range: AiInvocationKind
+  prompt_messages:
+    name: prompt_messages
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/prompt_messages
+    description: Ordered sequence of prompt messages sent to the model.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:prompt_messages
+    owner: AiModelInvocation
+    domain_of:
+    - AiModelInvocation
+    range: PromptMessage
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  tool_calls:
+    name: tool_calls
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/tool_calls
+    description: Tool / function calls performed by the model during the invocation.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:tool_calls
+    owner: AiModelInvocation
+    domain_of:
+    - AiModelInvocation
+    range: ToolCall
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  response_message:
+    name: response_message
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/response_message
+    description: 'Assistant or tool message returned by the model as the response.
+
+      Inlined as a single PromptMessage with role ASSISTANT or TOOL.'
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:response_message
+    owner: AiModelInvocation
+    domain_of:
+    - AiModelInvocation
+    range: PromptMessage
+  temperature:
+    name: temperature
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/temperature
+    description: Sampling temperature requested for the invocation.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:temperature
+    owner: AiModelInvocation
+    domain_of:
+    - AiModelInvocation
+    range: decimal
+  top_p:
+    name: top_p
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/top_p
+    description: Top-p nucleus sampling parameter.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:top_p
+    owner: AiModelInvocation
+    domain_of:
+    - AiModelInvocation
+    range: decimal
+  max_tokens:
+    name: max_tokens
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/max_tokens
+    description: Maximum tokens the model was permitted to generate.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:max_tokens
+    owner: AiModelInvocation
+    domain_of:
+    - AiModelInvocation
+    range: integer
+  total_input_tokens:
+    name: total_input_tokens
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/total_input_tokens
+    description: Total prompt / input tokens consumed by the invocation.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:total_input_tokens
+    owner: AiModelInvocation
+    domain_of:
+    - AiModelInvocation
+    range: integer
+  total_output_tokens:
+    name: total_output_tokens
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/total_output_tokens
+    description: Total completion / output tokens produced by the invocation.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:total_output_tokens
+    owner: AiModelInvocation
+    domain_of:
+    - AiModelInvocation
+    range: integer
+  cost_usd:
+    name: cost_usd
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/cost_usd
+    description: 'Direct provider cost in USD for the invocation, where reported by
+      the
+
+      provider or computed locally from billing rates.'
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:cost_usd
+    owner: AiModelInvocation
+    domain_of:
+    - AiModelInvocation
+    range: decimal
+  safety_flags:
+    name: safety_flags
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/safety_flags
+    description: 'Safety, policy, or guardrail flags raised by the model, provider,
+      or
+
+      local guardrail layer during the invocation.'
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:safety_flags
+    owner: AiModelInvocation
+    domain_of:
+    - AiModelInvocation
+    range: SafetyFlag
+    multivalued: true
+  evaluation_results:
+    name: evaluation_results
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/evaluation_results
+    description: Evaluation results attached to the invocation.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:evaluation_results
+    owner: AiModelInvocation
+    domain_of:
+    - AiModelInvocation
+    range: EvaluationResult
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  message_role:
+    name: message_role
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/message_role
+    description: Conversational role of the message (system, user, assistant, tool).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:message_role
+    owner: PromptMessage
+    domain_of:
+    - PromptMessage
+    range: MessageRole
+  content:
+    name: content
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/content
+    description: Message content (may be redacted in export).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:content
+    owner: PromptMessage
+    domain_of:
+    - PromptMessage
+    range: string
+  content_hash:
+    name: content_hash
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/content_hash
+    description: 'Hash of the message content (algorithm-prefixed, e.g. "sha256:...").
+
+      Used to deduplicate or to attest to a message that has been redacted.'
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:content_hash
+    owner: PromptMessage
+    domain_of:
+    - PromptMessage
+    range: string
+  parent_invocation:
+    name: parent_invocation
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/parent_invocation
+    description: AI model invocation that produced or owns this message or tool call.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:parent_invocation
+    owner: ToolCall
+    domain_of:
+    - PromptMessage
+    - ToolCall
+    range: AiModelInvocation
+  tool_name:
+    name: tool_name
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/tool_name
+    description: Tool or function name as exposed to the model.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:tool_name
+    owner: ToolCall
+    domain_of:
+    - ToolCall
+    range: string
+  tool_call_id:
+    name: tool_call_id
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/tool_call_id
+    description: Provider-assigned identifier for the tool call.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:tool_call_id
+    owner: ToolCall
+    domain_of:
+    - ToolCall
+    range: string
+  arguments_json:
+    name: arguments_json
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/arguments_json
+    description: JSON-serialized arguments passed to the tool.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:arguments_json
+    owner: ToolCall
+    domain_of:
+    - ToolCall
+    range: string
+  result_json:
+    name: result_json
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/result_json
+    description: JSON-serialized result returned by the tool.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:result_json
+    owner: ToolCall
+    domain_of:
+    - ToolCall
+    range: string
+  result_artifact:
+    name: result_artifact
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/result_artifact
+    description: Optional artifact reference for large tool outputs.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:result_artifact
+    owner: ToolCall
+    domain_of:
+    - ToolCall
+    range: WorkflowArtifact
+  called_step_run:
+    name: called_step_run
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/called_step_run
+    description: Step run that was materialized to execute the tool call, if any.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:called_step_run
+    owner: ToolCall
+    domain_of:
+    - ToolCall
+    range: StepRun
+  evaluator_name:
+    name: evaluator_name
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/evaluator_name
+    description: Name of the evaluator (rubric name, judge model name, metric name).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:evaluator_name
+    owner: EvaluationResult
+    domain_of:
+    - EvaluationResult
+    range: string
+  evaluator_kind:
+    name: evaluator_kind
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/evaluator_kind
+    description: Kind of evaluator (human, LLM-as-judge, metric, guardrail, static
+      rule).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:evaluator_kind
+    owner: EvaluationResult
+    domain_of:
+    - EvaluationResult
+    range: EvaluatorKind
+  passing:
+    name: passing
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/passing
+    description: Whether the evaluation was considered passing.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:passing
+    owner: EvaluationResult
+    domain_of:
+    - EvaluationResult
+    range: boolean
+  evaluated_at:
+    name: evaluated_at
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/evaluated_at
+    description: Timestamp when the evaluation was performed.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:evaluated_at
+    owner: EvaluationResult
+    domain_of:
+    - EvaluationResult
+    range: datetime
+  evaluated_invocation:
+    name: evaluated_invocation
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/evaluated_invocation
+    description: AI model invocation that was evaluated.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:evaluated_invocation
+    owner: EvaluationResult
+    domain_of:
+    - EvaluationResult
+    range: AiModelInvocation
+  dataset_kind:
+    name: dataset_kind
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/dataset_kind
+    description: Role of the dataset (training, fine-tuning, evaluation, RAG corpus,
+      ground truth).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:dataset_kind
+    owner: AiDataset
+    domain_of:
+    - AiDataset
+    range: DatasetKind
+  record_count:
+    name: record_count
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/record_count
+    description: Number of records in the dataset.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:record_count
+    owner: AiDataset
+    domain_of:
+    - AiDataset
+    range: integer
+  license_uri:
+    name: license_uri
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/license_uri
+    description: URI of the dataset license (e.g. SPDX license URL).
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    mappings:
+    - schema:license
+    exact_mappings:
+    - schema:license
+    slot_uri: schema:license
+    owner: AiDataset
+    domain_of:
+    - AiDataset
+    range: string
+  model_card_uri:
+    name: model_card_uri
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/model_card_uri
+    description: URI of the model card or model documentation.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:model_card_uri
+    owner: ModelArtifact
+    domain_of:
+    - ModelArtifact
+    range: string
+  weights_uri:
+    name: weights_uri
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/weights_uri
+    description: URI of the model weights or checkpoint.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:weights_uri
+    owner: ModelArtifact
+    domain_of:
+    - ModelArtifact
+    range: string
+  training_datasets:
+    name: training_datasets
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/training_datasets
+    description: Datasets used to train or fine-tune the model.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:training_datasets
+    owner: ModelArtifact
+    domain_of:
+    - ModelArtifact
+    range: AiDataset
+    multivalued: true
+  base_model:
+    name: base_model
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/base_model
+    description: Upstream base model artifact this artifact derives from.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    mappings:
+    - prov:wasDerivedFrom
+    exact_mappings:
+    - prov:wasDerivedFrom
+    slot_uri: prov:wasDerivedFrom
+    owner: ModelArtifact
+    domain_of:
+    - ModelArtifact
+    range: ModelArtifact
   FluxnovaPlatformData_deployments:
     name: FluxnovaPlatformData_deployments
     definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/deployments
@@ -10556,6 +12675,379 @@ classes:
     exact_mappings:
     - fluxnova_bpmn_model:BpmnModelType
     class_uri: fluxnova_bpmn_model:BpmnModelType
+  NamedThing:
+    name: NamedThing
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/NamedThing
+    description: Abstract identifiable provenance entity with optional human-readable
+      name and external reference.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    exact_mappings:
+    - fluxnova_bpm_provenance:NamedThing
+    abstract: true
+    slots:
+    - id
+    - name
+    - external_ref
+    class_uri: fluxnova_bpm_provenance:NamedThing
+  ProvenanceBundle:
+    name: ProvenanceBundle
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ProvenanceBundle
+    description: Top-level export package for Fluxnova provenance.
+    in_subset:
+    - context_entities
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    exact_mappings:
+    - fluxnova_bpm_provenance:ProvenanceBundle
+    - prov:Bundle
+    - schema:Dataset
+    slots:
+    - id
+    - name
+    - generated_at
+    - source_system
+    - schema_version
+    - workflow_definitions
+    - workflow_runs
+    - agents
+    - environments
+    - runtime_components
+    - workflow_artifacts
+    - parameter_values
+    - resources
+    class_uri: fluxnova_bpm_provenance:ProvenanceBundle
+    tree_root: true
+  WorkflowDefinition:
+    name: WorkflowDefinition
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/WorkflowDefinition
+    description: BPMN workflow / process definition (prospective provenance).
+    in_subset:
+    - prospective_provenance
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    exact_mappings:
+    - fluxnova_bpm_provenance:WorkflowDefinition
+    - bpmn:Process
+    - schema:ComputationalWorkflow
+    - fluxnova_bpm_repository:ProcessDefinition
+    is_a: NamedThing
+    slots:
+    - id
+    - name
+    - external_ref
+    - definition_version
+    - definition_key
+    - deployment_id
+    - source_model_ref
+    - runtime_component
+    - steps
+    - authors
+    - tags
+    class_uri: fluxnova_bpm_provenance:WorkflowDefinition
+  StepDefinition:
+    name: StepDefinition
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/StepDefinition
+    description: BPMN step / activity / event / gateway definition within a workflow.
+    in_subset:
+    - prospective_provenance
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    exact_mappings:
+    - fluxnova_bpm_provenance:StepDefinition
+    - bpmn:FlowNode
+    - schema:HowToStep
+    is_a: NamedThing
+    slots:
+    - id
+    - name
+    - external_ref
+    - workflow_definition
+    - bpmn_type
+    - implementation_kind
+    - implementation_ref
+    - called_element
+    - decision_ref
+    - form_ref
+    - input_parameters
+    - output_parameters
+    - bpmn_extension_names
+    class_uri: fluxnova_bpm_provenance:StepDefinition
+  ParameterDefinition:
+    name: ParameterDefinition
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ParameterDefinition
+    description: Formal parameter or variable contract for a workflow or step.
+    in_subset:
+    - prospective_provenance
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    exact_mappings:
+    - fluxnova_bpm_provenance:ParameterDefinition
+    - schema:PropertyValueSpecification
+    - wrroc:FormalParameter
+    is_a: NamedThing
+    slots:
+    - id
+    - name
+    - external_ref
+    - parameter_scope
+    - parameter_direction
+    - declared_type
+    - is_required
+    - default_value
+    - secret
+    - allowed_values
+    class_uri: fluxnova_bpm_provenance:ParameterDefinition
+  Agent:
+    name: Agent
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/Agent
+    description: Person, organization, system, or service account participating in
+      workflow execution.
+    in_subset:
+    - context_entities
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    exact_mappings:
+    - fluxnova_bpm_provenance:Agent
+    - prov:Agent
+    - schema:Agent
+    related_mappings:
+    - d3f:Agent
+    - spdx:Agent
+    is_a: NamedThing
+    slots:
+    - id
+    - name
+    - external_ref
+    - agent_kind
+    - email
+    - role
+    class_uri: fluxnova_bpm_provenance:Agent
+  Environment:
+    name: Environment
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/Environment
+    description: Runtime environment for process execution or export generation.
+    in_subset:
+    - context_entities
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    exact_mappings:
+    - fluxnova_bpm_provenance:Environment
+    - schema:SoftwareApplication
+    is_a: NamedThing
+    slots:
+    - id
+    - name
+    - external_ref
+    - runtime_name
+    - runtime_version
+    - host
+    - region
+    - deployment_ref
+    - configuration_ref
+    class_uri: fluxnova_bpm_provenance:Environment
+  RuntimeComponent:
+    name: RuntimeComponent
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/RuntimeComponent
+    description: Engine, plugin, or service component involved in orchestration.
+    in_subset:
+    - context_entities
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    exact_mappings:
+    - fluxnova_bpm_provenance:RuntimeComponent
+    - schema:SoftwareApplication
+    - prov:SoftwareAgent
+    is_a: NamedThing
+    slots:
+    - id
+    - name
+    - external_ref
+    - component_kind
+    - definition_version
+    - endpoint
+    class_uri: fluxnova_bpm_provenance:RuntimeComponent
+  WorkflowArtifact:
+    name: WorkflowArtifact
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/WorkflowArtifact
+    description: File, payload, or URI referenced by a process definition or execution.
+    in_subset:
+    - context_entities
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    exact_mappings:
+    - fluxnova_bpm_provenance:WorkflowArtifact
+    - prov:Entity
+    - schema:MediaObject
+    is_a: NamedThing
+    slots:
+    - id
+    - name
+    - external_ref
+    - artifact_kind
+    - media_type
+    - path_or_uri
+    - hash
+    - size_in_bytes
+    - produced_by_step_run
+    - consumed_by_step_runs
+    class_uri: fluxnova_bpm_provenance:WorkflowArtifact
+  WorkflowRun:
+    name: WorkflowRun
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/WorkflowRun
+    description: Concrete execution of a WorkflowDefinition (retrospective provenance).
+    in_subset:
+    - retrospective_provenance
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    exact_mappings:
+    - fluxnova_bpm_provenance:WorkflowRun
+    - prov:Activity
+    - schema:CreateAction
+    - fluxnova_bpm_history:HistoricProcessInstance
+    is_a: NamedThing
+    slots:
+    - id
+    - name
+    - external_ref
+    - workflow_definition
+    - business_key
+    - parent_workflow_run
+    - status
+    - started_at
+    - ended_at
+    - started_by
+    - environment
+    - runtime_component
+    - input_values
+    - output_values
+    - step_runs
+    - incidents
+    - resource_usage
+    - tags
+    class_uri: fluxnova_bpm_provenance:WorkflowRun
+  StepRun:
+    name: StepRun
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/StepRun
+    description: Concrete execution of a StepDefinition (retrospective provenance).
+    in_subset:
+    - retrospective_provenance
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    exact_mappings:
+    - fluxnova_bpm_provenance:StepRun
+    - prov:Activity
+    - schema:CreateAction
+    - fluxnova_bpm_history:HistoricActivityInstance
+    is_a: NamedThing
+    slots:
+    - id
+    - name
+    - external_ref
+    - workflow_run
+    - step_definition
+    - activity_instance_id
+    - parent_step_run
+    - informed_by
+    - status
+    - started_at
+    - ended_at
+    - executed_by
+    - environment
+    - execution_resource
+    - input_values
+    - output_values
+    - consumed_artifacts
+    - produced_artifacts
+    - incident_message
+    - retries
+    - sequence_no
+    class_uri: fluxnova_bpm_provenance:StepRun
+  ParameterValue:
+    name: ParameterValue
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ParameterValue
+    description: Actual observed runtime value of a variable or parameter.
+    in_subset:
+    - retrospective_provenance
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    exact_mappings:
+    - fluxnova_bpm_provenance:ParameterValue
+    - schema:PropertyValue
+    - prov:Entity
+    - fluxnova_bpm_history:HistoricVariableInstance
+    is_a: NamedThing
+    slots:
+    - id
+    - name
+    - external_ref
+    - parameter_definition
+    - observed_type
+    - parameter_direction
+    - serialized_value
+    - value_hash
+    - observed_at
+    - produced_by_step_run
+    - consumed_by_step_runs
+    - derived_from
+    - redacted
+    - classification
+    class_uri: fluxnova_bpm_provenance:ParameterValue
+  ResourceUsage:
+    name: ResourceUsage
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ResourceUsage
+    description: Resource usage measurement for a workflow run or step run.
+    in_subset:
+    - retrospective_provenance
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    exact_mappings:
+    - fluxnova_bpm_provenance:ResourceUsage
+    - schema:PropertyValue
+    is_a: NamedThing
+    slots:
+    - id
+    - name
+    - external_ref
+    - metric_name
+    - metric_value
+    - metric_unit
+    - measured_for_workflow_run
+    - measured_for_step_run
+    - execution_resource
+    class_uri: fluxnova_bpm_provenance:ResourceUsage
+  ExecutionResource:
+    name: ExecutionResource
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ExecutionResource
+    description: Execution resource such as worker, node, queue, container, or database.
+    in_subset:
+    - context_entities
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    exact_mappings:
+    - fluxnova_bpm_provenance:ExecutionResource
+    - prov:Entity
+    - schema:Thing
+    is_a: NamedThing
+    slots:
+    - id
+    - name
+    - external_ref
+    - resource_kind
+    - host
+    - endpoint
+    - labels
+    class_uri: fluxnova_bpm_provenance:ExecutionResource
+  ProvenanceIncident:
+    name: ProvenanceIncident
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ProvenanceIncident
+    description: Error, escalation, or operational event attached to a workflow run
+      or step run.
+    in_subset:
+    - retrospective_provenance
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
+    exact_mappings:
+    - fluxnova_bpm_provenance:ProvenanceIncident
+    - schema:Action
+    - fluxnova_bpm_history:HistoricIncident
+    is_a: NamedThing
+    slots:
+    - id
+    - name
+    - external_ref
+    - incident_status
+    - message
+    - code
+    - observed_at
+    - related_step_run
+    - related_workflow_run
+    class_uri: fluxnova_bpm_provenance:ProvenanceIncident
   Bounds:
     name: Bounds
     definition_uri: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_dc/Bounds
@@ -16032,9 +18524,315 @@ classes:
     - fluxnova_id
     - fluxnova_name
     class_uri: fluxnova_bpmn_model_fluxnova:FluxnovaValue
+  AiAgent:
+    name: AiAgent
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiAgent
+    description: 'Autonomous or semi-autonomous AI agent that acts as an Agent in
+      a Fluxnova
+
+      workflow. Concrete embodiment of one or more AI models exposed through a
+
+      provider endpoint. Distinct from the human, organizational, or system Agent
+
+      kinds declared in the base provenance module.'
+    in_subset:
+    - ai_prospective
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    exact_mappings:
+    - fluxnova_bpm_ai_provenance:AiAgent
+    - airo:AIAgent
+    - nexus:AiAgent
+    - prov:SoftwareAgent
+    related_mappings:
+    - dpv_ai:AISystem
+    is_a: Agent
+    slots:
+    - id
+    - name
+    - external_ref
+    - agent_kind
+    - email
+    - role
+    - model_family
+    - model_name
+    - model_version
+    - provider
+    - endpoint
+    - parameter_count
+    - context_window_tokens
+    - input_modalities
+    - output_modalities
+    - is_part_of_ai_system
+    class_uri: fluxnova_bpm_ai_provenance:AiAgent
+  AiModelDescriptor:
+    name: AiModelDescriptor
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiModelDescriptor
+    description: 'Descriptor of an AI model used as a runtime component. Captures
+      static
+
+      characteristics of the model (family, architecture, parameter count,
+
+      training tokens, context window, supported languages) without prescribing
+
+      how an individual call was made.'
+    in_subset:
+    - ai_prospective
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    exact_mappings:
+    - fluxnova_bpm_ai_provenance:AiModelDescriptor
+    - airo:AIModel
+    - nexus:AiModel
+    - nexus:LargeLanguageModel
+    close_mappings:
+    - nexus:LargeLanguageModel
+    related_mappings:
+    - schema:SoftwareApplication
+    is_a: RuntimeComponent
+    slots:
+    - id
+    - name
+    - external_ref
+    - component_kind
+    - definition_version
+    - endpoint
+    - model_family
+    - architecture
+    - parameter_count
+    - training_token_count
+    - context_window_tokens
+    - fine_tuning_description
+    - supported_languages
+    class_uri: fluxnova_bpm_ai_provenance:AiModelDescriptor
+  AiModelInvocation:
+    name: AiModelInvocation
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiModelInvocation
+    description: 'One concrete invocation of an AI model from a workflow step. Captures
+      the
+
+      runtime call (kind, parameters, prompts, tool calls, response), the
+
+      consumption telemetry (token counts, cost), any safety flags raised, and
+
+      any evaluation results attached. Inherits status, timestamps, parent
+
+      workflow run, sequence number, and incident linkage from StepRun.'
+    in_subset:
+    - ai_retrospective
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    exact_mappings:
+    - fluxnova_bpm_ai_provenance:AiModelInvocation
+    - prov:Activity
+    - schema:CreateAction
+    is_a: StepRun
+    slots:
+    - id
+    - name
+    - external_ref
+    - workflow_run
+    - step_definition
+    - activity_instance_id
+    - parent_step_run
+    - informed_by
+    - status
+    - started_at
+    - ended_at
+    - executed_by
+    - environment
+    - execution_resource
+    - input_values
+    - output_values
+    - consumed_artifacts
+    - produced_artifacts
+    - incident_message
+    - retries
+    - sequence_no
+    - invoked_model
+    - invocation_kind
+    - prompt_messages
+    - tool_calls
+    - response_message
+    - temperature
+    - top_p
+    - max_tokens
+    - total_input_tokens
+    - total_output_tokens
+    - cost_usd
+    - safety_flags
+    - evaluation_results
+    class_uri: fluxnova_bpm_ai_provenance:AiModelInvocation
+  PromptMessage:
+    name: PromptMessage
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/PromptMessage
+    description: 'A single message turn in an AI model invocation (system, user, assistant,
+
+      or tool turn). Records the role, the (possibly redacted) content, an
+
+      ordering index inside the invocation, and a data classification.'
+    in_subset:
+    - ai_retrospective
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    exact_mappings:
+    - fluxnova_bpm_ai_provenance:PromptMessage
+    related_mappings:
+    - schema:Message
+    is_a: NamedThing
+    slots:
+    - id
+    - name
+    - external_ref
+    - message_role
+    - content
+    - content_hash
+    - sequence_no
+    - redacted
+    - classification
+    - parent_invocation
+    class_uri: fluxnova_bpm_ai_provenance:PromptMessage
+  ToolCall:
+    name: ToolCall
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/ToolCall
+    description: 'A single tool / function call made by an AI agent during an invocation.
+
+      Captures the tool name, the provider-assigned call identifier, the
+
+      arguments passed, the result returned, the status of the call, and an
+
+      optional link to the step run that materialized the call.'
+    in_subset:
+    - ai_retrospective
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    exact_mappings:
+    - fluxnova_bpm_ai_provenance:ToolCall
+    - schema:Action
+    related_mappings:
+    - prov:Activity
+    is_a: NamedThing
+    slots:
+    - id
+    - name
+    - external_ref
+    - tool_name
+    - tool_call_id
+    - arguments_json
+    - result_json
+    - result_artifact
+    - called_step_run
+    - started_at
+    - ended_at
+    - status
+    - parent_invocation
+    class_uri: fluxnova_bpm_ai_provenance:ToolCall
+  EvaluationResult:
+    name: EvaluationResult
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/EvaluationResult
+    description: 'Result of a quality or safety evaluation against an AI model invocation.
+
+      Supports human review, LLM-as-judge, deterministic metrics, guardrails,
+
+      and static rule checks. Distinct from offline benchmark scoring such as
+
+      nexus:AiEvalResult (a related but coarser concept).'
+    in_subset:
+    - ai_retrospective
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    exact_mappings:
+    - fluxnova_bpm_ai_provenance:EvaluationResult
+    - dqv:QualityMeasurement
+    - nexus:AiEvalResult
+    related_mappings:
+    - mls:ModelEvaluation
+    - schema:PropertyValue
+    is_a: NamedThing
+    slots:
+    - id
+    - name
+    - external_ref
+    - evaluator_name
+    - evaluator_kind
+    - metric_name
+    - metric_value
+    - metric_unit
+    - passing
+    - evaluated_at
+    - evaluated_invocation
+    class_uri: fluxnova_bpm_ai_provenance:EvaluationResult
+  AiDataset:
+    name: AiDataset
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiDataset
+    description: 'Dataset artifact associated with an AI model invocation, an evaluation,
+
+      a training run, or a fine-tuning step. Extends the generic WorkflowArtifact
+
+      class with AI-specific metadata such as dataset kind, record count, license,
+
+      and data classification.'
+    in_subset:
+    - ai_prospective
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    exact_mappings:
+    - fluxnova_bpm_ai_provenance:AiDataset
+    - cr:Dataset
+    - nexus:Dataset
+    - prov:Entity
+    - schema:Dataset
+    is_a: WorkflowArtifact
+    slots:
+    - id
+    - name
+    - external_ref
+    - artifact_kind
+    - media_type
+    - path_or_uri
+    - hash
+    - size_in_bytes
+    - produced_by_step_run
+    - consumed_by_step_runs
+    - dataset_kind
+    - record_count
+    - license_uri
+    - classification
+    class_uri: fluxnova_bpm_ai_provenance:AiDataset
+  ModelArtifact:
+    name: ModelArtifact
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/ModelArtifact
+    description: 'Persistent model artifact such as a checkpoint, weights file, or
+      model
+
+      card publication. Distinct from AiModelDescriptor: this is a concrete
+
+      file or URI, while AiModelDescriptor is the runtime component used
+
+      during invocation.'
+    in_subset:
+    - ai_prospective
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    exact_mappings:
+    - fluxnova_bpm_ai_provenance:ModelArtifact
+    - schema:SoftwareSourceCode
+    related_mappings:
+    - nexus:LargeLanguageModel
+    - prov:Entity
+    is_a: WorkflowArtifact
+    slots:
+    - id
+    - name
+    - external_ref
+    - artifact_kind
+    - media_type
+    - path_or_uri
+    - hash
+    - size_in_bytes
+    - produced_by_step_run
+    - consumed_by_step_runs
+    - model_card_uri
+    - weights_uri
+    - training_datasets
+    - base_model
+    - parameter_count
+    class_uri: fluxnova_bpm_ai_provenance:ModelArtifact
 metamodel_version: 1.11.0
 source_file: fluxnova_bpm_platform.yaml
-source_file_date: '2026-05-18T11:09:20'
-source_file_size: 4579
-generation_date: '2026-05-18T11:09:30'
+source_file_date: '2026-06-12T02:16:52'
+source_file_size: 4673
+generation_date: '2026-06-12T02:17:05'
 

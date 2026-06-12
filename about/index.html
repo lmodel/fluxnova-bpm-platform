@@ -14,6 +14,8 @@
         <link rel="prev" href="../elements/">
       
       
+        <link rel="next" href="../elements/provenance/">
+      
       
         
       
@@ -23,7 +25,7 @@
     
     
       
-        <title>About - fluxnova-bpm-platform</title>
+        <title>Solution design - fluxnova-bpm-platform</title>
       
     
     
@@ -118,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              About
+              Solution design
             
           </span>
         </div>
@@ -321,16 +323,20 @@
   
   
   
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
         
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
@@ -344,7 +350,380 @@
   
   
 
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    About
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solution design
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solution design
+  
+
+    
+  </span>
+  
+  
+
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#at-a-glance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        At a glance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Links
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quality-gates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quality gates
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-in-the-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's in the schema
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What&#39;s in the schema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#platform-modules-persistence-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Platform modules (persistence &amp; runtime)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bpmn-model-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BPMN model modules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-schemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root schemas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provenance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enums" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enums
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subsets-filtered-views" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Subsets (filtered views)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-its-built" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it's built
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How it&#39;s built">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#source-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-transformer-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The transformer scripts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql-column-annotations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQL column annotations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sssom-mappings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSSOM mappings
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-the-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Working with the schema
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Working with the schema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#regenerating" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regenerating
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validating-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validating &amp; testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test coverage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whats-intentionally-out-of-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's intentionally out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elements/provenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Provenance design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -370,6 +749,269 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#at-a-glance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        At a glance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Links
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quality-gates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quality gates
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-in-the-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's in the schema
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What&#39;s in the schema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#platform-modules-persistence-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Platform modules (persistence &amp; runtime)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bpmn-model-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BPMN model modules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root-schemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root schemas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provenance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enums" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enums
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subsets-filtered-views" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Subsets (filtered views)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-its-built" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it's built
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How it&#39;s built">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#source-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-transformer-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The transformer scripts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql-column-annotations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQL column annotations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sssom-mappings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSSOM mappings
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-the-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Working with the schema
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Working with the schema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#regenerating" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regenerating
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validating-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validating &amp; testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test coverage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whats-intentionally-out-of-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's intentionally out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -390,90 +1032,24 @@
 
 
 <h1 id="about-fluxnova-bpm-platform">About fluxnova-bpm-platform</h1>
-<p>Fluxnova BPMN Platform - LinkML Schema</p>
-<h1 id="references">References</h1>
+<p>A <a href="https://linkml.io/">LinkML</a> data model for the <strong>Fluxnova BPM Platform</strong> - the process engine's persistence schema and its BPMN 2.0 model API, expressed as one coherent, machine-validatable schema.</p>
+<p>The schema is <strong>generated, not hand-written</strong>: transformer scripts read the engine's own sources (H2 DDL, Java interface Javadoc, MyBatis mappings) and produce LinkML YAML that you can validate data against, render as docs, or project into JSON Schema, Python, OWL, and more. Re-running the generators on unchanged inputs produces byte-identical output.</p>
+<h2 id="at-a-glance">At a glance</h2>
 <ul>
-<li><a href="https://github.com/finos/fluxnova-bpm-platform">https://github.com/finos/fluxnova-bpm-platform</a></li>
-<li><a href="https://fluxnova.finos.org/">https://fluxnova.finos.org/</a></li>
+<li><strong>Two domains in one model</strong> - runtime/persistence entities (from the database schema) and the BPMN 2.0 model API (from Java interfaces).</li>
+<li><strong>Platform side:</strong> 49 SQL tables -&gt; 51 classes, 192 slots, 7 enums (100% of tables mapped).</li>
+<li><strong>BPMN side:</strong> 181 Java interfaces -&gt; 6 modular schemas, 10 enums, 28 Fluxnova extension classes.</li>
+<li><strong>Provenance overlay</strong> - a W3C PROV-aligned record of workflow definitions, runs, and per-invocation AI activity.</li>
+<li><strong>Ontology cross-walks</strong> - 26 SSSOM mapping files (~4,450 element mappings) to standards like ATT&amp;CK, D3FEND, OCSF, NIST, and the FINOS CDM.</li>
+<li><strong>419 tests, all passing</strong>, plus reproducible regeneration and <code>linkml-lint</code> clean.</li>
 </ul>
-<h1 id="schema-directory">Schema Directory</h1>
-<p>This folder contains the LinkML schema yaml files.</p>
-<h2 id="fluxnova-bpm-platform-linkml-schema-status">Fluxnova BPM Platform — LinkML Schema Status</h2>
-<p>Generated: 2026-05-14
-Generators: <code>scripts/fluxnova_to_linkml.py</code>, <code>scripts/fluxnova_bpmn_model_to_linkml.py</code>
-Features: Modular schemas, shared common-slot schema, subset enrichment (model + module-level + filename), MyBatis cross-validation, SQL column annotations, top-level platform schema imports the BPMN Model API, SSSOM mapping overlay</p>
-<h3 id="coverage">Coverage</h3>
-<h4 id="platform-runtime-persistence">Platform (Runtime &amp; Persistence)</h4>
-<table>
-<thead>
-<tr>
-<th>Metric</th>
-<th>Count</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>SQL tables parsed</td>
-<td>49</td>
-</tr>
-<tr>
-<td>SQL tables mapped</td>
-<td>49 (100%)</td>
-</tr>
-<tr>
-<td>SQL tables unmapped</td>
-<td>0</td>
-</tr>
-<tr>
-<td>Classes generated</td>
-<td>51</td>
-</tr>
-<tr>
-<td>Slots generated</td>
-<td>192</td>
-</tr>
-<tr>
-<td>Enums generated</td>
-<td>7</td>
-</tr>
-<tr>
-<td>Columns in mapped tables</td>
-<td>652</td>
-</tr>
-</tbody>
-</table>
-<h4 id="bpmn-model-api">BPMN Model API</h4>
-<table>
-<thead>
-<tr>
-<th>Metric</th>
-<th>Count</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Java interfaces mapped</td>
-<td>181</td>
-</tr>
-<tr>
-<td>Public API interfaces</td>
-<td>181 (100% coverage)</td>
-</tr>
-<tr>
-<td>Enums generated</td>
-<td>10</td>
-</tr>
-<tr>
-<td>Modular schema files</td>
-<td>6</td>
-</tr>
-<tr>
-<td>Fluxnova extensions</td>
-<td>28 classes</td>
-</tr>
-</tbody>
-</table>
-<h3 id="quality-gates">Quality Gates</h3>
+<h2 id="links">Links</h2>
+<ul>
+<li>Source: <a href="https://github.com/finos/fluxnova-bpm-platform">github.com/finos/fluxnova-bpm-platform</a></li>
+<li>Project home: <a href="https://fluxnova.finos.org/">fluxnova.finos.org</a></li>
+</ul>
+<h2 id="quality-gates">Quality gates</h2>
+<p>Every regeneration is checked against these gates:</p>
 <table>
 <thead>
 <tr>
@@ -504,58 +1080,23 @@ Features: Modular schemas, shared common-slot schema, subset enrichment (model +
 </tr>
 </tbody>
 </table>
-<h3 id="supported-scripts">Supported Scripts</h3>
-<p>The maintained workflow in <code>scripts/</code> is intentionally limited to three scripts:</p>
-<ul>
-<li><code>fluxnova_to_linkml.py</code> — generates the platform LinkML schemas from H2 DDL, Java interface Javadoc, and MyBatis-derived validation inputs. Enriches schemas with:</li>
-<li><strong>Subsets</strong> for module-level (<code>base</code>, <code>repository</code>, <code>runtime</code>, <code>job</code>, <code>identity</code>, <code>history</code>, <code>collaboration</code>, <code>platform</code>) and cross-cutting (<code>fluxnova_bpm</code>) partitioning. Every class carries <code>in_subset: [&lt;filename_module&gt;, fluxnova_bpm]</code>.</li>
-<li><strong>SQL column annotations</strong> embedded in every slot (<code>annotations: {sql_column: COL_NAME_}</code>).</li>
-<li><strong>Shared <code>fluxnova_common.yaml</code></strong> emitted alongside module schemas, holding 8 cross-cutting slot definitions (id, tenant_id, revision, etc.) imported by every module to avoid URI collisions when the platform also imports the BPMN Model API.</li>
-<li>
-<p>Automatic Javadoc extraction and fallback descriptions.</p>
-</li>
-<li>
-<p><code>fluxnova_bpmn_model_to_linkml.py</code> — generates the modular BPMN Model API LinkML schemas from public Java interfaces and enums. Enriches schemas with:</p>
-</li>
-<li><strong>Subsets</strong> for package-level partitioning (<code>core_api</code>, <code>instance</code>, <code>bpmndi</code>, <code>di</code>, <code>dc</code>, <code>fluxnova_extensions</code>).</li>
-<li>Curated slot descriptions using hand-crafted fallbacks + automatic pattern inference.</li>
-<li>
-<p>Modular imports to avoid circular dependencies.</p>
-</li>
-<li>
-<p><code>fluxnova_mybatis_enrichment.py</code> — validates MyBatis XML field mappings against the DDL-derived LinkML slot names and embedded <code>annotations.sql_column</code> metadata. Confirms:</p>
-</li>
-<li>55 entity mappers parsed.</li>
-<li>336 field→column mappings verified.</li>
-<li>
-<p>Zero discrepancies detected on each run.</p>
-</li>
-<li>
-<p><code>overlay_sssom.py</code> — deterministically applies all SSSOM mapping files from <code>src/fluxnova_bpm_platform/mappings/</code> to the generated LinkML schema YAML files. Runs automatically after every <code>gen-linkml</code> / <code>gen-bpmn-model</code> / <code>gen-all</code> invocation. Key properties:</p>
-</li>
-<li>Reads all <code>fluxnova-*.sssom.tsv</code> files in <strong>sorted filename order</strong> (deterministic).</li>
-<li>Matches <code>subject_id</code> CURIE prefix against each schema's <code>default_prefix</code>.</li>
-<li>Injects/merges <code>exact_mappings</code>, <code>close_mappings</code>, <code>broad_mappings</code>, <code>narrow_mappings</code>, and <code>related_mappings</code> into classes, slots, class attributes, and enum permissible_values.</li>
-<li>Updates the <code>prefixes:</code> block with any newly referenced namespace URIs.</li>
-<li>Uses <code>ruamel.yaml</code> round-trip parsing — YAML comments and block structure are preserved.</li>
-<li><strong>Idempotent</strong>: mapping lists are sorted and deduplicated; files are written only when content changes.</li>
-<li>Supports <code>--dry-run</code> and <code>--verbose</code> flags.</li>
-</ul>
-<h3 id="module-breakdown">Module Breakdown</h3>
-<h4 id="platform-modules">Platform Modules</h4>
+<h2 id="whats-in-the-schema">What's in the schema</h2>
+<p>The model is split into small, focused modules. A handful of <strong>root schemas</strong> import the modules to give you a single entry point per domain.</p>
+<h3 id="platform-modules-persistence-runtime">Platform modules (persistence &amp; runtime)</h3>
+<p>Generated from the H2 DDL - one module per functional area:</p>
 <table>
 <thead>
 <tr>
 <th>Module</th>
 <th>Classes</th>
-<th>Description</th>
+<th>Highlights</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>fluxnova_bpm_base</code></td>
 <td>5</td>
-<td>ByteArray, MeterLog, Property, SchemaLogEntry, TaskMeterLog + 7 enums</td>
+<td>ByteArray, MeterLog, Property, SchemaLogEntry, TaskMeterLog (+ 7 enums)</td>
 </tr>
 <tr>
 <td><code>fluxnova_bpm_repository</code></td>
@@ -580,7 +1121,7 @@ Features: Modular schemas, shared common-slot schema, subset enrichment (model +
 <tr>
 <td><code>fluxnova_bpm_history</code></td>
 <td>17</td>
-<td>HistoricProcessInstance, HistoricActivityInstance, HistoricTaskInstance, HistoricVariableInstance, HistoricDetail, HistoricIdentityLink, HistoricIncident, HistoricJobLog, HistoricBatch, HistoricExternalTaskLog, HistoricDecisionInstance, HistoricDecisionInputInstance, HistoricDecisionOutputInstance, HistoricCaseInstance, HistoricCaseActivityInstance, HistoricScopeInstance (abstract), UserOperationLogEntry</td>
+<td>Historic* snapshots (process, activity, task, variable, decision, case, …) + UserOperationLogEntry</td>
 </tr>
 <tr>
 <td><code>fluxnova_bpm_collaboration</code></td>
@@ -589,13 +1130,14 @@ Features: Modular schemas, shared common-slot schema, subset enrichment (model +
 </tr>
 </tbody>
 </table>
-<h4 id="bpmn-model-modules">BPMN Model Modules</h4>
+<h3 id="bpmn-model-modules">BPMN model modules</h3>
+<p>Generated from the public BPMN Model API Java interfaces:</p>
 <table>
 <thead>
 <tr>
 <th>Module</th>
 <th>Classes</th>
-<th>Description</th>
+<th>Covers</th>
 </tr>
 </thead>
 <tbody>
@@ -607,12 +1149,12 @@ Features: Modular schemas, shared common-slot schema, subset enrichment (model +
 <tr>
 <td><code>fluxnova_bpmn_model_di</code></td>
 <td>12</td>
-<td>Diagram Interchange (Diagram, DiagramElement, Edge, Plane, Shape, Style, Label, and related DI base types)</td>
+<td>Diagram Interchange (Diagram, Edge, Plane, Shape, Style, Label, …)</td>
 </tr>
 <tr>
 <td><code>fluxnova_bpmn_model_instance</code></td>
 <td>130</td>
-<td>Core BPMN 2.0 elements (Process, Activity, Task, Gateway, Event, Data objects, etc.)</td>
+<td>Core BPMN 2.0 elements (Process, Activity, Task, Gateway, Event, Data objects, …)</td>
 </tr>
 <tr>
 <td><code>fluxnova_bpmn_model_bpmndi</code></td>
@@ -622,11 +1164,13 @@ Features: Modular schemas, shared common-slot schema, subset enrichment (model +
 <tr>
 <td><code>fluxnova_bpmn_model_fluxnova</code></td>
 <td>28</td>
-<td>Fluxnova extensions (FluxnovaConnector, FluxnovaFormField, FluxnovaListener, etc.)</td>
+<td>Fluxnova extensions (FluxnovaConnector, FluxnovaFormField, FluxnovaListener, …)</td>
 </tr>
 </tbody>
 </table>
-<h4 id="root-schemas">Root Schemas</h4>
+<p>The BPMN modules import each other in layers (<code>dc</code> -&gt; <code>di</code>; <code>instance</code> -&gt; <code>di</code>; <code>bpmndi</code> -&gt; <code>di</code> + <code>dc</code>; <code>fluxnova_extensions</code> -&gt; <code>instance</code>), with cross-module types that would create cycles flattened to <code>range: string</code>. Slot descriptions come from a mix of curated fallbacks and automatic pattern inference (~300 of them).</p>
+<h3 id="root-schemas">Root schemas</h3>
+<p>These tie everything together:</p>
 <table>
 <thead>
 <tr>
@@ -639,22 +1183,25 @@ Features: Modular schemas, shared common-slot schema, subset enrichment (model +
 <tr>
 <td><code>fluxnova_common</code></td>
 <td>0 (slots only)</td>
-<td>Shared slot definitions (id, tenant_id, revision, …) imported by every module to avoid URI collisions across schemas.</td>
+<td>Shared slot definitions (<code>id</code>, <code>tenant_id</code>, <code>revision</code>, …) imported by every module so the same concept never gets two conflicting URIs.</td>
 </tr>
 <tr>
 <td><code>fluxnova_bpm_platform</code></td>
 <td>1</td>
-<td>Aggregate root schema importing <code>fluxnova_common</code>, all platform modules, and <code>fluxnova_bpmn_model</code>; locally defines <code>FluxnovaPlatformData</code> as the tree root. Classes tagged <code>in_subset: [platform, fluxnova_bpm]</code>.</td>
+<td>The top-level entry point: imports <code>fluxnova_common</code>, all platform modules, <code>fluxnova_bpmn_model</code>, and the provenance overlay. Defines <code>FluxnovaPlatformData</code> as the tree root.</td>
 </tr>
 <tr>
 <td><code>fluxnova_bpmn_model</code></td>
 <td>2</td>
-<td>Aggregate root schema importing all BPMN modules; locally defines <code>BpmnModelInstance</code> and <code>BpmnModelType</code>.</td>
+<td>BPMN entry point: imports all BPMN modules. Defines <code>BpmnModelInstance</code> and <code>BpmnModelType</code>.</td>
 </tr>
 </tbody>
 </table>
+<h3 id="provenance">Provenance</h3>
+<p>A hand-authored, <a href="https://www.w3.org/TR/prov-overview/">W3C PROV</a>-aligned provenance overlay lives under <code>src/fluxnova_bpm_platform/schema/provenance/</code> (base + per-invocation AI overlay + opt-in strict profile). It is not derived from the H2 DDL; the platform root imports it so <code>ProvenanceBundle</code> and friends survive regeneration.</p>
+<p>See <strong><a href="../elements/provenance/">elements/provenance/README.md</a></strong> for the module breakdown, mapping spec, RO-Crate/JSON-LD projection, AI overlay overview, fixtures, and the SSSOM cross-walk to the FINOS AI Governance Framework (<code>nexus:</code>).</p>
 <h3 id="enums">Enums</h3>
-<h4 id="platform-enums">Platform Enums</h4>
+<p><strong>Platform:</strong></p>
 <table>
 <thead>
 <tr>
@@ -693,7 +1240,7 @@ Features: Modular schemas, shared common-slot schema, subset enrichment (model +
 </tr>
 </tbody>
 </table>
-<h4 id="bpmn-model-enums">BPMN Model Enums</h4>
+<p><strong>BPMN model:</strong></p>
 <table>
 <thead>
 <tr>
@@ -744,49 +1291,14 @@ Features: Modular schemas, shared common-slot schema, subset enrichment (model +
 </tr>
 </tbody>
 </table>
-<h3 id="source-data">Source Data</h3>
-<p>The transformer reads H2 DDL SQL from 7 files in <code>engine/src/main/resources/org/finos/fluxnova/bpm/engine/db/create/</code>:</p>
-<ul>
-<li><code>activiti.h2.create.engine.sql</code> — core runtime and repository tables</li>
-<li><code>activiti.h2.create.identity.sql</code> — identity management tables</li>
-<li><code>activiti.h2.create.history.sql</code> — history tables</li>
-<li><code>activiti.h2.create.case.engine.sql</code> — CMMN case runtime tables</li>
-<li><code>activiti.h2.create.case.history.sql</code> — CMMN case history tables</li>
-<li><code>activiti.h2.create.decision.engine.sql</code> — DMN decision tables</li>
-<li><code>activiti.h2.create.decision.history.sql</code> — DMN decision history tables</li>
-</ul>
-<h3 id="modular-approach">Modular Approach</h3>
-<p><strong>BPMN Model API</strong> (<code>model-api/bpmn-model/</code>) — included as 6 modular schema files:</p>
-<ul>
-<li>Import structure: <code>dc</code> -&gt; <code>di</code>; <code>instance</code> -&gt; <code>di</code>; <code>bpmndi</code> -&gt; <code>di</code> + <code>dc</code>; <code>fluxnova_extensions</code> -&gt; <code>instance</code>; root <code>fluxnova_bpmn_model</code> imports all modules</li>
-<li>Inaccessible cross-module types converted to <code>range: string</code> to break circular imports</li>
-<li>300+ curated slot descriptions using hand-crafted fallbacks + automatic pattern inference</li>
-<li>Full BPMN 2.0 spec compliance with all multiparent inheritance and enumerations</li>
-</ul>
-<h3 id="sql-column-annotations">SQL Column Annotations</h3>
-<p>Every slot generated from H2 DDL carries an <code>annotations: {sql_column: COL_NAME_}</code> entry embedded directly in the LinkML schema. This is the authoritative ORM mapping — no sidecar JSON needed.</p>
-<p>Example from <code>fluxnova_bpm_job.yaml</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">slots</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">exception_message</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
-<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Message of the exception that occurred.</span>
-<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">sql_column</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EXCEPTION_MSG_</span>
-</code></pre></div>
-<p>The SQL column name is the ground truth from the H2 DDL; the slot name is the LinkML-idiomatic snake_case representation. Consumers can use <code>annotations.sql_column</code> to map back to the database column without any external file.</p>
-<p><strong>MyBatis cross-validation</strong> (<code>scripts/fluxnova_mybatis_enrichment.py</code>) parses the 55 MyBatis XML mapping files to verify field names against the DDL-derived slot names. It does not produce any output artifact — it exits non-zero if discrepancies are found:</p>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>scripts/fluxnova_mybatis_enrichment.py<span class="w">          </span><span class="c1"># pass/fail check</span>
-python<span class="w"> </span>scripts/fluxnova_mybatis_enrichment.py<span class="w"> </span>--verbose<span class="w"> </span><span class="c1"># show all field mappings</span>
-</code></pre></div>
-<h3 id="subset-enrichment">Subset Enrichment</h3>
-<p>Both transformer scripts now generate <strong>subsets</strong> for LinkML schema partitioning and documentation:</p>
-<h4 id="platform-schema-subsets">Platform Schema Subsets</h4>
-<p>The platform schema defines <strong>7 module-level subsets</strong> plus a cross-cutting <strong>model-level subset</strong>:</p>
+<h3 id="subsets-filtered-views">Subsets (filtered views)</h3>
+<p>Every class is tagged with subsets so you can carve out domain-specific views or docs. Tagging is automatic and deterministic - derived from the file a class lives in - and enforced by a unit test, so it never drifts.</p>
+<p>Each class carries <strong>two</strong> subsets: its module subset and a cross-cutting model subset (<code>fluxnova_bpm</code> or <code>fluxnova_bpmn_model</code>). For example, <code>ByteArray</code> -&gt; <code>in_subset: [base, fluxnova_bpm]</code>.</p>
 <table>
 <thead>
 <tr>
-<th>Subset</th>
-<th>Description</th>
+<th>Platform subset</th>
+<th>Contents</th>
 </tr>
 </thead>
 <tbody>
@@ -820,23 +1332,15 @@ python<span class="w"> </span>scripts/fluxnova_mybatis_enrichment.py<span class=
 </tr>
 <tr>
 <td><code>fluxnova_bpm</code></td>
-<td><strong>Cross-cutting:</strong> All Fluxnova BPM platform entities.</td>
+<td><strong>Cross-cutting:</strong> all Fluxnova BPM platform entities.</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Usage:</strong></p>
-<ul>
-<li>Every platform entity is tagged with its <strong>module subset</strong> (e.g., <code>ByteArray</code> -&gt; <code>in_subset: [base, fluxnova_bpm]</code>).</li>
-<li>Use subsets to filter schema for domain-specific views or documentation generation.</li>
-<li>The root schema <code>fluxnova_bpm_platform.yaml</code> declares all subsets so consumers see available partitions.</li>
-</ul>
-<h4 id="bpmn-model-api-subsets">BPMN Model API Subsets</h4>
-<p>The BPMN schema defines <strong>6 package-level subsets</strong>:</p>
 <table>
 <thead>
 <tr>
-<th>Subset</th>
-<th>Description</th>
+<th>BPMN subset</th>
+<th>Contents</th>
 </tr>
 </thead>
 <tbody>
@@ -866,136 +1370,80 @@ python<span class="w"> </span>scripts/fluxnova_mybatis_enrichment.py<span class=
 </tr>
 </tbody>
 </table>
-<p><strong>Usage:</strong></p>
-<ul>
-<li>Each BPMN interface is tagged by its package (e.g., <code>Process</code> -&gt; <code>in_subset: [instance]</code>).</li>
-<li>Modular schema files declare their own subsets for isolated schema views.</li>
-<li>The root BPMN schema aggregates all subsets from sub-modules.</li>
-</ul>
-<h4 id="subset-filename-mapping">Subset Filename Mapping</h4>
-<p>Transformer scripts use <strong>filename-based subset assignment</strong>:</p>
-<ul>
-<li>Platform: module name from <code>fluxnova_bpm_&lt;module&gt;.yaml</code> -&gt; <code>&lt;module&gt;</code> subset (including the top-level <code>platform</code> subset for <code>fluxnova_bpm_platform.yaml</code>).</li>
-<li>BPMN: package hierarchy (<code>dc</code>, <code>di</code>, <code>instance</code>, <code>bpmndi</code>, <code>fluxnova_extensions</code>, <code>core_api</code>) -&gt; named subsets.</li>
-</ul>
-<p>Every generated class carries <strong>two subsets</strong>: its filename-derived module subset and the cross-cutting model subset (<code>fluxnova_bpm</code> or <code>fluxnova_bpmn_model</code>). This is enforced by a unit test in <code>tests/test_fluxnova_to_linkml.py</code>.</p>
-<p>This ensures <strong>reproducible, deterministic tagging</strong> without manual configuration.</p>
-<h3 id="not-in-scope">Not in Scope</h3>
-<ul>
-<li><strong>REST DTOs</strong> (<code>engine-rest/</code>) — API data transfer objects that mirror persistence entities. Excluded to avoid duplication.</li>
-<li><strong>Java implementation entity sources</strong> — implementation classes under <code>engine/.../impl/.../entity</code> are not part of schema generation. A review of representative  entities (<code>ExecutionEntity</code>, <code>TaskEntity</code>, <code>CamundaFormDefinitionEntity</code>, job subclasses such as <code>TimerEntity</code>) do not expose additional DDL-backed schema surface beyond the generated model. Most extra fields are transient navigation caches, runtime helpers, or subtype-specific behavior already represented by existing tables/slots.</li>
-</ul>
-<h3 id="test-coverage">Test Coverage</h3>
+<h2 id="how-its-built">How it's built</h2>
+<h3 id="source-data">Source data</h3>
+<p>The platform transformer reads the engine's H2 DDL - 7 SQL files in <code>engine/src/main/resources/org/finos/fluxnova/bpm/engine/db/create/</code>:</p>
 <table>
 <thead>
 <tr>
-<th>Test Module</th>
-<th>Tests</th>
-<th>Description</th>
+<th>File</th>
+<th>Tables</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>tests/test_fluxnova_to_linkml.py</code></td>
-<td>96</td>
-<td>Transformer unit tests (parsing, mapping, generation)</td>
+<td><code>activiti.h2.create.engine.sql</code></td>
+<td>Core runtime and repository</td>
 </tr>
 <tr>
-<td><code>tests/test_schema.py</code></td>
-<td>20</td>
-<td>Schema-level lint, generators, structure checks</td>
+<td><code>activiti.h2.create.identity.sql</code></td>
+<td>Identity management</td>
 </tr>
 <tr>
-<td><code>tests/test_data.py</code></td>
-<td>185</td>
-<td>Valid/invalid YAML data files against schema (yaml_loader + linkml-validate); covers BPM + BPMN classes</td>
+<td><code>activiti.h2.create.history.sql</code></td>
+<td>History</td>
 </tr>
 <tr>
-<td><code>tests/test_ddl_coverage.py</code></td>
-<td>104</td>
-<td>DDL cross-validation: table coverage, column-to-slot, vendor file checks</td>
+<td><code>activiti.h2.create.case.engine.sql</code></td>
+<td>CMMN case runtime</td>
 </tr>
 <tr>
-<td><code>tests/test_bpmn_model_schema.py</code></td>
-<td>4</td>
-<td>BPMN schema file validation, lint, JSON schema generation</td>
+<td><code>activiti.h2.create.case.history.sql</code></td>
+<td>CMMN case history</td>
 </tr>
 <tr>
-<td><code>tests/test_fluxnova_bpmn_model_to_linkml.py</code></td>
-<td>7</td>
-<td>BPMN generator unit tests (discovery, headers, coverage, inheritance, serialization)</td>
+<td><code>activiti.h2.create.decision.engine.sql</code></td>
+<td>DMN decision</td>
 </tr>
 <tr>
-<td><strong>Total</strong></td>
-<td><strong>409</strong></td>
-<td>All passing</td>
+<td><code>activiti.h2.create.decision.history.sql</code></td>
+<td>DMN decision history</td>
 </tr>
 </tbody>
 </table>
-<h4 id="vendor-test-data">Vendor Test Data</h4>
-<p>33 vendor-data YAML files in <code>tests/data/valid/*-vendor.yaml</code> derived from
-<code>engine-rest/.../helper/MockProvider.java</code> constants. These exercise the schema with the same values the upstream BPM engine uses in its own REST API tests.</p>
-<p>13 invalid YAML files in <code>tests/data/invalid/</code> test rejection of:</p>
+<p>The BPMN transformer reads the public Java interfaces and enums under <code>model-api/bpmn-model/</code>.</p>
+<h3 id="the-transformer-scripts">The transformer scripts</h3>
+<p>The maintained workflow lives in four scripts:</p>
 <ul>
-<li>Missing required fields (id, event_time, query)</li>
-<li>Invalid enum values (suspension_state, state)</li>
-<li>Wrong types (string where integer/float/boolean expected, bad timestamps)</li>
+<li>
+<p><strong><code>fluxnova_to_linkml.py</code></strong> - builds the platform schemas from H2 DDL, Java Javadoc, and MyBatis inputs. It adds subset tags, embeds the SQL column name on every slot, emits the shared <code>fluxnova_common.yaml</code>, and fills in descriptions from Javadoc (with sensible fallbacks).</p>
+</li>
+<li>
+<p><strong><code>fluxnova_bpmn_model_to_linkml.py</code></strong> - builds the modular BPMN model schemas from the public Java interfaces, with package-level subsets and curated slot descriptions.</p>
+</li>
+<li>
+<p><strong><code>fluxnova_mybatis_enrichment.py</code></strong> - a cross-check, not a generator: it parses the 55 MyBatis XML mappers (336 field-&gt;column mappings) and confirms they line up with the DDL-derived slot names. It writes nothing and exits non-zero if anything disagrees.</p>
+</li>
+<li>
+<p><strong><code>overlay_sssom.py</code></strong> - applies the SSSOM ontology mappings onto the generated YAML (see <a href="#sssom-mappings">SSSOM mappings</a> below). It runs automatically after each generation step.</p>
+</li>
 </ul>
-<h4 id="bpmn-model-test-data">BPMN Model Test Data</h4>
-<p>Valid: <code>Point-001.yaml</code>, <code>Bounds-001.yaml</code>, <code>Font-001.yaml</code> exercise the cross-schema integration where <code>fluxnova_bpm_platform.yaml</code> imports <code>fluxnova_bpmn_model.yaml</code>. Invalid counterparts (<code>Point-bad-type.yaml</code>, <code>Font-bad-bool.yaml</code>) verify that the platform-level <code>linkml-validate</code> correctly rejects bad data on imported BPMN classes.</p>
-<h3 id="regeneration">Regeneration</h3>
-<h4 id="platform-schema-h2-ddl-linkml">Platform Schema (H2 DDL  -&gt; LinkML)</h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># Regenerate all platform schemas from H2 DDL sources, then overlay SSSOM mappings</span>
-python<span class="w"> </span>scripts/fluxnova_to_linkml.py
-
-<span class="c1"># Or via justfile (overlay runs automatically after generation)</span>
-just<span class="w"> </span>gen-linkml
-
-<span class="c1"># Dry-run (report only, no files written)</span>
-just<span class="w"> </span>gen-linkml<span class="w"> </span>--dry-run
-
-<span class="c1"># Apply SSSOM mappings without regenerating schemas</span>
-just<span class="w"> </span>overlay-sssom-mappings
-
-<span class="c1"># Dry-run the overlay only</span>
-just<span class="w"> </span>overlay-sssom-mappings<span class="w"> </span>--dry-run<span class="w"> </span>--verbose
+<h3 id="sql-column-annotations">SQL column annotations</h3>
+<p>Every slot generated from the DDL records the database column it came from, right in the schema - no sidecar mapping file needed:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">slots</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">exception_message</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Message of the exception that occurred.</span>
+<span class="w">    </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">sql_column</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EXCEPTION_MSG_</span>
 </code></pre></div>
-<h4 id="full-reproducibility-gate">Full reproducibility gate</h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># Regenerate everything (BPMN model + platform), lint, cross-validate, and test transformers</span>
-just<span class="w"> </span>verify-schema
-
-<span class="c1"># Individual recipes</span>
-just<span class="w"> </span>gen-all<span class="w">                    </span><span class="c1"># gen-bpmn-model + gen-linkml + overlay-sssom-mappings</span>
-just<span class="w"> </span>overlay-sssom-mappings<span class="w">     </span><span class="c1"># apply SSSOM mappings to generated schemas (idempotent)</span>
-just<span class="w"> </span>lint-schema<span class="w">                </span><span class="c1"># linkml-lint over src/fluxnova_bpm_platform/schema/</span>
-just<span class="w"> </span>validate-mybatis<span class="w">           </span><span class="c1"># MyBatis ↔ DDL field-name cross-validation</span>
-just<span class="w"> </span>test-transformers<span class="w">          </span><span class="c1"># focused pytest scope (transformer + schema tests)</span>
+<p>The SQL column name is the ground truth; the slot name is its LinkML-idiomatic snake_case form. Consumers read <code>annotations.sql_column</code> to map a slot back to its database column. The <code>fluxnova_mybatis_enrichment.py</code> cross-check keeps these honest against the MyBatis ORM mappings:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>scripts/fluxnova_mybatis_enrichment.py<span class="w">            </span><span class="c1"># pass/fail check</span>
+python<span class="w"> </span>scripts/fluxnova_mybatis_enrichment.py<span class="w"> </span>--verbose<span class="w">  </span><span class="c1"># show all field mappings</span>
 </code></pre></div>
-<h4 id="mybatis-cross-validation-optional">MyBatis Cross-Validation (optional)</h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># Validate MyBatis field names against DDL-derived slot names</span>
-python<span class="w"> </span>scripts/fluxnova_mybatis_enrichment.py
-<span class="c1"># SQL column↔slot annotations are already embedded in generated schemas</span>
-</code></pre></div>
-<h4 id="bpmn-model-api-schema-java-interfaces-linkml">BPMN Model API Schema (Java interfaces  -&gt; LinkML)</h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># Regenerate BPMN schemas from BPMN Model API sources</span>
-python<span class="w"> </span>scripts/fluxnova_bpmn_model_to_linkml.py
-
-<span class="c1"># Output: 6 modular YAML files in src/fluxnova_bpm_platform/schema/</span>
-<span class="c1">#   - fluxnova_bpmn_model.yaml (root)</span>
-<span class="c1">#   - fluxnova_bpmn_model_{dc,di,instance,bpmndi,fluxnova}.yaml (modules)</span>
-</code></pre></div>
-<h4 id="validation">Validation</h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># Lint all schemas (focused on schema dir)</span>
-just<span class="w"> </span>lint-schema
-
-<span class="c1"># Run full test suite</span>
-just<span class="w"> </span><span class="nb">test</span>
-<span class="c1"># or directly:</span>
-pytest<span class="w"> </span>tests/<span class="w"> </span>-v
-</code></pre></div>
-<h3 id="sssom-mappings">SSSOM Mappings</h3>
-<p>All ontology/standard cross-walk mappings are stored as <a href="https://mapping-commons.github.io/sssom/">SSSOM</a> v0.9 TSV files in <code>src/fluxnova_bpm_platform/mappings/</code>.</p>
-<h4 id="coverage-26-mapping-files-4-451-element-mappings">Coverage — 26 mapping files (4 451 element mappings)</h4>
+<h3 id="sssom-mappings">SSSOM mappings</h3>
+<p>Cross-walks to external ontologies and standards are kept as <a href="https://mapping-commons.github.io/sssom/">SSSOM</a> v0.9 TSV files in <code>src/fluxnova_bpm_platform/mappings/</code>. <code>overlay_sssom.py</code> reads them and injects <code>*_mappings</code> and <code>prefixes</code> entries into the generated schema YAML - in sorted, deduplicated, comment-preserving, idempotent fashion.</p>
+<p><strong>Coverage - 26 mapping files (~4,451 element mappings):</strong></p>
 <table>
 <thead>
 <tr>
@@ -1047,12 +1495,12 @@ pytest<span class="w"> </span>tests/<span class="w"> </span>-v
 </tr>
 <tr>
 <td><code>fluxnova-d3fend.sssom.tsv</code></td>
-<td>7 523</td>
+<td>7,523</td>
 <td>MITRE D3FEND</td>
 </tr>
 <tr>
 <td><code>fluxnova-generic.sssom.tsv</code></td>
-<td>1 530</td>
+<td>1,530</td>
 <td>Generic/cross-cutting concepts</td>
 </tr>
 <tr>
@@ -1137,7 +1585,7 @@ pytest<span class="w"> </span>tests/<span class="w"> </span>-v
 </tr>
 </tbody>
 </table>
-<h4 id="key-namespaces">Key Namespaces</h4>
+<p><strong>Key namespaces:</strong></p>
 <table>
 <thead>
 <tr>
@@ -1168,13 +1616,7 @@ pytest<span class="w"> </span>tests/<span class="w"> </span>-v
 </tr>
 </tbody>
 </table>
-<h4 id="overlay-integration">Overlay Integration</h4>
-<p><code>scripts/overlay_sssom.py</code> reads the mapping files and injects <code>*_mappings</code> / <code>prefixes</code> entries into the generated LinkML YAML files. It is called automatically as part of every schema generation recipe:</p>
-<div class="highlight"><pre><span></span><code>gen-linkml      → fluxnova_to_linkml.py   → overlay_sssom.py
-gen-bpmn-model  → bpmn_model_to_linkml.py → overlay_sssom.py
-gen-all         → gen-bpmn-model + gen-linkml + overlay_sssom.py (final dedup pass)
-</code></pre></div>
-<p>Predicate mapping from SSSOM to LinkML:</p>
+<p>SSSOM predicates map onto LinkML mapping slots as follows:</p>
 <table>
 <thead>
 <tr>
@@ -1205,25 +1647,88 @@ gen-all         → gen-bpmn-model + gen-linkml + overlay_sssom.py (final dedup 
 </tr>
 </tbody>
 </table>
-<h2 id="known-upstream-issues">Known Upstream Issues</h2>
+<h2 id="working-with-the-schema">Working with the schema</h2>
+<h3 id="regenerating">Regenerating</h3>
+<p>The overlay step runs automatically after each generation recipe, so you rarely call it by hand.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Everything (BPMN model + platform), then overlay mappings</span>
+just<span class="w"> </span>gen-all
+
+<span class="c1"># Just the platform schemas (from H2 DDL)</span>
+just<span class="w"> </span>gen-linkml
+just<span class="w"> </span>gen-linkml<span class="w"> </span>--dry-run<span class="w">        </span><span class="c1"># report only, write nothing</span>
+
+<span class="c1"># Just the BPMN model schemas (from Java interfaces)</span>
+python<span class="w"> </span>scripts/fluxnova_bpmn_model_to_linkml.py
+
+<span class="c1"># Re-apply SSSOM mappings without regenerating</span>
+just<span class="w"> </span>overlay-sssom-mappings
+just<span class="w"> </span>overlay-sssom-mappings<span class="w"> </span>--dry-run<span class="w"> </span>--verbose
+</code></pre></div>
+<h3 id="validating-testing">Validating &amp; testing</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Lint the schema</span>
+just<span class="w"> </span>lint-schema
+
+<span class="c1"># Full reproducibility gate: regenerate -&gt; lint -&gt; cross-validate -&gt; test</span>
+just<span class="w"> </span>verify-schema
+
+<span class="c1"># MyBatis ↔ DDL field-name cross-check</span>
+just<span class="w"> </span>validate-mybatis
+
+<span class="c1"># Run the test suite</span>
+just<span class="w"> </span><span class="nb">test</span>
+<span class="c1"># or directly:</span>
+pytest<span class="w"> </span>tests/<span class="w"> </span>-v
+</code></pre></div>
+<h3 id="test-coverage">Test coverage</h3>
+<p>419 tests, all passing:</p>
 <table>
 <thead>
 <tr>
-<th>#</th>
-<th>Component</th>
-<th>Bug</th>
-<th>Fix</th>
+<th>Test module</th>
+<th>Tests</th>
+<th>What it checks</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td><code>linkml-runtime</code> <code>yamlutils.py</code></td>
-<td><code>SafeDumper</code> lacks <code>JsonObj</code> representer; <code>gen-yaml</code> raises <code>RepresenterError</code> on boolean annotations</td>
-<td><code>scripts/gen_yaml_patched.py</code> registers the missing representer before invoking the generator; <code>justfile</code> <code>_gen-yaml</code> recipe calls this wrapper instead of <code>gen-yaml</code> directly. Remove once <code>linkml-runtime &gt; 1.11.0</code> is on PyPI.</td>
+<td><code>tests/test_fluxnova_to_linkml.py</code></td>
+<td>97</td>
+<td>Platform transformer (parsing, mapping, generation)</td>
+</tr>
+<tr>
+<td><code>tests/test_schema.py</code></td>
+<td>20</td>
+<td>Schema-level lint, generators, structure</td>
+</tr>
+<tr>
+<td><code>tests/test_data.py</code></td>
+<td>187</td>
+<td>Valid/invalid example data against the schema (covers BPM, BPMN, and provenance classes)</td>
+</tr>
+<tr>
+<td><code>tests/test_ddl_coverage.py</code></td>
+<td>104</td>
+<td>DDL cross-validation: table coverage, column-&gt;slot, vendor files</td>
+</tr>
+<tr>
+<td><code>tests/test_bpmn_model_schema.py</code></td>
+<td>4</td>
+<td>BPMN schema validation, lint, JSON Schema generation</td>
+</tr>
+<tr>
+<td><code>tests/test_fluxnova_bpmn_model_to_linkml.py</code></td>
+<td>7</td>
+<td>BPMN transformer (discovery, headers, coverage, inheritance, serialization)</td>
 </tr>
 </tbody>
 </table>
+<p>The example data is realistic: 33 of the valid files (<code>tests/data/valid/*-vendor.yaml</code>) reuse the exact constants the upstream engine uses in its own REST API tests (<code>engine-rest/.../helper/MockProvider.java</code>). The invalid files deliberately break things - missing required fields, bad enum values, wrong types - to prove validation rejects them. A few cross-schema cases (<code>Point-001.yaml</code>, <code>Bounds-001.yaml</code>, <code>Font-001.yaml</code>, and their bad counterparts) confirm the platform root correctly validates imported BPMN classes.</p>
+<h2 id="reference">Reference</h2>
+<h3 id="whats-intentionally-out-of-scope">What's intentionally out of scope</h3>
+<ul>
+<li><strong>REST DTOs</strong> (<code>engine-rest/</code>) - API transfer objects that mirror persistence entities; excluded to avoid duplication.</li>
+<li><strong>Java implementation entity classes</strong> (<code>engine/.../impl/.../entity</code>) - a review of representative entities (<code>ExecutionEntity</code>, <code>TaskEntity</code>, <code>CamundaFormDefinitionEntity</code>, timer/job subclasses) found no DDL-backed surface beyond the generated model. Their extra fields are transient caches, runtime helpers, or subtype behavior already covered by existing tables.</li>
+</ul>
 
 
 
@@ -1277,6 +1782,24 @@ gen-all         → gen-bpmn-model + gen-linkml + overlay_sssom.py (final dedup 
           </div>
         </a>
       
+      
+        <a
+          href="../elements/provenance/"
+          class="md-footer__link md-footer__link--next"
+          rel="next"
+        >
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Provenance design
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+          </div>
+        </a>
       
     </nav>
   

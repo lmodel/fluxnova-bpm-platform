@@ -317,9 +317,22 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../about/" class="md-nav__link">
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
@@ -333,7 +346,79 @@
   
   
 
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    About
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solution design
+  
+
+    
+  </span>
+  
+  
+
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../provenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Provenance design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -728,6 +813,16 @@
 <tr>
 <td><a href="../InteractionNode/">InteractionNode</a></td>
 <td>The BPMN interactionNode interface</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../NamedThing/">NamedThing</a></td>
+<td>Abstract identifiable provenance entity with optional human-readable name and...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../ProvenanceBundle/">ProvenanceBundle</a></td>
+<td>Top-level export package for Fluxnova provenance</td>
 <td>no</td>
 </tr>
 <tr>
@@ -1455,6 +1550,111 @@
 <td>Fluxnova extension that augments an end event error definition with engine-sp...</td>
 <td>no</td>
 </tr>
+<tr>
+<td><a href="../AiAgent/">AiAgent</a></td>
+<td>Autonomous or semi-autonomous AI agent that acts as an Agent in a Fluxnova</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../AiModelDescriptor/">AiModelDescriptor</a></td>
+<td>Descriptor of an AI model used as a runtime component</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../AiModelInvocation/">AiModelInvocation</a></td>
+<td>One concrete invocation of an AI model from a workflow step</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../PromptMessage/">PromptMessage</a></td>
+<td>A single message turn in an AI model invocation (system, user, assistant,</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../ToolCall/">ToolCall</a></td>
+<td>A single tool / function call made by an AI agent during an invocation</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../EvaluationResult/">EvaluationResult</a></td>
+<td>Result of a quality or safety evaluation against an AI model invocation</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../AiDataset/">AiDataset</a></td>
+<td>Dataset artifact associated with an AI model invocation, an evaluation,</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../ModelArtifact/">ModelArtifact</a></td>
+<td>Persistent model artifact such as a checkpoint, weights file, or model</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../WorkflowDefinition/">WorkflowDefinition</a></td>
+<td>BPMN workflow / process definition (prospective provenance)</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../StepDefinition/">StepDefinition</a></td>
+<td>BPMN step / activity / event / gateway definition within a workflow</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../ParameterDefinition/">ParameterDefinition</a></td>
+<td>Formal parameter or variable contract for a workflow or step</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Agent/">Agent</a></td>
+<td>Person, organization, system, or service account participating in workflow ex...</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../Environment/">Environment</a></td>
+<td>Runtime environment for process execution or export generation</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../RuntimeComponent/">RuntimeComponent</a></td>
+<td>Engine, plugin, or service component involved in orchestration</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../WorkflowArtifact/">WorkflowArtifact</a></td>
+<td>File, payload, or URI referenced by a process definition or execution</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../WorkflowRun/">WorkflowRun</a></td>
+<td>Concrete execution of a WorkflowDefinition (retrospective provenance)</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../StepRun/">StepRun</a></td>
+<td>Concrete execution of a StepDefinition (retrospective provenance)</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../ParameterValue/">ParameterValue</a></td>
+<td>Actual observed runtime value of a variable or parameter</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../ResourceUsage/">ResourceUsage</a></td>
+<td>Resource usage measurement for a workflow run or step run</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../ExecutionResource/">ExecutionResource</a></td>
+<td>Execution resource such as worker, node, queue, container, or database</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../ProvenanceIncident/">ProvenanceIncident</a></td>
+<td>Error, escalation, or operational event attached to a workflow run or step ru...</td>
+<td>no</td>
+</tr>
 </tbody>
 </table>
 <h2 id="properties">Properties</h2>
@@ -1473,7 +1673,7 @@
 </tr>
 <tr>
 <td>Domain Of</td>
-<td><a href="../ByteArray/">ByteArray</a>, <a href="../MeterLog/">MeterLog</a>, <a href="../SchemaLogEntry/">SchemaLogEntry</a>, <a href="../TaskMeterLog/">TaskMeterLog</a>, <a href="../Authorization/">Authorization</a>, <a href="../Group/">Group</a>, <a href="../IdentityInfo/">IdentityInfo</a>, <a href="../IdentityLink/">IdentityLink</a>, <a href="../Tenant/">Tenant</a>, <a href="../TenantMembership/">TenantMembership</a>, <a href="../User/">User</a>, <a href="../CaseExecution/">CaseExecution</a>, <a href="../CaseSentryPart/">CaseSentryPart</a>, <a href="../EventSubscription/">EventSubscription</a>, <a href="../Execution/">Execution</a>, <a href="../ExternalTask/">ExternalTask</a>, <a href="../Incident/">Incident</a>, <a href="../Task/">Task</a>, <a href="../VariableInstance/">VariableInstance</a>, <a href="../Attachment/">Attachment</a>, <a href="../Comment/">Comment</a>, <a href="../Filter/">Filter</a>, <a href="../Deployment/">Deployment</a>, <a href="../ResourceDefinition/">ResourceDefinition</a>, <a href="../Batch/">Batch</a>, <a href="../Job/">Job</a>, <a href="../JobDefinition/">JobDefinition</a>, <a href="../HistoricBatch/">HistoricBatch</a>, <a href="../HistoricDecisionInputInstance/">HistoricDecisionInputInstance</a>, <a href="../HistoricDecisionInstance/">HistoricDecisionInstance</a>, <a href="../HistoricDecisionOutputInstance/">HistoricDecisionOutputInstance</a>, <a href="../HistoricDetail/">HistoricDetail</a>, <a href="../HistoricExternalTaskLog/">HistoricExternalTaskLog</a>, <a href="../HistoricIdentityLink/">HistoricIdentityLink</a>, <a href="../HistoricIncident/">HistoricIncident</a>, <a href="../HistoricJobLog/">HistoricJobLog</a>, <a href="../HistoricScopeInstance/">HistoricScopeInstance</a>, <a href="../HistoricVariableInstance/">HistoricVariableInstance</a>, <a href="../UserOperationLogEntry/">UserOperationLogEntry</a>, <a href="../Diagram/">Diagram</a>, <a href="../DiagramElement/">DiagramElement</a>, <a href="../Style/">Style</a>, <a href="../BaseElement/">BaseElement</a>, <a href="../Definitions/">Definitions</a>, <a href="../Documentation/">Documentation</a>, <a href="../InteractionNode/">InteractionNode</a></td>
+<td><a href="../ByteArray/">ByteArray</a>, <a href="../MeterLog/">MeterLog</a>, <a href="../SchemaLogEntry/">SchemaLogEntry</a>, <a href="../TaskMeterLog/">TaskMeterLog</a>, <a href="../Authorization/">Authorization</a>, <a href="../Group/">Group</a>, <a href="../IdentityInfo/">IdentityInfo</a>, <a href="../IdentityLink/">IdentityLink</a>, <a href="../Tenant/">Tenant</a>, <a href="../TenantMembership/">TenantMembership</a>, <a href="../User/">User</a>, <a href="../CaseExecution/">CaseExecution</a>, <a href="../CaseSentryPart/">CaseSentryPart</a>, <a href="../EventSubscription/">EventSubscription</a>, <a href="../Execution/">Execution</a>, <a href="../ExternalTask/">ExternalTask</a>, <a href="../Incident/">Incident</a>, <a href="../Task/">Task</a>, <a href="../VariableInstance/">VariableInstance</a>, <a href="../Attachment/">Attachment</a>, <a href="../Comment/">Comment</a>, <a href="../Filter/">Filter</a>, <a href="../Deployment/">Deployment</a>, <a href="../ResourceDefinition/">ResourceDefinition</a>, <a href="../Batch/">Batch</a>, <a href="../Job/">Job</a>, <a href="../JobDefinition/">JobDefinition</a>, <a href="../HistoricBatch/">HistoricBatch</a>, <a href="../HistoricDecisionInputInstance/">HistoricDecisionInputInstance</a>, <a href="../HistoricDecisionInstance/">HistoricDecisionInstance</a>, <a href="../HistoricDecisionOutputInstance/">HistoricDecisionOutputInstance</a>, <a href="../HistoricDetail/">HistoricDetail</a>, <a href="../HistoricExternalTaskLog/">HistoricExternalTaskLog</a>, <a href="../HistoricIdentityLink/">HistoricIdentityLink</a>, <a href="../HistoricIncident/">HistoricIncident</a>, <a href="../HistoricJobLog/">HistoricJobLog</a>, <a href="../HistoricScopeInstance/">HistoricScopeInstance</a>, <a href="../HistoricVariableInstance/">HistoricVariableInstance</a>, <a href="../UserOperationLogEntry/">UserOperationLogEntry</a>, <a href="../Diagram/">Diagram</a>, <a href="../DiagramElement/">DiagramElement</a>, <a href="../Style/">Style</a>, <a href="../BaseElement/">BaseElement</a>, <a href="../Definitions/">Definitions</a>, <a href="../Documentation/">Documentation</a>, <a href="../InteractionNode/">InteractionNode</a>, <a href="../NamedThing/">NamedThing</a>, <a href="../ProvenanceBundle/">ProvenanceBundle</a></td>
 </tr>
 <tr>
 <td>Slot URI</td>
@@ -1602,6 +1802,8 @@
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Definitions</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Documentation</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">InteractionNode</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NamedThing</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ProvenanceBundle</span>
 <span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
 <span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>

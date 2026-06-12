@@ -423,9 +423,22 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../about/" class="md-nav__link">
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
@@ -439,7 +452,79 @@
   
   
 
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    About
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Solution design
+  
+
+    
+  </span>
+  
+  
+
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="provenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Provenance design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1432,8 +1517,100 @@
 <td>Meter Log entity in the engine infrastructure</td>
 </tr>
 <tr>
+<td><a href="NamedThing/">NamedThing</a></td>
+<td>Abstract identifiable provenance entity with optional human-readable name and...</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="Agent/">Agent</a></td>
+<td>Person, organization, system, or service account participating in workflow ex...</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="AiAgent/">AiAgent</a></td>
+<td>Autonomous or semi-autonomous AI agent that acts as an Agent in a Fluxnova</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="Environment/">Environment</a></td>
+<td>Runtime environment for process execution or export generation</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="EvaluationResult/">EvaluationResult</a></td>
+<td>Result of a quality or safety evaluation against an AI model invocation</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="ExecutionResource/">ExecutionResource</a></td>
+<td>Execution resource such as worker, node, queue, container, or database</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="ParameterDefinition/">ParameterDefinition</a></td>
+<td>Formal parameter or variable contract for a workflow or step</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="ParameterValue/">ParameterValue</a></td>
+<td>Actual observed runtime value of a variable or parameter</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="PromptMessage/">PromptMessage</a></td>
+<td>A single message turn in an AI model invocation (system, user, assistant,</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="ProvenanceIncident/">ProvenanceIncident</a></td>
+<td>Error, escalation, or operational event attached to a workflow run or step ru...</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="ResourceUsage/">ResourceUsage</a></td>
+<td>Resource usage measurement for a workflow run or step run</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="RuntimeComponent/">RuntimeComponent</a></td>
+<td>Engine, plugin, or service component involved in orchestration</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="AiModelDescriptor/">AiModelDescriptor</a></td>
+<td>Descriptor of an AI model used as a runtime component</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="StepDefinition/">StepDefinition</a></td>
+<td>BPMN step / activity / event / gateway definition within a workflow</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="StepRun/">StepRun</a></td>
+<td>Concrete execution of a StepDefinition (retrospective provenance)</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="AiModelInvocation/">AiModelInvocation</a></td>
+<td>One concrete invocation of an AI model from a workflow step</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="ToolCall/">ToolCall</a></td>
+<td>A single tool / function call made by an AI agent during an invocation</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="WorkflowArtifact/">WorkflowArtifact</a></td>
+<td>File, payload, or URI referenced by a process definition or execution</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="AiDataset/">AiDataset</a></td>
+<td>Dataset artifact associated with an AI model invocation, an evaluation,</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="ModelArtifact/">ModelArtifact</a></td>
+<td>Persistent model artifact such as a checkpoint, weights file, or model</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="WorkflowDefinition/">WorkflowDefinition</a></td>
+<td>BPMN workflow / process definition (prospective provenance)</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="WorkflowRun/">WorkflowRun</a></td>
+<td>Concrete execution of a WorkflowDefinition (retrospective provenance)</td>
+</tr>
+<tr>
 <td><a href="Property/">Property</a></td>
 <td>Property entity in the engine infrastructure</td>
+</tr>
+<tr>
+<td><a href="ProvenanceBundle/">ProvenanceBundle</a></td>
+<td>Top-level export package for Fluxnova provenance</td>
 </tr>
 <tr>
 <td><a href="ResourceDefinition/">ResourceDefinition</a></td>
@@ -1535,8 +1712,32 @@
 <td>The activity type of the activity</td>
 </tr>
 <tr>
+<td><a href="agent_kind/">agent_kind</a></td>
+<td>Kind of agent (person, organization, system, service account)</td>
+</tr>
+<tr>
+<td><a href="agents/">agents</a></td>
+<td>Agents referenced by the bundle</td>
+</tr>
+<tr>
+<td><a href="allowed_values/">allowed_values</a></td>
+<td>Enumerated allowed values for the parameter, if constrained</td>
+</tr>
+<tr>
 <td><a href="annotation/">annotation</a></td>
 <td>Annotation of this incident</td>
+</tr>
+<tr>
+<td><a href="architecture/">architecture</a></td>
+<td>Architecture family (e</td>
+</tr>
+<tr>
+<td><a href="arguments_json/">arguments_json</a></td>
+<td>JSON-serialized arguments passed to the tool</td>
+</tr>
+<tr>
+<td><a href="artifact_kind/">artifact_kind</a></td>
+<td>Classifier for the kind of artifact (BPMN XML, payload, document, log, etc</td>
 </tr>
 <tr>
 <td><a href="artifacts/">artifacts</a></td>
@@ -1575,6 +1776,14 @@
 <td>Auditing information attached to this flow element</td>
 </tr>
 <tr>
+<td><a href="authors/">authors</a></td>
+<td>Authors or owners of the workflow definition (by-reference; declare full agen...</td>
+</tr>
+<tr>
+<td><a href="base_model/">base_model</a></td>
+<td>Upstream base model artifact this artifact derives from</td>
+</tr>
+<tr>
 <td><a href="batch_id/">batch_id</a></td>
 <td>Reference to a batch</td>
 </tr>
@@ -1607,6 +1816,10 @@
 <td>The BPMN model element this diagram element represents</td>
 </tr>
 <tr>
+<td><a href="bpmn_extension_names/">bpmn_extension_names</a></td>
+<td>Names or identifiers of BPMN extension elements used by the step</td>
+</tr>
+<tr>
 <td><a href="bpmn_label/">bpmn_label</a></td>
 <td>The label element attached to this shape or edge</td>
 </tr>
@@ -1617,6 +1830,10 @@
 <tr>
 <td><a href="bpmn_plane/">bpmn_plane</a></td>
 <td>The plane element containing the shapes and edges of this diagram</td>
+</tr>
+<tr>
+<td><a href="bpmn_type/">bpmn_type</a></td>
+<td>Normalized BPMN element type for the step</td>
 </tr>
 <tr>
 <td><a href="business_key/">business_key</a></td>
@@ -1649,6 +1866,10 @@
 <tr>
 <td><a href="called_process_instance_id/">called_process_instance_id</a></td>
 <td>The called process instance in case of call activity</td>
+</tr>
+<tr>
+<td><a href="called_step_run/">called_step_run</a></td>
+<td>Step run that was materialized to execute the tool call, if any</td>
 </tr>
 <tr>
 <td><a href="capacity/">capacity</a></td>
@@ -1707,6 +1928,10 @@
 <td>Shape of the associated choreography activity</td>
 </tr>
 <tr>
+<td><a href="classification/">classification</a></td>
+<td>Data classification of the value (public, internal, confidential, restricted)</td>
+</tr>
+<tr>
 <td><a href="clause_id/">clause_id</a></td>
 <td>The unique identifier of the clause that the value is assigned for</td>
 </tr>
@@ -1721,6 +1946,10 @@
 <tr>
 <td><a href="closed/">closed</a></td>
 <td>Whether closed</td>
+</tr>
+<tr>
+<td><a href="code/">code</a></td>
+<td>Incident or error code</td>
 </tr>
 <tr>
 <td><a href="collect_result_value/">collect_result_value</a></td>
@@ -1743,6 +1972,10 @@
 <td>Rules defining complex multi-instance completion behavior</td>
 </tr>
 <tr>
+<td><a href="component_kind/">component_kind</a></td>
+<td>Kind of runtime component (engine, REST API, executor, plugin, connector, etc</td>
+</tr>
+<tr>
 <td><a href="condition/">condition</a></td>
 <td>Condition guard expression</td>
 </tr>
@@ -1755,8 +1988,32 @@
 <td>Payload of this incident</td>
 </tr>
 <tr>
+<td><a href="configuration_ref/">configuration_ref</a></td>
+<td>Reference to an artifact containing applied configuration</td>
+</tr>
+<tr>
+<td><a href="consumed_artifacts/">consumed_artifacts</a></td>
+<td>Artifacts consumed by the step run (by-reference; declare full artifacts unde...</td>
+</tr>
+<tr>
+<td><a href="consumed_by_step_runs/">consumed_by_step_runs</a></td>
+<td>Step runs that consumed this artifact or parameter value (by-reference)</td>
+</tr>
+<tr>
+<td><a href="content/">content</a></td>
+<td>Message content (may be redacted in export)</td>
+</tr>
+<tr>
+<td><a href="content_hash/">content_hash</a></td>
+<td>Hash of the message content (algorithm-prefixed, e</td>
+</tr>
+<tr>
 <td><a href="content_id/">content_id</a></td>
 <td>Reference to the content</td>
+</tr>
+<tr>
+<td><a href="context_window_tokens/">context_window_tokens</a></td>
+<td>Maximum input context window in tokens</td>
 </tr>
 <tr>
 <td><a href="conversation_associations/">conversation_associations</a></td>
@@ -1797,6 +2054,10 @@
 <tr>
 <td><a href="correlation_subscriptions/">correlation_subscriptions</a></td>
 <td>Correlation subscriptions associated with this process</td>
+</tr>
+<tr>
+<td><a href="cost_usd/">cost_usd</a></td>
+<td>Direct provider cost in USD for the invocation, where reported by the</td>
 </tr>
 <tr>
 <td><a href="create_time/">create_time</a></td>
@@ -1851,6 +2112,10 @@
 <td>The data store that this reference points to</td>
 </tr>
 <tr>
+<td><a href="dataset_kind/">dataset_kind</a></td>
+<td>Role of the dataset (training, fine-tuning, evaluation, RAG corpus, ground tr...</td>
+</tr>
+<tr>
 <td><a href="decision_definition_id/">decision_definition_id</a></td>
 <td>The decision definition reference</td>
 </tr>
@@ -1867,6 +2132,10 @@
 <td>The unique identifier of the historic decision instance</td>
 </tr>
 <tr>
+<td><a href="decision_ref/">decision_ref</a></td>
+<td>DMN decision or decision service reference for business rule tasks</td>
+</tr>
+<tr>
 <td><a href="decision_requirements_definition_id/">decision_requirements_definition_id</a></td>
 <td>Id of the related decision requirements definition</td>
 </tr>
@@ -1875,8 +2144,24 @@
 <td>Key of the related decision requirements definition</td>
 </tr>
 <tr>
+<td><a href="declared_type/">declared_type</a></td>
+<td>Declared variable/parameter type as a string</td>
+</tr>
+<tr>
 <td><a href="default/">default</a></td>
 <td>Default sequence flow taken when no other outgoing condition is satisfied</td>
+</tr>
+<tr>
+<td><a href="default_value/">default_value</a></td>
+<td>Default value for the parameter in string/JSON form</td>
+</tr>
+<tr>
+<td><a href="definition_key/">definition_key</a></td>
+<td>Stable engine definition key (BPMN process key)</td>
+</tr>
+<tr>
+<td><a href="definition_version/">definition_version</a></td>
+<td>Version string of the workflow or step definition (semantic version of the BP...</td>
 </tr>
 <tr>
 <td><a href="definitions/">definitions</a></td>
@@ -1899,8 +2184,16 @@
 <td>Reference to the deployment</td>
 </tr>
 <tr>
+<td><a href="deployment_ref/">deployment_ref</a></td>
+<td>Deployment reference or release identifier (Helm chart URI, image tag, etc</td>
+</tr>
+<tr>
 <td><a href="deployments/">deployments</a></td>
 <td>Deployed resources</td>
+</tr>
+<tr>
+<td><a href="derived_from/">derived_from</a></td>
+<td>Upstream parameter values from which this value was derived (by-reference)</td>
 </tr>
 <tr>
 <td><a href="description/">description</a></td>
@@ -1967,8 +2260,24 @@
 <td>End timestamp</td>
 </tr>
 <tr>
+<td><a href="ended_at/">ended_at</a></td>
+<td>Timestamp when execution ended (absent for running instances)</td>
+</tr>
+<tr>
+<td><a href="endpoint/">endpoint</a></td>
+<td>API or service endpoint URL</td>
+</tr>
+<tr>
 <td><a href="entity_type/">entity_type</a></td>
 <td>The type of the entity on which this operation was executed</td>
+</tr>
+<tr>
+<td><a href="environment/">environment</a></td>
+<td>Runtime environment in which the run took place</td>
+</tr>
+<tr>
+<td><a href="environments/">environments</a></td>
+<td>Environments referenced by the bundle</td>
 </tr>
 <tr>
 <td><a href="error/">error</a></td>
@@ -1999,12 +2308,32 @@
 <td>The escalation code identifying this escalation</td>
 </tr>
 <tr>
+<td><a href="evaluated_at/">evaluated_at</a></td>
+<td>Timestamp when the evaluation was performed</td>
+</tr>
+<tr>
+<td><a href="evaluated_invocation/">evaluated_invocation</a></td>
+<td>AI model invocation that was evaluated</td>
+</tr>
+<tr>
 <td><a href="evaluates_to_type/">evaluates_to_type</a></td>
 <td>The evaluates to type of this element</td>
 </tr>
 <tr>
+<td><a href="evaluation_results/">evaluation_results</a></td>
+<td>Evaluation results attached to the invocation</td>
+</tr>
+<tr>
 <td><a href="evaluation_time/">evaluation_time</a></td>
 <td>Time when the decision was evaluated</td>
+</tr>
+<tr>
+<td><a href="evaluator_kind/">evaluator_kind</a></td>
+<td>Kind of evaluator (human, LLM-as-judge, metric, guardrail, static rule)</td>
+</tr>
+<tr>
+<td><a href="evaluator_name/">evaluator_name</a></td>
+<td>Name of the evaluator (rubric name, judge model name, metric name)</td>
 </tr>
 <tr>
 <td><a href="event_definition_refs/">event_definition_refs</a></td>
@@ -2043,8 +2372,16 @@
 <td>Whether executable</td>
 </tr>
 <tr>
+<td><a href="executed_by/">executed_by</a></td>
+<td>Agent (assignee, service account, system) that executed the step</td>
+</tr>
+<tr>
 <td><a href="execution_id/">execution_id</a></td>
 <td>Reference to the execution</td>
+</tr>
+<tr>
+<td><a href="execution_resource/">execution_resource</a></td>
+<td>Resource (pod, container, node, queue) used to execute the step</td>
 </tr>
 <tr>
 <td><a href="execution_start_time/">execution_start_time</a></td>
@@ -2087,12 +2424,20 @@
 <td>Extension elements attached to this definitions element</td>
 </tr>
 <tr>
+<td><a href="external_ref/">external_ref</a></td>
+<td>External URI, engine identifier, or source reference for this entity</td>
+</tr>
+<tr>
 <td><a href="external_task_id/">external_task_id</a></td>
 <td>Id of the associated external task</td>
 </tr>
 <tr>
 <td><a href="failed_activity_id/">failed_activity_id</a></td>
 <td>Id of the activity on which the last exception occurred</td>
+</tr>
+<tr>
+<td><a href="fine_tuning_description/">fine_tuning_description</a></td>
+<td>Free-text description of fine-tuning applied to the model</td>
 </tr>
 <tr>
 <td><a href="first_name/">first_name</a></td>
@@ -2499,6 +2844,10 @@
 <td>Whether this activity is used for compensation handling</td>
 </tr>
 <tr>
+<td><a href="form_ref/">form_ref</a></td>
+<td>Form reference for human tasks</td>
+</tr>
+<tr>
 <td><a href="from_/">from_</a></td>
 <td>The source expression of this assignment</td>
 </tr>
@@ -2509,6 +2858,10 @@
 <tr>
 <td><a href="gateway_direction/">gateway_direction</a></td>
 <td>Convergence/divergence direction of token routing through this gateway</td>
+</tr>
+<tr>
+<td><a href="generated_at/">generated_at</a></td>
+<td>Timestamp at which the provenance bundle was produced</td>
 </tr>
 <tr>
 <td><a href="group_id/">group_id</a></td>
@@ -2531,6 +2884,10 @@
 <td>The has start form key</td>
 </tr>
 <tr>
+<td><a href="hash/">hash</a></td>
+<td>Content hash or checksum string (algorithm-prefixed, e</td>
+</tr>
+<tr>
 <td><a href="height/">height</a></td>
 <td>Height of this element's bounding rectangle</td>
 </tr>
@@ -2547,6 +2904,10 @@
 <td>Whether this pool or lane is oriented horizontally</td>
 </tr>
 <tr>
+<td><a href="host/">host</a></td>
+<td>Hostname or logical host</td>
+</tr>
+<tr>
 <td><a href="hostname/">hostname</a></td>
 <td>Name of the host where the Process Engine that added this job log runs</td>
 </tr>
@@ -2561,6 +2922,10 @@
 <tr>
 <td><a href="implementation/">implementation</a></td>
 <td>Implementation technology of this service or send/receive task</td>
+</tr>
+<tr>
+<td><a href="implementation_kind/">implementation_kind</a></td>
+<td>Normalized implementation strategy for the step</td>
 </tr>
 <tr>
 <td><a href="implementation_ref/">implementation_ref</a></td>
@@ -2587,6 +2952,10 @@
 <td>The incident state</td>
 </tr>
 <tr>
+<td><a href="incident_status/">incident_status</a></td>
+<td>Lifecycle status of an incident</td>
+</tr>
+<tr>
 <td><a href="incident_timestamp/">incident_timestamp</a></td>
 <td>Time when the incident happened</td>
 </tr>
@@ -2595,8 +2964,16 @@
 <td>Type of this incident to identify the kind of incident</td>
 </tr>
 <tr>
+<td><a href="incidents/">incidents</a></td>
+<td>Incidents recorded against the workflow run</td>
+</tr>
+<tr>
 <td><a href="incoming/">incoming</a></td>
 <td>Sequence flows entering this flow node</td>
+</tr>
+<tr>
+<td><a href="informed_by/">informed_by</a></td>
+<td>Step runs whose completion preceded and informed this step run (by-reference)</td>
 </tr>
 <tr>
 <td><a href="inner_conversation_node/">inner_conversation_node</a></td>
@@ -2619,6 +2996,14 @@
 <td>Loop input data item variable</td>
 </tr>
 <tr>
+<td><a href="input_modalities/">input_modalities</a></td>
+<td>Modalities the model accepts as input</td>
+</tr>
+<tr>
+<td><a href="input_parameters/">input_parameters</a></td>
+<td>Formal input parameter contracts for the step</td>
+</tr>
+<tr>
 <td><a href="input_set/">input_set</a></td>
 <td>The input set associated with this input data</td>
 </tr>
@@ -2629,6 +3014,10 @@
 <tr>
 <td><a href="input_sets/">input_sets</a></td>
 <td>Input sets grouping required input data</td>
+</tr>
+<tr>
+<td><a href="input_values/">input_values</a></td>
+<td>Observed input parameter values at the workflow or step boundary (by-referenc...</td>
 </tr>
 <tr>
 <td><a href="instantiate/">instantiate</a></td>
@@ -2643,8 +3032,16 @@
 <td>Whether this start event interrupts the parent sub-process</td>
 </tr>
 <tr>
+<td><a href="invocation_kind/">invocation_kind</a></td>
+<td>Kind of invocation (chat completion, tool use, embedding, etc</td>
+</tr>
+<tr>
 <td><a href="invocations_per_job/">invocations_per_job</a></td>
 <td>The invocations per job</td>
+</tr>
+<tr>
+<td><a href="invoked_model/">invoked_model</a></td>
+<td>AI agent that was invoked to produce the step result</td>
 </tr>
 <tr>
 <td><a href="io_bindings/">io_bindings</a></td>
@@ -2681,6 +3078,10 @@
 <tr>
 <td><a href="is_initial/">is_initial</a></td>
 <td>Whether this entity is initial</td>
+</tr>
+<tr>
+<td><a href="is_part_of_ai_system/">is_part_of_ai_system</a></td>
+<td>External CURIE or URI reference to a larger AI system this agent belongs</td>
 </tr>
 <tr>
 <td><a href="is_required/">is_required</a></td>
@@ -2783,6 +3184,10 @@
 <td>The label style of this element</td>
 </tr>
 <tr>
+<td><a href="labels/">labels</a></td>
+<td>Free-form key=value labels on the resource</td>
+</tr>
+<tr>
 <td><a href="lane_sets/">lane_sets</a></td>
 <td>Lane sets partitioning this process into swimlanes</td>
 </tr>
@@ -2805,6 +3210,10 @@
 <tr>
 <td><a href="last_updated/">last_updated</a></td>
 <td>The date/time when this task was last updated</td>
+</tr>
+<tr>
+<td><a href="license_uri/">license_uri</a></td>
+<td>URI of the dataset license (e</td>
 </tr>
 <tr>
 <td><a href="location/">location</a></td>
@@ -2843,8 +3252,24 @@
 <td>Whether the loop or multi-instance marker is displayed</td>
 </tr>
 <tr>
+<td><a href="max_tokens/">max_tokens</a></td>
+<td>Maximum tokens the model was permitted to generate</td>
+</tr>
+<tr>
 <td><a href="maximum/">maximum</a></td>
 <td>Maximum number of instances for this participant multiplicity</td>
+</tr>
+<tr>
+<td><a href="measured_for_step_run/">measured_for_step_run</a></td>
+<td>Step run the measurement is associated with</td>
+</tr>
+<tr>
+<td><a href="measured_for_workflow_run/">measured_for_workflow_run</a></td>
+<td>Workflow run the measurement is associated with</td>
+</tr>
+<tr>
+<td><a href="media_type/">media_type</a></td>
+<td>IANA media type / MIME type of the artifact</td>
 </tr>
 <tr>
 <td><a href="message/">message</a></td>
@@ -2863,6 +3288,10 @@
 <td>The message path of this element</td>
 </tr>
 <tr>
+<td><a href="message_role/">message_role</a></td>
+<td>Conversational role of the message (system, user, assistant, tool)</td>
+</tr>
+<tr>
 <td><a href="message_visible/">message_visible</a></td>
 <td>Whether the message flow envelope icon is visible</td>
 </tr>
@@ -2875,12 +3304,40 @@
 <td>The method of this element</td>
 </tr>
 <tr>
+<td><a href="metric_name/">metric_name</a></td>
+<td>Metric name (e</td>
+</tr>
+<tr>
+<td><a href="metric_unit/">metric_unit</a></td>
+<td>UCUM or local unit string for the metric</td>
+</tr>
+<tr>
+<td><a href="metric_value/">metric_value</a></td>
+<td>Metric numeric value</td>
+</tr>
+<tr>
 <td><a href="milliseconds/">milliseconds</a></td>
 <td>The milliseconds</td>
 </tr>
 <tr>
 <td><a href="minimum/">minimum</a></td>
 <td>Minimum number of instances for this participant multiplicity</td>
+</tr>
+<tr>
+<td><a href="model_card_uri/">model_card_uri</a></td>
+<td>URI of the model card or model documentation</td>
+</tr>
+<tr>
+<td><a href="model_family/">model_family</a></td>
+<td>Model family or product line (e</td>
+</tr>
+<tr>
+<td><a href="model_name/">model_name</a></td>
+<td>Concrete model name (e</td>
+</tr>
+<tr>
+<td><a href="model_version/">model_version</a></td>
+<td>Released or pinned version identifier for the model</td>
 </tr>
 <tr>
 <td><a href="monitor_job_definition_id/">monitor_job_definition_id</a></td>
@@ -2905,6 +3362,14 @@
 <tr>
 <td><a href="none_behavior_event_ref/">none_behavior_event_ref</a></td>
 <td>The none behavior event ref of this element</td>
+</tr>
+<tr>
+<td><a href="observed_at/">observed_at</a></td>
+<td>Timestamp when the value or event was observed</td>
+</tr>
+<tr>
+<td><a href="observed_type/">observed_type</a></td>
+<td>Runtime-observed concrete type for the actual value</td>
 </tr>
 <tr>
 <td><a href="one_behavior_event_ref/">one_behavior_event_ref</a></td>
@@ -2967,12 +3432,24 @@
 <td>Loop output data item variable</td>
 </tr>
 <tr>
+<td><a href="output_modalities/">output_modalities</a></td>
+<td>Modalities the model produces as output</td>
+</tr>
+<tr>
+<td><a href="output_parameters/">output_parameters</a></td>
+<td>Formal output parameter contracts for the step</td>
+</tr>
+<tr>
 <td><a href="output_set/">output_set</a></td>
 <td>The output set associated with this output data</td>
 </tr>
 <tr>
 <td><a href="output_sets/">output_sets</a></td>
 <td>Output sets grouping produced output data</td>
+</tr>
+<tr>
+<td><a href="output_values/">output_values</a></td>
+<td>Observed output parameter values at the workflow or step boundary (by-referen...</td>
 </tr>
 <tr>
 <td><a href="owner/">owner</a></td>
@@ -2987,6 +3464,26 @@
 <td>The parameter of this element</td>
 </tr>
 <tr>
+<td><a href="parameter_count/">parameter_count</a></td>
+<td>Number of model parameters (where disclosed)</td>
+</tr>
+<tr>
+<td><a href="parameter_definition/">parameter_definition</a></td>
+<td>Formal parameter definition this value instantiates</td>
+</tr>
+<tr>
+<td><a href="parameter_direction/">parameter_direction</a></td>
+<td>Direction of data flow for a parameter (IN, OUT, INOUT, LOCAL)</td>
+</tr>
+<tr>
+<td><a href="parameter_scope/">parameter_scope</a></td>
+<td>Scope at which the parameter applies (workflow, step, task, decision, form)</td>
+</tr>
+<tr>
+<td><a href="parameter_values/">parameter_values</a></td>
+<td>Parameter value observations referenced by the bundle's workflow_runs and ste...</td>
+</tr>
+<tr>
 <td><a href="parent_activity_instance_id/">parent_activity_instance_id</a></td>
 <td>Id of the parent activity instance</td>
 </tr>
@@ -2995,8 +3492,20 @@
 <td>Reference to a CaseExecution</td>
 </tr>
 <tr>
+<td><a href="parent_invocation/">parent_invocation</a></td>
+<td>AI model invocation that produced or owns this message or tool call</td>
+</tr>
+<tr>
+<td><a href="parent_step_run/">parent_step_run</a></td>
+<td>Parent step run for nested step executions</td>
+</tr>
+<tr>
 <td><a href="parent_task_id/">parent_task_id</a></td>
 <td>The parent task for which this task is a subtask</td>
+</tr>
+<tr>
+<td><a href="parent_workflow_run/">parent_workflow_run</a></td>
+<td>Parent workflow run when the run is a sub-process invocation</td>
 </tr>
 <tr>
 <td><a href="participant_associations/">participant_associations</a></td>
@@ -3023,8 +3532,16 @@
 <td>The partition element child of this element</td>
 </tr>
 <tr>
+<td><a href="passing/">passing</a></td>
+<td>Whether the evaluation was considered passing</td>
+</tr>
+<tr>
 <td><a href="password/">password</a></td>
 <td>Hashed password</td>
+</tr>
+<tr>
+<td><a href="path_or_uri/">path_or_uri</a></td>
+<td>File path or URI locating the artifact content</td>
 </tr>
 <tr>
 <td><a href="permissions/">permissions</a></td>
@@ -3071,6 +3588,18 @@
 <td>Whether this process is a public, private, or collaboration process</td>
 </tr>
 <tr>
+<td><a href="produced_artifacts/">produced_artifacts</a></td>
+<td>Artifacts produced by the step run (by-reference; declare full artifacts unde...</td>
+</tr>
+<tr>
+<td><a href="produced_by_step_run/">produced_by_step_run</a></td>
+<td>Step run that produced this artifact or parameter value</td>
+</tr>
+<tr>
+<td><a href="prompt_messages/">prompt_messages</a></td>
+<td>Ordered sequence of prompt messages sent to the model</td>
+</tr>
+<tr>
 <td><a href="properties/">properties</a></td>
 <td>Serialized properties</td>
 </tr>
@@ -3079,8 +3608,32 @@
 <td>The property changed by this operation</td>
 </tr>
 <tr>
+<td><a href="provider/">provider</a></td>
+<td>Provider or vendor that hosts the model endpoint (e</td>
+</tr>
+<tr>
 <td><a href="query/">query</a></td>
 <td>Serialized query expression</td>
+</tr>
+<tr>
+<td><a href="record_count/">record_count</a></td>
+<td>Number of records in the dataset</td>
+</tr>
+<tr>
+<td><a href="redacted/">redacted</a></td>
+<td>Whether the serialized value has been redacted for export</td>
+</tr>
+<tr>
+<td><a href="region/">region</a></td>
+<td>Region or availability zone</td>
+</tr>
+<tr>
+<td><a href="related_step_run/">related_step_run</a></td>
+<td>Step run the incident is related to</td>
+</tr>
+<tr>
+<td><a href="related_workflow_run/">related_workflow_run</a></td>
+<td>Workflow run the incident is related to</td>
 </tr>
 <tr>
 <td><a href="relationships/">relationships</a></td>
@@ -3127,6 +3680,10 @@
 <td>Reference to the resource</td>
 </tr>
 <tr>
+<td><a href="resource_kind/">resource_kind</a></td>
+<td>Kind of execution resource</td>
+</tr>
+<tr>
 <td><a href="resource_name/">resource_name</a></td>
 <td>Name of the deployed resource file</td>
 </tr>
@@ -3147,12 +3704,36 @@
 <td>Numeric type of the authorized resource</td>
 </tr>
 <tr>
+<td><a href="resource_usage/">resource_usage</a></td>
+<td>Resource usage measurements for the run</td>
+</tr>
+<tr>
+<td><a href="resources/">resources</a></td>
+<td>Execution resources (workers, pods, queues, hosts) referenced by the bundle's...</td>
+</tr>
+<tr>
+<td><a href="response_message/">response_message</a></td>
+<td>Assistant or tool message returned by the model as the response</td>
+</tr>
+<tr>
 <td><a href="restarted_process_instance_id/">restarted_process_instance_id</a></td>
 <td>The id of the original process instance which was restarted</td>
 </tr>
 <tr>
+<td><a href="result_artifact/">result_artifact</a></td>
+<td>Optional artifact reference for large tool outputs</td>
+</tr>
+<tr>
+<td><a href="result_json/">result_json</a></td>
+<td>JSON-serialized result returned by the tool</td>
+</tr>
+<tr>
 <td><a href="retries/">retries</a></td>
 <td>Number of retries this job has left</td>
+</tr>
+<tr>
+<td><a href="role/">role</a></td>
+<td>Roles played by the agent in this context</td>
 </tr>
 <tr>
 <td><a href="root_cause_incident_id/">root_cause_incident_id</a></td>
@@ -3179,8 +3760,32 @@
 <td>The order of the rule that is matched</td>
 </tr>
 <tr>
+<td><a href="runtime_component/">runtime_component</a></td>
+<td>Engine or runtime component associated with the entity</td>
+</tr>
+<tr>
+<td><a href="runtime_components/">runtime_components</a></td>
+<td>Runtime components referenced by the bundle</td>
+</tr>
+<tr>
+<td><a href="runtime_name/">runtime_name</a></td>
+<td>Runtime/platform name (e</td>
+</tr>
+<tr>
+<td><a href="runtime_version/">runtime_version</a></td>
+<td>Runtime/platform version</td>
+</tr>
+<tr>
+<td><a href="safety_flags/">safety_flags</a></td>
+<td>Safety, policy, or guardrail flags raised by the model, provider, or</td>
+</tr>
+<tr>
 <td><a href="salt/">salt</a></td>
 <td>Cryptographic salt for password hashing</td>
+</tr>
+<tr>
+<td><a href="schema_version/">schema_version</a></td>
+<td>Version of the provenance schema used for the bundle</td>
 </tr>
 <tr>
 <td><a href="scope/">scope</a></td>
@@ -3195,6 +3800,10 @@
 <td>MIME type or language of the script (e</td>
 </tr>
 <tr>
+<td><a href="secret/">secret</a></td>
+<td>Indicates that values for this parameter must be redacted on export</td>
+</tr>
+<tr>
 <td><a href="seed_job_definition_id/">seed_job_definition_id</a></td>
 <td>Reference to a JobDefinition</td>
 </tr>
@@ -3207,8 +3816,16 @@
 <td>Monotonically increasing counter for ordering</td>
 </tr>
 <tr>
+<td><a href="sequence_no/">sequence_no</a></td>
+<td>Exporter-assigned ordering number for deterministic serialization</td>
+</tr>
+<tr>
 <td><a href="sequential/">sequential</a></td>
 <td>Whether sequential</td>
+</tr>
+<tr>
+<td><a href="serialized_value/">serialized_value</a></td>
+<td>Export-safe serialized value (JSON scalar/string/external reference)</td>
 </tr>
 <tr>
 <td><a href="signal/">signal</a></td>
@@ -3217,6 +3834,10 @@
 <tr>
 <td><a href="size/">size</a></td>
 <td>Font size in points</td>
+</tr>
+<tr>
+<td><a href="size_in_bytes/">size_in_bytes</a></td>
+<td>Size of the artifact content in bytes</td>
 </tr>
 <tr>
 <td><a href="source/">source</a></td>
@@ -3229,6 +3850,14 @@
 <tr>
 <td><a href="source_element/">source_element</a></td>
 <td>The source element of this element</td>
+</tr>
+<tr>
+<td><a href="source_model_ref/">source_model_ref</a></td>
+<td>Reference to the source BPMN/DMN/CMMN model artifact</td>
+</tr>
+<tr>
+<td><a href="source_system/">source_system</a></td>
+<td>Name or identifier of the system that produced the provenance bundle</td>
 </tr>
 <tr>
 <td><a href="sources/">sources</a></td>
@@ -3255,8 +3884,32 @@
 <td>The authenticated user that started this process instance</td>
 </tr>
 <tr>
+<td><a href="started_at/">started_at</a></td>
+<td>Timestamp when execution started</td>
+</tr>
+<tr>
+<td><a href="started_by/">started_by</a></td>
+<td>Agent that initiated the workflow run</td>
+</tr>
+<tr>
 <td><a href="state/">state</a></td>
 <td>Current state of HistoricProcessInstance, following values are recognized dur...</td>
+</tr>
+<tr>
+<td><a href="status/">status</a></td>
+<td>Status of the workflow run or step run</td>
+</tr>
+<tr>
+<td><a href="step_definition/">step_definition</a></td>
+<td>Step definition this run instantiates</td>
+</tr>
+<tr>
+<td><a href="step_runs/">step_runs</a></td>
+<td>Step run executions belonging to the workflow run</td>
+</tr>
+<tr>
+<td><a href="steps/">steps</a></td>
+<td>Step definitions belonging to a workflow definition</td>
 </tr>
 <tr>
 <td><a href="strike_through/">strike_through</a></td>
@@ -3295,12 +3948,20 @@
 <td>Collection of interface elements associated with this element</td>
 </tr>
 <tr>
+<td><a href="supported_languages/">supported_languages</a></td>
+<td>ISO 639 language tags supported by the model</td>
+</tr>
+<tr>
 <td><a href="supports/">supports</a></td>
 <td>Interfaces that this process is declared to support</td>
 </tr>
 <tr>
 <td><a href="suspension_state/">suspension_state</a></td>
 <td>Whether the entity is active or suspended</td>
+</tr>
+<tr>
+<td><a href="tags/">tags</a></td>
+<td>Free-form tag labels</td>
 </tr>
 <tr>
 <td><a href="target/">target</a></td>
@@ -3333,6 +3994,10 @@
 <tr>
 <td><a href="tasks/">tasks</a></td>
 <td>User tasks</td>
+</tr>
+<tr>
+<td><a href="temperature/">temperature</a></td>
+<td>Sampling temperature requested for the invocation</td>
 </tr>
 <tr>
 <td><a href="tenant_id/">tenant_id</a></td>
@@ -3379,12 +4044,44 @@
 <td>The target expression of this assignment</td>
 </tr>
 <tr>
+<td><a href="tool_call_id/">tool_call_id</a></td>
+<td>Provider-assigned identifier for the tool call</td>
+</tr>
+<tr>
+<td><a href="tool_calls/">tool_calls</a></td>
+<td>Tool / function calls performed by the model during the invocation</td>
+</tr>
+<tr>
+<td><a href="tool_name/">tool_name</a></td>
+<td>Tool or function name as exposed to the model</td>
+</tr>
+<tr>
+<td><a href="top_p/">top_p</a></td>
+<td>Top-p nucleus sampling parameter</td>
+</tr>
+<tr>
 <td><a href="topic_name/">topic_name</a></td>
 <td>Topic name of the associated external task</td>
 </tr>
 <tr>
+<td><a href="total_input_tokens/">total_input_tokens</a></td>
+<td>Total prompt / input tokens consumed by the invocation</td>
+</tr>
+<tr>
 <td><a href="total_jobs/">total_jobs</a></td>
 <td>Total number of jobs</td>
+</tr>
+<tr>
+<td><a href="total_output_tokens/">total_output_tokens</a></td>
+<td>Total completion / output tokens produced by the invocation</td>
+</tr>
+<tr>
+<td><a href="training_datasets/">training_datasets</a></td>
+<td>Datasets used to train or fine-tune the model</td>
+</tr>
+<tr>
+<td><a href="training_token_count/">training_token_count</a></td>
+<td>Number of tokens used to train the model (where disclosed)</td>
 </tr>
 <tr>
 <td><a href="transformation/">transformation</a></td>
@@ -3421,6 +4118,10 @@
 <tr>
 <td><a href="value/">value</a></td>
 <td>Value of this variable instance</td>
+</tr>
+<tr>
+<td><a href="value_hash/">value_hash</a></td>
+<td>Hash of the serialized value for deduplication or comparison</td>
 </tr>
 <tr>
 <td><a href="values/">values</a></td>
@@ -3463,6 +4164,10 @@
 <td>Ordered list of waypoints defining the visual path of this edge</td>
 </tr>
 <tr>
+<td><a href="weights_uri/">weights_uri</a></td>
+<td>URI of the model weights or checkpoint</td>
+</tr>
+<tr>
 <td><a href="while_executing_input/">while_executing_input</a></td>
 <td>Collection of data input elements associated with this element</td>
 </tr>
@@ -3477,6 +4182,26 @@
 <tr>
 <td><a href="worker_id/">worker_id</a></td>
 <td>Id of the worker that fetched the external task most recently</td>
+</tr>
+<tr>
+<td><a href="workflow_artifacts/">workflow_artifacts</a></td>
+<td>Workflow artifacts referenced by the bundle</td>
+</tr>
+<tr>
+<td><a href="workflow_definition/">workflow_definition</a></td>
+<td>Reference to the owning workflow definition</td>
+</tr>
+<tr>
+<td><a href="workflow_definitions/">workflow_definitions</a></td>
+<td>Workflow definitions exported in the bundle</td>
+</tr>
+<tr>
+<td><a href="workflow_run/">workflow_run</a></td>
+<td>Parent workflow run for the step run</td>
+</tr>
+<tr>
+<td><a href="workflow_runs/">workflow_runs</a></td>
+<td>Workflow runs exported in the bundle</td>
 </tr>
 <tr>
 <td><a href="x/">x</a></td>
@@ -3502,6 +4227,22 @@
 <td>State of an activity instance</td>
 </tr>
 <tr>
+<td><a href="AgentKind/">AgentKind</a></td>
+<td>Kind of agent participating in workflow execution</td>
+</tr>
+<tr>
+<td><a href="AiInvocationKind/">AiInvocationKind</a></td>
+<td>Kind of AI model invocation performed from a workflow step</td>
+</tr>
+<tr>
+<td><a href="AiModality/">AiModality</a></td>
+<td>Input or output modality supported by an AI model</td>
+</tr>
+<tr>
+<td><a href="ArtifactKind/">ArtifactKind</a></td>
+<td>Classifier for the kind of artifact referenced</td>
+</tr>
+<tr>
 <td><a href="AssociationDirection/">AssociationDirection</a></td>
 <td>The BPMN tAssociationDirection type</td>
 </tr>
@@ -3510,12 +4251,32 @@
 <td>Type of authorization rule</td>
 </tr>
 <tr>
+<td><a href="BPMNElementType/">BPMNElementType</a></td>
+<td>Normalized BPMN element type for a step definition</td>
+</tr>
+<tr>
+<td><a href="DataClassification/">DataClassification</a></td>
+<td>Sensitivity / data-classification label for a parameter value</td>
+</tr>
+<tr>
+<td><a href="DatasetKind/">DatasetKind</a></td>
+<td>Role of a dataset relative to an AI model</td>
+</tr>
+<tr>
 <td><a href="DelegationState/">DelegationState</a></td>
 <td>Delegation states of a task</td>
 </tr>
 <tr>
+<td><a href="DirectionEnum/">DirectionEnum</a></td>
+<td>Direction of data flow for a parameter</td>
+</tr>
+<tr>
 <td><a href="EntityState/">EntityState</a></td>
 <td>General state of an entity (e</td>
+</tr>
+<tr>
+<td><a href="EvaluatorKind/">EvaluatorKind</a></td>
+<td>Kind of evaluator that produced an EvaluationResult</td>
 </tr>
 <tr>
 <td><a href="EventBasedGatewayType/">EventBasedGatewayType</a></td>
@@ -3526,8 +4287,16 @@
 <td>The BPMN tGatewayDirection simpleType</td>
 </tr>
 <tr>
+<td><a href="ImplementationKind/">ImplementationKind</a></td>
+<td>Normalized implementation strategy for a step</td>
+</tr>
+<tr>
 <td><a href="IncidentState/">IncidentState</a></td>
 <td>State of a historic incident</td>
+</tr>
+<tr>
+<td><a href="IncidentStatus/">IncidentStatus</a></td>
+<td>Lifecycle status of an incident</td>
 </tr>
 <tr>
 <td><a href="ItemKind/">ItemKind</a></td>
@@ -3538,12 +4307,20 @@
 <td>State of a historic job log entry</td>
 </tr>
 <tr>
+<td><a href="MessageRole/">MessageRole</a></td>
+<td>Conversational role of a prompt or response message</td>
+</tr>
+<tr>
 <td><a href="MessageVisibleKind/">MessageVisibleKind</a></td>
 <td>The BPMNDI MessageVisibleKind simpleType</td>
 </tr>
 <tr>
 <td><a href="MultiInstanceFlowCondition/">MultiInstanceFlowCondition</a></td>
 <td>The BPMN 2</td>
+</tr>
+<tr>
+<td><a href="ParameterScope/">ParameterScope</a></td>
+<td>Scope at which a parameter or variable is defined</td>
 </tr>
 <tr>
 <td><a href="ParticipantBandKind/">ParticipantBandKind</a></td>
@@ -3556,6 +4333,22 @@
 <tr>
 <td><a href="RelationshipDirection/">RelationshipDirection</a></td>
 <td>The BPMN tRelationshipDirection type</td>
+</tr>
+<tr>
+<td><a href="ResourceKind/">ResourceKind</a></td>
+<td>Kind of execution resource</td>
+</tr>
+<tr>
+<td><a href="RunStatus/">RunStatus</a></td>
+<td>Lifecycle status of a workflow run or step run</td>
+</tr>
+<tr>
+<td><a href="RuntimeComponentKind/">RuntimeComponentKind</a></td>
+<td>Kind of runtime component participating in orchestration</td>
+</tr>
+<tr>
+<td><a href="SafetyFlag/">SafetyFlag</a></td>
+<td>Safety, policy, or guardrail flag raised by the model, the provider, or</td>
 </tr>
 <tr>
 <td><a href="SuspensionState/">SuspensionState</a></td>
@@ -3664,6 +4457,14 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="AiProspective/">AiProspective</a></td>
+<td>Definitions of AI agents, models, and datasets (prospective AI provenance)</td>
+</tr>
+<tr>
+<td><a href="AiRetrospective/">AiRetrospective</a></td>
+<td>Per-invocation records of AI model calls, prompts, tool calls, and evaluation...</td>
+</tr>
+<tr>
 <td><a href="Base/">Base</a></td>
 <td>Base types and utility entities (ByteArray, Property, Meter, Schema)</td>
 </tr>
@@ -3674,6 +4475,10 @@
 <tr>
 <td><a href="Collaboration/">Collaboration</a></td>
 <td>Collaboration features (Comments, Attachments, Filters)</td>
+</tr>
+<tr>
+<td><a href="ContextEntities/">ContextEntities</a></td>
+<td>Supporting entities (agents, environments, runtime components, artifacts, res...</td>
 </tr>
 <tr>
 <td><a href="CoreApi/">CoreApi</a></td>
@@ -3720,8 +4525,16 @@
 <td>Top-level platform schema entities (filename-derived subset for fluxnova_bpm_...</td>
 </tr>
 <tr>
+<td><a href="ProspectiveProvenance/">ProspectiveProvenance</a></td>
+<td>Provenance entities describing what a workflow is (definitions and contracts)</td>
+</tr>
+<tr>
 <td><a href="Repository/">Repository</a></td>
 <td>Resource definitions (Process, Case, Decision, Form)</td>
+</tr>
+<tr>
+<td><a href="RetrospectiveProvenance/">RetrospectiveProvenance</a></td>
+<td>Provenance entities describing what a workflow did (runs, observed values, in...</td>
 </tr>
 <tr>
 <td><a href="Runtime/">Runtime</a></td>
@@ -3793,7 +4606,7 @@
               <span class="md-footer__direction">
                 Next
               </span>
-              About
+              Solution design
             </div>
           </div>
           <div class="md-footer__button md-icon">
