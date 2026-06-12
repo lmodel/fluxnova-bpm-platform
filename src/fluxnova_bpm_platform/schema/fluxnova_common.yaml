@@ -1,6 +1,6 @@
 id: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_common
 name: fluxnova_common
-description: Shared slot definitions imported by both the Fluxnova BPM persistence schema and the Fluxnova BPMN Model 
+description: Shared slot definitions imported by both the Fluxnova BPM persistence schema and the Fluxnova BPMN Model
   API schema. Centralizing the slots avoids LinkML import-merge URI conflicts.
 license: Apache-2.0
 source: https://github.com/finos/fluxnova-bpm-platform
@@ -21,7 +21,7 @@ default_prefix: fluxnova_common
 default_range: string
 
 imports:
-- linkml:types
+  - linkml:types
 
 slots:
   id:
@@ -30,14 +30,18 @@ slots:
     required: true
     description: Unique identifier.
     slot_uri: schema:identifier
-
-    related_mappings: [cis_controls:id, nist_csf_v2:id, stix:id, unified_cyber_ontology:externalReference]
+    related_mappings:
+      - cis_controls:id
+      - nist_csf_v2:id
+      - stix:id
+      - unified_cyber_ontology:externalReference
   name:
     range: string
     description: Human-readable name.
     slot_uri: schema:name
-
-    related_mappings: [stix:name, unified_cyber_ontology:name]
+    related_mappings:
+      - stix:name
+      - unified_cyber_ontology:name
   category:
     range: string
     description: Category classification.
@@ -63,8 +67,9 @@ slots:
   type:
     range: string
     description: Type discriminator.
-
-    related_mappings: [stix:type, unified_cyber_ontology:state]
+    related_mappings:
+      - stix:type
+      - unified_cyber_ontology:state
   value:
     range: string
     description: Value of this variable instance.

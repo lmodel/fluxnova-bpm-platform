@@ -67,7 +67,9 @@ watch:
 nav:
   - Home: index.md
   - Schema: elements/index.md
-  - About: about.md
+  - About:
+    - Solution design: about.md
+    - Provenance design: elements/provenance/README.md
 
 exclude_docs: |
   /templates-linkml/

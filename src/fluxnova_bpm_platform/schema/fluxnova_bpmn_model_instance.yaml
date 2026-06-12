@@ -1,13 +1,13 @@
 id: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
 name: fluxnova_bpmn_model_instance
 title: Fluxnova BPMN Model – Instance (Core BPMN Elements)
-description: Core BPMN 2.0 element interfaces covering processes, activities, gateways, events, data objects, and the 
+description: Core BPMN 2.0 element interfaces covering processes, activities, gateways, events, data objects, and the
   full BPMN element hierarchy.
 license: Apache-2.0
 source: https://github.com/finos/fluxnova-bpm-platform/tree/main/model-api/bpmn-model
 see_also:
-- https://fluxnova.finos.org/
-- https://docs.fluxnova.finos.org/user-guide/model-api/bpmn-model-api/
+  - https://fluxnova.finos.org/
+  - https://docs.fluxnova.finos.org/user-guide/model-api/bpmn-model-api/
 annotations:
   generated_by: scripts/fluxnova_bpmn_model_to_linkml.py
   source_root: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn
@@ -35,9 +35,9 @@ default_prefix: fluxnova_bpmn_model_instance
 default_range: string
 
 imports:
-- linkml:types
-- ./fluxnova_common
-- ./fluxnova_bpmn_model_di
+  - linkml:types
+  - ./fluxnova_common
+  - ./fluxnova_bpmn_model_di
 
 enums:
   AssociationDirection:
@@ -555,8 +555,9 @@ slots:
     multivalued: true
     inlined_as_list: true
     description: Extension elements attached to this definitions element.
-
-    related_mappings: [stix:extensions, unified_cyber_ontology:hasFacet]
+    related_mappings:
+      - stix:extensions
+      - unified_cyber_ontology:hasFacet
   root_elements:
     range: RootElement
     multivalued: true
@@ -1158,34 +1159,34 @@ classes:
     is_a: Expression
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ActivationCondition.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   Activity:
     description: The BPMN activity element
     is_a: FlowNode
     mixins:
-    - InteractionNode
+      - InteractionNode
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Activity.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - for_compensation
-    - start_quantity
-    - completion_quantity
-    - default
-    - io_specification
-    - properties
-    - data_input_associations
-    - data_output_associations
-    - resource_roles
-    - loop_characteristics
+      - for_compensation
+      - start_quantity
+      - completion_quantity
+      - default
+      - io_specification
+      - properties
+      - data_input_associations
+      - data_output_associations
+      - resource_roles
+      - loop_characteristics
     slot_usage:
       properties:
         range: BpmnProperty
@@ -1199,10 +1200,13 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Artifact.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
-
-    related_mappings: [d3f:Artifact, spdx:Element, stix:Artifact, unified_cyber_ontology:Item]
+      - instance
+      - fluxnova_bpmn_model
+    related_mappings:
+      - d3f:Artifact
+      - spdx:Element
+      - stix:Artifact
+      - unified_cyber_ontology:Item
   Assignment:
     description: The BPMN assignment element
     is_a: BaseElement
@@ -1210,11 +1214,11 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Assignment.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - from_
-    - to_
+      - from_
+      - to_
 
   Association:
     description: The BPMN association element
@@ -1223,12 +1227,12 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Association.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - source
-    - target
-    - association_direction
+      - source
+      - target
+      - association_direction
     slot_usage:
       source:
         range: BaseElement
@@ -1240,8 +1244,8 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Auditing.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   BaseElement:
     description: The BPMN baseElement element
@@ -1250,13 +1254,13 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/BaseElement.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - id
-    - documentations
-    - extension_elements
-    - diagram_element
+      - id
+      - documentations
+      - extension_elements
+      - diagram_element
 
   BoundaryEvent:
     description: The BPMN boundaryEvent element
@@ -1265,23 +1269,23 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/BoundaryEvent.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - attached_to
+      - attached_to
 
   BpmnModelElementInstance:
     description: Interface implemented by all elements in a BPMN Model
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/BpmnModelElementInstance.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - scope
-    - scope
+      - scope
+      - scope
     slot_usage:
       scope:
         range: BpmnModelElementInstance
@@ -1293,23 +1297,23 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/BusinessRuleTask.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - implementation
-    - fluxnova_class
-    - fluxnova_delegate_expression
-    - fluxnova_expression
-    - fluxnova_result_variable
-    - fluxnova_type
-    - fluxnova_topic
-    - fluxnova_decision_ref
-    - fluxnova_decision_ref_binding
-    - fluxnova_decision_ref_version
-    - fluxnova_decision_ref_version_tag
-    - fluxnova_decision_ref_tenant_id
-    - fluxnova_map_decision_result
-    - fluxnova_task_priority
+      - implementation
+      - fluxnova_class
+      - fluxnova_delegate_expression
+      - fluxnova_expression
+      - fluxnova_result_variable
+      - fluxnova_type
+      - fluxnova_topic
+      - fluxnova_decision_ref
+      - fluxnova_decision_ref_binding
+      - fluxnova_decision_ref_version
+      - fluxnova_decision_ref_version_tag
+      - fluxnova_decision_ref_tenant_id
+      - fluxnova_map_decision_result
+      - fluxnova_task_priority
 
   CallActivity:
     description: The BPMN callActivity element
@@ -1318,21 +1322,21 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/CallActivity.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - called_element
-    - fluxnova_async
-    - fluxnova_called_element_binding
-    - fluxnova_called_element_version
-    - fluxnova_called_element_version_tag
-    - fluxnova_case_ref
-    - fluxnova_case_binding
-    - fluxnova_case_version
-    - fluxnova_called_element_tenant_id
-    - fluxnova_case_tenant_id
-    - fluxnova_variable_mapping_class
-    - fluxnova_variable_mapping_delegate_expression
+      - called_element
+      - fluxnova_async
+      - fluxnova_called_element_binding
+      - fluxnova_called_element_version
+      - fluxnova_called_element_version_tag
+      - fluxnova_case_ref
+      - fluxnova_case_binding
+      - fluxnova_case_version
+      - fluxnova_called_element_tenant_id
+      - fluxnova_case_tenant_id
+      - fluxnova_variable_mapping_class
+      - fluxnova_variable_mapping_delegate_expression
 
   CallConversation:
     description: The BPMN callConversation element
@@ -1341,11 +1345,11 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/CallConversation.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - called_collaboration
-    - participant_associations
+      - called_collaboration
+      - participant_associations
 
   CallableElement:
     description: The BPMN callableElement element
@@ -1354,24 +1358,24 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/CallableElement.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - supported_interfaces
-    - io_specification
-    - io_bindings
+      - name
+      - supported_interfaces
+      - io_specification
+      - io_bindings
 
   CancelEventDefinition:
     description: The BPMN cancelEventDefinition element
     is_a: EventDefinition
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/CancelEventDefinition.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   CatchEvent:
     description: The BPMN catchEvent element
@@ -1380,15 +1384,15 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/CatchEvent.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - parallel_multiple
-    - data_outputs
-    - data_output_associations
-    - output_set
-    - event_definitions
-    - event_definition_refs
+      - parallel_multiple
+      - data_outputs
+      - data_output_associations
+      - output_set
+      - event_definitions
+      - event_definition_refs
 
   Category:
     description: A named grouping used to categorise BPMN elements via CategoryValue references.
@@ -1397,11 +1401,11 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Category.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - category_values
+      - name
+      - category_values
 
   CategoryValue:
     description: The BPMN categoryValue element
@@ -1410,10 +1414,10 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/CategoryValue.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - value
+      - value
 
   Collaboration:
     description: The BPMN collaboration element
@@ -1422,45 +1426,45 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Collaboration.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - closed
-    - participants
-    - message_flows
-    - artifacts
-    - conversation_nodes
-    - conversation_associations
-    - participant_associations
-    - message_flow_associations
-    - correlation_keys
-    - conversation_links
+      - name
+      - closed
+      - participants
+      - message_flows
+      - artifacts
+      - conversation_nodes
+      - conversation_associations
+      - participant_associations
+      - message_flow_associations
+      - correlation_keys
+      - conversation_links
 
   CompensateEventDefinition:
     description: The BPMN compensateEventDefinition element
     is_a: EventDefinition
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/CompensateEventDefinition.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - wait_for_completion
-    - activity
+      - wait_for_completion
+      - activity
 
   CompletionCondition:
     description: The BPMN 2.0 completionCondition element from the tMultiInstanceLoopCharacteristics type
     is_a: Expression
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/CompletionCondition.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   ComplexBehaviorDefinition:
     description: 'Note: Currently not implemented, because both child elements are defined with a name already used in the
@@ -1468,11 +1472,11 @@ classes:
     is_a: BaseElement
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ComplexBehaviorDefinition.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   ComplexGateway:
     description: The BPMN complexGateway element
@@ -1481,11 +1485,11 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ComplexGateway.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - default
-    - activation_condition
+      - default
+      - activation_condition
 
   Condition:
     description: The BPMN condition element of the BPMN tConditionalEventDefinition type
@@ -1494,38 +1498,38 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Condition.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   ConditionExpression:
     description: The BPMN conditionExpression element of the BPMN tSequenceFlow type
     is_a: FormalExpression
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ConditionExpression.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - type
-    - fluxnova_resource
+      - type
+      - fluxnova_resource
 
   ConditionalEventDefinition:
     description: The BPMN conditionalEventDefinition element
     is_a: EventDefinition
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ConditionalEventDefinition.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - condition
-    - fluxnova_variable_name
-    - fluxnova_variable_events
-    - fluxnova_variable_events_list
+      - condition
+      - fluxnova_variable_name
+      - fluxnova_variable_events
+      - fluxnova_variable_events_list
 
   Conversation:
     description: The BPMN conversation element
@@ -1534,22 +1538,22 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Conversation.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   ConversationAssociation:
     description: The BPMN conversationAssociation element
     is_a: BaseElement
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ConversationAssociation.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - inner_conversation_node
-    - outer_conversation_node
+      - inner_conversation_node
+      - outer_conversation_node
 
   ConversationLink:
     description: The BPMN conversationLink element
@@ -1558,12 +1562,12 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ConversationLink.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - source
-    - target
+      - name
+      - source
+      - target
     slot_usage:
       source:
         range: InteractionNode
@@ -1574,18 +1578,18 @@ classes:
     description: The BPMN conversationNode element
     is_a: BaseElement
     mixins:
-    - InteractionNode
+      - InteractionNode
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ConversationNode.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - participants
-    - message_flows
-    - correlation_keys
+      - name
+      - participants
+      - message_flows
+      - correlation_keys
 
   CorrelationKey:
     description: The BPMN correlationKey element
@@ -1594,26 +1598,26 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/CorrelationKey.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - correlation_properties
+      - name
+      - correlation_properties
 
   CorrelationProperty:
     description: The BPMN correlationProperty element
     is_a: RootElement
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/CorrelationProperty.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - type
-    - correlation_property_retrieval_expressions
+      - name
+      - type
+      - correlation_property_retrieval_expressions
     slot_usage:
       type:
         range: ItemDefinition
@@ -1623,28 +1627,28 @@ classes:
     is_a: BaseElement
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/CorrelationPropertyBinding.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - correlation_property
-    - data_path
+      - correlation_property
+      - data_path
 
   CorrelationPropertyRetrievalExpression:
     description: The BPMN correlationPropertyRetrievalExpression element
     is_a: BaseElement
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/CorrelationPropertyRetrievalExpression.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - message
-    - message_path
+      - message
+      - message_path
     slot_usage:
       message:
         range: Message
@@ -1654,14 +1658,14 @@ classes:
     is_a: BaseElement
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/CorrelationSubscription.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - correlation_key
-    - correlation_property_bindings
+      - correlation_key
+      - correlation_property_bindings
 
   DataAssociation:
     description: The BPMN dataAssociation element
@@ -1670,13 +1674,13 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/DataAssociation.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - sources
-    - target
-    - transformation
-    - assignments
+      - sources
+      - target
+      - transformation
+      - assignments
     slot_usage:
       target:
         range: ItemAwareElement
@@ -1688,51 +1692,51 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/DataInput.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - collection
+      - name
+      - collection
 
   DataInputAssociation:
     description: The BPMN dataInputAssociation element
     is_a: DataAssociation
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/DataInputAssociation.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   DataObject:
     description: The BPMN dataObject element
     is_a: FlowElement
     mixins:
-    - ItemAwareElement
+      - ItemAwareElement
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/DataObject.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - collection
+      - collection
 
   DataObjectReference:
     description: The BPMN dataObjectReference element
     is_a: FlowElement
     mixins:
-    - ItemAwareElement
+      - ItemAwareElement
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/DataObjectReference.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - data_object
+      - data_object
 
   DataOutput:
     description: The BPMN dataOutput element
@@ -1741,22 +1745,22 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/DataOutput.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - collection
+      - name
+      - collection
 
   DataOutputAssociation:
     description: The BPMN dataOutputAssociation element
     is_a: DataAssociation
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/DataOutputAssociation.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   DataState:
     description: The BPMN dataState element
@@ -1765,40 +1769,40 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/DataState.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
+      - name
 
   DataStore:
     description: The BPMN dataStore element
     is_a: RootElement
     mixins:
-    - ItemAwareElement
+      - ItemAwareElement
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/DataStore.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - capacity
-    - unlimited
+      - name
+      - capacity
+      - unlimited
 
   DataStoreReference:
     description: The BPMN dataStoreReference element
     is_a: FlowElement
     mixins:
-    - ItemAwareElement
+      - ItemAwareElement
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/DataStoreReference.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - data_store
+      - data_store
 
   Definitions:
     description: The BPMN definitions element
@@ -1807,21 +1811,21 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Definitions.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - id
-    - name
-    - target_namespace
-    - expression_language
-    - type_language
-    - exporter
-    - exporter_version
-    - imports
-    - extensions
-    - root_elements
-    - bpm_diagrams
-    - relationships
+      - id
+      - name
+      - target_namespace
+      - expression_language
+      - type_language
+      - exporter
+      - exporter_version
+      - imports
+      - extensions
+      - root_elements
+      - bpm_diagrams
+      - relationships
 
   Documentation:
     description: The BPMN documentation element
@@ -1830,11 +1834,11 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Documentation.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - id
-    - text_format
+      - id
+      - text_format
 
   EndEvent:
     description: The BPMN endEvent element
@@ -1843,8 +1847,8 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/EndEvent.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   EndPoint:
     description: The BPMN endPoint element
@@ -1853,8 +1857,8 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/EndPoint.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   Error:
     description: The BPMN error element
@@ -1863,28 +1867,28 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Error.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - error_code
-    - fluxnova_error_message
-    - structure
+      - name
+      - error_code
+      - fluxnova_error_message
+      - structure
 
   ErrorEventDefinition:
     description: The BPMN errorEventDefinition element
     is_a: EventDefinition
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ErrorEventDefinition.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - error
-    - fluxnova_error_code_variable
-    - fluxnova_error_message_variable
+      - error
+      - fluxnova_error_code_variable
+      - fluxnova_error_message_variable
 
   Escalation:
     description: The BPMN escalation element
@@ -1893,39 +1897,39 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Escalation.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - escalation_code
-    - structure
+      - name
+      - escalation_code
+      - structure
 
   EscalationEventDefinition:
     description: The BPMN escalationEventDefinition element
     is_a: EventDefinition
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/EscalationEventDefinition.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - escalation
+      - escalation
 
   Event:
     description: The BPMN event element
     is_a: FlowNode
     mixins:
-    - InteractionNode
+      - InteractionNode
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Event.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - properties
+      - properties
     slot_usage:
       properties:
         range: BpmnProperty
@@ -1939,11 +1943,11 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/EventBasedGateway.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - instantiate
-    - event_gateway_type
+      - instantiate
+      - event_gateway_type
 
   EventDefinition:
     description: The BPMN eventDefinition element
@@ -1952,8 +1956,8 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/EventDefinition.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   ExclusiveGateway:
     description: The BPMN exclusiveGateway element
@@ -1962,10 +1966,10 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ExclusiveGateway.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - default
+      - default
 
   Expression:
     description: The BPMN expression element
@@ -1974,8 +1978,8 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Expression.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   ExtensionElements:
     description: The BPMN extensionElements element
@@ -1984,11 +1988,11 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ExtensionElements.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - elements
-    - elements_query
+      - elements
+      - elements_query
 
   FlowElement:
     description: The BPMN flowElement element
@@ -1997,13 +2001,13 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/FlowElement.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - auditing
-    - monitoring
-    - category_value_refs
+      - name
+      - auditing
+      - monitoring
+      - category_value_refs
 
   FlowNode:
     description: The BPMN flowNode element
@@ -2012,17 +2016,17 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/FlowNode.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - incoming
-    - outgoing
-    - previous_nodes
-    - succeeding_nodes
-    - fluxnova_async_before
-    - fluxnova_async_after
-    - fluxnova_exclusive
-    - fluxnova_job_priority
+      - incoming
+      - outgoing
+      - previous_nodes
+      - succeeding_nodes
+      - fluxnova_async_before
+      - fluxnova_async_after
+      - fluxnova_exclusive
+      - fluxnova_job_priority
 
   FormalExpression:
     description: The BPMN formalExpression element
@@ -2031,11 +2035,11 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/FormalExpression.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - language
-    - evaluates_to_type
+      - language
+      - evaluates_to_type
 
   Gateway:
     description: The BPMN gateway element
@@ -2044,10 +2048,10 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Gateway.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - gateway_direction
+      - gateway_direction
 
   GlobalConversation:
     description: The BPMN globalConversation element
@@ -2056,8 +2060,8 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/GlobalConversation.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   BpmnGroup:
     description: An artifact that visually groups flow elements without affecting the process semantics.
@@ -2066,10 +2070,10 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Group.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - category
+      - category
     slot_usage:
       category:
         range: CategoryValue
@@ -2081,8 +2085,8 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/HumanPerformer.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   Import:
     description: The BPMN Import element
@@ -2091,12 +2095,12 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Import.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - namespace
-    - location
-    - import_type
+      - namespace
+      - location
+      - import_type
 
   InclusiveGateway:
     description: The BPMN inclusiveGateway element
@@ -2105,10 +2109,10 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/InclusiveGateway.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - default
+      - default
 
   InputDataItem:
     description: The BPMN 2.0 inputDataItem from the tMultiInstanceLoopCharacteristics type
@@ -2117,8 +2121,8 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/InputDataItem.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   InputSet:
     description: The BPMN inputSet element
@@ -2127,14 +2131,14 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/InputSet.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - data_inputs
-    - optional_inputs
-    - while_executing_input
-    - output_sets
+      - name
+      - data_inputs
+      - optional_inputs
+      - while_executing_input
+      - output_sets
 
   InteractionNode:
     description: The BPMN interactionNode interface
@@ -2142,10 +2146,10 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/InteractionNode.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - id
+      - id
 
   Interface:
     description: The BPMN interface element
@@ -2154,34 +2158,34 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Interface.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - implementation_ref
-    - operations
+      - name
+      - implementation_ref
+      - operations
 
   IntermediateCatchEvent:
     description: The BPMN intermediateCatchEvent element
     is_a: CatchEvent
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/IntermediateCatchEvent.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   IntermediateThrowEvent:
     description: The BPMN intermediateThrowEvent element
     is_a: ThrowEvent
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/IntermediateThrowEvent.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   IoBinding:
     description: The BPMN ioBinding element
@@ -2190,12 +2194,12 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/IoBinding.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - operation
-    - input_data
-    - output_data
+      - operation
+      - input_data
+      - output_data
 
   IoSpecification:
     description: The BPMN inputOutputSpecification element
@@ -2204,13 +2208,13 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/IoSpecification.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - data_inputs
-    - data_outputs
-    - input_sets
-    - output_sets
+      - data_inputs
+      - data_outputs
+      - input_sets
+      - output_sets
 
   ItemAwareElement:
     description: The BPMN itemAwareElement element
@@ -2219,11 +2223,11 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ItemAwareElement.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - item_subject
-    - data_state
+      - item_subject
+      - data_state
 
   ItemDefinition:
     description: The BPMN itemDefinition element
@@ -2232,12 +2236,12 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ItemDefinition.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - structure_ref
-    - collection
-    - item_kind
+      - structure_ref
+      - collection
+      - item_kind
 
   Lane:
     description: The BPMN lane element
@@ -2246,14 +2250,14 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Lane.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - partition_element
-    - partition_element_child
-    - flow_node_refs
-    - child_lane_set
+      - name
+      - partition_element
+      - partition_element_child
+      - flow_node_refs
+      - child_lane_set
 
   LaneSet:
     description: The BPMN laneSet element
@@ -2262,26 +2266,26 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/LaneSet.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - lanes
+      - name
+      - lanes
 
   LinkEventDefinition:
     description: The BPMN linkEventDefinition element
     is_a: EventDefinition
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/LinkEventDefinition.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - sources
-    - target
+      - name
+      - sources
+      - target
     slot_usage:
       sources:
         range: LinkEventDefinition
@@ -2295,19 +2299,19 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/LoopCardinality.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   LoopCharacteristics:
     description: The BPMN loopCharacteristics element
     is_a: BaseElement
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/LoopCharacteristics.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   ManualTask:
     description: The BPMN manualTask element
@@ -2316,8 +2320,8 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ManualTask.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   Message:
     description: The BPMN message element
@@ -2326,32 +2330,32 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Message.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - item
+      - name
+      - item
 
   MessageEventDefinition:
     description: The BPMN messageEventDefinition element
     is_a: EventDefinition
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/MessageEventDefinition.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - message
-    - operation
-    - fluxnova_class
-    - fluxnova_delegate_expression
-    - fluxnova_expression
-    - fluxnova_result_variable
-    - fluxnova_topic
-    - fluxnova_type
-    - fluxnova_task_priority
+      - message
+      - operation
+      - fluxnova_class
+      - fluxnova_delegate_expression
+      - fluxnova_expression
+      - fluxnova_result_variable
+      - fluxnova_topic
+      - fluxnova_type
+      - fluxnova_task_priority
     slot_usage:
       message:
         range: Message
@@ -2363,13 +2367,13 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/MessageFlow.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - source
-    - target
-    - message
+      - name
+      - source
+      - target
+      - message
     slot_usage:
       source:
         range: InteractionNode
@@ -2383,14 +2387,14 @@ classes:
     is_a: BaseElement
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/MessageFlowAssociation.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - inner_message_flow
-    - outer_message_flow
+      - inner_message_flow
+      - outer_message_flow
 
   Monitoring:
     description: The BPMN monitoring element
@@ -2399,36 +2403,36 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Monitoring.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   MultiInstanceLoopCharacteristics:
     description: The BPMN 2.0 multiInstanceLoopCharacteristics element type
     is_a: LoopCharacteristics
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/MultiInstanceLoopCharacteristics.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - loop_cardinality
-    - loop_data_input_ref
-    - loop_data_output_ref
-    - input_data_item
-    - output_data_item
-    - complex_behavior_definitions
-    - completion_condition
-    - sequential
-    - behavior
-    - one_behavior_event_ref
-    - none_behavior_event_ref
-    - fluxnova_collection
-    - fluxnova_element_variable
-    - fluxnova_async_before
-    - fluxnova_async_after
-    - fluxnova_exclusive
+      - loop_cardinality
+      - loop_data_input_ref
+      - loop_data_output_ref
+      - input_data_item
+      - output_data_item
+      - complex_behavior_definitions
+      - completion_condition
+      - sequential
+      - behavior
+      - one_behavior_event_ref
+      - none_behavior_event_ref
+      - fluxnova_collection
+      - fluxnova_element_variable
+      - fluxnova_async_before
+      - fluxnova_async_after
+      - fluxnova_exclusive
 
   Operation:
     description: The BPMN operation element
@@ -2437,14 +2441,14 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Operation.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - implementation_ref
-    - in_message
-    - out_message
-    - errors
+      - name
+      - implementation_ref
+      - in_message
+      - out_message
+      - errors
 
   OutputDataItem:
     description: The BPMN 2.0 outputDataItem from the tMultiInstanceLoopCharacteristics type
@@ -2453,8 +2457,8 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/OutputDataItem.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   OutputSet:
     description: The BPMN outputSet element
@@ -2463,14 +2467,14 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/OutputSet.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - data_output_refs
-    - optional_output_refs
-    - while_executing_output_refs
-    - input_set_refs
+      - name
+      - data_output_refs
+      - optional_output_refs
+      - while_executing_output_refs
+      - input_set_refs
 
   ParallelGateway:
     description: The BPMN parallelGateway element
@@ -2479,56 +2483,56 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ParallelGateway.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - fluxnova_async
+      - fluxnova_async
 
   Participant:
     description: The BPMN participant element
     is_a: BaseElement
     mixins:
-    - InteractionNode
+      - InteractionNode
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Participant.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - process
-    - interfaces
-    - end_points
-    - participant_multiplicity
+      - name
+      - process
+      - interfaces
+      - end_points
+      - participant_multiplicity
 
   ParticipantAssociation:
     description: The BPMN participantAssociation element
     is_a: BaseElement
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ParticipantAssociation.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - inner_participant
-    - outer_participant
+      - inner_participant
+      - outer_participant
 
   ParticipantMultiplicity:
     description: The BPMN participantMultiplicity element
     is_a: BaseElement
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ParticipantMultiplicity.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - minimum
-    - maximum
+      - minimum
+      - maximum
 
   Performer:
     description: The BPMN performer element
@@ -2537,8 +2541,8 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Performer.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   PotentialOwner:
     description: The BPMN potentialOwner element
@@ -2547,8 +2551,8 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/PotentialOwner.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   Process:
     description: The BPMN process element
@@ -2557,38 +2561,42 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Process.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - process_type
-    - closed
-    - executable
-    - auditing
-    - monitoring
-    - properties
-    - lane_sets
-    - flow_elements
-    - artifacts
-    - correlation_subscriptions
-    - resource_roles
-    - supports
-    - fluxnova_candidate_starter_groups
-    - fluxnova_candidate_starter_groups_list
-    - fluxnova_candidate_starter_users
-    - fluxnova_candidate_starter_users_list
-    - fluxnova_job_priority
-    - fluxnova_task_priority
-    - fluxnova_history_time_to_live
-    - fluxnova_history_time_to_live_string
-    - fluxnova_startable_in_tasklist
-    - fluxnova_version_tag
+      - process_type
+      - closed
+      - executable
+      - auditing
+      - monitoring
+      - properties
+      - lane_sets
+      - flow_elements
+      - artifacts
+      - correlation_subscriptions
+      - resource_roles
+      - supports
+      - fluxnova_candidate_starter_groups
+      - fluxnova_candidate_starter_groups_list
+      - fluxnova_candidate_starter_users
+      - fluxnova_candidate_starter_users_list
+      - fluxnova_job_priority
+      - fluxnova_task_priority
+      - fluxnova_history_time_to_live
+      - fluxnova_history_time_to_live_string
+      - fluxnova_startable_in_tasklist
+      - fluxnova_version_tag
     slot_usage:
       properties:
         range: BpmnProperty
         multivalued: true
         inlined_as_list: true
-
-    related_mappings: [d3f:Process, ocsf:Process, stix:Process, uco_master:Process, unified_cyber_ontology:Process]
+    related_mappings:
+      - d3f:Process
+      - ocsf:Process
+      - stix:Process
+      - uco_master:Process
+      - unified_cyber_ontology:Process
   BpmnProperty:
     description: The BPMN property element
     is_a: ItemAwareElement
@@ -2596,10 +2604,10 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Property.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
+      - name
 
   ReceiveTask:
     description: The BPMN receiveTask element
@@ -2608,12 +2616,12 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ReceiveTask.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - implementation
-    - message
-    - operation
+      - implementation
+      - message
+      - operation
     slot_usage:
       message:
         range: Message
@@ -2625,18 +2633,21 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Relationship.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - type
-    - direction
-    - sources
-    - targets
+      - type
+      - direction
+      - sources
+      - targets
     slot_usage:
       sources:
         range: string
-
-    related_mappings: [cve:TaxonomyRelation, cwe:Relationship, stix:Relationship, unified_cyber_ontology:Relationship]
+    related_mappings:
+      - cve:TaxonomyRelation
+      - cwe:Relationship
+      - stix:Relationship
+      - unified_cyber_ontology:Relationship
   Rendering:
     description: The BPMN rendering element
     is_a: BaseElement
@@ -2644,8 +2655,8 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Rendering.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   Resource:
     description: The BPMN resource element
@@ -2654,25 +2665,26 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Resource.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - resource_parameters
-
-    related_mappings: [d3f:Resource, oscal:Resource]
+      - name
+      - resource_parameters
+    related_mappings:
+      - d3f:Resource
+      - oscal:Resource
   ResourceAssignmentExpression:
     description: The BPMN resourceAssignmentExpression element
     is_a: BaseElement
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ResourceAssignmentExpression.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - expression
+      - expression
 
   ResourceParameter:
     description: The BPMN resourceParameter element
@@ -2681,12 +2693,12 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ResourceParameter.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - type
-    - required
+      - name
+      - type
+      - required
     slot_usage:
       type:
         range: ItemDefinition
@@ -2696,14 +2708,14 @@ classes:
     is_a: BaseElement
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ResourceParameterBinding.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - parameter
-    - expression
+      - parameter
+      - expression
 
   ResourceRole:
     description: The BPMN resourceRole element
@@ -2712,13 +2724,13 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ResourceRole.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - resource
-    - resource_parameter_binding
-    - resource_assignment_expression
+      - name
+      - resource
+      - resource_parameter_binding
+      - resource_assignment_expression
 
   RootElement:
     description: The BPMN rootElement element
@@ -2727,8 +2739,8 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/RootElement.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   Script:
     description: The BPMN script element
@@ -2737,8 +2749,8 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Script.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   ScriptTask:
     description: The BPMN scriptTask element
@@ -2747,13 +2759,13 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ScriptTask.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - script_format
-    - script
-    - fluxnova_result_variable
-    - fluxnova_resource
+      - script_format
+      - script
+      - fluxnova_result_variable
+      - fluxnova_resource
 
   SendTask:
     description: The BPMN sendTask element
@@ -2762,19 +2774,19 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/SendTask.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - implementation
-    - message
-    - operation
-    - fluxnova_class
-    - fluxnova_delegate_expression
-    - fluxnova_expression
-    - fluxnova_result_variable
-    - fluxnova_type
-    - fluxnova_topic
-    - fluxnova_task_priority
+      - implementation
+      - message
+      - operation
+      - fluxnova_class
+      - fluxnova_delegate_expression
+      - fluxnova_expression
+      - fluxnova_result_variable
+      - fluxnova_type
+      - fluxnova_topic
+      - fluxnova_task_priority
     slot_usage:
       message:
         range: Message
@@ -2786,13 +2798,13 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/SequenceFlow.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - source
-    - target
-    - immediate
-    - condition_expression
+      - source
+      - target
+      - immediate
+      - condition_expression
     slot_usage:
       source:
         range: FlowNode
@@ -2806,18 +2818,18 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ServiceTask.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - implementation
-    - operation
-    - fluxnova_class
-    - fluxnova_delegate_expression
-    - fluxnova_expression
-    - fluxnova_result_variable
-    - fluxnova_type
-    - fluxnova_topic
-    - fluxnova_task_priority
+      - implementation
+      - operation
+      - fluxnova_class
+      - fluxnova_delegate_expression
+      - fluxnova_expression
+      - fluxnova_result_variable
+      - fluxnova_type
+      - fluxnova_topic
+      - fluxnova_task_priority
 
   Signal:
     description: The BPMN signal element
@@ -2826,25 +2838,25 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Signal.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - name
-    - structure
+      - name
+      - structure
 
   SignalEventDefinition:
     description: The BPMN signalEventDefinition element
     is_a: EventDefinition
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/SignalEventDefinition.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - signal
-    - fluxnova_async
+      - signal
+      - fluxnova_async
 
   StartEvent:
     description: The BPMN startEvent element
@@ -2853,17 +2865,17 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/StartEvent.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - interrupting
-    - fluxnova_async
-    - fluxnova_form_handler_class
-    - fluxnova_form_key
-    - fluxnova_form_ref
-    - fluxnova_form_ref_binding
-    - fluxnova_form_ref_version
-    - fluxnova_initiator
+      - interrupting
+      - fluxnova_async
+      - fluxnova_form_handler_class
+      - fluxnova_form_key
+      - fluxnova_form_ref
+      - fluxnova_form_ref_binding
+      - fluxnova_form_ref_version
+      - fluxnova_initiator
 
   SubConversation:
     description: The BPMN subConversation element
@@ -2872,10 +2884,10 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/SubConversation.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - conversation_nodes
+      - conversation_nodes
 
   SubProcess:
     description: The BPMN subProcess element
@@ -2884,13 +2896,13 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/SubProcess.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - lane_sets
-    - flow_elements
-    - artifacts
-    - fluxnova_async
+      - lane_sets
+      - flow_elements
+      - artifacts
+      - fluxnova_async
 
   BpmnTask:
     description: The BPMN task element
@@ -2899,21 +2911,21 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Task.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - fluxnova_async
+      - fluxnova_async
 
   TerminateEventDefinition:
     description: The BPMN terminateEventDefinition element
     is_a: EventDefinition
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/TerminateEventDefinition.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   Text:
     description: The BPMN 2.0 text element from the tTextAnnotation complex type
@@ -2922,8 +2934,8 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Text.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   TextAnnotation:
     description: The BPMN 2.0 textAnnotation element
@@ -2932,11 +2944,11 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/TextAnnotation.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - text_format
-    - text
+      - text_format
+      - text
 
   ThrowEvent:
     description: The BPMN throwEvent element
@@ -2945,14 +2957,14 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/ThrowEvent.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - data_inputs
-    - data_input_associations
-    - input_set
-    - event_definitions
-    - event_definition_refs
+      - data_inputs
+      - data_input_associations
+      - input_set
+      - event_definitions
+      - event_definition_refs
 
   TimeCycle:
     description: The BPMN timeCycle element of the BPMN tTimerEventDefinition type
@@ -2961,8 +2973,8 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/TimeCycle.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   TimeDate:
     description: The BPMN timeDate element of the BPMN tTimerEventDefinition type
@@ -2971,8 +2983,8 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/TimeDate.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   TimeDuration:
     description: The BPMN timeDuration element of the BPMN tTimerEventDefinition type
@@ -2981,23 +2993,23 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/TimeDuration.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
 
   TimerEventDefinition:
     description: The BPMN timerEventDefinition element
     is_a: EventDefinition
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
-      source_file: 
+      source_file:
         model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/TimerEventDefinition.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - time_date
-    - time_duration
-    - time_cycle
+      - time_date
+      - time_duration
+      - time_cycle
 
   Transaction:
     description: A sub-process that executes as an atomic unit with compensation support.
@@ -3006,10 +3018,10 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/Transaction.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - method
+      - method
 
   UserTask:
     description: The BPMN userTask element
@@ -3018,21 +3030,21 @@ classes:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/UserTask.java
     in_subset:
-    - instance
-    - fluxnova_bpmn_model
+      - instance
+      - fluxnova_bpmn_model
     slots:
-    - implementation
-    - renderings
-    - fluxnova_assignee
-    - fluxnova_candidate_groups
-    - fluxnova_candidate_groups_list
-    - fluxnova_candidate_users
-    - fluxnova_candidate_users_list
-    - fluxnova_due_date
-    - fluxnova_follow_up_date
-    - fluxnova_form_handler_class
-    - fluxnova_form_key
-    - fluxnova_form_ref
-    - fluxnova_form_ref_binding
-    - fluxnova_form_ref_version
-    - fluxnova_priority
+      - implementation
+      - renderings
+      - fluxnova_assignee
+      - fluxnova_candidate_groups
+      - fluxnova_candidate_groups_list
+      - fluxnova_candidate_users
+      - fluxnova_candidate_users_list
+      - fluxnova_due_date
+      - fluxnova_follow_up_date
+      - fluxnova_form_handler_class
+      - fluxnova_form_key
+      - fluxnova_form_ref
+      - fluxnova_form_ref_binding
+      - fluxnova_form_ref_version
+      - fluxnova_priority

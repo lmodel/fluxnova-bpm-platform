@@ -21,6 +21,7 @@ Usage::
 """
 
 import argparse
+import io
 import re
 import sys
 from collections import defaultdict
@@ -43,6 +44,11 @@ SKOS_TO_LINKML: dict[str, str] = {
     "skos:relatedMatch": "related_mappings",
 }
 LINKML_MAPPING_KEYS = list(SKOS_TO_LINKML.values())
+
+# Matches a ``*_mappings:`` block key (any indent) for blank-line tidy-up.
+_MAPPING_KEY_RE = re.compile(
+    r"^\s*(?:" + "|".join(re.escape(k) for k in LINKML_MAPPING_KEYS) + r"):\s*$"
+)
 
 # ── SSSOM parsing ─────────────────────────────────────────────────────────────
 
@@ -161,14 +167,22 @@ def load_sssom_files(mappings_dir: Path) -> tuple[
 def _merge_mapping_list(node: CommentedMap, key: str, new_values: list[str]) -> bool:
     """Merge *new_values* into ``node[key]`` (a YAML sequence).
 
-    Returns True if the node was modified.
+    Emits a block-style (indented, one-item-per-line) sequence to match the
+    surrounding schema convention. Returns True if the node was modified — this
+    includes the case where the content is unchanged but the existing node is
+    flow-styled (``[a, b]``), so legacy inline lists get reflowed to block.
     """
-    existing: list[str] = list(node.get(key) or [])
+    existing_node = node.get(key)
+    existing: list[str] = list(existing_node or [])
     merged   = sorted(set(existing) | set(new_values))
-    if merged == existing:
+    existing_is_flow = (
+        isinstance(existing_node, CommentedSeq)
+        and existing_node.fa.flow_style() is True
+    )
+    if merged == existing and not existing_is_flow:
         return False
     seq = CommentedSeq(merged)
-    seq.fa.set_flow_style()
+    seq.fa.set_block_style()
     node[key] = seq
     return True
 
@@ -278,10 +292,12 @@ def patch_schema(
     dry_run: bool,
     yaml: YAML,
     name_match: bool = False,
-) -> int:
+) -> tuple[int, bool]:
     """Read, patch, and (unless *dry_run*) write back *schema_path*.
 
-    Returns the number of elements modified (0 = no change).
+    Returns ``(elements_modified, written)`` where *elements_modified* counts
+    semantic mapping changes and *written* is True when the serialized output
+    differs from disk (covers pure reformats, where *elements_modified* is 0).
 
     Matching strategy (applied in order):
     1. **Prefix match** (default): ``schema.default_prefix`` must equal the
@@ -295,14 +311,12 @@ def patch_schema(
     """
     data: CommentedMap = yaml.load(schema_path)
     if not isinstance(data, CommentedMap):
-        return 0
+        return 0, False
 
     default_prefix = data.get("default_prefix") or ""
-    if not default_prefix:
-        return 0
 
     # Determine matching mode
-    if default_prefix in index:
+    if default_prefix and default_prefix in index:
         element_mappings = index[default_prefix]
         curie_scope      = curie_registry.get(default_prefix, {})
         _name_mode       = False
@@ -314,7 +328,12 @@ def patch_schema(
             curie_scope.update(scope)
         _name_mode = True
     else:
-        return 0
+        # No SSSOM mappings apply to this file. Still run the formatting pass
+        # below so the whole schema directory converges on yamllint-clean
+        # sequence indentation.
+        element_mappings = {}
+        curie_scope      = {}
+        _name_mode       = False
     changed_count    = 0
     used_obj_prefixes: set[str] = set()
 
@@ -372,10 +391,32 @@ def patch_schema(
     if used_obj_prefixes and _ensure_prefixes(data, used_obj_prefixes, curie_scope):
         changed_count += 1
 
-    if changed_count and not dry_run:
-        yaml.dump(data, schema_path)
-
-    return changed_count
+    # Compare the re-serialized document against the on-disk text rather than
+    # relying solely on the semantic change count. This applies formatting-only
+    # normalisations (e.g. sequence indentation) to every file so the whole
+    # directory stays yamllint-clean, while keeping the run idempotent when
+    # nothing differs.
+    buf = io.StringIO()
+    yaml.dump(data, buf)
+    # Post-process the serialized lines:
+    #  - rstrip trailing whitespace (ruamel can leave a trailing space where it
+    #    wraps a long plain scalar; cosmetic, but yamllint's trailing-spaces
+    #    rule flags it — also cleans any pre-existing trailing whitespace);
+    #  - drop blank line(s) immediately before a ``*_mappings:`` key so the
+    #    injected mapping block hugs its element.
+    out_lines: list[str] = []
+    for raw in buf.getvalue().split("\n"):
+        line = raw.rstrip()
+        if _MAPPING_KEY_RE.match(line):
+            while out_lines and out_lines[-1] == "":
+                out_lines.pop()
+        out_lines.append(line)
+    new_text = "\n".join(out_lines)
+    if new_text == schema_path.read_text(encoding="utf-8"):
+        return changed_count, False
+    if not dry_run:
+        schema_path.write_text(new_text, encoding="utf-8")
+    return changed_count, True
 
 
 # ── CLI ───────────────────────────────────────────────────────────────────────
@@ -435,7 +476,7 @@ def main(argv: list[str] | None = None) -> int:
     covered_prefixes = sorted(index.keys())
     total_elements   = sum(len(v) for v in index.values())
     print(
-        f"  Loaded {total_elements} element mappings across "
+        f"\n  Loaded {total_elements} element mappings across "
         f"{len(covered_prefixes)} subject prefixes: {covered_prefixes}"
     )
 
@@ -443,29 +484,38 @@ def main(argv: list[str] | None = None) -> int:
     yaml_rt.preserve_quotes = True
     yaml_rt.default_flow_style = False
     yaml_rt.width = 120
+    # Block sequences indented under their key (dash at key-indent + 2), as
+    # required by yamllint's default `indent-sequences: true` rule:
+    #   exact_mappings:
+    #     - airo:AIAgent
+    yaml_rt.indent(mapping=2, sequence=4, offset=2)
 
-    schema_files = sorted(args.schema_dir.glob("*.yaml"))
+    # Recurse so nested schema modules (e.g. schema/provenance/*.yaml) are
+    # covered, not just top-level files.
+    schema_files = sorted(args.schema_dir.rglob("*.yaml"))
     touched = 0
     skipped = 0
 
     for schema_path in schema_files:
-        n = patch_schema(
+        rel = schema_path.relative_to(args.schema_dir)
+        n, written = patch_schema(
             schema_path, index, curie_registry, args.dry_run, yaml_rt,
             name_match=args.name_match,
         )
-        if n:
+        if written:
             status = "DRY-RUN" if args.dry_run else "updated"
-            print(f"  {status}: {schema_path.name}  ({n} element(s) modified)")
+            detail = f"{n} mapping element(s)" if n else "reformatted"
+            print(f"  {status}: {rel}  ({detail})")
             touched += 1
         else:
             skipped += 1
             if args.verbose:
-                print(f"  unchanged: {schema_path.name}")
+                print(f"  unchanged: {rel}")
 
     if args.dry_run:
-        print(f"\n[dry-run] Would update {touched} schema file(s); {skipped} unchanged.")
+        print(f"\n[dry-run] Would update {touched} schema file(s); {skipped} files unchanged.\n")
     else:
-        print(f"\noverlay-sssom-mappings: updated {touched} schema file(s); {skipped} unchanged.")
+        print(f"\noverlay-sssom-mappings: updated {touched} schema file(s); {skipped} files unchanged.\n")
 
     return 0
 

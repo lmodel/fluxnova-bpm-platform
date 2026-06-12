@@ -1,4 +1,3 @@
----
 id: https://w3id.org/lmodel/fluxnova-bpm-platform/job
 name: fluxnova_bpm_job
 description: Fluxnova BPM Platform - Job module.
@@ -42,8 +41,8 @@ slots:
 
   exception_message:
     range: string
-    description: Message of the exception that occurred, the last time the job was executed. Returns null when no exception
-      occurred. To get the full exception stacktrace, use
+    description: Message of the exception that occurred, the last time the job was executed. Returns null when no
+      exception occurred. To get the full exception stacktrace, use
     annotations:
       sql_column: EXCEPTION_MSG_
 
@@ -85,8 +84,8 @@ slots:
 
   job_configuration:
     range: string
-    description: The configuration of a job definition provides details about the jobs which will be created. For timer jobs
-      this method returns the timer configuration.
+    description: The configuration of a job definition provides details about the jobs which will be created. For timer
+      jobs this method returns the timer configuration.
     annotations:
       sql_column: JOB_CONFIGURATION_
 
@@ -225,8 +224,8 @@ classes:
       sql_table: ACT_RU_JOB
 
   JobDefinition:
-    description: A Job Definition provides details about asynchronous background processing ("Jobs") performed by the process
-      engine. Each Job Definition corresponds to a Timer or Asynchronous continuation job inst...
+    description: A Job Definition provides details about asynchronous background processing ("Jobs") performed by the
+      process engine. Each Job Definition corresponds to a Timer or Asynchronous continuation job inst...
     slots:
       - id
       - process_definition_id

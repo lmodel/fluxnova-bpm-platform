@@ -295,6 +295,688 @@
             "title": "ActivityInstanceState",
             "type": "string"
         },
+        "Agent": {
+            "additionalProperties": false,
+            "description": "Person, organization, system, or service account participating in workflow execution.",
+            "properties": {
+                "agent_kind": {
+                    "$ref": "#/$defs/AgentKind",
+                    "description": "Kind of agent (person, organization, system, service account)."
+                },
+                "email": {
+                    "description": "Email address.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "role": {
+                    "description": "Roles played by the agent in this context.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "Agent",
+            "type": "object"
+        },
+        "AgentKind": {
+            "description": "Kind of agent participating in workflow execution.",
+            "enum": [
+                "PERSON",
+                "ORGANIZATION",
+                "SYSTEM",
+                "SERVICE_ACCOUNT"
+            ],
+            "title": "AgentKind",
+            "type": "string"
+        },
+        "AiAgent": {
+            "additionalProperties": false,
+            "description": "Autonomous or semi-autonomous AI agent that acts as an Agent in a Fluxnova\nworkflow. Concrete embodiment of one or more AI models exposed through a\nprovider endpoint. Distinct from the human, organizational, or system Agent\nkinds declared in the base provenance module.",
+            "properties": {
+                "agent_kind": {
+                    "$ref": "#/$defs/AgentKind",
+                    "description": "Kind of agent (person, organization, system, service account)."
+                },
+                "context_window_tokens": {
+                    "description": "Maximum input context window in tokens.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "email": {
+                    "description": "Email address.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "endpoint": {
+                    "description": "API or service endpoint URL.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "input_modalities": {
+                    "description": "Modalities the model accepts as input.",
+                    "items": {
+                        "$ref": "#/$defs/AiModality"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "is_part_of_ai_system": {
+                    "description": "External CURIE or URI reference to a larger AI system this agent belongs\nto (typically modeled in an AI governance vocabulary such as nexus:AiSystem\nor airo:AISystem). String reference rather than typed slot so the AI\nprovenance overlay does not pull in a governance ontology.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "model_family": {
+                    "description": "Model family or product line (e.g. \"GPT-4\", \"Claude 3\", \"Llama 3\", \"Mistral 7B\").",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "model_name": {
+                    "description": "Concrete model name (e.g. \"gpt-4o-2024-05-13\", \"claude-3-5-sonnet-20240620\").",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "model_version": {
+                    "description": "Released or pinned version identifier for the model.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "output_modalities": {
+                    "description": "Modalities the model produces as output.",
+                    "items": {
+                        "$ref": "#/$defs/AiModality"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "parameter_count": {
+                    "description": "Number of model parameters (where disclosed).",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "provider": {
+                    "description": "Provider or vendor that hosts the model endpoint (e.g. \"openai\", \"anthropic\",\n\"azure-openai\", \"vertex-ai\", \"self-hosted-vllm\").",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "role": {
+                    "description": "Roles played by the agent in this context.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "AiAgent",
+            "type": "object"
+        },
+        "AiDataset": {
+            "additionalProperties": false,
+            "description": "Dataset artifact associated with an AI model invocation, an evaluation,\na training run, or a fine-tuning step. Extends the generic WorkflowArtifact\nclass with AI-specific metadata such as dataset kind, record count, license,\nand data classification.",
+            "properties": {
+                "artifact_kind": {
+                    "$ref": "#/$defs/ArtifactKind",
+                    "description": "Classifier for the kind of artifact (BPMN XML, payload, document, log, etc.)."
+                },
+                "classification": {
+                    "$ref": "#/$defs/DataClassification",
+                    "description": "Data classification of the value (public, internal, confidential, restricted)."
+                },
+                "consumed_by_step_runs": {
+                    "description": "Step runs that consumed this artifact or parameter value (by-reference).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "dataset_kind": {
+                    "$ref": "#/$defs/DatasetKind",
+                    "description": "Role of the dataset (training, fine-tuning, evaluation, RAG corpus, ground truth)."
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "hash": {
+                    "description": "Content hash or checksum string (algorithm-prefixed, e.g. \"sha256:...\").",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "license_uri": {
+                    "description": "URI of the dataset license (e.g. SPDX license URL).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "media_type": {
+                    "description": "IANA media type / MIME type of the artifact.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "path_or_uri": {
+                    "description": "File path or URI locating the artifact content.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "produced_by_step_run": {
+                    "description": "Step run that produced this artifact or parameter value.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "record_count": {
+                    "description": "Number of records in the dataset.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "size_in_bytes": {
+                    "description": "Size of the artifact content in bytes.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "AiDataset",
+            "type": "object"
+        },
+        "AiInvocationKind": {
+            "description": "Kind of AI model invocation performed from a workflow step.",
+            "enum": [
+                "CHAT_COMPLETION",
+                "COMPLETION",
+                "EMBEDDING",
+                "TOOL_USE",
+                "AGENT_LOOP",
+                "RETRIEVAL",
+                "GUARDRAIL"
+            ],
+            "title": "AiInvocationKind",
+            "type": "string"
+        },
+        "AiModality": {
+            "description": "Input or output modality supported by an AI model.",
+            "enum": [
+                "TEXT",
+                "IMAGE",
+                "AUDIO",
+                "VIDEO",
+                "MULTIMODAL",
+                "EMBEDDING"
+            ],
+            "title": "AiModality",
+            "type": "string"
+        },
+        "AiModelDescriptor": {
+            "additionalProperties": false,
+            "description": "Descriptor of an AI model used as a runtime component. Captures static\ncharacteristics of the model (family, architecture, parameter count,\ntraining tokens, context window, supported languages) without prescribing\nhow an individual call was made.",
+            "properties": {
+                "architecture": {
+                    "description": "Architecture family (e.g. \"transformer-decoder\", \"moe\", \"mamba\", \"diffusion\").",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "component_kind": {
+                    "$ref": "#/$defs/RuntimeComponentKind",
+                    "description": "Kind of runtime component (engine, REST API, executor, plugin, connector, etc.)."
+                },
+                "context_window_tokens": {
+                    "description": "Maximum input context window in tokens.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "definition_version": {
+                    "description": "Version string of the workflow or step definition (semantic version of the BPMN model).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "endpoint": {
+                    "description": "API or service endpoint URL.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "fine_tuning_description": {
+                    "description": "Free-text description of fine-tuning applied to the model.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "model_family": {
+                    "description": "Model family or product line (e.g. \"GPT-4\", \"Claude 3\", \"Llama 3\", \"Mistral 7B\").",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "parameter_count": {
+                    "description": "Number of model parameters (where disclosed).",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "supported_languages": {
+                    "description": "ISO 639 language tags supported by the model.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "training_token_count": {
+                    "description": "Number of tokens used to train the model (where disclosed).",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "AiModelDescriptor",
+            "type": "object"
+        },
+        "AiModelInvocation": {
+            "additionalProperties": false,
+            "description": "One concrete invocation of an AI model from a workflow step. Captures the\nruntime call (kind, parameters, prompts, tool calls, response), the\nconsumption telemetry (token counts, cost), any safety flags raised, and\nany evaluation results attached. Inherits status, timestamps, parent\nworkflow run, sequence number, and incident linkage from StepRun.",
+            "properties": {
+                "activity_instance_id": {
+                    "description": "Runtime activity instance identifier.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "consumed_artifacts": {
+                    "description": "Artifacts consumed by the step run (by-reference; declare full artifacts under ProvenanceBundle.artifacts).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "cost_usd": {
+                    "description": "Direct provider cost in USD for the invocation, where reported by the\nprovider or computed locally from billing rates.",
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "ended_at": {
+                    "description": "Timestamp when execution ended (absent for running instances).",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "environment": {
+                    "description": "Runtime environment in which the run took place.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "evaluation_results": {
+                    "description": "Evaluation results attached to the invocation.",
+                    "items": {
+                        "$ref": "#/$defs/EvaluationResult"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "executed_by": {
+                    "description": "Agent (assignee, service account, system) that executed the step.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "execution_resource": {
+                    "description": "Resource (pod, container, node, queue) used to execute the step.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "incident_message": {
+                    "description": "Incident message.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "informed_by": {
+                    "description": "Step runs whose completion preceded and informed this step run (by-reference).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "input_values": {
+                    "description": "Observed input parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "invocation_kind": {
+                    "$ref": "#/$defs/AiInvocationKind",
+                    "description": "Kind of invocation (chat completion, tool use, embedding, etc.)."
+                },
+                "invoked_model": {
+                    "description": "AI agent that was invoked to produce the step result.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "max_tokens": {
+                    "description": "Maximum tokens the model was permitted to generate.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "output_values": {
+                    "description": "Observed output parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "parent_step_run": {
+                    "description": "Parent step run for nested step executions.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "produced_artifacts": {
+                    "description": "Artifacts produced by the step run (by-reference; declare full artifacts under ProvenanceBundle.artifacts).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "prompt_messages": {
+                    "description": "Ordered sequence of prompt messages sent to the model.",
+                    "items": {
+                        "$ref": "#/$defs/PromptMessage"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "response_message": {
+                    "description": "Assistant or tool message returned by the model as the response.\nInlined as a single PromptMessage with role ASSISTANT or TOOL.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "retries": {
+                    "description": "Number of retries this job has left. Whenever the jobexecutor fails to execute the job, this value is decremented. When it hits zero, the job is supposed to be dead and not retried again (ie a manu...",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "safety_flags": {
+                    "description": "Safety, policy, or guardrail flags raised by the model, provider, or\nlocal guardrail layer during the invocation.",
+                    "items": {
+                        "$ref": "#/$defs/SafetyFlag"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "sequence_no": {
+                    "description": "Exporter-assigned ordering number for deterministic serialization.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "started_at": {
+                    "description": "Timestamp when execution started.",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "status": {
+                    "$ref": "#/$defs/RunStatus",
+                    "description": "Status of the workflow run or step run."
+                },
+                "step_definition": {
+                    "description": "Step definition this run instantiates.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "temperature": {
+                    "description": "Sampling temperature requested for the invocation.",
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "tool_calls": {
+                    "description": "Tool / function calls performed by the model during the invocation.",
+                    "items": {
+                        "$ref": "#/$defs/ToolCall"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "top_p": {
+                    "description": "Top-p nucleus sampling parameter.",
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "total_input_tokens": {
+                    "description": "Total prompt / input tokens consumed by the invocation.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "total_output_tokens": {
+                    "description": "Total completion / output tokens produced by the invocation.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "workflow_run": {
+                    "description": "Parent workflow run for the step run.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "AiModelInvocation",
+            "type": "object"
+        },
         "Artifact": {
             "additionalProperties": false,
             "description": "The BPMN artifact element",
@@ -348,6 +1030,22 @@
             ],
             "title": "Artifact",
             "type": "object"
+        },
+        "ArtifactKind": {
+            "description": "Classifier for the kind of artifact referenced.",
+            "enum": [
+                "BPMN_XML",
+                "DMN_XML",
+                "FORM_SCHEMA",
+                "PAYLOAD",
+                "DOCUMENT",
+                "LOG",
+                "EXPORT_BUNDLE",
+                "SCREENSHOT",
+                "OTHER"
+            ],
+            "title": "ArtifactKind",
+            "type": "string"
         },
         "Assignment": {
             "additionalProperties": false,
@@ -733,6 +1431,30 @@
                 "REVOKE"
             ],
             "title": "AuthorizationType",
+            "type": "string"
+        },
+        "BPMNElementType": {
+            "description": "Normalized BPMN element type for a step definition.",
+            "enum": [
+                "PROCESS",
+                "START_EVENT",
+                "END_EVENT",
+                "USER_TASK",
+                "SERVICE_TASK",
+                "SCRIPT_TASK",
+                "BUSINESS_RULE_TASK",
+                "MANUAL_TASK",
+                "CALL_ACTIVITY",
+                "SUB_PROCESS",
+                "EXCLUSIVE_GATEWAY",
+                "PARALLEL_GATEWAY",
+                "EVENT_BASED_GATEWAY",
+                "INTERMEDIATE_CATCH_EVENT",
+                "INTERMEDIATE_THROW_EVENT",
+                "BOUNDARY_EVENT",
+                "SEQUENCE_FLOW"
+            ],
+            "title": "BPMNElementType",
             "type": "string"
         },
         "BaseElement": {
@@ -5130,6 +5852,17 @@
             "title": "DataAssociation",
             "type": "object"
         },
+        "DataClassification": {
+            "description": "Sensitivity / data-classification label for a parameter value.",
+            "enum": [
+                "PUBLIC",
+                "INTERNAL",
+                "CONFIDENTIAL",
+                "RESTRICTED"
+            ],
+            "title": "DataClassification",
+            "type": "string"
+        },
         "DataInput": {
             "additionalProperties": false,
             "description": "The BPMN dataInput element",
@@ -5938,6 +6671,18 @@
             "title": "DataStoreReference",
             "type": "object"
         },
+        "DatasetKind": {
+            "description": "Role of a dataset relative to an AI model.",
+            "enum": [
+                "TRAINING",
+                "FINE_TUNING",
+                "EVALUATION",
+                "RAG_CORPUS",
+                "GROUND_TRUTH"
+            ],
+            "title": "DatasetKind",
+            "type": "string"
+        },
         "DecisionDefinition": {
             "additionalProperties": false,
             "description": "Definition of a decision resource",
@@ -6362,6 +7107,17 @@
             "title": "DiagramElement",
             "type": "object"
         },
+        "DirectionEnum": {
+            "description": "Direction of data flow for a parameter.",
+            "enum": [
+                "IN",
+                "OUT",
+                "INOUT",
+                "LOCAL"
+            ],
+            "title": "DirectionEnum",
+            "type": "string"
+        },
         "Documentation": {
             "additionalProperties": false,
             "description": "The BPMN documentation element",
@@ -6712,6 +7468,77 @@
             "title": "EntityState",
             "type": "string"
         },
+        "Environment": {
+            "additionalProperties": false,
+            "description": "Runtime environment for process execution or export generation.",
+            "properties": {
+                "configuration_ref": {
+                    "description": "Reference to an artifact containing applied configuration.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "deployment_ref": {
+                    "description": "Deployment reference or release identifier (Helm chart URI, image tag, etc.).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "host": {
+                    "description": "Hostname or logical host.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "region": {
+                    "description": "Region or availability zone.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "runtime_name": {
+                    "description": "Runtime/platform name (e.g. \"Fluxnova BPM Platform\").",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "runtime_version": {
+                    "description": "Runtime/platform version.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "Environment",
+            "type": "object"
+        },
         "Error": {
             "additionalProperties": false,
             "description": "The BPMN error element",
@@ -7004,6 +7831,101 @@
             ],
             "title": "EscalationEventDefinition",
             "type": "object"
+        },
+        "EvaluationResult": {
+            "additionalProperties": false,
+            "description": "Result of a quality or safety evaluation against an AI model invocation.\nSupports human review, LLM-as-judge, deterministic metrics, guardrails,\nand static rule checks. Distinct from offline benchmark scoring such as\nnexus:AiEvalResult (a related but coarser concept).",
+            "properties": {
+                "evaluated_at": {
+                    "description": "Timestamp when the evaluation was performed.",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "evaluated_invocation": {
+                    "description": "AI model invocation that was evaluated.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "evaluator_kind": {
+                    "$ref": "#/$defs/EvaluatorKind",
+                    "description": "Kind of evaluator (human, LLM-as-judge, metric, guardrail, static rule)."
+                },
+                "evaluator_name": {
+                    "description": "Name of the evaluator (rubric name, judge model name, metric name).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "metric_name": {
+                    "description": "Metric name (e.g. duration_ms, queue_wait_ms, cpu_seconds, tokens_in).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "metric_unit": {
+                    "description": "UCUM or local unit string for the metric.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "metric_value": {
+                    "description": "Metric numeric value.",
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "passing": {
+                    "description": "Whether the evaluation was considered passing.",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "EvaluationResult",
+            "type": "object"
+        },
+        "EvaluatorKind": {
+            "description": "Kind of evaluator that produced an EvaluationResult.",
+            "enum": [
+                "HUMAN_REVIEW",
+                "LLM_AS_JUDGE",
+                "METRIC",
+                "GUARDRAIL",
+                "STATIC_RULE"
+            ],
+            "title": "EvaluatorKind",
+            "type": "string"
         },
         "Event": {
             "additionalProperties": false,
@@ -7765,6 +8687,63 @@
                 "id"
             ],
             "title": "Execution",
+            "type": "object"
+        },
+        "ExecutionResource": {
+            "additionalProperties": false,
+            "description": "Execution resource such as worker, node, queue, container, or database.",
+            "properties": {
+                "endpoint": {
+                    "description": "API or service endpoint URL.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "host": {
+                    "description": "Hostname or logical host.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "labels": {
+                    "description": "Free-form key=value labels on the resource.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "resource_kind": {
+                    "$ref": "#/$defs/ResourceKind",
+                    "description": "Kind of execution resource."
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "ExecutionResource",
             "type": "object"
         },
         "Expression": {
@@ -12554,6 +13533,24 @@
             "title": "IdentityLink",
             "type": "object"
         },
+        "ImplementationKind": {
+            "description": "Normalized implementation strategy for a step.",
+            "enum": [
+                "USER_TASK",
+                "JAVA_DELEGATE",
+                "EXPRESSION",
+                "SCRIPT",
+                "CONNECTOR",
+                "CALL_ACTIVITY",
+                "BUSINESS_RULE",
+                "EXTERNAL_SERVICE",
+                "EVENT",
+                "GATEWAY",
+                "SUBPROCESS"
+            ],
+            "title": "ImplementationKind",
+            "type": "string"
+        },
         "Import": {
             "additionalProperties": false,
             "description": "The BPMN Import element",
@@ -12712,6 +13709,17 @@
                 "RESOLVED"
             ],
             "title": "IncidentState",
+            "type": "string"
+        },
+        "IncidentStatus": {
+            "description": "Lifecycle status of an incident.",
+            "enum": [
+                "OPEN",
+                "INVESTIGATING",
+                "RESOLVED",
+                "IGNORED"
+            ],
+            "title": "IncidentStatus",
             "type": "string"
         },
         "InclusiveGateway": {
@@ -15253,6 +16261,17 @@
             "title": "MessageFlowAssociation",
             "type": "object"
         },
+        "MessageRole": {
+            "description": "Conversational role of a prompt or response message.",
+            "enum": [
+                "SYSTEM",
+                "USER",
+                "ASSISTANT",
+                "TOOL"
+            ],
+            "title": "MessageRole",
+            "type": "string"
+        },
         "MessageVisibleKind": {
             "description": "The BPMNDI MessageVisibleKind simpleType",
             "enum": [
@@ -15309,6 +16328,122 @@
                 "name"
             ],
             "title": "MeterLog",
+            "type": "object"
+        },
+        "ModelArtifact": {
+            "additionalProperties": false,
+            "description": "Persistent model artifact such as a checkpoint, weights file, or model\ncard publication. Distinct from AiModelDescriptor: this is a concrete\nfile or URI, while AiModelDescriptor is the runtime component used\nduring invocation.",
+            "properties": {
+                "artifact_kind": {
+                    "$ref": "#/$defs/ArtifactKind",
+                    "description": "Classifier for the kind of artifact (BPMN XML, payload, document, log, etc.)."
+                },
+                "base_model": {
+                    "description": "Upstream base model artifact this artifact derives from.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "consumed_by_step_runs": {
+                    "description": "Step runs that consumed this artifact or parameter value (by-reference).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "hash": {
+                    "description": "Content hash or checksum string (algorithm-prefixed, e.g. \"sha256:...\").",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "media_type": {
+                    "description": "IANA media type / MIME type of the artifact.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "model_card_uri": {
+                    "description": "URI of the model card or model documentation.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "parameter_count": {
+                    "description": "Number of model parameters (where disclosed).",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "path_or_uri": {
+                    "description": "File path or URI locating the artifact content.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "produced_by_step_run": {
+                    "description": "Step run that produced this artifact or parameter value.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "size_in_bytes": {
+                    "description": "Size of the artifact content in bytes.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "training_datasets": {
+                    "description": "Datasets used to train or fine-tune the model.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "weights_uri": {
+                    "description": "URI of the model weights or checkpoint.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "ModelArtifact",
             "type": "object"
         },
         "Monitoring": {
@@ -15543,6 +16678,35 @@
                 "id"
             ],
             "title": "MultiInstanceLoopCharacteristics",
+            "type": "object"
+        },
+        "NamedThing": {
+            "additionalProperties": false,
+            "description": "Abstract identifiable provenance entity with optional human-readable name and external reference.",
+            "properties": {
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "NamedThing",
             "type": "object"
         },
         "Node": {
@@ -16016,6 +17180,200 @@
                 "id"
             ],
             "title": "ParallelGateway",
+            "type": "object"
+        },
+        "ParameterDefinition": {
+            "additionalProperties": false,
+            "description": "Formal parameter or variable contract for a workflow or step.",
+            "properties": {
+                "allowed_values": {
+                    "description": "Enumerated allowed values for the parameter, if constrained.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "declared_type": {
+                    "description": "Declared variable/parameter type as a string.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "default_value": {
+                    "description": "Default value for the parameter in string/JSON form.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "is_required": {
+                    "description": "Whether this entity is required.",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "parameter_direction": {
+                    "$ref": "#/$defs/DirectionEnum",
+                    "description": "Direction of data flow for a parameter (IN, OUT, INOUT, LOCAL)."
+                },
+                "parameter_scope": {
+                    "$ref": "#/$defs/ParameterScope",
+                    "description": "Scope at which the parameter applies (workflow, step, task, decision, form)."
+                },
+                "secret": {
+                    "description": "Indicates that values for this parameter must be redacted on export.",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "ParameterDefinition",
+            "type": "object"
+        },
+        "ParameterScope": {
+            "description": "Scope at which a parameter or variable is defined.",
+            "enum": [
+                "WORKFLOW",
+                "STEP",
+                "TASK",
+                "DECISION",
+                "FORM"
+            ],
+            "title": "ParameterScope",
+            "type": "string"
+        },
+        "ParameterValue": {
+            "additionalProperties": false,
+            "description": "Actual observed runtime value of a variable or parameter.",
+            "properties": {
+                "classification": {
+                    "$ref": "#/$defs/DataClassification",
+                    "description": "Data classification of the value (public, internal, confidential, restricted)."
+                },
+                "consumed_by_step_runs": {
+                    "description": "Step runs that consumed this artifact or parameter value (by-reference).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "derived_from": {
+                    "description": "Upstream parameter values from which this value was derived (by-reference).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "observed_at": {
+                    "description": "Timestamp when the value or event was observed.",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "observed_type": {
+                    "description": "Runtime-observed concrete type for the actual value.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "parameter_definition": {
+                    "description": "Formal parameter definition this value instantiates.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "parameter_direction": {
+                    "$ref": "#/$defs/DirectionEnum",
+                    "description": "Direction of data flow for a parameter (IN, OUT, INOUT, LOCAL)."
+                },
+                "produced_by_step_run": {
+                    "description": "Step run that produced this artifact or parameter value.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "redacted": {
+                    "description": "Whether the serialized value has been redacted for export.",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "serialized_value": {
+                    "description": "Export-safe serialized value (JSON scalar/string/external reference).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "value_hash": {
+                    "description": "Hash of the serialized value for deduplication or comparison.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "ParameterValue",
             "type": "object"
         },
         "Participant": {
@@ -16888,6 +18246,78 @@
             "title": "ProcessType",
             "type": "string"
         },
+        "PromptMessage": {
+            "additionalProperties": false,
+            "description": "A single message turn in an AI model invocation (system, user, assistant,\nor tool turn). Records the role, the (possibly redacted) content, an\nordering index inside the invocation, and a data classification.",
+            "properties": {
+                "classification": {
+                    "$ref": "#/$defs/DataClassification",
+                    "description": "Data classification of the value (public, internal, confidential, restricted)."
+                },
+                "content": {
+                    "description": "Message content (may be redacted in export).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "content_hash": {
+                    "description": "Hash of the message content (algorithm-prefixed, e.g. \"sha256:...\").\nUsed to deduplicate or to attest to a message that has been redacted.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "message_role": {
+                    "$ref": "#/$defs/MessageRole",
+                    "description": "Conversational role of the message (system, user, assistant, tool)."
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "parent_invocation": {
+                    "description": "AI model invocation that produced or owns this message or tool call.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "redacted": {
+                    "description": "Whether the serialized value has been redacted for export.",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "sequence_no": {
+                    "description": "Exporter-assigned ordering number for deterministic serialization.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "PromptMessage",
+            "type": "object"
+        },
         "Property": {
             "additionalProperties": false,
             "description": "Property entity in the engine infrastructure.",
@@ -16908,6 +18338,199 @@
                 "name"
             ],
             "title": "Property",
+            "type": "object"
+        },
+        "ProvenanceBundle": {
+            "additionalProperties": false,
+            "description": "Top-level export package for Fluxnova provenance.",
+            "properties": {
+                "agents": {
+                    "description": "Agents referenced by the bundle.",
+                    "items": {
+                        "$ref": "#/$defs/Agent"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "environments": {
+                    "description": "Environments referenced by the bundle.",
+                    "items": {
+                        "$ref": "#/$defs/Environment"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "generated_at": {
+                    "description": "Timestamp at which the provenance bundle was produced.",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "parameter_values": {
+                    "description": "Parameter value observations referenced by the bundle's workflow_runs and step_runs.",
+                    "items": {
+                        "$ref": "#/$defs/ParameterValue"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "resources": {
+                    "description": "Execution resources (workers, pods, queues, hosts) referenced by the bundle's step_runs.",
+                    "items": {
+                        "$ref": "#/$defs/ExecutionResource"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "runtime_components": {
+                    "description": "Runtime components referenced by the bundle.",
+                    "items": {
+                        "$ref": "#/$defs/RuntimeComponent"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "schema_version": {
+                    "description": "Version of the provenance schema used for the bundle.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "source_system": {
+                    "description": "Name or identifier of the system that produced the provenance bundle.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "workflow_artifacts": {
+                    "description": "Workflow artifacts referenced by the bundle.",
+                    "items": {
+                        "$ref": "#/$defs/WorkflowArtifact"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "workflow_definitions": {
+                    "description": "Workflow definitions exported in the bundle.",
+                    "items": {
+                        "$ref": "#/$defs/WorkflowDefinition"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "workflow_runs": {
+                    "description": "Workflow runs exported in the bundle.",
+                    "items": {
+                        "$ref": "#/$defs/WorkflowRun"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "ProvenanceBundle",
+            "type": "object"
+        },
+        "ProvenanceIncident": {
+            "additionalProperties": false,
+            "description": "Error, escalation, or operational event attached to a workflow run or step run.",
+            "properties": {
+                "code": {
+                    "description": "Incident or error code.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "incident_status": {
+                    "$ref": "#/$defs/IncidentStatus",
+                    "description": "Lifecycle status of an incident."
+                },
+                "message": {
+                    "description": "Short message or summary.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "observed_at": {
+                    "description": "Timestamp when the value or event was observed.",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "related_step_run": {
+                    "description": "Step run the incident is related to.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "related_workflow_run": {
+                    "description": "Workflow run the incident is related to.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "ProvenanceIncident",
             "type": "object"
         },
         "ReceiveTask": {
@@ -17530,6 +19153,22 @@
             "title": "ResourceDefinition",
             "type": "object"
         },
+        "ResourceKind": {
+            "description": "Kind of execution resource.",
+            "enum": [
+                "HOST",
+                "CONTAINER",
+                "POD",
+                "NODE",
+                "DATABASE",
+                "QUEUE",
+                "CLUSTER",
+                "THREAD_POOL",
+                "EXTERNAL_API"
+            ],
+            "title": "ResourceKind",
+            "type": "string"
+        },
         "ResourceParameter": {
             "additionalProperties": false,
             "description": "The BPMN resourceParameter element",
@@ -17758,6 +19397,77 @@
             "title": "ResourceRole",
             "type": "object"
         },
+        "ResourceUsage": {
+            "additionalProperties": false,
+            "description": "Resource usage measurement for a workflow run or step run.",
+            "properties": {
+                "execution_resource": {
+                    "description": "Resource (pod, container, node, queue) used to execute the step.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "measured_for_step_run": {
+                    "description": "Step run the measurement is associated with.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "measured_for_workflow_run": {
+                    "description": "Workflow run the measurement is associated with.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "metric_name": {
+                    "description": "Metric name (e.g. duration_ms, queue_wait_ms, cpu_seconds, tokens_in).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "metric_unit": {
+                    "description": "UCUM or local unit string for the metric.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "metric_value": {
+                    "description": "Metric numeric value.",
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "ResourceUsage",
+            "type": "object"
+        },
         "RootElement": {
             "additionalProperties": false,
             "description": "The BPMN rootElement element",
@@ -17811,6 +19521,94 @@
             ],
             "title": "RootElement",
             "type": "object"
+        },
+        "RunStatus": {
+            "description": "Lifecycle status of a workflow run or step run.",
+            "enum": [
+                "PENDING",
+                "ACTIVE",
+                "COMPLETED",
+                "FAILED",
+                "CANCELLED",
+                "SUSPENDED"
+            ],
+            "title": "RunStatus",
+            "type": "string"
+        },
+        "RuntimeComponent": {
+            "additionalProperties": false,
+            "description": "Engine, plugin, or service component involved in orchestration.",
+            "properties": {
+                "component_kind": {
+                    "$ref": "#/$defs/RuntimeComponentKind",
+                    "description": "Kind of runtime component (engine, REST API, executor, plugin, connector, etc.)."
+                },
+                "definition_version": {
+                    "description": "Version string of the workflow or step definition (semantic version of the BPMN model).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "endpoint": {
+                    "description": "API or service endpoint URL.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "RuntimeComponent",
+            "type": "object"
+        },
+        "RuntimeComponentKind": {
+            "description": "Kind of runtime component participating in orchestration.",
+            "enum": [
+                "ENGINE",
+                "REST_API",
+                "JOB_EXECUTOR",
+                "HISTORY_EXPORTER",
+                "PLUGIN",
+                "CONNECTOR",
+                "MODELER_DEPLOYER"
+            ],
+            "title": "RuntimeComponentKind",
+            "type": "string"
+        },
+        "SafetyFlag": {
+            "description": "Safety, policy, or guardrail flag raised by the model, the provider, or\na local guardrail layer during an AI model invocation. Mapped to\ndpv-risk terms where a stable upstream match exists.",
+            "enum": [
+                "NONE",
+                "POLICY_VIOLATION",
+                "HALLUCINATION_SUSPECTED",
+                "JAILBREAK_ATTEMPT",
+                "PII_LEAK",
+                "PROMPT_INJECTION",
+                "TOXICITY"
+            ],
+            "title": "SafetyFlag",
+            "type": "string"
         },
         "SchemaLogEntry": {
             "additionalProperties": false,
@@ -19298,6 +21096,277 @@
             "title": "StartEvent",
             "type": "object"
         },
+        "StepDefinition": {
+            "additionalProperties": false,
+            "description": "BPMN step / activity / event / gateway definition within a workflow.",
+            "properties": {
+                "bpmn_extension_names": {
+                    "description": "Names or identifiers of BPMN extension elements used by the step.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "bpmn_type": {
+                    "$ref": "#/$defs/BPMNElementType",
+                    "description": "Normalized BPMN element type for the step."
+                },
+                "called_element": {
+                    "description": "The global task or process called by this call activity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "decision_ref": {
+                    "description": "DMN decision or decision service reference for business rule tasks.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "form_ref": {
+                    "description": "Form reference for human tasks.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "implementation_kind": {
+                    "$ref": "#/$defs/ImplementationKind",
+                    "description": "Normalized implementation strategy for the step."
+                },
+                "implementation_ref": {
+                    "description": "The implementation ref of this element.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "input_parameters": {
+                    "description": "Formal input parameter contracts for the step.",
+                    "items": {
+                        "$ref": "#/$defs/ParameterDefinition"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "output_parameters": {
+                    "description": "Formal output parameter contracts for the step.",
+                    "items": {
+                        "$ref": "#/$defs/ParameterDefinition"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "workflow_definition": {
+                    "description": "Reference to the owning workflow definition.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "StepDefinition",
+            "type": "object"
+        },
+        "StepRun": {
+            "additionalProperties": false,
+            "description": "Concrete execution of a StepDefinition (retrospective provenance).",
+            "properties": {
+                "activity_instance_id": {
+                    "description": "Runtime activity instance identifier.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "consumed_artifacts": {
+                    "description": "Artifacts consumed by the step run (by-reference; declare full artifacts under ProvenanceBundle.artifacts).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "ended_at": {
+                    "description": "Timestamp when execution ended (absent for running instances).",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "environment": {
+                    "description": "Runtime environment in which the run took place.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "executed_by": {
+                    "description": "Agent (assignee, service account, system) that executed the step.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "execution_resource": {
+                    "description": "Resource (pod, container, node, queue) used to execute the step.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "incident_message": {
+                    "description": "Incident message.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "informed_by": {
+                    "description": "Step runs whose completion preceded and informed this step run (by-reference).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "input_values": {
+                    "description": "Observed input parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "output_values": {
+                    "description": "Observed output parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "parent_step_run": {
+                    "description": "Parent step run for nested step executions.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "produced_artifacts": {
+                    "description": "Artifacts produced by the step run (by-reference; declare full artifacts under ProvenanceBundle.artifacts).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "retries": {
+                    "description": "Number of retries this job has left. Whenever the jobexecutor fails to execute the job, this value is decremented. When it hits zero, the job is supposed to be dead and not retried again (ie a manu...",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "sequence_no": {
+                    "description": "Exporter-assigned ordering number for deterministic serialization.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "started_at": {
+                    "description": "Timestamp when execution started.",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "status": {
+                    "$ref": "#/$defs/RunStatus",
+                    "description": "Status of the workflow run or step run."
+                },
+                "step_definition": {
+                    "description": "Step definition this run instantiates.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "workflow_run": {
+                    "description": "Parent workflow run for the step run.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "StepRun",
+            "type": "object"
+        },
         "Style": {
             "additionalProperties": false,
             "description": "The DI Style element",
@@ -20530,6 +22599,104 @@
             "title": "TimerEventDefinition",
             "type": "object"
         },
+        "ToolCall": {
+            "additionalProperties": false,
+            "description": "A single tool / function call made by an AI agent during an invocation.\nCaptures the tool name, the provider-assigned call identifier, the\narguments passed, the result returned, the status of the call, and an\noptional link to the step run that materialized the call.",
+            "properties": {
+                "arguments_json": {
+                    "description": "JSON-serialized arguments passed to the tool.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "called_step_run": {
+                    "description": "Step run that was materialized to execute the tool call, if any.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "ended_at": {
+                    "description": "Timestamp when execution ended (absent for running instances).",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "parent_invocation": {
+                    "description": "AI model invocation that produced or owns this message or tool call.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "result_artifact": {
+                    "description": "Optional artifact reference for large tool outputs.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "result_json": {
+                    "description": "JSON-serialized result returned by the tool.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "started_at": {
+                    "description": "Timestamp when execution started.",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "status": {
+                    "$ref": "#/$defs/RunStatus",
+                    "description": "Status of the workflow run or step run."
+                },
+                "tool_call_id": {
+                    "description": "Provider-assigned identifier for the tool call.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "tool_name": {
+                    "description": "Tool or function name as exposed to the model.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "ToolCall",
+            "type": "object"
+        },
         "Transaction": {
             "additionalProperties": false,
             "description": "A sub-process that executes as an atomic unit with compensation support.",
@@ -21595,6 +23762,329 @@
             },
             "title": "Waypoint",
             "type": "object"
+        },
+        "WorkflowArtifact": {
+            "additionalProperties": false,
+            "description": "File, payload, or URI referenced by a process definition or execution.",
+            "properties": {
+                "artifact_kind": {
+                    "$ref": "#/$defs/ArtifactKind",
+                    "description": "Classifier for the kind of artifact (BPMN XML, payload, document, log, etc.)."
+                },
+                "consumed_by_step_runs": {
+                    "description": "Step runs that consumed this artifact or parameter value (by-reference).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "hash": {
+                    "description": "Content hash or checksum string (algorithm-prefixed, e.g. \"sha256:...\").",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "media_type": {
+                    "description": "IANA media type / MIME type of the artifact.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "path_or_uri": {
+                    "description": "File path or URI locating the artifact content.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "produced_by_step_run": {
+                    "description": "Step run that produced this artifact or parameter value.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "size_in_bytes": {
+                    "description": "Size of the artifact content in bytes.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "WorkflowArtifact",
+            "type": "object"
+        },
+        "WorkflowDefinition": {
+            "additionalProperties": false,
+            "description": "BPMN workflow / process definition (prospective provenance).",
+            "properties": {
+                "authors": {
+                    "description": "Authors or owners of the workflow definition (by-reference; declare full agents under ProvenanceBundle.agents).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "definition_key": {
+                    "description": "Stable engine definition key (BPMN process key).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "definition_version": {
+                    "description": "Version string of the workflow or step definition (semantic version of the BPMN model).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "deployment_id": {
+                    "description": "Reference to the deployment.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "runtime_component": {
+                    "description": "Engine or runtime component associated with the entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "source_model_ref": {
+                    "description": "Reference to the source BPMN/DMN/CMMN model artifact.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "steps": {
+                    "description": "Step definitions belonging to a workflow definition.",
+                    "items": {
+                        "$ref": "#/$defs/StepDefinition"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "tags": {
+                    "description": "Free-form tag labels.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "WorkflowDefinition",
+            "type": "object"
+        },
+        "WorkflowRun": {
+            "additionalProperties": false,
+            "description": "Concrete execution of a WorkflowDefinition (retrospective provenance).",
+            "properties": {
+                "business_key": {
+                    "description": "Domain-specific business key.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "ended_at": {
+                    "description": "Timestamp when execution ended (absent for running instances).",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "environment": {
+                    "description": "Runtime environment in which the run took place.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "incidents": {
+                    "description": "Incidents recorded against the workflow run.",
+                    "items": {
+                        "$ref": "#/$defs/ProvenanceIncident"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "input_values": {
+                    "description": "Observed input parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "output_values": {
+                    "description": "Observed output parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "parent_workflow_run": {
+                    "description": "Parent workflow run when the run is a sub-process invocation.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "resource_usage": {
+                    "description": "Resource usage measurements for the run.",
+                    "items": {
+                        "$ref": "#/$defs/ResourceUsage"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "runtime_component": {
+                    "description": "Engine or runtime component associated with the entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "started_at": {
+                    "description": "Timestamp when execution started.",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "started_by": {
+                    "description": "Agent that initiated the workflow run.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "status": {
+                    "$ref": "#/$defs/RunStatus",
+                    "description": "Status of the workflow run or step run."
+                },
+                "step_runs": {
+                    "description": "Step run executions belonging to the workflow run.",
+                    "items": {
+                        "$ref": "#/$defs/StepRun"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "tags": {
+                    "description": "Free-form tag labels.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "workflow_definition": {
+                    "description": "Reference to the owning workflow definition.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "WorkflowRun",
+            "type": "object"
         }
     },
     "$id": "https://w3id.org/lmodel/fluxnova-bpm-platform",
@@ -21611,6 +24101,9 @@
             ]
         }
     },
+    "required": [
+        "id"
+    ],
     "title": "fluxnova_bpm_platform",
     "type": "object",
     "version": "2.0.0-SNAPSHOT"

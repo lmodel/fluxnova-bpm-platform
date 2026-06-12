@@ -1,21 +1,21 @@
 id: https://w3id.org/lmodel/fluxnova-bpm-platform
 name: fluxnova_bpm_platform
 title: Fluxnova BPM Platform
-description: LinkML schema for the Fluxnova BPM Platform data model, covering process definitions, runtime execution, 
+description: LinkML schema for the Fluxnova BPM Platform data model, covering process definitions, runtime execution,
   jobs, identity, history, and collaboration entities.
 license: Apache-2.0
 source: https://github.com/finos/fluxnova-bpm-platform
 see_also:
-- https://lmodel.github.io/fluxnova-bpm-platform
-- https://fluxnova.finos.org/
+  - https://lmodel.github.io/fluxnova-bpm-platform
+  - https://fluxnova.finos.org/
 version: 2.0.0-SNAPSHOT
 annotations:
   generated_by: scripts/fluxnova_to_linkml.py
   source_pom: pom.xml
   source_sql_dir: engine/src/main/resources/org/finos/fluxnova/bpm/engine/db/create
   source_sql_file_count: 7
-  source_sql_files: activiti.h2.create.case.engine.sql, activiti.h2.create.case.history.sql, 
-    activiti.h2.create.decision.engine.sql, activiti.h2.create.decision.history.sql, activiti.h2.create.engine.sql, 
+  source_sql_files: activiti.h2.create.case.engine.sql, activiti.h2.create.case.history.sql,
+    activiti.h2.create.decision.engine.sql, activiti.h2.create.decision.history.sql, activiti.h2.create.engine.sql,
     activiti.h2.create.history.sql, activiti.h2.create.identity.sql
   sql_table_count: 49
   mapped_table_count: 49
@@ -36,16 +36,17 @@ default_prefix: fluxnova_bpm_platform
 default_range: string
 
 imports:
-- linkml:types
-- ./fluxnova_common
-- ./fluxnova_bpm_base
-- ./fluxnova_bpm_collaboration
-- ./fluxnova_bpm_history
-- ./fluxnova_bpm_identity
-- ./fluxnova_bpm_job
-- ./fluxnova_bpm_repository
-- ./fluxnova_bpm_runtime
-- ./fluxnova_bpmn_model
+  - linkml:types
+  - ./fluxnova_common
+  - ./fluxnova_bpm_base
+  - ./fluxnova_bpm_collaboration
+  - ./fluxnova_bpm_history
+  - ./fluxnova_bpm_identity
+  - ./fluxnova_bpm_job
+  - ./fluxnova_bpm_repository
+  - ./fluxnova_bpm_runtime
+  - ./fluxnova_bpmn_model
+  - ./provenance/fluxnova_bpm_provenance
 
 subsets:
   base:
@@ -117,8 +118,9 @@ slots:
     multivalued: true
     inlined_as_list: true
     description: Identity groups.
-
-    related_mappings: [cis_controls:controls, nist_csf_v2:groups]
+    related_mappings:
+      - cis_controls:controls
+      - nist_csf_v2:groups
   batches:
     range: Batch
     multivalued: true
@@ -130,17 +132,17 @@ classes:
     tree_root: true
     description: Root container for Fluxnova BPM Platform data.
     in_subset:
-    - platform
-    - fluxnova_bpm
+      - platform
+      - fluxnova_bpm
     slots:
-    - deployments
-    - process_definitions
-    - executions
-    - tasks
-    - jobs
-    - users
-    - groups
-    - batches
+      - deployments
+      - process_definitions
+      - executions
+      - tasks
+      - jobs
+      - users
+      - groups
+      - batches
     slot_usage:
       deployments:
         range: Deployment

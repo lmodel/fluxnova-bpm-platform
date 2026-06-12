@@ -2671,6 +2671,283 @@
 --     * Slot: definitions Description: The root BPMN Definitions element of this model.
 -- # Class: BpmnModelType Description: Enumeration-like interface representing the BPMN model type.
 --     * Slot: id
+-- # Class: AiAgent Description: Autonomous or semi-autonomous AI agent that acts as an Agent in a Fluxnovaworkflow. Concrete embodiment of one or more AI models exposed through aprovider endpoint. Distinct from the human, organizational, or system Agentkinds declared in the base provenance module.
+--     * Slot: model_family Description: Model family or product line (e.g. "GPT-4", "Claude 3", "Llama 3", "Mistral 7B").
+--     * Slot: model_name Description: Concrete model name (e.g. "gpt-4o-2024-05-13", "claude-3-5-sonnet-20240620").
+--     * Slot: model_version Description: Released or pinned version identifier for the model.
+--     * Slot: provider Description: Provider or vendor that hosts the model endpoint (e.g. "openai", "anthropic","azure-openai", "vertex-ai", "self-hosted-vllm").
+--     * Slot: endpoint Description: API or service endpoint URL.
+--     * Slot: parameter_count Description: Number of model parameters (where disclosed).
+--     * Slot: context_window_tokens Description: Maximum input context window in tokens.
+--     * Slot: is_part_of_ai_system Description: External CURIE or URI reference to a larger AI system this agent belongsto (typically modeled in an AI governance vocabulary such as nexus:AiSystemor airo:AISystem). String reference rather than typed slot so the AIprovenance overlay does not pull in a governance ontology.
+--     * Slot: agent_kind Description: Kind of agent (person, organization, system, service account).
+--     * Slot: email Description: Email address.
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+-- # Class: AiModelDescriptor Description: Descriptor of an AI model used as a runtime component. Captures staticcharacteristics of the model (family, architecture, parameter count,training tokens, context window, supported languages) without prescribinghow an individual call was made.
+--     * Slot: model_family Description: Model family or product line (e.g. "GPT-4", "Claude 3", "Llama 3", "Mistral 7B").
+--     * Slot: architecture Description: Architecture family (e.g. "transformer-decoder", "moe", "mamba", "diffusion").
+--     * Slot: parameter_count Description: Number of model parameters (where disclosed).
+--     * Slot: training_token_count Description: Number of tokens used to train the model (where disclosed).
+--     * Slot: context_window_tokens Description: Maximum input context window in tokens.
+--     * Slot: fine_tuning_description Description: Free-text description of fine-tuning applied to the model.
+--     * Slot: component_kind Description: Kind of runtime component (engine, REST API, executor, plugin, connector, etc.).
+--     * Slot: definition_version Description: Version string of the workflow or step definition (semantic version of the BPMN model).
+--     * Slot: endpoint Description: API or service endpoint URL.
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+-- # Class: AiModelInvocation Description: One concrete invocation of an AI model from a workflow step. Captures theruntime call (kind, parameters, prompts, tool calls, response), theconsumption telemetry (token counts, cost), any safety flags raised, andany evaluation results attached. Inherits status, timestamps, parentworkflow run, sequence number, and incident linkage from StepRun.
+--     * Slot: invoked_model Description: AI agent that was invoked to produce the step result.
+--     * Slot: invocation_kind Description: Kind of invocation (chat completion, tool use, embedding, etc.).
+--     * Slot: response_message Description: Assistant or tool message returned by the model as the response.Inlined as a single PromptMessage with role ASSISTANT or TOOL.
+--     * Slot: temperature Description: Sampling temperature requested for the invocation.
+--     * Slot: top_p Description: Top-p nucleus sampling parameter.
+--     * Slot: max_tokens Description: Maximum tokens the model was permitted to generate.
+--     * Slot: total_input_tokens Description: Total prompt / input tokens consumed by the invocation.
+--     * Slot: total_output_tokens Description: Total completion / output tokens produced by the invocation.
+--     * Slot: cost_usd Description: Direct provider cost in USD for the invocation, where reported by theprovider or computed locally from billing rates.
+--     * Slot: workflow_run Description: Parent workflow run for the step run.
+--     * Slot: step_definition Description: Step definition this run instantiates.
+--     * Slot: activity_instance_id Description: Runtime activity instance identifier.
+--     * Slot: parent_step_run Description: Parent step run for nested step executions.
+--     * Slot: status Description: Status of the workflow run or step run.
+--     * Slot: started_at Description: Timestamp when execution started.
+--     * Slot: ended_at Description: Timestamp when execution ended (absent for running instances).
+--     * Slot: executed_by Description: Agent (assignee, service account, system) that executed the step.
+--     * Slot: environment Description: Runtime environment in which the run took place.
+--     * Slot: execution_resource Description: Resource (pod, container, node, queue) used to execute the step.
+--     * Slot: incident_message Description: Incident message.
+--     * Slot: retries Description: Number of retries this job has left. Whenever the jobexecutor fails to execute the job, this value is decremented. When it hits zero, the job is supposed to be dead and not retried again (ie a manu...
+--     * Slot: sequence_no Description: Exporter-assigned ordering number for deterministic serialization.
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+-- # Class: PromptMessage Description: A single message turn in an AI model invocation (system, user, assistant,or tool turn). Records the role, the (possibly redacted) content, anordering index inside the invocation, and a data classification.
+--     * Slot: message_role Description: Conversational role of the message (system, user, assistant, tool).
+--     * Slot: content Description: Message content (may be redacted in export).
+--     * Slot: content_hash Description: Hash of the message content (algorithm-prefixed, e.g. "sha256:...").Used to deduplicate or to attest to a message that has been redacted.
+--     * Slot: sequence_no Description: Exporter-assigned ordering number for deterministic serialization.
+--     * Slot: redacted Description: Whether the serialized value has been redacted for export.
+--     * Slot: classification Description: Data classification of the value (public, internal, confidential, restricted).
+--     * Slot: parent_invocation Description: AI model invocation that produced or owns this message or tool call.
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+--     * Slot: AiModelInvocation_id Description: Autocreated FK slot
+-- # Class: ToolCall Description: A single tool / function call made by an AI agent during an invocation.Captures the tool name, the provider-assigned call identifier, thearguments passed, the result returned, the status of the call, and anoptional link to the step run that materialized the call.
+--     * Slot: tool_name Description: Tool or function name as exposed to the model.
+--     * Slot: tool_call_id Description: Provider-assigned identifier for the tool call.
+--     * Slot: arguments_json Description: JSON-serialized arguments passed to the tool.
+--     * Slot: result_json Description: JSON-serialized result returned by the tool.
+--     * Slot: result_artifact Description: Optional artifact reference for large tool outputs.
+--     * Slot: called_step_run Description: Step run that was materialized to execute the tool call, if any.
+--     * Slot: started_at Description: Timestamp when execution started.
+--     * Slot: ended_at Description: Timestamp when execution ended (absent for running instances).
+--     * Slot: status Description: Status of the workflow run or step run.
+--     * Slot: parent_invocation Description: AI model invocation that produced or owns this message or tool call.
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+--     * Slot: AiModelInvocation_id Description: Autocreated FK slot
+-- # Class: EvaluationResult Description: Result of a quality or safety evaluation against an AI model invocation.Supports human review, LLM-as-judge, deterministic metrics, guardrails,and static rule checks. Distinct from offline benchmark scoring such asnexus:AiEvalResult (a related but coarser concept).
+--     * Slot: evaluator_name Description: Name of the evaluator (rubric name, judge model name, metric name).
+--     * Slot: evaluator_kind Description: Kind of evaluator (human, LLM-as-judge, metric, guardrail, static rule).
+--     * Slot: metric_name Description: Metric name (e.g. duration_ms, queue_wait_ms, cpu_seconds, tokens_in).
+--     * Slot: metric_value Description: Metric numeric value.
+--     * Slot: metric_unit Description: UCUM or local unit string for the metric.
+--     * Slot: passing Description: Whether the evaluation was considered passing.
+--     * Slot: evaluated_at Description: Timestamp when the evaluation was performed.
+--     * Slot: evaluated_invocation Description: AI model invocation that was evaluated.
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+--     * Slot: AiModelInvocation_id Description: Autocreated FK slot
+-- # Class: AiDataset Description: Dataset artifact associated with an AI model invocation, an evaluation,a training run, or a fine-tuning step. Extends the generic WorkflowArtifactclass with AI-specific metadata such as dataset kind, record count, license,and data classification.
+--     * Slot: dataset_kind Description: Role of the dataset (training, fine-tuning, evaluation, RAG corpus, ground truth).
+--     * Slot: record_count Description: Number of records in the dataset.
+--     * Slot: license_uri Description: URI of the dataset license (e.g. SPDX license URL).
+--     * Slot: classification Description: Data classification of the value (public, internal, confidential, restricted).
+--     * Slot: artifact_kind Description: Classifier for the kind of artifact (BPMN XML, payload, document, log, etc.).
+--     * Slot: media_type Description: IANA media type / MIME type of the artifact.
+--     * Slot: path_or_uri Description: File path or URI locating the artifact content.
+--     * Slot: hash Description: Content hash or checksum string (algorithm-prefixed, e.g. "sha256:...").
+--     * Slot: size_in_bytes Description: Size of the artifact content in bytes.
+--     * Slot: produced_by_step_run Description: Step run that produced this artifact or parameter value.
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+-- # Class: ModelArtifact Description: Persistent model artifact such as a checkpoint, weights file, or modelcard publication. Distinct from AiModelDescriptor: this is a concretefile or URI, while AiModelDescriptor is the runtime component usedduring invocation.
+--     * Slot: model_card_uri Description: URI of the model card or model documentation.
+--     * Slot: weights_uri Description: URI of the model weights or checkpoint.
+--     * Slot: base_model Description: Upstream base model artifact this artifact derives from.
+--     * Slot: parameter_count Description: Number of model parameters (where disclosed).
+--     * Slot: artifact_kind Description: Classifier for the kind of artifact (BPMN XML, payload, document, log, etc.).
+--     * Slot: media_type Description: IANA media type / MIME type of the artifact.
+--     * Slot: path_or_uri Description: File path or URI locating the artifact content.
+--     * Slot: hash Description: Content hash or checksum string (algorithm-prefixed, e.g. "sha256:...").
+--     * Slot: size_in_bytes Description: Size of the artifact content in bytes.
+--     * Slot: produced_by_step_run Description: Step run that produced this artifact or parameter value.
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+-- # Abstract Class: NamedThing Description: Abstract identifiable provenance entity with optional human-readable name and external reference.
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+-- # Class: ProvenanceBundle Description: Top-level export package for Fluxnova provenance.
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: generated_at Description: Timestamp at which the provenance bundle was produced.
+--     * Slot: source_system Description: Name or identifier of the system that produced the provenance bundle.
+--     * Slot: schema_version Description: Version of the provenance schema used for the bundle.
+-- # Class: WorkflowDefinition Description: BPMN workflow / process definition (prospective provenance).
+--     * Slot: definition_version Description: Version string of the workflow or step definition (semantic version of the BPMN model).
+--     * Slot: definition_key Description: Stable engine definition key (BPMN process key).
+--     * Slot: deployment_id Description: Reference to the deployment.
+--     * Slot: source_model_ref Description: Reference to the source BPMN/DMN/CMMN model artifact.
+--     * Slot: runtime_component Description: Engine or runtime component associated with the entity.
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+--     * Slot: ProvenanceBundle_id Description: Autocreated FK slot
+-- # Class: StepDefinition Description: BPMN step / activity / event / gateway definition within a workflow.
+--     * Slot: workflow_definition Description: Reference to the owning workflow definition.
+--     * Slot: bpmn_type Description: Normalized BPMN element type for the step.
+--     * Slot: implementation_kind Description: Normalized implementation strategy for the step.
+--     * Slot: implementation_ref Description: The implementation ref of this element.
+--     * Slot: called_element Description: The global task or process called by this call activity.
+--     * Slot: decision_ref Description: DMN decision or decision service reference for business rule tasks.
+--     * Slot: form_ref Description: Form reference for human tasks.
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+--     * Slot: WorkflowDefinition_id Description: Autocreated FK slot
+-- # Class: ParameterDefinition Description: Formal parameter or variable contract for a workflow or step.
+--     * Slot: parameter_scope Description: Scope at which the parameter applies (workflow, step, task, decision, form).
+--     * Slot: parameter_direction Description: Direction of data flow for a parameter (IN, OUT, INOUT, LOCAL).
+--     * Slot: declared_type Description: Declared variable/parameter type as a string.
+--     * Slot: is_required Description: Whether this entity is required.
+--     * Slot: default_value Description: Default value for the parameter in string/JSON form.
+--     * Slot: secret Description: Indicates that values for this parameter must be redacted on export.
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+--     * Slot: StepDefinition_id Description: Autocreated FK slot
+-- # Class: Agent Description: Person, organization, system, or service account participating in workflow execution.
+--     * Slot: agent_kind Description: Kind of agent (person, organization, system, service account).
+--     * Slot: email Description: Email address.
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+--     * Slot: ProvenanceBundle_id Description: Autocreated FK slot
+-- # Class: Environment Description: Runtime environment for process execution or export generation.
+--     * Slot: runtime_name Description: Runtime/platform name (e.g. "Fluxnova BPM Platform").
+--     * Slot: runtime_version Description: Runtime/platform version.
+--     * Slot: host Description: Hostname or logical host.
+--     * Slot: region Description: Region or availability zone.
+--     * Slot: deployment_ref Description: Deployment reference or release identifier (Helm chart URI, image tag, etc.).
+--     * Slot: configuration_ref Description: Reference to an artifact containing applied configuration.
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+--     * Slot: ProvenanceBundle_id Description: Autocreated FK slot
+-- # Class: RuntimeComponent Description: Engine, plugin, or service component involved in orchestration.
+--     * Slot: component_kind Description: Kind of runtime component (engine, REST API, executor, plugin, connector, etc.).
+--     * Slot: definition_version Description: Version string of the workflow or step definition (semantic version of the BPMN model).
+--     * Slot: endpoint Description: API or service endpoint URL.
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+--     * Slot: ProvenanceBundle_id Description: Autocreated FK slot
+-- # Class: WorkflowArtifact Description: File, payload, or URI referenced by a process definition or execution.
+--     * Slot: artifact_kind Description: Classifier for the kind of artifact (BPMN XML, payload, document, log, etc.).
+--     * Slot: media_type Description: IANA media type / MIME type of the artifact.
+--     * Slot: path_or_uri Description: File path or URI locating the artifact content.
+--     * Slot: hash Description: Content hash or checksum string (algorithm-prefixed, e.g. "sha256:...").
+--     * Slot: size_in_bytes Description: Size of the artifact content in bytes.
+--     * Slot: produced_by_step_run Description: Step run that produced this artifact or parameter value.
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+--     * Slot: ProvenanceBundle_id Description: Autocreated FK slot
+-- # Class: WorkflowRun Description: Concrete execution of a WorkflowDefinition (retrospective provenance).
+--     * Slot: workflow_definition Description: Reference to the owning workflow definition.
+--     * Slot: business_key Description: Domain-specific business key.
+--     * Slot: parent_workflow_run Description: Parent workflow run when the run is a sub-process invocation.
+--     * Slot: status Description: Status of the workflow run or step run.
+--     * Slot: started_at Description: Timestamp when execution started.
+--     * Slot: ended_at Description: Timestamp when execution ended (absent for running instances).
+--     * Slot: started_by Description: Agent that initiated the workflow run.
+--     * Slot: environment Description: Runtime environment in which the run took place.
+--     * Slot: runtime_component Description: Engine or runtime component associated with the entity.
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+--     * Slot: ProvenanceBundle_id Description: Autocreated FK slot
+-- # Class: StepRun Description: Concrete execution of a StepDefinition (retrospective provenance).
+--     * Slot: workflow_run Description: Parent workflow run for the step run.
+--     * Slot: step_definition Description: Step definition this run instantiates.
+--     * Slot: activity_instance_id Description: Runtime activity instance identifier.
+--     * Slot: parent_step_run Description: Parent step run for nested step executions.
+--     * Slot: status Description: Status of the workflow run or step run.
+--     * Slot: started_at Description: Timestamp when execution started.
+--     * Slot: ended_at Description: Timestamp when execution ended (absent for running instances).
+--     * Slot: executed_by Description: Agent (assignee, service account, system) that executed the step.
+--     * Slot: environment Description: Runtime environment in which the run took place.
+--     * Slot: execution_resource Description: Resource (pod, container, node, queue) used to execute the step.
+--     * Slot: incident_message Description: Incident message.
+--     * Slot: retries Description: Number of retries this job has left. Whenever the jobexecutor fails to execute the job, this value is decremented. When it hits zero, the job is supposed to be dead and not retried again (ie a manu...
+--     * Slot: sequence_no Description: Exporter-assigned ordering number for deterministic serialization.
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+--     * Slot: WorkflowRun_id Description: Autocreated FK slot
+-- # Class: ParameterValue Description: Actual observed runtime value of a variable or parameter.
+--     * Slot: parameter_definition Description: Formal parameter definition this value instantiates.
+--     * Slot: observed_type Description: Runtime-observed concrete type for the actual value.
+--     * Slot: parameter_direction Description: Direction of data flow for a parameter (IN, OUT, INOUT, LOCAL).
+--     * Slot: serialized_value Description: Export-safe serialized value (JSON scalar/string/external reference).
+--     * Slot: value_hash Description: Hash of the serialized value for deduplication or comparison.
+--     * Slot: observed_at Description: Timestamp when the value or event was observed.
+--     * Slot: produced_by_step_run Description: Step run that produced this artifact or parameter value.
+--     * Slot: redacted Description: Whether the serialized value has been redacted for export.
+--     * Slot: classification Description: Data classification of the value (public, internal, confidential, restricted).
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+--     * Slot: ProvenanceBundle_id Description: Autocreated FK slot
+-- # Class: ResourceUsage Description: Resource usage measurement for a workflow run or step run.
+--     * Slot: metric_name Description: Metric name (e.g. duration_ms, queue_wait_ms, cpu_seconds, tokens_in).
+--     * Slot: metric_value Description: Metric numeric value.
+--     * Slot: metric_unit Description: UCUM or local unit string for the metric.
+--     * Slot: measured_for_workflow_run Description: Workflow run the measurement is associated with.
+--     * Slot: measured_for_step_run Description: Step run the measurement is associated with.
+--     * Slot: execution_resource Description: Resource (pod, container, node, queue) used to execute the step.
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+--     * Slot: WorkflowRun_id Description: Autocreated FK slot
+-- # Class: ExecutionResource Description: Execution resource such as worker, node, queue, container, or database.
+--     * Slot: resource_kind Description: Kind of execution resource.
+--     * Slot: host Description: Hostname or logical host.
+--     * Slot: endpoint Description: API or service endpoint URL.
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+--     * Slot: ProvenanceBundle_id Description: Autocreated FK slot
+-- # Class: ProvenanceIncident Description: Error, escalation, or operational event attached to a workflow run or step run.
+--     * Slot: incident_status Description: Lifecycle status of an incident.
+--     * Slot: message Description: Short message or summary.
+--     * Slot: code Description: Incident or error code.
+--     * Slot: observed_at Description: Timestamp when the value or event was observed.
+--     * Slot: related_step_run Description: Step run the incident is related to.
+--     * Slot: related_workflow_run Description: Workflow run the incident is related to.
+--     * Slot: id Description: Unique identifier.
+--     * Slot: name Description: Human-readable name.
+--     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+--     * Slot: WorkflowRun_id Description: Autocreated FK slot
 -- # Class: ConditionalEventDefinition_fluxnova_variable_events_list
 --     * Slot: ConditionalEventDefinition_id Description: Autocreated FK slot
 --     * Slot: fluxnova_variable_events_list Description: Fluxnova extension property: variable events list.
@@ -2698,6 +2975,96 @@
 -- # Class: UserTask_fluxnova_candidate_users_list
 --     * Slot: UserTask_id Description: Autocreated FK slot
 --     * Slot: fluxnova_candidate_users_list Description: Fluxnova extension property: candidate users list.
+-- # Class: AiAgent_input_modalities
+--     * Slot: AiAgent_id Description: Autocreated FK slot
+--     * Slot: input_modalities Description: Modalities the model accepts as input.
+-- # Class: AiAgent_output_modalities
+--     * Slot: AiAgent_id Description: Autocreated FK slot
+--     * Slot: output_modalities Description: Modalities the model produces as output.
+-- # Class: AiAgent_role
+--     * Slot: AiAgent_id Description: Autocreated FK slot
+--     * Slot: role Description: Roles played by the agent in this context.
+-- # Class: AiModelDescriptor_supported_languages
+--     * Slot: AiModelDescriptor_id Description: Autocreated FK slot
+--     * Slot: supported_languages Description: ISO 639 language tags supported by the model.
+-- # Class: AiModelInvocation_safety_flags
+--     * Slot: AiModelInvocation_id Description: Autocreated FK slot
+--     * Slot: safety_flags Description: Safety, policy, or guardrail flags raised by the model, provider, orlocal guardrail layer during the invocation.
+-- # Class: AiModelInvocation_informed_by
+--     * Slot: AiModelInvocation_id Description: Autocreated FK slot
+--     * Slot: informed_by_id Description: Step runs whose completion preceded and informed this step run (by-reference).
+-- # Class: AiModelInvocation_input_values
+--     * Slot: AiModelInvocation_id Description: Autocreated FK slot
+--     * Slot: input_values_id Description: Observed input parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values).
+-- # Class: AiModelInvocation_output_values
+--     * Slot: AiModelInvocation_id Description: Autocreated FK slot
+--     * Slot: output_values_id Description: Observed output parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values).
+-- # Class: AiModelInvocation_consumed_artifacts
+--     * Slot: AiModelInvocation_id Description: Autocreated FK slot
+--     * Slot: consumed_artifacts_id Description: Artifacts consumed by the step run (by-reference; declare full artifacts under ProvenanceBundle.artifacts).
+-- # Class: AiModelInvocation_produced_artifacts
+--     * Slot: AiModelInvocation_id Description: Autocreated FK slot
+--     * Slot: produced_artifacts_id Description: Artifacts produced by the step run (by-reference; declare full artifacts under ProvenanceBundle.artifacts).
+-- # Class: AiDataset_consumed_by_step_runs
+--     * Slot: AiDataset_id Description: Autocreated FK slot
+--     * Slot: consumed_by_step_runs_id Description: Step runs that consumed this artifact or parameter value (by-reference).
+-- # Class: ModelArtifact_training_datasets
+--     * Slot: ModelArtifact_id Description: Autocreated FK slot
+--     * Slot: training_datasets_id Description: Datasets used to train or fine-tune the model.
+-- # Class: ModelArtifact_consumed_by_step_runs
+--     * Slot: ModelArtifact_id Description: Autocreated FK slot
+--     * Slot: consumed_by_step_runs_id Description: Step runs that consumed this artifact or parameter value (by-reference).
+-- # Class: WorkflowDefinition_authors
+--     * Slot: WorkflowDefinition_id Description: Autocreated FK slot
+--     * Slot: authors_id Description: Authors or owners of the workflow definition (by-reference; declare full agents under ProvenanceBundle.agents).
+-- # Class: WorkflowDefinition_tags
+--     * Slot: WorkflowDefinition_id Description: Autocreated FK slot
+--     * Slot: tags Description: Free-form tag labels.
+-- # Class: StepDefinition_bpmn_extension_names
+--     * Slot: StepDefinition_id Description: Autocreated FK slot
+--     * Slot: bpmn_extension_names Description: Names or identifiers of BPMN extension elements used by the step.
+-- # Class: ParameterDefinition_allowed_values
+--     * Slot: ParameterDefinition_id Description: Autocreated FK slot
+--     * Slot: allowed_values Description: Enumerated allowed values for the parameter, if constrained.
+-- # Class: Agent_role
+--     * Slot: Agent_id Description: Autocreated FK slot
+--     * Slot: role Description: Roles played by the agent in this context.
+-- # Class: WorkflowArtifact_consumed_by_step_runs
+--     * Slot: WorkflowArtifact_id Description: Autocreated FK slot
+--     * Slot: consumed_by_step_runs_id Description: Step runs that consumed this artifact or parameter value (by-reference).
+-- # Class: WorkflowRun_input_values
+--     * Slot: WorkflowRun_id Description: Autocreated FK slot
+--     * Slot: input_values_id Description: Observed input parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values).
+-- # Class: WorkflowRun_output_values
+--     * Slot: WorkflowRun_id Description: Autocreated FK slot
+--     * Slot: output_values_id Description: Observed output parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values).
+-- # Class: WorkflowRun_tags
+--     * Slot: WorkflowRun_id Description: Autocreated FK slot
+--     * Slot: tags Description: Free-form tag labels.
+-- # Class: StepRun_informed_by
+--     * Slot: StepRun_id Description: Autocreated FK slot
+--     * Slot: informed_by_id Description: Step runs whose completion preceded and informed this step run (by-reference).
+-- # Class: StepRun_input_values
+--     * Slot: StepRun_id Description: Autocreated FK slot
+--     * Slot: input_values_id Description: Observed input parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values).
+-- # Class: StepRun_output_values
+--     * Slot: StepRun_id Description: Autocreated FK slot
+--     * Slot: output_values_id Description: Observed output parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values).
+-- # Class: StepRun_consumed_artifacts
+--     * Slot: StepRun_id Description: Autocreated FK slot
+--     * Slot: consumed_artifacts_id Description: Artifacts consumed by the step run (by-reference; declare full artifacts under ProvenanceBundle.artifacts).
+-- # Class: StepRun_produced_artifacts
+--     * Slot: StepRun_id Description: Autocreated FK slot
+--     * Slot: produced_artifacts_id Description: Artifacts produced by the step run (by-reference; declare full artifacts under ProvenanceBundle.artifacts).
+-- # Class: ParameterValue_consumed_by_step_runs
+--     * Slot: ParameterValue_id Description: Autocreated FK slot
+--     * Slot: consumed_by_step_runs_id Description: Step runs that consumed this artifact or parameter value (by-reference).
+-- # Class: ParameterValue_derived_from
+--     * Slot: ParameterValue_id Description: Autocreated FK slot
+--     * Slot: derived_from_id Description: Upstream parameter values from which this value was derived (by-reference).
+-- # Class: ExecutionResource_labels
+--     * Slot: ExecutionResource_id Description: Autocreated FK slot
+--     * Slot: labels Description: Free-form key=value labels on the resource.
 
 CREATE TABLE "FluxnovaPlatformData" (
 	id INTEGER NOT NULL,
@@ -4715,6 +5082,237 @@ CREATE TABLE "BpmnModelType" (
 );
 CREATE INDEX "ix_BpmnModelType_id" ON "BpmnModelType" (id);
 
+CREATE TABLE "AiAgent" (
+	model_family TEXT,
+	model_name TEXT,
+	model_version TEXT,
+	provider TEXT,
+	endpoint TEXT,
+	parameter_count INTEGER,
+	context_window_tokens INTEGER,
+	is_part_of_ai_system TEXT,
+	agent_kind VARCHAR(15),
+	email TEXT,
+	id TEXT NOT NULL,
+	name TEXT,
+	external_ref TEXT,
+	PRIMARY KEY (id)
+);
+CREATE INDEX "ix_AiAgent_id" ON "AiAgent" (id);
+
+CREATE TABLE "AiModelDescriptor" (
+	model_family TEXT,
+	architecture TEXT,
+	parameter_count INTEGER,
+	training_token_count INTEGER,
+	context_window_tokens INTEGER,
+	fine_tuning_description TEXT,
+	component_kind VARCHAR(16),
+	definition_version TEXT,
+	endpoint TEXT,
+	id TEXT NOT NULL,
+	name TEXT,
+	external_ref TEXT,
+	PRIMARY KEY (id)
+);
+CREATE INDEX "ix_AiModelDescriptor_id" ON "AiModelDescriptor" (id);
+
+CREATE TABLE "AiModelInvocation" (
+	invoked_model TEXT,
+	invocation_kind VARCHAR(15),
+	response_message TEXT,
+	temperature NUMERIC,
+	top_p NUMERIC,
+	max_tokens INTEGER,
+	total_input_tokens INTEGER,
+	total_output_tokens INTEGER,
+	cost_usd NUMERIC,
+	workflow_run TEXT,
+	step_definition TEXT,
+	activity_instance_id TEXT,
+	parent_step_run TEXT,
+	status VARCHAR(9),
+	started_at DATETIME,
+	ended_at DATETIME,
+	executed_by TEXT,
+	environment TEXT,
+	execution_resource TEXT,
+	incident_message TEXT,
+	retries INTEGER,
+	sequence_no INTEGER,
+	id TEXT NOT NULL,
+	name TEXT,
+	external_ref TEXT,
+	PRIMARY KEY (id),
+	FOREIGN KEY(invoked_model) REFERENCES "AiAgent" (id),
+	FOREIGN KEY(response_message) REFERENCES "PromptMessage" (id),
+	FOREIGN KEY(workflow_run) REFERENCES "WorkflowRun" (id),
+	FOREIGN KEY(step_definition) REFERENCES "StepDefinition" (id),
+	FOREIGN KEY(parent_step_run) REFERENCES "StepRun" (id),
+	FOREIGN KEY(executed_by) REFERENCES "Agent" (id),
+	FOREIGN KEY(environment) REFERENCES "Environment" (id),
+	FOREIGN KEY(execution_resource) REFERENCES "ExecutionResource" (id)
+);
+CREATE INDEX "ix_AiModelInvocation_id" ON "AiModelInvocation" (id);
+
+CREATE TABLE "PromptMessage" (
+	message_role VARCHAR(9),
+	content TEXT,
+	content_hash TEXT,
+	sequence_no INTEGER,
+	redacted BOOLEAN,
+	classification VARCHAR(12),
+	parent_invocation TEXT,
+	id TEXT NOT NULL,
+	name TEXT,
+	external_ref TEXT,
+	"AiModelInvocation_id" TEXT,
+	PRIMARY KEY (id),
+	FOREIGN KEY(parent_invocation) REFERENCES "AiModelInvocation" (id),
+	FOREIGN KEY("AiModelInvocation_id") REFERENCES "AiModelInvocation" (id)
+);
+CREATE INDEX "ix_PromptMessage_id" ON "PromptMessage" (id);
+
+CREATE TABLE "NamedThing" (
+	id TEXT NOT NULL,
+	name TEXT,
+	external_ref TEXT,
+	PRIMARY KEY (id)
+);
+CREATE INDEX "ix_NamedThing_id" ON "NamedThing" (id);
+
+CREATE TABLE "ProvenanceBundle" (
+	id TEXT NOT NULL,
+	name TEXT,
+	generated_at DATETIME,
+	source_system TEXT,
+	schema_version TEXT,
+	PRIMARY KEY (id)
+);
+CREATE INDEX "ix_ProvenanceBundle_id" ON "ProvenanceBundle" (id);
+
+CREATE TABLE "WorkflowDefinition" (
+	definition_version TEXT,
+	definition_key TEXT,
+	deployment_id TEXT,
+	source_model_ref TEXT,
+	runtime_component TEXT,
+	id TEXT NOT NULL,
+	name TEXT,
+	external_ref TEXT,
+	"ProvenanceBundle_id" TEXT,
+	PRIMARY KEY (id),
+	FOREIGN KEY(source_model_ref) REFERENCES "WorkflowArtifact" (id),
+	FOREIGN KEY(runtime_component) REFERENCES "RuntimeComponent" (id),
+	FOREIGN KEY("ProvenanceBundle_id") REFERENCES "ProvenanceBundle" (id)
+);
+CREATE INDEX "ix_WorkflowDefinition_id" ON "WorkflowDefinition" (id);
+
+CREATE TABLE "StepDefinition" (
+	workflow_definition TEXT,
+	bpmn_type VARCHAR(24),
+	implementation_kind VARCHAR(16),
+	implementation_ref TEXT,
+	called_element TEXT,
+	decision_ref TEXT,
+	form_ref TEXT,
+	id TEXT NOT NULL,
+	name TEXT,
+	external_ref TEXT,
+	"WorkflowDefinition_id" TEXT,
+	PRIMARY KEY (id),
+	FOREIGN KEY(workflow_definition) REFERENCES "WorkflowDefinition" (id),
+	FOREIGN KEY("WorkflowDefinition_id") REFERENCES "WorkflowDefinition" (id)
+);
+CREATE INDEX "ix_StepDefinition_id" ON "StepDefinition" (id);
+
+CREATE TABLE "Environment" (
+	runtime_name TEXT,
+	runtime_version TEXT,
+	host TEXT,
+	region TEXT,
+	deployment_ref TEXT,
+	configuration_ref TEXT,
+	id TEXT NOT NULL,
+	name TEXT,
+	external_ref TEXT,
+	"ProvenanceBundle_id" TEXT,
+	PRIMARY KEY (id),
+	FOREIGN KEY(configuration_ref) REFERENCES "WorkflowArtifact" (id),
+	FOREIGN KEY("ProvenanceBundle_id") REFERENCES "ProvenanceBundle" (id)
+);
+CREATE INDEX "ix_Environment_id" ON "Environment" (id);
+
+CREATE TABLE "WorkflowArtifact" (
+	artifact_kind VARCHAR(13),
+	media_type TEXT,
+	path_or_uri TEXT,
+	hash TEXT,
+	size_in_bytes INTEGER,
+	produced_by_step_run TEXT,
+	id TEXT NOT NULL,
+	name TEXT,
+	external_ref TEXT,
+	"ProvenanceBundle_id" TEXT,
+	PRIMARY KEY (id),
+	FOREIGN KEY(produced_by_step_run) REFERENCES "StepRun" (id),
+	FOREIGN KEY("ProvenanceBundle_id") REFERENCES "ProvenanceBundle" (id)
+);
+CREATE INDEX "ix_WorkflowArtifact_id" ON "WorkflowArtifact" (id);
+
+CREATE TABLE "WorkflowRun" (
+	workflow_definition TEXT,
+	business_key TEXT,
+	parent_workflow_run TEXT,
+	status VARCHAR(9),
+	started_at DATETIME,
+	ended_at DATETIME,
+	started_by TEXT,
+	environment TEXT,
+	runtime_component TEXT,
+	id TEXT NOT NULL,
+	name TEXT,
+	external_ref TEXT,
+	"ProvenanceBundle_id" TEXT,
+	PRIMARY KEY (id),
+	FOREIGN KEY(workflow_definition) REFERENCES "WorkflowDefinition" (id),
+	FOREIGN KEY(parent_workflow_run) REFERENCES "WorkflowRun" (id),
+	FOREIGN KEY(started_by) REFERENCES "Agent" (id),
+	FOREIGN KEY(environment) REFERENCES "Environment" (id),
+	FOREIGN KEY(runtime_component) REFERENCES "RuntimeComponent" (id),
+	FOREIGN KEY("ProvenanceBundle_id") REFERENCES "ProvenanceBundle" (id)
+);
+CREATE INDEX "ix_WorkflowRun_id" ON "WorkflowRun" (id);
+
+CREATE TABLE "StepRun" (
+	workflow_run TEXT,
+	step_definition TEXT,
+	activity_instance_id TEXT,
+	parent_step_run TEXT,
+	status VARCHAR(9),
+	started_at DATETIME,
+	ended_at DATETIME,
+	executed_by TEXT,
+	environment TEXT,
+	execution_resource TEXT,
+	incident_message TEXT,
+	retries INTEGER,
+	sequence_no INTEGER,
+	id TEXT NOT NULL,
+	name TEXT,
+	external_ref TEXT,
+	"WorkflowRun_id" TEXT,
+	PRIMARY KEY (id),
+	FOREIGN KEY(workflow_run) REFERENCES "WorkflowRun" (id),
+	FOREIGN KEY(step_definition) REFERENCES "StepDefinition" (id),
+	FOREIGN KEY(parent_step_run) REFERENCES "StepRun" (id),
+	FOREIGN KEY(executed_by) REFERENCES "Agent" (id),
+	FOREIGN KEY(environment) REFERENCES "Environment" (id),
+	FOREIGN KEY(execution_resource) REFERENCES "ExecutionResource" (id),
+	FOREIGN KEY("WorkflowRun_id") REFERENCES "WorkflowRun" (id)
+);
+CREATE INDEX "ix_StepRun_id" ON "StepRun" (id);
+
 CREATE TABLE "Group" (
 	id TEXT NOT NULL,
 	name TEXT,
@@ -5120,14 +5718,167 @@ CREATE TABLE "FluxnovaValidation" (
 );
 CREATE INDEX "ix_FluxnovaValidation_id" ON "FluxnovaValidation" (id);
 
+CREATE TABLE "ToolCall" (
+	tool_name TEXT,
+	tool_call_id TEXT,
+	arguments_json TEXT,
+	result_json TEXT,
+	result_artifact TEXT,
+	called_step_run TEXT,
+	started_at DATETIME,
+	ended_at DATETIME,
+	status VARCHAR(9),
+	parent_invocation TEXT,
+	id TEXT NOT NULL,
+	name TEXT,
+	external_ref TEXT,
+	"AiModelInvocation_id" TEXT,
+	PRIMARY KEY (id),
+	FOREIGN KEY(result_artifact) REFERENCES "WorkflowArtifact" (id),
+	FOREIGN KEY(called_step_run) REFERENCES "StepRun" (id),
+	FOREIGN KEY(parent_invocation) REFERENCES "AiModelInvocation" (id),
+	FOREIGN KEY("AiModelInvocation_id") REFERENCES "AiModelInvocation" (id)
+);
+CREATE INDEX "ix_ToolCall_id" ON "ToolCall" (id);
+
+CREATE TABLE "EvaluationResult" (
+	evaluator_name TEXT,
+	evaluator_kind VARCHAR(12),
+	metric_name TEXT,
+	metric_value NUMERIC,
+	metric_unit TEXT,
+	passing BOOLEAN,
+	evaluated_at DATETIME,
+	evaluated_invocation TEXT,
+	id TEXT NOT NULL,
+	name TEXT,
+	external_ref TEXT,
+	"AiModelInvocation_id" TEXT,
+	PRIMARY KEY (id),
+	FOREIGN KEY(evaluated_invocation) REFERENCES "AiModelInvocation" (id),
+	FOREIGN KEY("AiModelInvocation_id") REFERENCES "AiModelInvocation" (id)
+);
+CREATE INDEX "ix_EvaluationResult_id" ON "EvaluationResult" (id);
+
+CREATE TABLE "AiDataset" (
+	dataset_kind VARCHAR(12),
+	record_count INTEGER,
+	license_uri TEXT,
+	classification VARCHAR(12),
+	artifact_kind VARCHAR(13),
+	media_type TEXT,
+	path_or_uri TEXT,
+	hash TEXT,
+	size_in_bytes INTEGER,
+	produced_by_step_run TEXT,
+	id TEXT NOT NULL,
+	name TEXT,
+	external_ref TEXT,
+	PRIMARY KEY (id),
+	FOREIGN KEY(produced_by_step_run) REFERENCES "StepRun" (id)
+);
+CREATE INDEX "ix_AiDataset_id" ON "AiDataset" (id);
+
+CREATE TABLE "ModelArtifact" (
+	model_card_uri TEXT,
+	weights_uri TEXT,
+	base_model TEXT,
+	parameter_count INTEGER,
+	artifact_kind VARCHAR(13),
+	media_type TEXT,
+	path_or_uri TEXT,
+	hash TEXT,
+	size_in_bytes INTEGER,
+	produced_by_step_run TEXT,
+	id TEXT NOT NULL,
+	name TEXT,
+	external_ref TEXT,
+	PRIMARY KEY (id),
+	FOREIGN KEY(base_model) REFERENCES "ModelArtifact" (id),
+	FOREIGN KEY(produced_by_step_run) REFERENCES "StepRun" (id)
+);
+CREATE INDEX "ix_ModelArtifact_id" ON "ModelArtifact" (id);
+
+CREATE TABLE "ParameterDefinition" (
+	parameter_scope VARCHAR(8),
+	parameter_direction VARCHAR(5),
+	declared_type TEXT,
+	is_required BOOLEAN,
+	default_value TEXT,
+	secret BOOLEAN,
+	id TEXT NOT NULL,
+	name TEXT,
+	external_ref TEXT,
+	"StepDefinition_id" TEXT,
+	PRIMARY KEY (id),
+	FOREIGN KEY("StepDefinition_id") REFERENCES "StepDefinition" (id)
+);
+CREATE INDEX "ix_ParameterDefinition_id" ON "ParameterDefinition" (id);
+
+CREATE TABLE "Agent" (
+	agent_kind VARCHAR(15),
+	email TEXT,
+	id TEXT NOT NULL,
+	name TEXT,
+	external_ref TEXT,
+	"ProvenanceBundle_id" TEXT,
+	PRIMARY KEY (id),
+	FOREIGN KEY("ProvenanceBundle_id") REFERENCES "ProvenanceBundle" (id)
+);
+CREATE INDEX "ix_Agent_id" ON "Agent" (id);
+
+CREATE TABLE "RuntimeComponent" (
+	component_kind VARCHAR(16),
+	definition_version TEXT,
+	endpoint TEXT,
+	id TEXT NOT NULL,
+	name TEXT,
+	external_ref TEXT,
+	"ProvenanceBundle_id" TEXT,
+	PRIMARY KEY (id),
+	FOREIGN KEY("ProvenanceBundle_id") REFERENCES "ProvenanceBundle" (id)
+);
+CREATE INDEX "ix_RuntimeComponent_id" ON "RuntimeComponent" (id);
+
+CREATE TABLE "ExecutionResource" (
+	resource_kind VARCHAR(12),
+	host TEXT,
+	endpoint TEXT,
+	id TEXT NOT NULL,
+	name TEXT,
+	external_ref TEXT,
+	"ProvenanceBundle_id" TEXT,
+	PRIMARY KEY (id),
+	FOREIGN KEY("ProvenanceBundle_id") REFERENCES "ProvenanceBundle" (id)
+);
+CREATE INDEX "ix_ExecutionResource_id" ON "ExecutionResource" (id);
+
+CREATE TABLE "ProvenanceIncident" (
+	incident_status VARCHAR(13),
+	message TEXT,
+	code TEXT,
+	observed_at DATETIME,
+	related_step_run TEXT,
+	related_workflow_run TEXT,
+	id TEXT NOT NULL,
+	name TEXT,
+	external_ref TEXT,
+	"WorkflowRun_id" TEXT,
+	PRIMARY KEY (id),
+	FOREIGN KEY(related_step_run) REFERENCES "StepRun" (id),
+	FOREIGN KEY(related_workflow_run) REFERENCES "WorkflowRun" (id),
+	FOREIGN KEY("WorkflowRun_id") REFERENCES "WorkflowRun" (id)
+);
+CREATE INDEX "ix_ProvenanceIncident_id" ON "ProvenanceIncident" (id);
+
 CREATE TABLE "UserTask_fluxnova_candidate_groups_list" (
 	"UserTask_id" TEXT,
 	fluxnova_candidate_groups_list TEXT,
 	PRIMARY KEY ("UserTask_id", fluxnova_candidate_groups_list),
 	FOREIGN KEY("UserTask_id") REFERENCES "UserTask" (id)
 );
-CREATE INDEX "ix_UserTask_fluxnova_candidate_groups_list_fluxnova_candidate_groups_list" ON "UserTask_fluxnova_candidate_groups_list" (fluxnova_candidate_groups_list);
 CREATE INDEX "ix_UserTask_fluxnova_candidate_groups_list_UserTask_id" ON "UserTask_fluxnova_candidate_groups_list" ("UserTask_id");
+CREATE INDEX "ix_UserTask_fluxnova_candidate_groups_list_fluxnova_candidate_groups_list" ON "UserTask_fluxnova_candidate_groups_list" (fluxnova_candidate_groups_list);
 
 CREATE TABLE "UserTask_fluxnova_candidate_users_list" (
 	"UserTask_id" TEXT,
@@ -5137,6 +5888,148 @@ CREATE TABLE "UserTask_fluxnova_candidate_users_list" (
 );
 CREATE INDEX "ix_UserTask_fluxnova_candidate_users_list_UserTask_id" ON "UserTask_fluxnova_candidate_users_list" ("UserTask_id");
 CREATE INDEX "ix_UserTask_fluxnova_candidate_users_list_fluxnova_candidate_users_list" ON "UserTask_fluxnova_candidate_users_list" (fluxnova_candidate_users_list);
+
+CREATE TABLE "AiAgent_input_modalities" (
+	"AiAgent_id" TEXT,
+	input_modalities VARCHAR(10),
+	PRIMARY KEY ("AiAgent_id", input_modalities),
+	FOREIGN KEY("AiAgent_id") REFERENCES "AiAgent" (id)
+);
+CREATE INDEX "ix_AiAgent_input_modalities_AiAgent_id" ON "AiAgent_input_modalities" ("AiAgent_id");
+CREATE INDEX "ix_AiAgent_input_modalities_input_modalities" ON "AiAgent_input_modalities" (input_modalities);
+
+CREATE TABLE "AiAgent_output_modalities" (
+	"AiAgent_id" TEXT,
+	output_modalities VARCHAR(10),
+	PRIMARY KEY ("AiAgent_id", output_modalities),
+	FOREIGN KEY("AiAgent_id") REFERENCES "AiAgent" (id)
+);
+CREATE INDEX "ix_AiAgent_output_modalities_AiAgent_id" ON "AiAgent_output_modalities" ("AiAgent_id");
+CREATE INDEX "ix_AiAgent_output_modalities_output_modalities" ON "AiAgent_output_modalities" (output_modalities);
+
+CREATE TABLE "AiAgent_role" (
+	"AiAgent_id" TEXT,
+	role TEXT,
+	PRIMARY KEY ("AiAgent_id", role),
+	FOREIGN KEY("AiAgent_id") REFERENCES "AiAgent" (id)
+);
+CREATE INDEX "ix_AiAgent_role_role" ON "AiAgent_role" (role);
+CREATE INDEX "ix_AiAgent_role_AiAgent_id" ON "AiAgent_role" ("AiAgent_id");
+
+CREATE TABLE "AiModelDescriptor_supported_languages" (
+	"AiModelDescriptor_id" TEXT,
+	supported_languages TEXT,
+	PRIMARY KEY ("AiModelDescriptor_id", supported_languages),
+	FOREIGN KEY("AiModelDescriptor_id") REFERENCES "AiModelDescriptor" (id)
+);
+CREATE INDEX "ix_AiModelDescriptor_supported_languages_AiModelDescriptor_id" ON "AiModelDescriptor_supported_languages" ("AiModelDescriptor_id");
+CREATE INDEX "ix_AiModelDescriptor_supported_languages_supported_languages" ON "AiModelDescriptor_supported_languages" (supported_languages);
+
+CREATE TABLE "AiModelInvocation_safety_flags" (
+	"AiModelInvocation_id" TEXT,
+	safety_flags VARCHAR(23),
+	PRIMARY KEY ("AiModelInvocation_id", safety_flags),
+	FOREIGN KEY("AiModelInvocation_id") REFERENCES "AiModelInvocation" (id)
+);
+CREATE INDEX "ix_AiModelInvocation_safety_flags_AiModelInvocation_id" ON "AiModelInvocation_safety_flags" ("AiModelInvocation_id");
+CREATE INDEX "ix_AiModelInvocation_safety_flags_safety_flags" ON "AiModelInvocation_safety_flags" (safety_flags);
+
+CREATE TABLE "AiModelInvocation_informed_by" (
+	"AiModelInvocation_id" TEXT,
+	informed_by_id TEXT,
+	PRIMARY KEY ("AiModelInvocation_id", informed_by_id),
+	FOREIGN KEY("AiModelInvocation_id") REFERENCES "AiModelInvocation" (id),
+	FOREIGN KEY(informed_by_id) REFERENCES "StepRun" (id)
+);
+CREATE INDEX "ix_AiModelInvocation_informed_by_AiModelInvocation_id" ON "AiModelInvocation_informed_by" ("AiModelInvocation_id");
+CREATE INDEX "ix_AiModelInvocation_informed_by_informed_by_id" ON "AiModelInvocation_informed_by" (informed_by_id);
+
+CREATE TABLE "AiModelInvocation_consumed_artifacts" (
+	"AiModelInvocation_id" TEXT,
+	consumed_artifacts_id TEXT,
+	PRIMARY KEY ("AiModelInvocation_id", consumed_artifacts_id),
+	FOREIGN KEY("AiModelInvocation_id") REFERENCES "AiModelInvocation" (id),
+	FOREIGN KEY(consumed_artifacts_id) REFERENCES "WorkflowArtifact" (id)
+);
+CREATE INDEX "ix_AiModelInvocation_consumed_artifacts_AiModelInvocation_id" ON "AiModelInvocation_consumed_artifacts" ("AiModelInvocation_id");
+CREATE INDEX "ix_AiModelInvocation_consumed_artifacts_consumed_artifacts_id" ON "AiModelInvocation_consumed_artifacts" (consumed_artifacts_id);
+
+CREATE TABLE "AiModelInvocation_produced_artifacts" (
+	"AiModelInvocation_id" TEXT,
+	produced_artifacts_id TEXT,
+	PRIMARY KEY ("AiModelInvocation_id", produced_artifacts_id),
+	FOREIGN KEY("AiModelInvocation_id") REFERENCES "AiModelInvocation" (id),
+	FOREIGN KEY(produced_artifacts_id) REFERENCES "WorkflowArtifact" (id)
+);
+CREATE INDEX "ix_AiModelInvocation_produced_artifacts_AiModelInvocation_id" ON "AiModelInvocation_produced_artifacts" ("AiModelInvocation_id");
+CREATE INDEX "ix_AiModelInvocation_produced_artifacts_produced_artifacts_id" ON "AiModelInvocation_produced_artifacts" (produced_artifacts_id);
+
+CREATE TABLE "WorkflowDefinition_tags" (
+	"WorkflowDefinition_id" TEXT,
+	tags TEXT,
+	PRIMARY KEY ("WorkflowDefinition_id", tags),
+	FOREIGN KEY("WorkflowDefinition_id") REFERENCES "WorkflowDefinition" (id)
+);
+CREATE INDEX "ix_WorkflowDefinition_tags_WorkflowDefinition_id" ON "WorkflowDefinition_tags" ("WorkflowDefinition_id");
+CREATE INDEX "ix_WorkflowDefinition_tags_tags" ON "WorkflowDefinition_tags" (tags);
+
+CREATE TABLE "StepDefinition_bpmn_extension_names" (
+	"StepDefinition_id" TEXT,
+	bpmn_extension_names TEXT,
+	PRIMARY KEY ("StepDefinition_id", bpmn_extension_names),
+	FOREIGN KEY("StepDefinition_id") REFERENCES "StepDefinition" (id)
+);
+CREATE INDEX "ix_StepDefinition_bpmn_extension_names_bpmn_extension_names" ON "StepDefinition_bpmn_extension_names" (bpmn_extension_names);
+CREATE INDEX "ix_StepDefinition_bpmn_extension_names_StepDefinition_id" ON "StepDefinition_bpmn_extension_names" ("StepDefinition_id");
+
+CREATE TABLE "WorkflowArtifact_consumed_by_step_runs" (
+	"WorkflowArtifact_id" TEXT,
+	consumed_by_step_runs_id TEXT,
+	PRIMARY KEY ("WorkflowArtifact_id", consumed_by_step_runs_id),
+	FOREIGN KEY("WorkflowArtifact_id") REFERENCES "WorkflowArtifact" (id),
+	FOREIGN KEY(consumed_by_step_runs_id) REFERENCES "StepRun" (id)
+);
+CREATE INDEX "ix_WorkflowArtifact_consumed_by_step_runs_WorkflowArtifact_id" ON "WorkflowArtifact_consumed_by_step_runs" ("WorkflowArtifact_id");
+CREATE INDEX "ix_WorkflowArtifact_consumed_by_step_runs_consumed_by_step_runs_id" ON "WorkflowArtifact_consumed_by_step_runs" (consumed_by_step_runs_id);
+
+CREATE TABLE "WorkflowRun_tags" (
+	"WorkflowRun_id" TEXT,
+	tags TEXT,
+	PRIMARY KEY ("WorkflowRun_id", tags),
+	FOREIGN KEY("WorkflowRun_id") REFERENCES "WorkflowRun" (id)
+);
+CREATE INDEX "ix_WorkflowRun_tags_WorkflowRun_id" ON "WorkflowRun_tags" ("WorkflowRun_id");
+CREATE INDEX "ix_WorkflowRun_tags_tags" ON "WorkflowRun_tags" (tags);
+
+CREATE TABLE "StepRun_informed_by" (
+	"StepRun_id" TEXT,
+	informed_by_id TEXT,
+	PRIMARY KEY ("StepRun_id", informed_by_id),
+	FOREIGN KEY("StepRun_id") REFERENCES "StepRun" (id),
+	FOREIGN KEY(informed_by_id) REFERENCES "StepRun" (id)
+);
+CREATE INDEX "ix_StepRun_informed_by_StepRun_id" ON "StepRun_informed_by" ("StepRun_id");
+CREATE INDEX "ix_StepRun_informed_by_informed_by_id" ON "StepRun_informed_by" (informed_by_id);
+
+CREATE TABLE "StepRun_consumed_artifacts" (
+	"StepRun_id" TEXT,
+	consumed_artifacts_id TEXT,
+	PRIMARY KEY ("StepRun_id", consumed_artifacts_id),
+	FOREIGN KEY("StepRun_id") REFERENCES "StepRun" (id),
+	FOREIGN KEY(consumed_artifacts_id) REFERENCES "WorkflowArtifact" (id)
+);
+CREATE INDEX "ix_StepRun_consumed_artifacts_StepRun_id" ON "StepRun_consumed_artifacts" ("StepRun_id");
+CREATE INDEX "ix_StepRun_consumed_artifacts_consumed_artifacts_id" ON "StepRun_consumed_artifacts" (consumed_artifacts_id);
+
+CREATE TABLE "StepRun_produced_artifacts" (
+	"StepRun_id" TEXT,
+	produced_artifacts_id TEXT,
+	PRIMARY KEY ("StepRun_id", produced_artifacts_id),
+	FOREIGN KEY("StepRun_id") REFERENCES "StepRun" (id),
+	FOREIGN KEY(produced_artifacts_id) REFERENCES "WorkflowArtifact" (id)
+);
+CREATE INDEX "ix_StepRun_produced_artifacts_produced_artifacts_id" ON "StepRun_produced_artifacts" (produced_artifacts_id);
+CREATE INDEX "ix_StepRun_produced_artifacts_StepRun_id" ON "StepRun_produced_artifacts" ("StepRun_id");
 
 CREATE TABLE "Extension" (
 	id INTEGER NOT NULL,
@@ -5267,6 +6160,46 @@ CREATE TABLE "BpmnModelInstance" (
 );
 CREATE INDEX "ix_BpmnModelInstance_id" ON "BpmnModelInstance" (id);
 
+CREATE TABLE "ParameterValue" (
+	parameter_definition TEXT,
+	observed_type TEXT,
+	parameter_direction VARCHAR(5),
+	serialized_value TEXT,
+	value_hash TEXT,
+	observed_at DATETIME,
+	produced_by_step_run TEXT,
+	redacted BOOLEAN,
+	classification VARCHAR(12),
+	id TEXT NOT NULL,
+	name TEXT,
+	external_ref TEXT,
+	"ProvenanceBundle_id" TEXT,
+	PRIMARY KEY (id),
+	FOREIGN KEY(parameter_definition) REFERENCES "ParameterDefinition" (id),
+	FOREIGN KEY(produced_by_step_run) REFERENCES "StepRun" (id),
+	FOREIGN KEY("ProvenanceBundle_id") REFERENCES "ProvenanceBundle" (id)
+);
+CREATE INDEX "ix_ParameterValue_id" ON "ParameterValue" (id);
+
+CREATE TABLE "ResourceUsage" (
+	metric_name TEXT,
+	metric_value NUMERIC,
+	metric_unit TEXT,
+	measured_for_workflow_run TEXT,
+	measured_for_step_run TEXT,
+	execution_resource TEXT,
+	id TEXT NOT NULL,
+	name TEXT,
+	external_ref TEXT,
+	"WorkflowRun_id" TEXT,
+	PRIMARY KEY (id),
+	FOREIGN KEY(measured_for_workflow_run) REFERENCES "WorkflowRun" (id),
+	FOREIGN KEY(measured_for_step_run) REFERENCES "StepRun" (id),
+	FOREIGN KEY(execution_resource) REFERENCES "ExecutionResource" (id),
+	FOREIGN KEY("WorkflowRun_id") REFERENCES "WorkflowRun" (id)
+);
+CREATE INDEX "ix_ResourceUsage_id" ON "ResourceUsage" (id);
+
 CREATE TABLE "Definitions_bpm_diagrams" (
 	"Definitions_id" TEXT,
 	bpm_diagrams TEXT,
@@ -5282,8 +6215,75 @@ CREATE TABLE "ExtensionElements_elements" (
 	PRIMARY KEY ("ExtensionElements_id", elements),
 	FOREIGN KEY("ExtensionElements_id") REFERENCES "ExtensionElements" (id)
 );
-CREATE INDEX "ix_ExtensionElements_elements_elements" ON "ExtensionElements_elements" (elements);
 CREATE INDEX "ix_ExtensionElements_elements_ExtensionElements_id" ON "ExtensionElements_elements" ("ExtensionElements_id");
+CREATE INDEX "ix_ExtensionElements_elements_elements" ON "ExtensionElements_elements" (elements);
+
+CREATE TABLE "AiDataset_consumed_by_step_runs" (
+	"AiDataset_id" TEXT,
+	consumed_by_step_runs_id TEXT,
+	PRIMARY KEY ("AiDataset_id", consumed_by_step_runs_id),
+	FOREIGN KEY("AiDataset_id") REFERENCES "AiDataset" (id),
+	FOREIGN KEY(consumed_by_step_runs_id) REFERENCES "StepRun" (id)
+);
+CREATE INDEX "ix_AiDataset_consumed_by_step_runs_AiDataset_id" ON "AiDataset_consumed_by_step_runs" ("AiDataset_id");
+CREATE INDEX "ix_AiDataset_consumed_by_step_runs_consumed_by_step_runs_id" ON "AiDataset_consumed_by_step_runs" (consumed_by_step_runs_id);
+
+CREATE TABLE "ModelArtifact_training_datasets" (
+	"ModelArtifact_id" TEXT,
+	training_datasets_id TEXT,
+	PRIMARY KEY ("ModelArtifact_id", training_datasets_id),
+	FOREIGN KEY("ModelArtifact_id") REFERENCES "ModelArtifact" (id),
+	FOREIGN KEY(training_datasets_id) REFERENCES "AiDataset" (id)
+);
+CREATE INDEX "ix_ModelArtifact_training_datasets_ModelArtifact_id" ON "ModelArtifact_training_datasets" ("ModelArtifact_id");
+CREATE INDEX "ix_ModelArtifact_training_datasets_training_datasets_id" ON "ModelArtifact_training_datasets" (training_datasets_id);
+
+CREATE TABLE "ModelArtifact_consumed_by_step_runs" (
+	"ModelArtifact_id" TEXT,
+	consumed_by_step_runs_id TEXT,
+	PRIMARY KEY ("ModelArtifact_id", consumed_by_step_runs_id),
+	FOREIGN KEY("ModelArtifact_id") REFERENCES "ModelArtifact" (id),
+	FOREIGN KEY(consumed_by_step_runs_id) REFERENCES "StepRun" (id)
+);
+CREATE INDEX "ix_ModelArtifact_consumed_by_step_runs_consumed_by_step_runs_id" ON "ModelArtifact_consumed_by_step_runs" (consumed_by_step_runs_id);
+CREATE INDEX "ix_ModelArtifact_consumed_by_step_runs_ModelArtifact_id" ON "ModelArtifact_consumed_by_step_runs" ("ModelArtifact_id");
+
+CREATE TABLE "WorkflowDefinition_authors" (
+	"WorkflowDefinition_id" TEXT,
+	authors_id TEXT,
+	PRIMARY KEY ("WorkflowDefinition_id", authors_id),
+	FOREIGN KEY("WorkflowDefinition_id") REFERENCES "WorkflowDefinition" (id),
+	FOREIGN KEY(authors_id) REFERENCES "Agent" (id)
+);
+CREATE INDEX "ix_WorkflowDefinition_authors_authors_id" ON "WorkflowDefinition_authors" (authors_id);
+CREATE INDEX "ix_WorkflowDefinition_authors_WorkflowDefinition_id" ON "WorkflowDefinition_authors" ("WorkflowDefinition_id");
+
+CREATE TABLE "ParameterDefinition_allowed_values" (
+	"ParameterDefinition_id" TEXT,
+	allowed_values TEXT,
+	PRIMARY KEY ("ParameterDefinition_id", allowed_values),
+	FOREIGN KEY("ParameterDefinition_id") REFERENCES "ParameterDefinition" (id)
+);
+CREATE INDEX "ix_ParameterDefinition_allowed_values_ParameterDefinition_id" ON "ParameterDefinition_allowed_values" ("ParameterDefinition_id");
+CREATE INDEX "ix_ParameterDefinition_allowed_values_allowed_values" ON "ParameterDefinition_allowed_values" (allowed_values);
+
+CREATE TABLE "Agent_role" (
+	"Agent_id" TEXT,
+	role TEXT,
+	PRIMARY KEY ("Agent_id", role),
+	FOREIGN KEY("Agent_id") REFERENCES "Agent" (id)
+);
+CREATE INDEX "ix_Agent_role_Agent_id" ON "Agent_role" ("Agent_id");
+CREATE INDEX "ix_Agent_role_role" ON "Agent_role" (role);
+
+CREATE TABLE "ExecutionResource_labels" (
+	"ExecutionResource_id" TEXT,
+	labels TEXT,
+	PRIMARY KEY ("ExecutionResource_id", labels),
+	FOREIGN KEY("ExecutionResource_id") REFERENCES "ExecutionResource" (id)
+);
+CREATE INDEX "ix_ExecutionResource_labels_ExecutionResource_id" ON "ExecutionResource_labels" ("ExecutionResource_id");
+CREATE INDEX "ix_ExecutionResource_labels_labels" ON "ExecutionResource_labels" (labels);
 
 CREATE TABLE "Edge" (
 	id TEXT NOT NULL,
@@ -5409,6 +6409,86 @@ CREATE TABLE "FluxnovaFormField" (
 	FOREIGN KEY(scope_id) REFERENCES "BpmnModelElementInstance" (id)
 );
 CREATE INDEX "ix_FluxnovaFormField_id" ON "FluxnovaFormField" (id);
+
+CREATE TABLE "AiModelInvocation_input_values" (
+	"AiModelInvocation_id" TEXT,
+	input_values_id TEXT,
+	PRIMARY KEY ("AiModelInvocation_id", input_values_id),
+	FOREIGN KEY("AiModelInvocation_id") REFERENCES "AiModelInvocation" (id),
+	FOREIGN KEY(input_values_id) REFERENCES "ParameterValue" (id)
+);
+CREATE INDEX "ix_AiModelInvocation_input_values_input_values_id" ON "AiModelInvocation_input_values" (input_values_id);
+CREATE INDEX "ix_AiModelInvocation_input_values_AiModelInvocation_id" ON "AiModelInvocation_input_values" ("AiModelInvocation_id");
+
+CREATE TABLE "AiModelInvocation_output_values" (
+	"AiModelInvocation_id" TEXT,
+	output_values_id TEXT,
+	PRIMARY KEY ("AiModelInvocation_id", output_values_id),
+	FOREIGN KEY("AiModelInvocation_id") REFERENCES "AiModelInvocation" (id),
+	FOREIGN KEY(output_values_id) REFERENCES "ParameterValue" (id)
+);
+CREATE INDEX "ix_AiModelInvocation_output_values_AiModelInvocation_id" ON "AiModelInvocation_output_values" ("AiModelInvocation_id");
+CREATE INDEX "ix_AiModelInvocation_output_values_output_values_id" ON "AiModelInvocation_output_values" (output_values_id);
+
+CREATE TABLE "WorkflowRun_input_values" (
+	"WorkflowRun_id" TEXT,
+	input_values_id TEXT,
+	PRIMARY KEY ("WorkflowRun_id", input_values_id),
+	FOREIGN KEY("WorkflowRun_id") REFERENCES "WorkflowRun" (id),
+	FOREIGN KEY(input_values_id) REFERENCES "ParameterValue" (id)
+);
+CREATE INDEX "ix_WorkflowRun_input_values_WorkflowRun_id" ON "WorkflowRun_input_values" ("WorkflowRun_id");
+CREATE INDEX "ix_WorkflowRun_input_values_input_values_id" ON "WorkflowRun_input_values" (input_values_id);
+
+CREATE TABLE "WorkflowRun_output_values" (
+	"WorkflowRun_id" TEXT,
+	output_values_id TEXT,
+	PRIMARY KEY ("WorkflowRun_id", output_values_id),
+	FOREIGN KEY("WorkflowRun_id") REFERENCES "WorkflowRun" (id),
+	FOREIGN KEY(output_values_id) REFERENCES "ParameterValue" (id)
+);
+CREATE INDEX "ix_WorkflowRun_output_values_WorkflowRun_id" ON "WorkflowRun_output_values" ("WorkflowRun_id");
+CREATE INDEX "ix_WorkflowRun_output_values_output_values_id" ON "WorkflowRun_output_values" (output_values_id);
+
+CREATE TABLE "StepRun_input_values" (
+	"StepRun_id" TEXT,
+	input_values_id TEXT,
+	PRIMARY KEY ("StepRun_id", input_values_id),
+	FOREIGN KEY("StepRun_id") REFERENCES "StepRun" (id),
+	FOREIGN KEY(input_values_id) REFERENCES "ParameterValue" (id)
+);
+CREATE INDEX "ix_StepRun_input_values_StepRun_id" ON "StepRun_input_values" ("StepRun_id");
+CREATE INDEX "ix_StepRun_input_values_input_values_id" ON "StepRun_input_values" (input_values_id);
+
+CREATE TABLE "StepRun_output_values" (
+	"StepRun_id" TEXT,
+	output_values_id TEXT,
+	PRIMARY KEY ("StepRun_id", output_values_id),
+	FOREIGN KEY("StepRun_id") REFERENCES "StepRun" (id),
+	FOREIGN KEY(output_values_id) REFERENCES "ParameterValue" (id)
+);
+CREATE INDEX "ix_StepRun_output_values_StepRun_id" ON "StepRun_output_values" ("StepRun_id");
+CREATE INDEX "ix_StepRun_output_values_output_values_id" ON "StepRun_output_values" (output_values_id);
+
+CREATE TABLE "ParameterValue_consumed_by_step_runs" (
+	"ParameterValue_id" TEXT,
+	consumed_by_step_runs_id TEXT,
+	PRIMARY KEY ("ParameterValue_id", consumed_by_step_runs_id),
+	FOREIGN KEY("ParameterValue_id") REFERENCES "ParameterValue" (id),
+	FOREIGN KEY(consumed_by_step_runs_id) REFERENCES "StepRun" (id)
+);
+CREATE INDEX "ix_ParameterValue_consumed_by_step_runs_ParameterValue_id" ON "ParameterValue_consumed_by_step_runs" ("ParameterValue_id");
+CREATE INDEX "ix_ParameterValue_consumed_by_step_runs_consumed_by_step_runs_id" ON "ParameterValue_consumed_by_step_runs" (consumed_by_step_runs_id);
+
+CREATE TABLE "ParameterValue_derived_from" (
+	"ParameterValue_id" TEXT,
+	derived_from_id TEXT,
+	PRIMARY KEY ("ParameterValue_id", derived_from_id),
+	FOREIGN KEY("ParameterValue_id") REFERENCES "ParameterValue" (id),
+	FOREIGN KEY(derived_from_id) REFERENCES "ParameterValue" (id)
+);
+CREATE INDEX "ix_ParameterValue_derived_from_ParameterValue_id" ON "ParameterValue_derived_from" ("ParameterValue_id");
+CREATE INDEX "ix_ParameterValue_derived_from_derived_from_id" ON "ParameterValue_derived_from" (derived_from_id);
 
 CREATE TABLE "DiagramElement" (
 	id TEXT NOT NULL,
@@ -6812,8 +7892,8 @@ CREATE TABLE "Process_fluxnova_candidate_starter_groups_list" (
 	PRIMARY KEY ("Process_id", fluxnova_candidate_starter_groups_list),
 	FOREIGN KEY("Process_id") REFERENCES "Process" (id)
 );
-CREATE INDEX "ix_Process_fluxnova_candidate_starter_groups_list_Process_id" ON "Process_fluxnova_candidate_starter_groups_list" ("Process_id");
 CREATE INDEX "ix_Process_fluxnova_candidate_starter_groups_list_fluxnova_candidate_starter_groups_list" ON "Process_fluxnova_candidate_starter_groups_list" (fluxnova_candidate_starter_groups_list);
+CREATE INDEX "ix_Process_fluxnova_candidate_starter_groups_list_Process_id" ON "Process_fluxnova_candidate_starter_groups_list" ("Process_id");
 
 CREATE TABLE "Process_fluxnova_candidate_starter_users_list" (
 	"Process_id" TEXT,
@@ -6821,8 +7901,8 @@ CREATE TABLE "Process_fluxnova_candidate_starter_users_list" (
 	PRIMARY KEY ("Process_id", fluxnova_candidate_starter_users_list),
 	FOREIGN KEY("Process_id") REFERENCES "Process" (id)
 );
-CREATE INDEX "ix_Process_fluxnova_candidate_starter_users_list_fluxnova_candidate_starter_users_list" ON "Process_fluxnova_candidate_starter_users_list" (fluxnova_candidate_starter_users_list);
 CREATE INDEX "ix_Process_fluxnova_candidate_starter_users_list_Process_id" ON "Process_fluxnova_candidate_starter_users_list" ("Process_id");
+CREATE INDEX "ix_Process_fluxnova_candidate_starter_users_list_fluxnova_candidate_starter_users_list" ON "Process_fluxnova_candidate_starter_users_list" (fluxnova_candidate_starter_users_list);
 
 CREATE TABLE "Waypoint" (
 	id INTEGER NOT NULL,

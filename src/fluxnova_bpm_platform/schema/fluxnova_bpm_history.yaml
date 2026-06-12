@@ -1,4 +1,3 @@
----
 id: https://w3id.org/lmodel/fluxnova-bpm-platform/history
 name: fluxnova_bpm_history
 description: Fluxnova BPM Platform - History module.
@@ -46,8 +45,8 @@ slots:
   activity_type:
     range: string
     required: true
-    description: The activity type of the activity. Typically the activity type correspond to the XML tag used in the BPMN
-      2.0 process definition file. All activity types are available in org.finos.fluxnova.bpm.eng...
+    description: The activity type of the activity. Typically the activity type correspond to the XML tag used in the
+      BPMN 2.0 process definition file. All activity types are available in org.finos.fluxnova.bpm.eng...
     annotations:
       sql_column: ACT_TYPE_
 
@@ -96,15 +95,15 @@ slots:
 
   clause_id:
     range: string
-    description: The unique identifier of the clause that the value is assigned for. Can be null if the decision is not implemented
-      as decision table.
+    description: The unique identifier of the clause that the value is assigned for. Can be null if the decision is not
+      implemented as decision table.
     annotations:
       sql_column: CLAUSE_ID_
 
   clause_name:
     range: string
-    description: The name of the clause that the value is assigned for. Can be null if the decision is not implemented as
-      decision table.
+    description: The name of the clause that the value is assigned for. Can be null if the decision is not implemented
+      as decision table.
     annotations:
       sql_column: CLAUSE_NAME_
 
@@ -231,8 +230,8 @@ slots:
 
   job_exception_message:
     range: string
-    description: Message of the exception that occurred by executing the associated job. To get the full exception stacktrace,
-      use
+    description: Message of the exception that occurred by executing the associated job. To get the full exception
+      stacktrace, use
     annotations:
       sql_column: JOB_EXCEPTION_MSG_
 
@@ -269,8 +268,8 @@ slots:
 
   operation_id:
     range: string
-    description: The unique identifier of this operation. If an operation modifies multiple properties, multiple UserOperationLogEntry
-      instances will be created with a common operationId. This allows grouping multi...
+    description: The unique identifier of this operation. If an operation modifies multiple properties, multiple
+      UserOperationLogEntry instances will be created with a common operationId. This allows grouping multi...
     annotations:
       sql_column: OPERATION_ID_
 
@@ -306,21 +305,22 @@ slots:
 
   root_decision_instance_id:
     range: string
-    description: The unique identifier of the historic decision instance of the evaluated root decision. Can be null if this
-      instance is the root decision instance of the evaluation.
+    description: The unique identifier of the historic decision instance of the evaluated root decision. Can be null if
+      this instance is the root decision instance of the evaluation.
     annotations:
       sql_column: ROOT_DEC_INST_ID_
 
   rule_id:
     range: string
-    description: The unique identifier of the rule that is matched. Can be null if the decision is not implemented as decision
-      table.
+    description: The unique identifier of the rule that is matched. Can be null if the decision is not implemented as
+      decision table.
     annotations:
       sql_column: RULE_ID_
 
   rule_order:
     range: integer
-    description: The order of the rule that is matched. Can be null if the decision is not implemented as decision table.
+    description: The order of the rule that is matched. Can be null if the decision is not implemented as decision
+      table.
     annotations:
       sql_column: RULE_ORDER_
 
@@ -351,7 +351,8 @@ slots:
 
   super_process_instance_id:
     range: string
-    description: The process instance id of a potential super process instance or null if no super process instance exists
+    description: The process instance id of a potential super process instance or null if no super process instance
+      exists
     annotations:
       sql_column: SUPER_PROCESS_INSTANCE_ID_
 
@@ -369,8 +370,8 @@ slots:
 
 classes:
   HistoricActivityInstance:
-    description: Represents one execution of an activity and it's stored permanent for statistics, audit and other business
-      intelligence purposes.
+    description: Represents one execution of an activity and it's stored permanent for statistics, audit and other
+      business intelligence purposes.
     is_a: HistoricScopeInstance
     slots:
       - parent_activity_instance_id
@@ -429,8 +430,8 @@ classes:
       sql_table: ACT_HI_BATCH
 
   HistoricCaseActivityInstance:
-    description: Represents one execution of a case activity which is stored permanent for statistics, audit and other business
-      intelligence purposes.
+    description: Represents one execution of a case activity which is stored permanent for statistics, audit and other
+      business intelligence purposes.
     is_a: HistoricScopeInstance
     slots:
       - parent_activity_instance_id
@@ -566,7 +567,8 @@ classes:
       sql_table: ACT_HI_DEC_OUT
 
   HistoricDetail:
-    description: Base class for all kinds of information that is related to either a HistoricProcessInstance or a HistoricActivityInstance.
+    description: Base class for all kinds of information that is related to either a HistoricProcessInstance or a
+      HistoricActivityInstance.
     slots:
       - id
       - type
@@ -781,8 +783,8 @@ classes:
       - fluxnova_bpm
 
   HistoricTaskInstance:
-    description: Represents a historic task instance (waiting, finished or deleted) that is stored permanent for statistics,
-      audit and other business intelligence purposes.
+    description: Represents a historic task instance (waiting, finished or deleted) that is stored permanent for
+      statistics, audit and other business intelligence purposes.
     is_a: HistoricScopeInstance
     slots:
       - task_definition_key
@@ -813,8 +815,8 @@ classes:
       sql_table: ACT_HI_TASKINST
 
   HistoricVariableInstance:
-    description: A single process variable containing the last value when its process instance has finished. It is only available
-      when HISTORY_LEVEL is set >= AUDIT
+    description: A single process variable containing the last value when its process instance has finished. It is only
+      available when HISTORY_LEVEL is set >= AUDIT
     slots:
       - id
       - process_definition_key
@@ -849,8 +851,8 @@ classes:
       sql_table: ACT_HI_VARINST
 
   UserOperationLogEntry:
-    description: Log entry about an operation performed by a user. This is used for logging actions such as creating a new
-      task, completing a task, canceling a process instance, ... The type of the operation which ...
+    description: Log entry about an operation performed by a user. This is used for logging actions such as creating a
+      new task, completing a task, canceling a process instance, ... The type of the operation which ...
     slots:
       - id
       - deployment_id

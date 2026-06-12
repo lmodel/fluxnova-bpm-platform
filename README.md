@@ -4,7 +4,7 @@
 [![Manual latest](https://img.shields.io/badge/manual-latest-brown.svg)](https://docs.fluxnova.finos.org/) 
 [![License](https://img.shields.io/github/license/finos/fluxnova-bpm-platform?color=blue&logo=apache)](https://github.com/finos/fluxnova-bpm-platform/blob/main/LICENSE)
 
-Note: See [LinkML Schema Documentation](./docs/about.md) sidecar.
+Note: See [LinkML Schema](./docs/about.md) for Linked Data sidecar (with provenance model)
 
 Fluxnova is a flexible framework for workflow and process automation. Its core is a native BPMN 2.0 process engine that runs inside the Java Virtual Machine. It can be embedded inside any Java application and any Runtime Container. It integrates with Java EE 6 and is a perfect match for the Spring Framework. On top of the process engine, you can choose from a stack of tools for human workflow management, operations and monitoring.
 

@@ -88,7 +88,9 @@ deploy: site
 test: _test-pytest _test-schema _test-examples
 
 # Run the full Python test suite (transformers, schema, data, ddl coverage)
-_test-pytest:
+# Depends on gen-python so the datamodel package exists after `just clean`
+# (tests/test_data.py imports fluxnova_bpm_platform.datamodel.fluxnova_bpm_platform).
+_test-pytest: gen-python
   uv run python -m pytest tests/ -q
 
 # Run linting

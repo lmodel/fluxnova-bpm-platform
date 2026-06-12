@@ -1,8 +1,8 @@
----
 id: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
 name: fluxnova_bpmn_model_fluxnova
 title: Fluxnova BPMN Model – Fluxnova Extensions
-description: Fluxnova-specific BPMN extension elements for connectors, form fields, execution listeners, and engine configuration.
+description: Fluxnova-specific BPMN extension elements for connectors, form fields, execution listeners, and engine
+  configuration.
 license: Apache-2.0
 source: https://github.com/finos/fluxnova-bpm-platform/tree/main/model-api/bpmn-model
 see_also:
@@ -205,7 +205,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaConnector.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaConnector.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -218,7 +219,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaConnectorId.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaConnectorId.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -228,7 +230,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaConstraint.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaConstraint.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -243,7 +246,8 @@ classes:
       - FluxnovaGenericValueElement
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaEntry.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaEntry.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -255,7 +259,8 @@ classes:
     is_a: ErrorEventDefinition
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaErrorEventDefinition.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaErrorEventDefinition.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -267,7 +272,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaExecutionListener.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaExecutionListener.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -284,7 +290,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaExpression.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaExpression.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -294,7 +301,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaFailedJobRetryTimeCycle.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaFailedJobRetryTimeCycle.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -304,7 +312,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaField.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaField.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -320,7 +329,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaFormData.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaFormData.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -332,7 +342,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaFormField.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaFormField.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -351,7 +362,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaFormProperty.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaFormProperty.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -369,11 +381,12 @@ classes:
       - fluxnova_values
 
   FluxnovaGenericValueElement:
-    description: A helper interface for camunda extension elements which hold a generic child element like camunda:inputParameter,
-      camunda:outputParameter and camunda:entry.
+    description: A helper interface for camunda extension elements which hold a generic child element like
+      camunda:inputParameter, camunda:outputParameter and camunda:entry.
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaGenericValueElement.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaGenericValueElement.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -385,7 +398,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaIn.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaIn.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -402,7 +416,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaInputOutput.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaInputOutput.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -417,7 +432,8 @@ classes:
       - FluxnovaGenericValueElement
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaInputParameter.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaInputParameter.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -429,7 +445,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaList.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaList.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -441,7 +458,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaMap.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaMap.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -453,7 +471,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaOut.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaOut.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -471,7 +490,8 @@ classes:
       - FluxnovaGenericValueElement
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaOutputParameter.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaOutputParameter.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -483,7 +503,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaPotentialStarter.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaPotentialStarter.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -495,7 +516,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaProperties.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaProperties.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -510,7 +532,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaProperty.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaProperty.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -524,7 +547,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaScript.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaScript.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -537,7 +561,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaString.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaString.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -547,7 +572,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaTaskListener.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaTaskListener.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -565,7 +591,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaValidation.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaValidation.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model
@@ -577,7 +604,8 @@ classes:
     is_a: BpmnModelElementInstance
     annotations:
       java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
-      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaValue.java
+      source_file:
+        model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaValue.java
     in_subset:
       - fluxnova_extensions
       - fluxnova_bpmn_model

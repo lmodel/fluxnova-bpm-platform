@@ -42,6 +42,122 @@ message Activity
  repeated  resourceRole resourceRoles = 0
   loopCharacteristics loopCharacteristics = 0
  }
+// Person, organization, system, or service account participating in workflow execution.
+message Agent
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  agentKind agentKind = 0
+  string email = 0
+ repeated  string role = 0
+ }
+// Autonomous or semi-autonomous AI agent that acts as an Agent in a Fluxnova
+// workflow. Concrete embodiment of one or more AI models exposed through a
+// provider endpoint. Distinct from the human, organizational, or system Agent
+// kinds declared in the base provenance module.
+message AiAgent
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  agentKind agentKind = 0
+  string email = 0
+ repeated  string role = 0
+  string modelFamily = 0
+  string modelName = 0
+  string modelVersion = 0
+  string provider = 0
+  string endpoint = 0
+  integer parameterCount = 0
+  integer contextWindowTokens = 0
+ repeated  aiModality inputModalities = 0
+ repeated  aiModality outputModalities = 0
+  string isPartOfAiSystem = 0
+ }
+// Dataset artifact associated with an AI model invocation, an evaluation,
+// a training run, or a fine-tuning step. Extends the generic WorkflowArtifact
+// class with AI-specific metadata such as dataset kind, record count, license,
+// and data classification.
+message AiDataset
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  artifactKind artifactKind = 0
+  string mediaType = 0
+  string pathOrUri = 0
+  string hash = 0
+  integer sizeInBytes = 0
+  stepRun producedByStepRun = 0
+ repeated  stepRun consumedByStepRuns = 0
+  datasetKind datasetKind = 0
+  integer recordCount = 0
+  string licenseUri = 0
+  dataClassification classification = 0
+ }
+// Descriptor of an AI model used as a runtime component. Captures static
+// characteristics of the model (family, architecture, parameter count,
+// training tokens, context window, supported languages) without prescribing
+// how an individual call was made.
+message AiModelDescriptor
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  runtimeComponentKind componentKind = 0
+  string definitionVersion = 0
+  string endpoint = 0
+  string modelFamily = 0
+  string architecture = 0
+  integer parameterCount = 0
+  integer trainingTokenCount = 0
+  integer contextWindowTokens = 0
+  string fineTuningDescription = 0
+ repeated  string supportedLanguages = 0
+ }
+// One concrete invocation of an AI model from a workflow step. Captures the
+// runtime call (kind, parameters, prompts, tool calls, response), the
+// consumption telemetry (token counts, cost), any safety flags raised, and
+// any evaluation results attached. Inherits status, timestamps, parent
+// workflow run, sequence number, and incident linkage from StepRun.
+message AiModelInvocation
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  workflowRun workflowRun = 0
+  stepDefinition stepDefinition = 0
+  string activityInstanceId = 0
+  stepRun parentStepRun = 0
+ repeated  stepRun informedBy = 0
+  runStatus status = 0
+  datetime startedAt = 0
+  datetime endedAt = 0
+  agent executedBy = 0
+  environment environment = 0
+  executionResource executionResource = 0
+ repeated  parameterValue inputValues = 0
+ repeated  parameterValue outputValues = 0
+ repeated  workflowArtifact consumedArtifacts = 0
+ repeated  workflowArtifact producedArtifacts = 0
+  string incidentMessage = 0
+  integer retries = 0
+  integer sequenceNo = 0
+  aiAgent invokedModel = 0
+  aiInvocationKind invocationKind = 0
+ repeated  promptMessage promptMessages = 0
+ repeated  toolCall toolCalls = 0
+  promptMessage responseMessage = 0
+  decimal temperature = 0
+  decimal topP = 0
+  integer maxTokens = 0
+  integer totalInputTokens = 0
+  integer totalOutputTokens = 0
+  decimal costUsd = 0
+ repeated  safetyFlag safetyFlags = 0
+ repeated  evaluationResult evaluationResults = 0
+ }
 // The BPMN artifact element
 message Artifact
  {
@@ -1033,6 +1149,19 @@ message EndPoint
   extensionElements extensionElements = 0
   diagramElement diagramElement = 0
  }
+// Runtime environment for process execution or export generation.
+message Environment
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  string runtimeName = 0
+  string runtimeVersion = 0
+  string host = 0
+  string region = 0
+  string deploymentRef = 0
+  workflowArtifact configurationRef = 0
+ }
 // The BPMN error element
 message Error
  {
@@ -1079,6 +1208,24 @@ message EscalationEventDefinition
   extensionElements extensionElements = 0
   diagramElement diagramElement = 0
   escalation escalation = 0
+ }
+// Result of a quality or safety evaluation against an AI model invocation.
+// Supports human review, LLM-as-judge, deterministic metrics, guardrails,
+// and static rule checks. Distinct from offline benchmark scoring such as
+// nexus:AiEvalResult (a related but coarser concept).
+message EvaluationResult
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  string evaluatorName = 0
+  evaluatorKind evaluatorKind = 0
+  string metricName = 0
+  decimal metricValue = 0
+  string metricUnit = 0
+  boolean passing = 0
+  datetime evaluatedAt = 0
+  aiModelInvocation evaluatedInvocation = 0
  }
 // The BPMN event element
 message Event
@@ -1194,6 +1341,17 @@ message Execution
   integer sequenceCounter = 0
   string tenantId = 0
   string processDefinitionKey = 0
+ }
+// Execution resource such as worker, node, queue, container, or database.
+message ExecutionResource
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  resourceKind resourceKind = 0
+  string host = 0
+  string endpoint = 0
+ repeated  string labels = 0
  }
 // The BPMN expression element
 message Expression
@@ -2421,6 +2579,28 @@ message MeterLog
   datetime timestamp = 0
   integer milliseconds = 0
  }
+// Persistent model artifact such as a checkpoint, weights file, or model
+// card publication. Distinct from AiModelDescriptor: this is a concrete
+// file or URI, while AiModelDescriptor is the runtime component used
+// during invocation.
+message ModelArtifact
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  artifactKind artifactKind = 0
+  string mediaType = 0
+  string pathOrUri = 0
+  string hash = 0
+  integer sizeInBytes = 0
+  stepRun producedByStepRun = 0
+ repeated  stepRun consumedByStepRuns = 0
+  string modelCardUri = 0
+  string weightsUri = 0
+ repeated  aiDataset trainingDatasets = 0
+  modelArtifact baseModel = 0
+  integer parameterCount = 0
+ }
 // The BPMN monitoring element
 message Monitoring
  {
@@ -2525,6 +2705,38 @@ message ParallelGateway
   string fluxnovaJobPriority = 0
   string gatewayDirection = 0
   boolean fluxnovaAsync = 0
+ }
+// Formal parameter or variable contract for a workflow or step.
+message ParameterDefinition
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  parameterScope parameterScope = 0
+  directionEnum parameterDirection = 0
+  string declaredType = 0
+  boolean isRequired = 0
+  string defaultValue = 0
+  boolean secret = 0
+ repeated  string allowedValues = 0
+ }
+// Actual observed runtime value of a variable or parameter.
+message ParameterValue
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  parameterDefinition parameterDefinition = 0
+  string observedType = 0
+  directionEnum parameterDirection = 0
+  string serializedValue = 0
+  string valueHash = 0
+  datetime observedAt = 0
+  stepRun producedByStepRun = 0
+ repeated  stepRun consumedByStepRuns = 0
+ repeated  parameterValue derivedFrom = 0
+  boolean redacted = 0
+  dataClassification classification = 0
  }
 // The BPMN participant element
 message Participant
@@ -2656,11 +2868,57 @@ message ProcessDefinition
   string key = 0
   integer version = 0
  }
+// A single message turn in an AI model invocation (system, user, assistant,
+// or tool turn). Records the role, the (possibly redacted) content, an
+// ordering index inside the invocation, and a data classification.
+message PromptMessage
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  messageRole messageRole = 0
+  string content = 0
+  string contentHash = 0
+  integer sequenceNo = 0
+  boolean redacted = 0
+  dataClassification classification = 0
+  aiModelInvocation parentInvocation = 0
+ }
 // Property entity in the engine infrastructure.
 message Property
  {
   string name = 0
   string value = 0
+ }
+// Top-level export package for Fluxnova provenance.
+message ProvenanceBundle
+ {
+  string id = 0
+  string name = 0
+  datetime generatedAt = 0
+  string sourceSystem = 0
+  string schemaVersion = 0
+ repeated  workflowDefinition workflowDefinitions = 0
+ repeated  workflowRun workflowRuns = 0
+ repeated  agent agents = 0
+ repeated  environment environments = 0
+ repeated  runtimeComponent runtimeComponents = 0
+ repeated  workflowArtifact workflowArtifacts = 0
+ repeated  parameterValue parameterValues = 0
+ repeated  executionResource resources = 0
+ }
+// Error, escalation, or operational event attached to a workflow run or step run.
+message ProvenanceIncident
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  incidentStatus incidentStatus = 0
+  string message = 0
+  string code = 0
+  datetime observedAt = 0
+  stepRun relatedStepRun = 0
+  workflowRun relatedWorkflowRun = 0
  }
 // The BPMN receiveTask element
 message ReceiveTask
@@ -2776,6 +3034,19 @@ message ResourceRole
  repeated  resourceParameterBinding resourceParameterBinding = 0
   resourceAssignmentExpression resourceAssignmentExpression = 0
  }
+// Resource usage measurement for a workflow run or step run.
+message ResourceUsage
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  string metricName = 0
+  decimal metricValue = 0
+  string metricUnit = 0
+  workflowRun measuredForWorkflowRun = 0
+  stepRun measuredForStepRun = 0
+  executionResource executionResource = 0
+ }
 // The BPMN rootElement element
 message RootElement
  {
@@ -2784,6 +3055,16 @@ message RootElement
  repeated  documentation documentations = 0
   extensionElements extensionElements = 0
   diagramElement diagramElement = 0
+ }
+// Engine, plugin, or service component involved in orchestration.
+message RuntimeComponent
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  runtimeComponentKind componentKind = 0
+  string definitionVersion = 0
+  string endpoint = 0
  }
 // Schema Log Entry entity in the engine infrastructure.
 message SchemaLogEntry
@@ -2999,6 +3280,48 @@ message StartEvent
   string fluxnovaFormRefVersion = 0
   string fluxnovaInitiator = 0
  }
+// BPMN step / activity / event / gateway definition within a workflow.
+message StepDefinition
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  workflowDefinition workflowDefinition = 0
+  bPMNElementType bpmnType = 0
+  implementationKind implementationKind = 0
+  string implementationRef = 0
+  string calledElement = 0
+  string decisionRef = 0
+  string formRef = 0
+ repeated  parameterDefinition inputParameters = 0
+ repeated  parameterDefinition outputParameters = 0
+ repeated  string bpmnExtensionNames = 0
+ }
+// Concrete execution of a StepDefinition (retrospective provenance).
+message StepRun
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  workflowRun workflowRun = 0
+  stepDefinition stepDefinition = 0
+  string activityInstanceId = 0
+  stepRun parentStepRun = 0
+ repeated  stepRun informedBy = 0
+  runStatus status = 0
+  datetime startedAt = 0
+  datetime endedAt = 0
+  agent executedBy = 0
+  environment environment = 0
+  executionResource executionResource = 0
+ repeated  parameterValue inputValues = 0
+ repeated  parameterValue outputValues = 0
+ repeated  workflowArtifact consumedArtifacts = 0
+ repeated  workflowArtifact producedArtifacts = 0
+  string incidentMessage = 0
+  integer retries = 0
+  integer sequenceNo = 0
+ }
 // The DI Style element
 message Style
  {
@@ -3192,6 +3515,26 @@ message TimerEventDefinition
   timeDuration timeDuration = 0
   timeCycle timeCycle = 0
  }
+// A single tool / function call made by an AI agent during an invocation.
+// Captures the tool name, the provider-assigned call identifier, the
+// arguments passed, the result returned, the status of the call, and an
+// optional link to the step run that materialized the call.
+message ToolCall
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  string toolName = 0
+  string toolCallId = 0
+  string argumentsJson = 0
+  string resultJson = 0
+  workflowArtifact resultArtifact = 0
+  stepRun calledStepRun = 0
+  datetime startedAt = 0
+  datetime endedAt = 0
+  runStatus status = 0
+  aiModelInvocation parentInvocation = 0
+ }
 // A sub-process that executes as an atomic unit with compensation support.
 message Transaction
  {
@@ -3348,4 +3691,55 @@ message Waypoint
   boolean scope = 0
   float x = 0
   float y = 0
+ }
+// File, payload, or URI referenced by a process definition or execution.
+message WorkflowArtifact
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  artifactKind artifactKind = 0
+  string mediaType = 0
+  string pathOrUri = 0
+  string hash = 0
+  integer sizeInBytes = 0
+  stepRun producedByStepRun = 0
+ repeated  stepRun consumedByStepRuns = 0
+ }
+// BPMN workflow / process definition (prospective provenance).
+message WorkflowDefinition
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  string definitionVersion = 0
+  string definitionKey = 0
+  string deploymentId = 0
+  workflowArtifact sourceModelRef = 0
+  runtimeComponent runtimeComponent = 0
+ repeated  stepDefinition steps = 0
+ repeated  agent authors = 0
+ repeated  string tags = 0
+ }
+// Concrete execution of a WorkflowDefinition (retrospective provenance).
+message WorkflowRun
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  workflowDefinition workflowDefinition = 0
+  string businessKey = 0
+  workflowRun parentWorkflowRun = 0
+  runStatus status = 0
+  datetime startedAt = 0
+  datetime endedAt = 0
+  agent startedBy = 0
+  environment environment = 0
+  runtimeComponent runtimeComponent = 0
+ repeated  parameterValue inputValues = 0
+ repeated  parameterValue outputValues = 0
+ repeated  stepRun stepRuns = 0
+ repeated  provenanceIncident incidents = 0
+ repeated  resourceUsage resourceUsage = 0
+ repeated  string tags = 0
  }

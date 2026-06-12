@@ -1,4 +1,3 @@
----
 id: https://w3id.org/lmodel/fluxnova-bpm-platform/repository
 name: fluxnova_bpm_repository
 description: Fluxnova BPM Platform - Repository module.
@@ -28,15 +27,15 @@ imports:
 slots:
   decision_requirements_definition_id:
     range: string
-    description: Id of the related decision requirements definition. Can be null if the decision has no relations to other
-      decisions.
+    description: Id of the related decision requirements definition. Can be null if the decision has no relations to
+      other decisions.
     annotations:
       sql_column: DEC_REQ_ID_
 
   decision_requirements_definition_key:
     range: string
-    description: Key of the related decision requirements definition. Can be null if the decision has no relations to other
-      decisions.
+    description: Key of the related decision requirements definition. Can be null if the decision has no relations to
+      other decisions.
     annotations:
       sql_column: DEC_REQ_KEY_
 
@@ -121,7 +120,8 @@ classes:
       sql_table: ACT_RE_DECISION_DEF
 
   DecisionRequirementsDefinition:
-    description: Container of DecisionDefinitions which belongs to the same decision requirements graph (i.e. DMN resource).
+    description: Container of DecisionDefinitions which belongs to the same decision requirements graph (i.e. DMN
+      resource).
     is_a: ResourceDefinition
     slot_usage:
       key:
@@ -135,8 +135,8 @@ classes:
       sql_table: ACT_RE_DECISION_REQ_DEF
 
   Deployment:
-    description: Represents a deployment that is already present in the process repository. A deployment is a container for
-      resources such as process definitions, images, forms, etc. When a deployment is 'deployed'...
+    description: Represents a deployment that is already present in the process repository. A deployment is a container
+      for resources such as process definitions, images, forms, etc. When a deployment is 'deployed'...
     slots:
       - id
       - name
@@ -150,8 +150,8 @@ classes:
       sql_table: ACT_RE_DEPLOYMENT
 
   FormDefinition:
-    description: An object structure representing a Camunda Form used to present forms to users either when starting a process
-      instance or when assigned to a User Task. Camunda Forms are usually composed with the h...
+    description: An object structure representing a Camunda Form used to present forms to users either when starting a
+      process instance or when assigned to a User Task. Camunda Forms are usually composed with the h...
     is_a: ResourceDefinition
     slot_usage:
       key:
@@ -165,8 +165,8 @@ classes:
       sql_table: ACT_RE_CAMFORMDEF
 
   ProcessDefinition:
-    description: An object structure representing an executable process composed of activities and transitions. Business processes
-      are often created with graphical editors that store the process definition in certa...
+    description: An object structure representing an executable process composed of activities and transitions. Business
+      processes are often created with graphical editors that store the process definition in certa...
     is_a: ResourceDefinition
     slots:
       - has_start_form_key

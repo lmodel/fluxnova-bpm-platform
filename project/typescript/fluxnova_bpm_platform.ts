@@ -190,6 +190,29 @@ export type BpmnLabelStyleId = string;
 export type BpmnPlaneId = string;
 export type BpmnShapeId = string;
 export type FluxnovaErrorEventDefinitionId = string;
+export type AiAgentId = string;
+export type AiModelDescriptorId = string;
+export type AiModelInvocationId = string;
+export type PromptMessageId = string;
+export type ToolCallId = string;
+export type EvaluationResultId = string;
+export type AiDatasetId = string;
+export type ModelArtifactId = string;
+export type NamedThingId = string;
+export type ProvenanceBundleId = string;
+export type WorkflowDefinitionId = string;
+export type StepDefinitionId = string;
+export type ParameterDefinitionId = string;
+export type AgentId = string;
+export type EnvironmentId = string;
+export type RuntimeComponentId = string;
+export type WorkflowArtifactId = string;
+export type WorkflowRunId = string;
+export type StepRunId = string;
+export type ParameterValueId = string;
+export type ResourceUsageId = string;
+export type ExecutionResourceId = string;
+export type ProvenanceIncidentId = string;
 /**
 * Whether an entity is active or suspended.
 */
@@ -405,6 +428,338 @@ export enum ParticipantBandKind {
     middle_non_initiating = "middle_non_initiating",
     /** Bottom non initiating */
     bottom_non_initiating = "bottom_non_initiating",
+};
+/**
+* Conversational role of a prompt or response message.
+*/
+export enum MessageRole {
+    
+    /** System-level instruction or persona-setting message. */
+    SYSTEM = "SYSTEM",
+    /** End-user input message. */
+    USER = "USER",
+    /** Model-generated response message. */
+    ASSISTANT = "ASSISTANT",
+    /** Tool / function result message returned to the model. */
+    TOOL = "TOOL",
+};
+/**
+* Input or output modality supported by an AI model.
+*/
+export enum AiModality {
+    
+    /** Natural-language text. */
+    TEXT = "TEXT",
+    /** Still image content. */
+    IMAGE = "IMAGE",
+    /** Audio content. */
+    AUDIO = "AUDIO",
+    /** Video content. */
+    VIDEO = "VIDEO",
+    /** Combined modalities in a single input or output. */
+    MULTIMODAL = "MULTIMODAL",
+    /** Numeric vector embedding. */
+    EMBEDDING = "EMBEDDING",
+};
+/**
+* Kind of AI model invocation performed from a workflow step.
+*/
+export enum AiInvocationKind {
+    
+    /** Multi-turn chat completion call. */
+    CHAT_COMPLETION = "CHAT_COMPLETION",
+    /** Single-turn text completion call. */
+    COMPLETION = "COMPLETION",
+    /** Embedding generation call. */
+    EMBEDDING = "EMBEDDING",
+    /** Invocation that includes tool / function calling. */
+    TOOL_USE = "TOOL_USE",
+    /** Agentic loop with multiple model + tool turns. */
+    AGENT_LOOP = "AGENT_LOOP",
+    /** Retrieval-augmented generation lookup. */
+    RETRIEVAL = "RETRIEVAL",
+    /** Guardrail or policy-check invocation. */
+    GUARDRAIL = "GUARDRAIL",
+};
+/**
+* Safety, policy, or guardrail flag raised by the model, the provider, or
+a local guardrail layer during an AI model invocation. Mapped to
+dpv-risk terms where a stable upstream match exists.
+*/
+export enum SafetyFlag {
+    
+    /** No safety flag was raised. */
+    NONE = "NONE",
+    /** Output or input violates a configured content policy. */
+    POLICY_VIOLATION = "POLICY_VIOLATION",
+    /** Output was flagged as likely hallucinated or unsupported by retrieved evidence. */
+    HALLUCINATION_SUSPECTED = "HALLUCINATION_SUSPECTED",
+    /** Input was flagged as attempting to bypass the system instruction. */
+    JAILBREAK_ATTEMPT = "JAILBREAK_ATTEMPT",
+    /** Output or input contained personally identifiable information. */
+    PII_LEAK = "PII_LEAK",
+    /** Input was flagged as attempting to override the system instruction. */
+    PROMPT_INJECTION = "PROMPT_INJECTION",
+    /** Output or input was flagged as toxic. */
+    TOXICITY = "TOXICITY",
+};
+/**
+* Role of a dataset relative to an AI model.
+*/
+export enum DatasetKind {
+    
+    /** Used to train the model. */
+    TRAINING = "TRAINING",
+    /** Used to fine-tune the model. */
+    FINE_TUNING = "FINE_TUNING",
+    /** Used to evaluate the model. */
+    EVALUATION = "EVALUATION",
+    /** Used as a retrieval corpus at inference time. */
+    RAG_CORPUS = "RAG_CORPUS",
+    /** Used as ground-truth labels for evaluation or supervised tuning. */
+    GROUND_TRUTH = "GROUND_TRUTH",
+};
+/**
+* Kind of evaluator that produced an EvaluationResult.
+*/
+export enum EvaluatorKind {
+    
+    /** Human reviewer-assigned score or pass/fail. */
+    HUMAN_REVIEW = "HUMAN_REVIEW",
+    /** A separate LLM invocation that scored the evaluated invocation. */
+    LLM_AS_JUDGE = "LLM_AS_JUDGE",
+    /** A deterministic numeric metric (ROUGE, BLEU, exact match, etc.). */
+    METRIC = "METRIC",
+    /** A guardrail or policy-check layer. */
+    GUARDRAIL = "GUARDRAIL",
+    /** A static rule check (regex, schema validation, etc.). */
+    STATIC_RULE = "STATIC_RULE",
+};
+/**
+* Lifecycle status of a workflow run or step run.
+*/
+export enum RunStatus {
+    
+    /** Scheduled but not yet started. */
+    PENDING = "PENDING",
+    /** Currently executing. */
+    ACTIVE = "ACTIVE",
+    /** Finished successfully. */
+    COMPLETED = "COMPLETED",
+    /** Terminated with an error. */
+    FAILED = "FAILED",
+    /** Cancelled before completion. */
+    CANCELLED = "CANCELLED",
+    /** Paused; can be resumed. */
+    SUSPENDED = "SUSPENDED",
+};
+/**
+* Lifecycle status of an incident.
+*/
+export enum IncidentStatus {
+    
+    /** Newly reported, not yet investigated. */
+    OPEN = "OPEN",
+    /** Currently being investigated or worked on. */
+    INVESTIGATING = "INVESTIGATING",
+    /** Resolved successfully. */
+    RESOLVED = "RESOLVED",
+    /** Acknowledged but not actioned. */
+    IGNORED = "IGNORED",
+};
+/**
+* Direction of data flow for a parameter.
+*/
+export enum DirectionEnum {
+    
+    /** Input parameter consumed by the workflow or step. */
+    IN = "IN",
+    /** Output parameter produced by the workflow or step. */
+    OUT = "OUT",
+    /** Read and updated by the workflow or step. */
+    INOUT = "INOUT",
+    /** Internal local variable not exposed at the boundary. */
+    LOCAL = "LOCAL",
+};
+/**
+* Scope at which a parameter or variable is defined.
+*/
+export enum ParameterScope {
+    
+    /** Scoped to the entire workflow. */
+    WORKFLOW = "WORKFLOW",
+    /** Scoped to a single step / activity. */
+    STEP = "STEP",
+    /** Scoped to a user or service task. */
+    TASK = "TASK",
+    /** Scoped to a DMN decision. */
+    DECISION = "DECISION",
+    /** Scoped to a human-task form. */
+    FORM = "FORM",
+};
+/**
+* Kind of agent participating in workflow execution.
+*/
+export enum AgentKind {
+    
+    /** A natural person. */
+    PERSON = "PERSON",
+    /** An organizational entity. */
+    ORGANIZATION = "ORGANIZATION",
+    /** A software system or automated component. */
+    SYSTEM = "SYSTEM",
+    /** A non-human service account identity. */
+    SERVICE_ACCOUNT = "SERVICE_ACCOUNT",
+};
+/**
+* Kind of runtime component participating in orchestration.
+*/
+export enum RuntimeComponentKind {
+    
+    /** The BPMN process engine itself. */
+    ENGINE = "ENGINE",
+    /** REST API surface fronting the engine. */
+    REST_API = "REST_API",
+    /** Asynchronous job execution component. */
+    JOB_EXECUTOR = "JOB_EXECUTOR",
+    /** Component that exports historic data. */
+    HISTORY_EXPORTER = "HISTORY_EXPORTER",
+    /** Engine plugin or extension. */
+    PLUGIN = "PLUGIN",
+    /** Integration connector to an external system. */
+    CONNECTOR = "CONNECTOR",
+    /** Deployment-time modeler/deployer tool. */
+    MODELER_DEPLOYER = "MODELER_DEPLOYER",
+};
+/**
+* Classifier for the kind of artifact referenced.
+*/
+export enum ArtifactKind {
+    
+    /** BPMN 2.0 XML process model. */
+    BPMN_XML = "BPMN_XML",
+    /** DMN XML decision model. */
+    DMN_XML = "DMN_XML",
+    /** Form schema (e.g. JSON Schema, embedded form). */
+    FORM_SCHEMA = "FORM_SCHEMA",
+    /** Request/response payload for an integration call. */
+    PAYLOAD = "PAYLOAD",
+    /** Business document handled by the workflow. */
+    DOCUMENT = "DOCUMENT",
+    /** Diagnostic log file. */
+    LOG = "LOG",
+    /** Provenance export bundle file. */
+    EXPORT_BUNDLE = "EXPORT_BUNDLE",
+    /** Screenshot artifact. */
+    SCREENSHOT = "SCREENSHOT",
+    /** Unclassified artifact kind. */
+    OTHER = "OTHER",
+};
+/**
+* Normalized implementation strategy for a step.
+*/
+export enum ImplementationKind {
+    
+    /** Human user task. */
+    USER_TASK = "USER_TASK",
+    /** Java delegate class implementation. */
+    JAVA_DELEGATE = "JAVA_DELEGATE",
+    /** Engine expression evaluation. */
+    EXPRESSION = "EXPRESSION",
+    /** Inline or referenced script. */
+    SCRIPT = "SCRIPT",
+    /** Connector configuration. */
+    CONNECTOR = "CONNECTOR",
+    /** Call to another process. */
+    CALL_ACTIVITY = "CALL_ACTIVITY",
+    /** DMN business rule evaluation. */
+    BUSINESS_RULE = "BUSINESS_RULE",
+    /** External worker topic (external task pattern). */
+    EXTERNAL_SERVICE = "EXTERNAL_SERVICE",
+    /** BPMN event handler. */
+    EVENT = "EVENT",
+    /** BPMN gateway routing. */
+    GATEWAY = "GATEWAY",
+    /** Embedded subprocess. */
+    SUBPROCESS = "SUBPROCESS",
+};
+/**
+* Kind of execution resource.
+*/
+export enum ResourceKind {
+    
+    /** A physical or virtual host. */
+    HOST = "HOST",
+    /** A container instance. */
+    CONTAINER = "CONTAINER",
+    /** A Kubernetes pod. */
+    POD = "POD",
+    /** A cluster node. */
+    NODE = "NODE",
+    /** A database instance. */
+    DATABASE = "DATABASE",
+    /** A message queue. */
+    QUEUE = "QUEUE",
+    /** A cluster of nodes. */
+    CLUSTER = "CLUSTER",
+    /** An in-process thread pool. */
+    THREAD_POOL = "THREAD_POOL",
+    /** An external API endpoint. */
+    EXTERNAL_API = "EXTERNAL_API",
+};
+/**
+* Normalized BPMN element type for a step definition.
+*/
+export enum BPMNElementType {
+    
+    /** A BPMN process element. */
+    PROCESS = "PROCESS",
+    /** Start event. */
+    START_EVENT = "START_EVENT",
+    /** End event. */
+    END_EVENT = "END_EVENT",
+    /** User task. */
+    USER_TASK = "USER_TASK",
+    /** Service task. */
+    SERVICE_TASK = "SERVICE_TASK",
+    /** Script task. */
+    SCRIPT_TASK = "SCRIPT_TASK",
+    /** Business rule (DMN) task. */
+    BUSINESS_RULE_TASK = "BUSINESS_RULE_TASK",
+    /** Manual task. */
+    MANUAL_TASK = "MANUAL_TASK",
+    /** Call activity. */
+    CALL_ACTIVITY = "CALL_ACTIVITY",
+    /** Sub-process. */
+    SUB_PROCESS = "SUB_PROCESS",
+    /** Exclusive (XOR) gateway. */
+    EXCLUSIVE_GATEWAY = "EXCLUSIVE_GATEWAY",
+    /** Parallel (AND) gateway. */
+    PARALLEL_GATEWAY = "PARALLEL_GATEWAY",
+    /** Event-based gateway. */
+    EVENT_BASED_GATEWAY = "EVENT_BASED_GATEWAY",
+    /** Intermediate catch event. */
+    INTERMEDIATE_CATCH_EVENT = "INTERMEDIATE_CATCH_EVENT",
+    /** Intermediate throw event. */
+    INTERMEDIATE_THROW_EVENT = "INTERMEDIATE_THROW_EVENT",
+    /** Boundary event. */
+    BOUNDARY_EVENT = "BOUNDARY_EVENT",
+    /** Sequence flow. */
+    SEQUENCE_FLOW = "SEQUENCE_FLOW",
+};
+/**
+* Sensitivity / data-classification label for a parameter value.
+*/
+export enum DataClassification {
+    
+    /** Information that may be disclosed publicly. */
+    PUBLIC = "PUBLIC",
+    /** For internal use only. */
+    INTERNAL = "INTERNAL",
+    /** Confidential information. */
+    CONFIDENTIAL = "CONFIDENTIAL",
+    /** Restricted / regulated information requiring strict access controls. */
+    RESTRICTED = "RESTRICTED",
 };
 
 
@@ -4177,6 +4532,567 @@ export interface BpmnModelInstance {
  * Enumeration-like interface representing the BPMN model type.
  */
 export interface BpmnModelType {
+}
+
+
+/**
+ * Autonomous or semi-autonomous AI agent that acts as an Agent in a Fluxnova
+workflow. Concrete embodiment of one or more AI models exposed through a
+provider endpoint. Distinct from the human, organizational, or system Agent
+kinds declared in the base provenance module.
+ */
+export interface AiAgent extends Agent {
+    /** Model family or product line (e.g. "GPT-4", "Claude 3", "Llama 3", "Mistral 7B"). */
+    model_family?: string,
+    /** Concrete model name (e.g. "gpt-4o-2024-05-13", "claude-3-5-sonnet-20240620"). */
+    model_name?: string,
+    /** Released or pinned version identifier for the model. */
+    model_version?: string,
+    /** Provider or vendor that hosts the model endpoint (e.g. "openai", "anthropic",
+"azure-openai", "vertex-ai", "self-hosted-vllm"). */
+    provider?: string,
+    /** API or service endpoint URL. */
+    endpoint?: string,
+    /** Number of model parameters (where disclosed). */
+    parameter_count?: number,
+    /** Maximum input context window in tokens. */
+    context_window_tokens?: number,
+    /** Modalities the model accepts as input. */
+    input_modalities?: string,
+    /** Modalities the model produces as output. */
+    output_modalities?: string,
+    /** External CURIE or URI reference to a larger AI system this agent belongs
+to (typically modeled in an AI governance vocabulary such as nexus:AiSystem
+or airo:AISystem). String reference rather than typed slot so the AI
+provenance overlay does not pull in a governance ontology. */
+    is_part_of_ai_system?: string,
+}
+
+
+/**
+ * Descriptor of an AI model used as a runtime component. Captures static
+characteristics of the model (family, architecture, parameter count,
+training tokens, context window, supported languages) without prescribing
+how an individual call was made.
+ */
+export interface AiModelDescriptor extends RuntimeComponent {
+    /** Model family or product line (e.g. "GPT-4", "Claude 3", "Llama 3", "Mistral 7B"). */
+    model_family?: string,
+    /** Architecture family (e.g. "transformer-decoder", "moe", "mamba", "diffusion"). */
+    architecture?: string,
+    /** Number of model parameters (where disclosed). */
+    parameter_count?: number,
+    /** Number of tokens used to train the model (where disclosed). */
+    training_token_count?: number,
+    /** Maximum input context window in tokens. */
+    context_window_tokens?: number,
+    /** Free-text description of fine-tuning applied to the model. */
+    fine_tuning_description?: string,
+    /** ISO 639 language tags supported by the model. */
+    supported_languages?: string[],
+}
+
+
+/**
+ * One concrete invocation of an AI model from a workflow step. Captures the
+runtime call (kind, parameters, prompts, tool calls, response), the
+consumption telemetry (token counts, cost), any safety flags raised, and
+any evaluation results attached. Inherits status, timestamps, parent
+workflow run, sequence number, and incident linkage from StepRun.
+ */
+export interface AiModelInvocation extends StepRun {
+    /** AI agent that was invoked to produce the step result. */
+    invoked_model?: AiAgentId,
+    /** Kind of invocation (chat completion, tool use, embedding, etc.). */
+    invocation_kind?: string,
+    /** Ordered sequence of prompt messages sent to the model. */
+    prompt_messages?: PromptMessage[],
+    /** Tool / function calls performed by the model during the invocation. */
+    tool_calls?: ToolCall[],
+    /** Assistant or tool message returned by the model as the response.
+Inlined as a single PromptMessage with role ASSISTANT or TOOL. */
+    response_message?: PromptMessageId,
+    /** Sampling temperature requested for the invocation. */
+    temperature?: string,
+    /** Top-p nucleus sampling parameter. */
+    top_p?: string,
+    /** Maximum tokens the model was permitted to generate. */
+    max_tokens?: number,
+    /** Total prompt / input tokens consumed by the invocation. */
+    total_input_tokens?: number,
+    /** Total completion / output tokens produced by the invocation. */
+    total_output_tokens?: number,
+    /** Direct provider cost in USD for the invocation, where reported by the
+provider or computed locally from billing rates. */
+    cost_usd?: string,
+    /** Safety, policy, or guardrail flags raised by the model, provider, or
+local guardrail layer during the invocation. */
+    safety_flags?: string,
+    /** Evaluation results attached to the invocation. */
+    evaluation_results?: EvaluationResult[],
+}
+
+
+/**
+ * A single message turn in an AI model invocation (system, user, assistant,
+or tool turn). Records the role, the (possibly redacted) content, an
+ordering index inside the invocation, and a data classification.
+ */
+export interface PromptMessage extends NamedThing {
+    /** Conversational role of the message (system, user, assistant, tool). */
+    message_role?: string,
+    /** Message content (may be redacted in export). */
+    content?: string,
+    /** Hash of the message content (algorithm-prefixed, e.g. "sha256:...").
+Used to deduplicate or to attest to a message that has been redacted. */
+    content_hash?: string,
+    /** Exporter-assigned ordering number for deterministic serialization. */
+    sequence_no?: number,
+    /** Whether the serialized value has been redacted for export. */
+    redacted?: boolean,
+    /** Data classification of the value (public, internal, confidential, restricted). */
+    classification?: string,
+    /** AI model invocation that produced or owns this message or tool call. */
+    parent_invocation?: AiModelInvocationId,
+}
+
+
+/**
+ * A single tool / function call made by an AI agent during an invocation.
+Captures the tool name, the provider-assigned call identifier, the
+arguments passed, the result returned, the status of the call, and an
+optional link to the step run that materialized the call.
+ */
+export interface ToolCall extends NamedThing {
+    /** Tool or function name as exposed to the model. */
+    tool_name?: string,
+    /** Provider-assigned identifier for the tool call. */
+    tool_call_id?: string,
+    /** JSON-serialized arguments passed to the tool. */
+    arguments_json?: string,
+    /** JSON-serialized result returned by the tool. */
+    result_json?: string,
+    /** Optional artifact reference for large tool outputs. */
+    result_artifact?: WorkflowArtifactId,
+    /** Step run that was materialized to execute the tool call, if any. */
+    called_step_run?: StepRunId,
+    /** Timestamp when execution started. */
+    started_at?: string,
+    /** Timestamp when execution ended (absent for running instances). */
+    ended_at?: string,
+    /** Status of the workflow run or step run. */
+    status?: string,
+    /** AI model invocation that produced or owns this message or tool call. */
+    parent_invocation?: AiModelInvocationId,
+}
+
+
+/**
+ * Result of a quality or safety evaluation against an AI model invocation.
+Supports human review, LLM-as-judge, deterministic metrics, guardrails,
+and static rule checks. Distinct from offline benchmark scoring such as
+nexus:AiEvalResult (a related but coarser concept).
+ */
+export interface EvaluationResult extends NamedThing {
+    /** Name of the evaluator (rubric name, judge model name, metric name). */
+    evaluator_name?: string,
+    /** Kind of evaluator (human, LLM-as-judge, metric, guardrail, static rule). */
+    evaluator_kind?: string,
+    /** Metric name (e.g. duration_ms, queue_wait_ms, cpu_seconds, tokens_in). */
+    metric_name?: string,
+    /** Metric numeric value. */
+    metric_value?: string,
+    /** UCUM or local unit string for the metric. */
+    metric_unit?: string,
+    /** Whether the evaluation was considered passing. */
+    passing?: boolean,
+    /** Timestamp when the evaluation was performed. */
+    evaluated_at?: string,
+    /** AI model invocation that was evaluated. */
+    evaluated_invocation?: AiModelInvocationId,
+}
+
+
+/**
+ * Dataset artifact associated with an AI model invocation, an evaluation,
+a training run, or a fine-tuning step. Extends the generic WorkflowArtifact
+class with AI-specific metadata such as dataset kind, record count, license,
+and data classification.
+ */
+export interface AiDataset extends WorkflowArtifact {
+    /** Role of the dataset (training, fine-tuning, evaluation, RAG corpus, ground truth). */
+    dataset_kind?: string,
+    /** Number of records in the dataset. */
+    record_count?: number,
+    /** URI of the dataset license (e.g. SPDX license URL). */
+    license_uri?: string,
+    /** Data classification of the value (public, internal, confidential, restricted). */
+    classification?: string,
+}
+
+
+/**
+ * Persistent model artifact such as a checkpoint, weights file, or model
+card publication. Distinct from AiModelDescriptor: this is a concrete
+file or URI, while AiModelDescriptor is the runtime component used
+during invocation.
+ */
+export interface ModelArtifact extends WorkflowArtifact {
+    /** URI of the model card or model documentation. */
+    model_card_uri?: string,
+    /** URI of the model weights or checkpoint. */
+    weights_uri?: string,
+    /** Datasets used to train or fine-tune the model. */
+    training_datasets?: AiDatasetId[],
+    /** Upstream base model artifact this artifact derives from. */
+    base_model?: ModelArtifactId,
+    /** Number of model parameters (where disclosed). */
+    parameter_count?: number,
+}
+
+
+/**
+ * Abstract identifiable provenance entity with optional human-readable name and external reference.
+ */
+export interface NamedThing {
+    /** Unique identifier. */
+    id: string,
+    /** Human-readable name. */
+    name?: string,
+    /** External URI, engine identifier, or source reference for this entity. */
+    external_ref?: string,
+}
+
+
+/**
+ * Top-level export package for Fluxnova provenance.
+ */
+export interface ProvenanceBundle {
+    /** Unique identifier. */
+    id: string,
+    /** Human-readable name. */
+    name?: string,
+    /** Timestamp at which the provenance bundle was produced. */
+    generated_at?: string,
+    /** Name or identifier of the system that produced the provenance bundle. */
+    source_system?: string,
+    /** Version of the provenance schema used for the bundle. */
+    schema_version?: string,
+    /** Workflow definitions exported in the bundle. */
+    workflow_definitions?: WorkflowDefinition[],
+    /** Workflow runs exported in the bundle. */
+    workflow_runs?: WorkflowRun[],
+    /** Agents referenced by the bundle. */
+    agents?: Agent[],
+    /** Environments referenced by the bundle. */
+    environments?: Environment[],
+    /** Runtime components referenced by the bundle. */
+    runtime_components?: RuntimeComponent[],
+    /** Workflow artifacts referenced by the bundle. */
+    workflow_artifacts?: WorkflowArtifact[],
+    /** Parameter value observations referenced by the bundle's workflow_runs and step_runs. */
+    parameter_values?: ParameterValue[],
+    /** Execution resources (workers, pods, queues, hosts) referenced by the bundle's step_runs. */
+    resources?: ExecutionResource[],
+}
+
+
+/**
+ * BPMN workflow / process definition (prospective provenance).
+ */
+export interface WorkflowDefinition extends NamedThing {
+    /** Version string of the workflow or step definition (semantic version of the BPMN model). */
+    definition_version?: string,
+    /** Stable engine definition key (BPMN process key). */
+    definition_key?: string,
+    /** Reference to the deployment. */
+    deployment_id?: string,
+    /** Reference to the source BPMN/DMN/CMMN model artifact. */
+    source_model_ref?: WorkflowArtifactId,
+    /** Engine or runtime component associated with the entity. */
+    runtime_component?: RuntimeComponentId,
+    /** Step definitions belonging to a workflow definition. */
+    steps?: StepDefinition[],
+    /** Authors or owners of the workflow definition (by-reference; declare full agents under ProvenanceBundle.agents). */
+    authors?: AgentId[],
+    /** Free-form tag labels. */
+    tags?: string[],
+}
+
+
+/**
+ * BPMN step / activity / event / gateway definition within a workflow.
+ */
+export interface StepDefinition extends NamedThing {
+    /** Reference to the owning workflow definition. */
+    workflow_definition?: WorkflowDefinitionId,
+    /** Normalized BPMN element type for the step. */
+    bpmn_type?: string,
+    /** Normalized implementation strategy for the step. */
+    implementation_kind?: string,
+    /** The implementation ref of this element. */
+    implementation_ref?: string,
+    /** The global task or process called by this call activity. */
+    called_element?: string,
+    /** DMN decision or decision service reference for business rule tasks. */
+    decision_ref?: string,
+    /** Form reference for human tasks. */
+    form_ref?: string,
+    /** Formal input parameter contracts for the step. */
+    input_parameters?: ParameterDefinition[],
+    /** Formal output parameter contracts for the step. */
+    output_parameters?: ParameterDefinition[],
+    /** Names or identifiers of BPMN extension elements used by the step. */
+    bpmn_extension_names?: string[],
+}
+
+
+/**
+ * Formal parameter or variable contract for a workflow or step.
+ */
+export interface ParameterDefinition extends NamedThing {
+    /** Scope at which the parameter applies (workflow, step, task, decision, form). */
+    parameter_scope?: string,
+    /** Direction of data flow for a parameter (IN, OUT, INOUT, LOCAL). */
+    parameter_direction?: string,
+    /** Declared variable/parameter type as a string. */
+    declared_type?: string,
+    /** Whether this entity is required. */
+    is_required?: boolean,
+    /** Default value for the parameter in string/JSON form. */
+    default_value?: string,
+    /** Indicates that values for this parameter must be redacted on export. */
+    secret?: boolean,
+    /** Enumerated allowed values for the parameter, if constrained. */
+    allowed_values?: string[],
+}
+
+
+/**
+ * Person, organization, system, or service account participating in workflow execution.
+ */
+export interface Agent extends NamedThing {
+    /** Kind of agent (person, organization, system, service account). */
+    agent_kind?: string,
+    /** Email address. */
+    email?: string,
+    /** Roles played by the agent in this context. */
+    role?: string[],
+}
+
+
+/**
+ * Runtime environment for process execution or export generation.
+ */
+export interface Environment extends NamedThing {
+    /** Runtime/platform name (e.g. "Fluxnova BPM Platform"). */
+    runtime_name?: string,
+    /** Runtime/platform version. */
+    runtime_version?: string,
+    /** Hostname or logical host. */
+    host?: string,
+    /** Region or availability zone. */
+    region?: string,
+    /** Deployment reference or release identifier (Helm chart URI, image tag, etc.). */
+    deployment_ref?: string,
+    /** Reference to an artifact containing applied configuration. */
+    configuration_ref?: WorkflowArtifactId,
+}
+
+
+/**
+ * Engine, plugin, or service component involved in orchestration.
+ */
+export interface RuntimeComponent extends NamedThing {
+    /** Kind of runtime component (engine, REST API, executor, plugin, connector, etc.). */
+    component_kind?: string,
+    /** Version string of the workflow or step definition (semantic version of the BPMN model). */
+    definition_version?: string,
+    /** API or service endpoint URL. */
+    endpoint?: string,
+}
+
+
+/**
+ * File, payload, or URI referenced by a process definition or execution.
+ */
+export interface WorkflowArtifact extends NamedThing {
+    /** Classifier for the kind of artifact (BPMN XML, payload, document, log, etc.). */
+    artifact_kind?: string,
+    /** IANA media type / MIME type of the artifact. */
+    media_type?: string,
+    /** File path or URI locating the artifact content. */
+    path_or_uri?: string,
+    /** Content hash or checksum string (algorithm-prefixed, e.g. "sha256:..."). */
+    hash?: string,
+    /** Size of the artifact content in bytes. */
+    size_in_bytes?: number,
+    /** Step run that produced this artifact or parameter value. */
+    produced_by_step_run?: StepRunId,
+    /** Step runs that consumed this artifact or parameter value (by-reference). */
+    consumed_by_step_runs?: StepRunId[],
+}
+
+
+/**
+ * Concrete execution of a WorkflowDefinition (retrospective provenance).
+ */
+export interface WorkflowRun extends NamedThing {
+    /** Reference to the owning workflow definition. */
+    workflow_definition?: WorkflowDefinitionId,
+    /** Domain-specific business key. */
+    business_key?: string,
+    /** Parent workflow run when the run is a sub-process invocation. */
+    parent_workflow_run?: WorkflowRunId,
+    /** Status of the workflow run or step run. */
+    status?: string,
+    /** Timestamp when execution started. */
+    started_at?: string,
+    /** Timestamp when execution ended (absent for running instances). */
+    ended_at?: string,
+    /** Agent that initiated the workflow run. */
+    started_by?: AgentId,
+    /** Runtime environment in which the run took place. */
+    environment?: EnvironmentId,
+    /** Engine or runtime component associated with the entity. */
+    runtime_component?: RuntimeComponentId,
+    /** Observed input parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values). */
+    input_values?: ParameterValueId[],
+    /** Observed output parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values). */
+    output_values?: ParameterValueId[],
+    /** Step run executions belonging to the workflow run. */
+    step_runs?: StepRun[],
+    /** Incidents recorded against the workflow run. */
+    incidents?: ProvenanceIncident[],
+    /** Resource usage measurements for the run. */
+    resource_usage?: ResourceUsage[],
+    /** Free-form tag labels. */
+    tags?: string[],
+}
+
+
+/**
+ * Concrete execution of a StepDefinition (retrospective provenance).
+ */
+export interface StepRun extends NamedThing {
+    /** Parent workflow run for the step run. */
+    workflow_run?: WorkflowRunId,
+    /** Step definition this run instantiates. */
+    step_definition?: StepDefinitionId,
+    /** Runtime activity instance identifier. */
+    activity_instance_id?: string,
+    /** Parent step run for nested step executions. */
+    parent_step_run?: StepRunId,
+    /** Step runs whose completion preceded and informed this step run (by-reference). */
+    informed_by?: StepRunId[],
+    /** Status of the workflow run or step run. */
+    status?: string,
+    /** Timestamp when execution started. */
+    started_at?: string,
+    /** Timestamp when execution ended (absent for running instances). */
+    ended_at?: string,
+    /** Agent (assignee, service account, system) that executed the step. */
+    executed_by?: AgentId,
+    /** Runtime environment in which the run took place. */
+    environment?: EnvironmentId,
+    /** Resource (pod, container, node, queue) used to execute the step. */
+    execution_resource?: ExecutionResourceId,
+    /** Observed input parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values). */
+    input_values?: ParameterValueId[],
+    /** Observed output parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values). */
+    output_values?: ParameterValueId[],
+    /** Artifacts consumed by the step run (by-reference; declare full artifacts under ProvenanceBundle.artifacts). */
+    consumed_artifacts?: WorkflowArtifactId[],
+    /** Artifacts produced by the step run (by-reference; declare full artifacts under ProvenanceBundle.artifacts). */
+    produced_artifacts?: WorkflowArtifactId[],
+    /** Incident message. */
+    incident_message?: string,
+    /** Number of retries this job has left. Whenever the jobexecutor fails to execute the job, this value is decremented. When it hits zero, the job is supposed to be dead and not retried again (ie a manu... */
+    retries?: number,
+    /** Exporter-assigned ordering number for deterministic serialization. */
+    sequence_no?: number,
+}
+
+
+/**
+ * Actual observed runtime value of a variable or parameter.
+ */
+export interface ParameterValue extends NamedThing {
+    /** Formal parameter definition this value instantiates. */
+    parameter_definition?: ParameterDefinitionId,
+    /** Runtime-observed concrete type for the actual value. */
+    observed_type?: string,
+    /** Direction of data flow for a parameter (IN, OUT, INOUT, LOCAL). */
+    parameter_direction?: string,
+    /** Export-safe serialized value (JSON scalar/string/external reference). */
+    serialized_value?: string,
+    /** Hash of the serialized value for deduplication or comparison. */
+    value_hash?: string,
+    /** Timestamp when the value or event was observed. */
+    observed_at?: string,
+    /** Step run that produced this artifact or parameter value. */
+    produced_by_step_run?: StepRunId,
+    /** Step runs that consumed this artifact or parameter value (by-reference). */
+    consumed_by_step_runs?: StepRunId[],
+    /** Upstream parameter values from which this value was derived (by-reference). */
+    derived_from?: ParameterValueId[],
+    /** Whether the serialized value has been redacted for export. */
+    redacted?: boolean,
+    /** Data classification of the value (public, internal, confidential, restricted). */
+    classification?: string,
+}
+
+
+/**
+ * Resource usage measurement for a workflow run or step run.
+ */
+export interface ResourceUsage extends NamedThing {
+    /** Metric name (e.g. duration_ms, queue_wait_ms, cpu_seconds, tokens_in). */
+    metric_name?: string,
+    /** Metric numeric value. */
+    metric_value?: string,
+    /** UCUM or local unit string for the metric. */
+    metric_unit?: string,
+    /** Workflow run the measurement is associated with. */
+    measured_for_workflow_run?: WorkflowRunId,
+    /** Step run the measurement is associated with. */
+    measured_for_step_run?: StepRunId,
+    /** Resource (pod, container, node, queue) used to execute the step. */
+    execution_resource?: ExecutionResourceId,
+}
+
+
+/**
+ * Execution resource such as worker, node, queue, container, or database.
+ */
+export interface ExecutionResource extends NamedThing {
+    /** Kind of execution resource. */
+    resource_kind?: string,
+    /** Hostname or logical host. */
+    host?: string,
+    /** API or service endpoint URL. */
+    endpoint?: string,
+    /** Free-form key=value labels on the resource. */
+    labels?: string[],
+}
+
+
+/**
+ * Error, escalation, or operational event attached to a workflow run or step run.
+ */
+export interface ProvenanceIncident extends NamedThing {
+    /** Lifecycle status of an incident. */
+    incident_status?: string,
+    /** Short message or summary. */
+    message?: string,
+    /** Incident or error code. */
+    code?: string,
+    /** Timestamp when the value or event was observed. */
+    observed_at?: string,
+    /** Step run the incident is related to. */
+    related_step_run?: StepRunId,
+    /** Workflow run the incident is related to. */
+    related_workflow_run?: WorkflowRunId,
 }
 
 

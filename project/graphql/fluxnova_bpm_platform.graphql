@@ -9,6 +9,48 @@ enum ActivityInstanceState
     ENDING
   }
 
+enum AgentKind
+  {
+    PERSON
+    ORGANIZATION
+    SYSTEM
+    SERVICE_ACCOUNT
+  }
+
+enum AiInvocationKind
+  {
+    CHAT_COMPLETION
+    COMPLETION
+    EMBEDDING
+    TOOL_USE
+    AGENT_LOOP
+    RETRIEVAL
+    GUARDRAIL
+  }
+
+enum AiModality
+  {
+    TEXT
+    IMAGE
+    AUDIO
+    VIDEO
+    MULTIMODAL
+    EMBEDDING
+  }
+
+enum ArtifactKind
+  {
+    BPMN_XML
+    DMN_XML
+    FORM_SCHEMA
+    PAYLOAD
+    DOCUMENT
+    LOG
+    EXPORT_BUNDLE
+    SCREENSHOT
+    OTHER
+  }
+
 enum AssociationDirection
   {
     None
@@ -23,10 +65,56 @@ enum AuthorizationType
     REVOKE
   }
 
+enum BPMNElementType
+  {
+    PROCESS
+    START_EVENT
+    END_EVENT
+    USER_TASK
+    SERVICE_TASK
+    SCRIPT_TASK
+    BUSINESS_RULE_TASK
+    MANUAL_TASK
+    CALL_ACTIVITY
+    SUB_PROCESS
+    EXCLUSIVE_GATEWAY
+    PARALLEL_GATEWAY
+    EVENT_BASED_GATEWAY
+    INTERMEDIATE_CATCH_EVENT
+    INTERMEDIATE_THROW_EVENT
+    BOUNDARY_EVENT
+    SEQUENCE_FLOW
+  }
+
+enum DataClassification
+  {
+    PUBLIC
+    INTERNAL
+    CONFIDENTIAL
+    RESTRICTED
+  }
+
+enum DatasetKind
+  {
+    TRAINING
+    FINE_TUNING
+    EVALUATION
+    RAG_CORPUS
+    GROUND_TRUTH
+  }
+
 enum DelegationState
   {
     PENDING
     RESOLVED
+  }
+
+enum DirectionEnum
+  {
+    IN
+    OUT
+    INOUT
+    LOCAL
   }
 
 enum EntityState
@@ -36,6 +124,15 @@ enum EntityState
     COMPLETED
     EXTERNALLY_TERMINATED
     INTERNALLY_TERMINATED
+  }
+
+enum EvaluatorKind
+  {
+    HUMAN_REVIEW
+    LLM_AS_JUDGE
+    METRIC
+    GUARDRAIL
+    STATIC_RULE
   }
 
 enum EventBasedGatewayType
@@ -52,11 +149,34 @@ enum GatewayDirection
     Mixed
   }
 
+enum ImplementationKind
+  {
+    USER_TASK
+    JAVA_DELEGATE
+    EXPRESSION
+    SCRIPT
+    CONNECTOR
+    CALL_ACTIVITY
+    BUSINESS_RULE
+    EXTERNAL_SERVICE
+    EVENT
+    GATEWAY
+    SUBPROCESS
+  }
+
 enum IncidentState
   {
     OPEN
     DELETED
     RESOLVED
+  }
+
+enum IncidentStatus
+  {
+    OPEN
+    INVESTIGATING
+    RESOLVED
+    IGNORED
   }
 
 enum ItemKind
@@ -73,6 +193,14 @@ enum JobState
     DELETED
   }
 
+enum MessageRole
+  {
+    SYSTEM
+    USER
+    ASSISTANT
+    TOOL
+  }
+
 enum MessageVisibleKind
   {
     initiating
@@ -85,6 +213,15 @@ enum MultiInstanceFlowCondition
     One
     All
     Complex
+  }
+
+enum ParameterScope
+  {
+    WORKFLOW
+    STEP
+    TASK
+    DECISION
+    FORM
   }
 
 enum ParticipantBandKind
@@ -110,6 +247,51 @@ enum RelationshipDirection
     Forward
     Backward
     Both
+  }
+
+enum ResourceKind
+  {
+    HOST
+    CONTAINER
+    POD
+    NODE
+    DATABASE
+    QUEUE
+    CLUSTER
+    THREAD_POOL
+    EXTERNAL_API
+  }
+
+enum RunStatus
+  {
+    PENDING
+    ACTIVE
+    COMPLETED
+    FAILED
+    CANCELLED
+    SUSPENDED
+  }
+
+enum RuntimeComponentKind
+  {
+    ENGINE
+    REST_API
+    JOB_EXECUTOR
+    HISTORY_EXPORTER
+    PLUGIN
+    CONNECTOR
+    MODELER_DEPLOYER
+  }
+
+enum SafetyFlag
+  {
+    NONE
+    POLICY_VIOLATION
+    HALLUCINATION_SUSPECTED
+    JAILBREAK_ATTEMPT
+    PII_LEAK
+    PROMPT_INJECTION
+    TOXICITY
   }
 
 enum SuspensionState
@@ -163,6 +345,109 @@ type Activity implements InteractionNode
     dataOutputAssociations: [DataOutputAssociation]
     resourceRoles: [ResourceRole]
     loopCharacteristics: LoopCharacteristics
+  }
+
+type Agent
+  {
+    id: String!
+    name: String
+    externalRef: String
+    agentKind: AgentKind
+    email: String
+    role: [String]
+  }
+
+type AiAgent
+  {
+    id: String!
+    name: String
+    externalRef: String
+    agentKind: AgentKind
+    email: String
+    role: [String]
+    modelFamily: String
+    modelName: String
+    modelVersion: String
+    provider: String
+    endpoint: String
+    parameterCount: Int
+    contextWindowTokens: Int
+    inputModalities: [AiModality]
+    outputModalities: [AiModality]
+    isPartOfAiSystem: String
+  }
+
+type AiDataset
+  {
+    id: String!
+    name: String
+    externalRef: String
+    artifactKind: ArtifactKind
+    mediaType: String
+    pathOrUri: String
+    hash: String
+    sizeInBytes: Int
+    producedByStepRun: StepRun
+    consumedByStepRuns: [StepRun]
+    datasetKind: DatasetKind
+    recordCount: Int
+    licenseUri: String
+    classification: DataClassification
+  }
+
+type AiModelDescriptor
+  {
+    id: String!
+    name: String
+    externalRef: String
+    componentKind: RuntimeComponentKind
+    definitionVersion: String
+    endpoint: String
+    modelFamily: String
+    architecture: String
+    parameterCount: Int
+    trainingTokenCount: Int
+    contextWindowTokens: Int
+    fineTuningDescription: String
+    supportedLanguages: [String]
+  }
+
+type AiModelInvocation
+  {
+    id: String!
+    name: String
+    externalRef: String
+    workflowRun: WorkflowRun
+    stepDefinition: StepDefinition
+    activityInstanceId: String
+    parentStepRun: StepRun
+    informedBy: [StepRun]
+    status: RunStatus
+    startedAt: String
+    endedAt: String
+    executedBy: Agent
+    environment: Environment
+    executionResource: ExecutionResource
+    inputValues: [ParameterValue]
+    outputValues: [ParameterValue]
+    consumedArtifacts: [WorkflowArtifact]
+    producedArtifacts: [WorkflowArtifact]
+    incidentMessage: String
+    retries: Int
+    sequenceNo: Int
+    invokedModel: AiAgent
+    invocationKind: AiInvocationKind
+    promptMessages: [PromptMessage]
+    toolCalls: [ToolCall]
+    responseMessage: PromptMessage
+    temperature: Float
+    topP: Float
+    maxTokens: Int
+    totalInputTokens: Int
+    totalOutputTokens: Int
+    costUsd: Float
+    safetyFlags: [SafetyFlag]
+    evaluationResults: [EvaluationResult]
   }
 
 type Artifact
@@ -1160,6 +1445,19 @@ type EndPoint
     diagramElement: DiagramElement
   }
 
+type Environment
+  {
+    id: String!
+    name: String
+    externalRef: String
+    runtimeName: String
+    runtimeVersion: String
+    host: String
+    region: String
+    deploymentRef: String
+    configurationRef: WorkflowArtifact
+  }
+
 type Error
   {
     scope: Boolean
@@ -1205,6 +1503,21 @@ type EscalationEventDefinition
     extensionElements: ExtensionElements
     diagramElement: DiagramElement
     escalation: Escalation
+  }
+
+type EvaluationResult
+  {
+    id: String!
+    name: String
+    externalRef: String
+    evaluatorName: String
+    evaluatorKind: EvaluatorKind
+    metricName: String
+    metricValue: Float
+    metricUnit: String
+    passing: Boolean
+    evaluatedAt: String
+    evaluatedInvocation: AiModelInvocation
   }
 
 type Event implements InteractionNode
@@ -1320,6 +1633,17 @@ type Execution
     sequenceCounter: Int
     tenantId: String
     processDefinitionKey: String
+  }
+
+type ExecutionResource
+  {
+    id: String!
+    name: String
+    externalRef: String
+    resourceKind: ResourceKind
+    host: String
+    endpoint: String
+    labels: [String]
   }
 
 type Expression
@@ -2561,6 +2885,25 @@ type MeterLog
     milliseconds: Int
   }
 
+type ModelArtifact
+  {
+    id: String!
+    name: String
+    externalRef: String
+    artifactKind: ArtifactKind
+    mediaType: String
+    pathOrUri: String
+    hash: String
+    sizeInBytes: Int
+    producedByStepRun: StepRun
+    consumedByStepRuns: [StepRun]
+    modelCardUri: String
+    weightsUri: String
+    trainingDatasets: [AiDataset]
+    baseModel: ModelArtifact
+    parameterCount: Int
+  }
+
 type Monitoring
   {
     scope: Boolean
@@ -2593,6 +2936,13 @@ type MultiInstanceLoopCharacteristics
     fluxnovaAsyncBefore: Boolean
     fluxnovaAsyncAfter: Boolean
     fluxnovaExclusive: Boolean
+  }
+
+interface NamedThing
+  {
+    id: String!
+    name: String
+    externalRef: String
   }
 
 type Node
@@ -2664,6 +3014,38 @@ type ParallelGateway
     fluxnovaJobPriority: String
     gatewayDirection: String
     fluxnovaAsync: Boolean
+  }
+
+type ParameterDefinition
+  {
+    id: String!
+    name: String
+    externalRef: String
+    parameterScope: ParameterScope
+    parameterDirection: DirectionEnum
+    declaredType: String
+    isRequired: Boolean
+    defaultValue: String
+    secret: Boolean
+    allowedValues: [String]
+  }
+
+type ParameterValue
+  {
+    id: String!
+    name: String
+    externalRef: String
+    parameterDefinition: ParameterDefinition
+    observedType: String
+    parameterDirection: DirectionEnum
+    serializedValue: String
+    valueHash: String
+    observedAt: String
+    producedByStepRun: StepRun
+    consumedByStepRuns: [StepRun]
+    derivedFrom: [ParameterValue]
+    redacted: Boolean
+    classification: DataClassification
   }
 
 type Participant implements InteractionNode
@@ -2796,10 +3178,54 @@ type ProcessDefinition
     version: Int!
   }
 
+type PromptMessage
+  {
+    id: String!
+    name: String
+    externalRef: String
+    messageRole: MessageRole
+    content: String
+    contentHash: String
+    sequenceNo: Int
+    redacted: Boolean
+    classification: DataClassification
+    parentInvocation: AiModelInvocation
+  }
+
 type Property
   {
     name: String!
     value: String
+  }
+
+type ProvenanceBundle
+  {
+    id: String!
+    name: String
+    generatedAt: String
+    sourceSystem: String
+    schemaVersion: String
+    workflowDefinitions: [WorkflowDefinition]
+    workflowRuns: [WorkflowRun]
+    agents: [Agent]
+    environments: [Environment]
+    runtimeComponents: [RuntimeComponent]
+    workflowArtifacts: [WorkflowArtifact]
+    parameterValues: [ParameterValue]
+    resources: [ExecutionResource]
+  }
+
+type ProvenanceIncident
+  {
+    id: String!
+    name: String
+    externalRef: String
+    incidentStatus: IncidentStatus
+    message: String
+    code: String
+    observedAt: String
+    relatedStepRun: StepRun
+    relatedWorkflowRun: WorkflowRun
   }
 
 type ReceiveTask
@@ -2930,6 +3356,19 @@ type ResourceRole
     resourceAssignmentExpression: ResourceAssignmentExpression
   }
 
+type ResourceUsage
+  {
+    id: String!
+    name: String
+    externalRef: String
+    metricName: String
+    metricValue: Float
+    metricUnit: String
+    measuredForWorkflowRun: WorkflowRun
+    measuredForStepRun: StepRun
+    executionResource: ExecutionResource
+  }
+
 type RootElement
   {
     scope: Boolean
@@ -2937,6 +3376,16 @@ type RootElement
     documentations: [Documentation]
     extensionElements: ExtensionElements
     diagramElement: DiagramElement
+  }
+
+type RuntimeComponent
+  {
+    id: String!
+    name: String
+    externalRef: String
+    componentKind: RuntimeComponentKind
+    definitionVersion: String
+    endpoint: String
   }
 
 type SchemaLogEntry
@@ -3153,6 +3602,48 @@ type StartEvent
     fluxnovaInitiator: String
   }
 
+type StepDefinition
+  {
+    id: String!
+    name: String
+    externalRef: String
+    workflowDefinition: WorkflowDefinition
+    bpmnType: BPMNElementType
+    implementationKind: ImplementationKind
+    implementationRef: String
+    calledElement: String
+    decisionRef: String
+    formRef: String
+    inputParameters: [ParameterDefinition]
+    outputParameters: [ParameterDefinition]
+    bpmnExtensionNames: [String]
+  }
+
+type StepRun
+  {
+    id: String!
+    name: String
+    externalRef: String
+    workflowRun: WorkflowRun
+    stepDefinition: StepDefinition
+    activityInstanceId: String
+    parentStepRun: StepRun
+    informedBy: [StepRun]
+    status: RunStatus
+    startedAt: String
+    endedAt: String
+    executedBy: Agent
+    environment: Environment
+    executionResource: ExecutionResource
+    inputValues: [ParameterValue]
+    outputValues: [ParameterValue]
+    consumedArtifacts: [WorkflowArtifact]
+    producedArtifacts: [WorkflowArtifact]
+    incidentMessage: String
+    retries: Int
+    sequenceNo: Int
+  }
+
 type Style
   {
     scope: Boolean
@@ -3346,6 +3837,23 @@ type TimerEventDefinition
     timeCycle: TimeCycle
   }
 
+type ToolCall
+  {
+    id: String!
+    name: String
+    externalRef: String
+    toolName: String
+    toolCallId: String
+    argumentsJson: String
+    resultJson: String
+    resultArtifact: WorkflowArtifact
+    calledStepRun: StepRun
+    startedAt: String
+    endedAt: String
+    status: RunStatus
+    parentInvocation: AiModelInvocation
+  }
+
 type Transaction
   {
     scope: Boolean
@@ -3501,4 +4009,55 @@ type Waypoint
     scope: Boolean
     x: Float
     y: Float
+  }
+
+type WorkflowArtifact
+  {
+    id: String!
+    name: String
+    externalRef: String
+    artifactKind: ArtifactKind
+    mediaType: String
+    pathOrUri: String
+    hash: String
+    sizeInBytes: Int
+    producedByStepRun: StepRun
+    consumedByStepRuns: [StepRun]
+  }
+
+type WorkflowDefinition
+  {
+    id: String!
+    name: String
+    externalRef: String
+    definitionVersion: String
+    definitionKey: String
+    deploymentId: String
+    sourceModelRef: WorkflowArtifact
+    runtimeComponent: RuntimeComponent
+    steps: [StepDefinition]
+    authors: [Agent]
+    tags: [String]
+  }
+
+type WorkflowRun
+  {
+    id: String!
+    name: String
+    externalRef: String
+    workflowDefinition: WorkflowDefinition
+    businessKey: String
+    parentWorkflowRun: WorkflowRun
+    status: RunStatus
+    startedAt: String
+    endedAt: String
+    startedBy: Agent
+    environment: Environment
+    runtimeComponent: RuntimeComponent
+    inputValues: [ParameterValue]
+    outputValues: [ParameterValue]
+    stepRuns: [StepRun]
+    incidents: [ProvenanceIncident]
+    resourceUsage: [ResourceUsage]
+    tags: [String]
   }

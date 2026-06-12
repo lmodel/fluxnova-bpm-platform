@@ -1,6 +1,8 @@
 # metamodel_version: 1.11.0
 # version: 2.0.0-SNAPSHOT
 BASE <https://w3id.org/lmodel/fluxnova-bpm-platform/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX linkml: <https://w3id.org/linkml/>
@@ -14,11 +16,13 @@ PREFIX fluxnova_bpm_job: <https://w3id.org/lmodel/fluxnova-bpm-platform/job/>
 PREFIX fluxnova_bpm_repository: <https://w3id.org/lmodel/fluxnova-bpm-platform/repository/>
 PREFIX fluxnova_bpm_runtime: <https://w3id.org/lmodel/fluxnova-bpm-platform/runtime/>
 PREFIX fluxnova_bpmn_model: <https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model/>
+PREFIX fluxnova_bpm_provenance: <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/>
 PREFIX fluxnova_bpmn_model_dc: <https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_dc/>
 PREFIX fluxnova_bpmn_model_di: <https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_di/>
 PREFIX fluxnova_bpmn_model_instance: <https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/>
 PREFIX fluxnova_bpmn_model_bpmndi: <https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_bpmndi/>
 PREFIX fluxnova_bpmn_model_fluxnova: <https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/>
+PREFIX fluxnova_bpm_ai_provenance: <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/>
 
 
 linkml:String xsd:string
@@ -89,6 +93,119 @@ fluxnova_bpmn_model_instance:Activity  (
     } OR @fluxnova_bpmn_model_instance:BpmnTask OR @fluxnova_bpmn_model_instance:CallActivity OR
     @fluxnova_bpmn_model_instance:SubProcess
 )
+
+fluxnova_bpm_provenance:Agent  (
+    CLOSED {
+       (  $fluxnova_bpm_provenance:Agent_tes (  &fluxnova_bpm_provenance:NamedThing_tes ;
+             rdf:type [ fluxnova_bpm_provenance:NamedThing ] ? ;
+             fluxnova_bpm_provenance:agent_kind [ prov:Person prov:Organization prov:SoftwareAgent prov:SoftwareAgent ] ? ;
+             fluxnova_bpm_identity:email @linkml:String ? ;
+             fluxnova_bpm_provenance:role @linkml:String *
+          ) ;
+          rdf:type [ fluxnova_bpm_provenance:Agent ]
+       )
+    } OR @fluxnova_bpm_ai_provenance:AiAgent
+)
+
+fluxnova_bpm_ai_provenance:AiAgent CLOSED {
+    (  $fluxnova_bpm_ai_provenance:AiAgent_tes (  &fluxnova_bpm_provenance:Agent_tes ;
+          rdf:type [ fluxnova_bpm_provenance:Agent ] ? ;
+          schema1:productID @linkml:String ? ;
+          schema1:name @linkml:String ? ;
+          schema1:softwareVersion @linkml:String ? ;
+          fluxnova_bpm_ai_provenance:provider @linkml:String ? ;
+          fluxnova_bpm_provenance:endpoint @linkml:String ? ;
+          fluxnova_bpm_ai_provenance:parameter_count @linkml:Integer ? ;
+          fluxnova_bpm_ai_provenance:context_window_tokens @linkml:Integer ? ;
+          fluxnova_bpm_ai_provenance:input_modalities [
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiModality#TEXT>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiModality#IMAGE>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiModality#AUDIO>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiModality#VIDEO>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiModality#MULTIMODAL>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiModality#EMBEDDING> ] * ;
+          fluxnova_bpm_ai_provenance:output_modalities [
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiModality#TEXT>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiModality#IMAGE>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiModality#AUDIO>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiModality#VIDEO>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiModality#MULTIMODAL>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiModality#EMBEDDING> ] * ;
+          fluxnova_bpm_ai_provenance:is_part_of_ai_system @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_ai_provenance:AiAgent ]
+    )
+}
+
+fluxnova_bpm_ai_provenance:AiDataset CLOSED {
+    (  $fluxnova_bpm_ai_provenance:AiDataset_tes (  &fluxnova_bpm_provenance:WorkflowArtifact_tes ;
+          rdf:type [ fluxnova_bpm_provenance:WorkflowArtifact ] ? ;
+          fluxnova_bpm_ai_provenance:dataset_kind [
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/DatasetKind#TRAINING>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/DatasetKind#FINE_TUNING>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/DatasetKind#EVALUATION>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/DatasetKind#RAG_CORPUS>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/DatasetKind#GROUND_TRUTH> ] ? ;
+          fluxnova_bpm_ai_provenance:record_count @linkml:Integer ? ;
+          schema1:license @linkml:String ? ;
+          fluxnova_bpm_provenance:classification [
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/DataClassification#PUBLIC>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/DataClassification#INTERNAL>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/DataClassification#CONFIDENTIAL>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/DataClassification#RESTRICTED> ] ?
+       ) ;
+       rdf:type [ fluxnova_bpm_ai_provenance:AiDataset ]
+    )
+}
+
+fluxnova_bpm_ai_provenance:AiModelDescriptor CLOSED {
+    (  $fluxnova_bpm_ai_provenance:AiModelDescriptor_tes (  &fluxnova_bpm_provenance:RuntimeComponent_tes ;
+          rdf:type [ fluxnova_bpm_provenance:RuntimeComponent ] ? ;
+          schema1:productID @linkml:String ? ;
+          fluxnova_bpm_ai_provenance:architecture @linkml:String ? ;
+          fluxnova_bpm_ai_provenance:parameter_count @linkml:Integer ? ;
+          fluxnova_bpm_ai_provenance:training_token_count @linkml:Integer ? ;
+          fluxnova_bpm_ai_provenance:context_window_tokens @linkml:Integer ? ;
+          fluxnova_bpm_ai_provenance:fine_tuning_description @linkml:String ? ;
+          fluxnova_bpm_ai_provenance:supported_languages @linkml:String *
+       ) ;
+       rdf:type [ fluxnova_bpm_ai_provenance:AiModelDescriptor ]
+    )
+}
+
+fluxnova_bpm_ai_provenance:AiModelInvocation CLOSED {
+    (  $fluxnova_bpm_ai_provenance:AiModelInvocation_tes (  &fluxnova_bpm_provenance:StepRun_tes ;
+          rdf:type [ fluxnova_bpm_provenance:StepRun ] ? ;
+          prov:wasAssociatedWith @fluxnova_bpm_ai_provenance:AiAgent ? ;
+          fluxnova_bpm_ai_provenance:invocation_kind [
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiInvocationKind#CHAT_COMPLETION>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiInvocationKind#COMPLETION>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiInvocationKind#EMBEDDING>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiInvocationKind#TOOL_USE>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiInvocationKind#AGENT_LOOP>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiInvocationKind#RETRIEVAL>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiInvocationKind#GUARDRAIL> ] ? ;
+          fluxnova_bpm_ai_provenance:prompt_messages @fluxnova_bpm_ai_provenance:PromptMessage * ;
+          fluxnova_bpm_ai_provenance:tool_calls @fluxnova_bpm_ai_provenance:ToolCall * ;
+          fluxnova_bpm_ai_provenance:response_message @fluxnova_bpm_ai_provenance:PromptMessage ? ;
+          fluxnova_bpm_ai_provenance:temperature @linkml:Decimal ? ;
+          fluxnova_bpm_ai_provenance:top_p @linkml:Decimal ? ;
+          fluxnova_bpm_ai_provenance:max_tokens @linkml:Integer ? ;
+          fluxnova_bpm_ai_provenance:total_input_tokens @linkml:Integer ? ;
+          fluxnova_bpm_ai_provenance:total_output_tokens @linkml:Integer ? ;
+          fluxnova_bpm_ai_provenance:cost_usd @linkml:Decimal ? ;
+          fluxnova_bpm_ai_provenance:safety_flags [ <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/SafetyFlag#NONE>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/SafetyFlag#POLICY_VIOLATION>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/SafetyFlag#HALLUCINATION_SUSPECTED>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/SafetyFlag#JAILBREAK_ATTEMPT>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/SafetyFlag#PII_LEAK>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/SafetyFlag#PROMPT_INJECTION>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/SafetyFlag#TOXICITY> ] * ;
+          fluxnova_bpm_ai_provenance:evaluation_results @fluxnova_bpm_ai_provenance:EvaluationResult *
+       ) ;
+       rdf:type [ fluxnova_bpm_ai_provenance:AiModelInvocation ]
+    )
+}
 
 fluxnova_bpmn_model_instance:Artifact  (
     CLOSED {
@@ -981,6 +1098,20 @@ fluxnova_bpmn_model_instance:EndPoint CLOSED {
     )
 }
 
+fluxnova_bpm_provenance:Environment CLOSED {
+    (  $fluxnova_bpm_provenance:Environment_tes (  &fluxnova_bpm_provenance:NamedThing_tes ;
+          rdf:type [ fluxnova_bpm_provenance:NamedThing ] ? ;
+          schema1:name @linkml:String ? ;
+          schema1:softwareVersion @linkml:String ? ;
+          fluxnova_bpm_provenance:host @linkml:String ? ;
+          fluxnova_bpm_provenance:region @linkml:String ? ;
+          fluxnova_bpm_provenance:deployment_ref @linkml:String ? ;
+          fluxnova_bpm_provenance:configuration_ref @fluxnova_bpm_provenance:WorkflowArtifact ?
+       ) ;
+       rdf:type [ fluxnova_bpm_provenance:Environment ]
+    )
+}
+
 fluxnova_bpmn_model_instance:Error CLOSED {
     (  $fluxnova_bpmn_model_instance:Error_tes (  &fluxnova_bpmn_model_instance:RootElement_tes ;
           rdf:type [ fluxnova_bpmn_model_instance:RootElement ] ? ;
@@ -1023,6 +1154,27 @@ fluxnova_bpmn_model_instance:EscalationEventDefinition CLOSED {
           fluxnova_bpmn_model_instance:escalation @fluxnova_bpmn_model_instance:Escalation ?
        ) ;
        rdf:type [ fluxnova_bpmn_model_instance:EscalationEventDefinition ]
+    )
+}
+
+fluxnova_bpm_ai_provenance:EvaluationResult CLOSED {
+    (  $fluxnova_bpm_ai_provenance:EvaluationResult_tes (  &fluxnova_bpm_provenance:NamedThing_tes ;
+          rdf:type [ fluxnova_bpm_provenance:NamedThing ] ? ;
+          fluxnova_bpm_ai_provenance:evaluator_name @linkml:String ? ;
+          fluxnova_bpm_ai_provenance:evaluator_kind [
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/EvaluatorKind#HUMAN_REVIEW>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/EvaluatorKind#LLM_AS_JUDGE>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/EvaluatorKind#METRIC>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/EvaluatorKind#GUARDRAIL>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/EvaluatorKind#STATIC_RULE> ] ? ;
+          fluxnova_bpm_provenance:metric_name @linkml:String ? ;
+          fluxnova_bpm_provenance:metric_value @linkml:Decimal ? ;
+          fluxnova_bpm_provenance:metric_unit @linkml:String ? ;
+          fluxnova_bpm_ai_provenance:passing @linkml:Boolean ? ;
+          fluxnova_bpm_ai_provenance:evaluated_at @linkml:Datetime ? ;
+          fluxnova_bpm_ai_provenance:evaluated_invocation @fluxnova_bpm_ai_provenance:AiModelInvocation ?
+       ) ;
+       rdf:type [ fluxnova_bpm_ai_provenance:EvaluationResult ]
     )
 }
 
@@ -1109,6 +1261,26 @@ fluxnova_bpm_runtime:Execution CLOSED {
           fluxnova_bpm_runtime:process_definition_key @linkml:String ?
        ) ;
        rdf:type [ fluxnova_bpm_runtime:Execution ]
+    )
+}
+
+fluxnova_bpm_provenance:ExecutionResource CLOSED {
+    (  $fluxnova_bpm_provenance:ExecutionResource_tes (  &fluxnova_bpm_provenance:NamedThing_tes ;
+          rdf:type [ fluxnova_bpm_provenance:NamedThing ] ? ;
+          fluxnova_bpm_provenance:resource_kind [ <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ResourceKind#HOST>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ResourceKind#CONTAINER>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ResourceKind#POD>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ResourceKind#NODE>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ResourceKind#DATABASE>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ResourceKind#QUEUE>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ResourceKind#CLUSTER>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ResourceKind#THREAD_POOL>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ResourceKind#EXTERNAL_API> ] ? ;
+          fluxnova_bpm_provenance:host @linkml:String ? ;
+          fluxnova_bpm_provenance:endpoint @linkml:String ? ;
+          fluxnova_bpm_provenance:labels @linkml:String *
+       ) ;
+       rdf:type [ fluxnova_bpm_provenance:ExecutionResource ]
     )
 }
 
@@ -2382,6 +2554,19 @@ fluxnova_bpm_base:MeterLog CLOSED {
     )
 }
 
+fluxnova_bpm_ai_provenance:ModelArtifact CLOSED {
+    (  $fluxnova_bpm_ai_provenance:ModelArtifact_tes (  &fluxnova_bpm_provenance:WorkflowArtifact_tes ;
+          rdf:type [ fluxnova_bpm_provenance:WorkflowArtifact ] ? ;
+          fluxnova_bpm_ai_provenance:model_card_uri @linkml:String ? ;
+          fluxnova_bpm_ai_provenance:weights_uri @linkml:String ? ;
+          fluxnova_bpm_ai_provenance:training_datasets @fluxnova_bpm_ai_provenance:AiDataset * ;
+          prov:wasDerivedFrom @fluxnova_bpm_ai_provenance:ModelArtifact ? ;
+          fluxnova_bpm_ai_provenance:parameter_count @linkml:Integer ?
+       ) ;
+       rdf:type [ fluxnova_bpm_ai_provenance:ModelArtifact ]
+    )
+}
+
 fluxnova_bpmn_model_instance:Monitoring CLOSED {
     (  $fluxnova_bpmn_model_instance:Monitoring_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
           rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ?
@@ -2412,6 +2597,24 @@ fluxnova_bpmn_model_instance:MultiInstanceLoopCharacteristics CLOSED {
           fluxnova_bpmn_model_instance:fluxnova_exclusive @linkml:Boolean ?
        ) ;
        rdf:type [ fluxnova_bpmn_model_instance:MultiInstanceLoopCharacteristics ]
+    )
+}
+
+fluxnova_bpm_provenance:NamedThing  (
+    @fluxnova_bpm_provenance:Agent OR @fluxnova_bpm_provenance:Environment OR @fluxnova_bpm_ai_provenance:EvaluationResult OR
+    @fluxnova_bpm_provenance:ExecutionResource OR @fluxnova_bpm_provenance:ParameterDefinition OR
+    @fluxnova_bpm_provenance:ParameterValue OR @fluxnova_bpm_ai_provenance:PromptMessage OR
+    @fluxnova_bpm_provenance:ProvenanceIncident OR @fluxnova_bpm_provenance:ResourceUsage OR
+    @fluxnova_bpm_provenance:RuntimeComponent OR @fluxnova_bpm_provenance:StepDefinition OR @fluxnova_bpm_provenance:StepRun OR
+    @fluxnova_bpm_ai_provenance:ToolCall OR @fluxnova_bpm_provenance:WorkflowArtifact OR
+    @fluxnova_bpm_provenance:WorkflowDefinition OR @fluxnova_bpm_provenance:WorkflowRun
+)
+
+fluxnova_bpm_provenance:NamedThing_struct {
+    (  $fluxnova_bpm_provenance:NamedThing_tes (  schema1:name @linkml:String ? ;
+          schema1:url @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_provenance:NamedThing ]
     )
 }
 
@@ -2465,6 +2668,55 @@ fluxnova_bpmn_model_instance:ParallelGateway CLOSED {
           fluxnova_bpmn_model_instance:fluxnova_async @linkml:Boolean ?
        ) ;
        rdf:type [ fluxnova_bpmn_model_instance:ParallelGateway ]
+    )
+}
+
+fluxnova_bpm_provenance:ParameterDefinition CLOSED {
+    (  $fluxnova_bpm_provenance:ParameterDefinition_tes (  &fluxnova_bpm_provenance:NamedThing_tes ;
+          rdf:type [ fluxnova_bpm_provenance:NamedThing ] ? ;
+          fluxnova_bpm_provenance:parameter_scope [
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ParameterScope#WORKFLOW>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ParameterScope#STEP>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ParameterScope#TASK>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ParameterScope#DECISION>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ParameterScope#FORM> ] ? ;
+          fluxnova_bpm_provenance:parameter_direction [ <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/DirectionEnum#IN>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/DirectionEnum#OUT>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/DirectionEnum#INOUT>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/DirectionEnum#LOCAL> ] ? ;
+          fluxnova_bpm_provenance:declared_type @linkml:String ? ;
+          fluxnova_bpm_runtime:is_required @linkml:Boolean ? ;
+          fluxnova_bpm_provenance:default_value @linkml:String ? ;
+          fluxnova_bpm_provenance:secret @linkml:Boolean ? ;
+          fluxnova_bpm_provenance:allowed_values @linkml:String *
+       ) ;
+       rdf:type [ fluxnova_bpm_provenance:ParameterDefinition ]
+    )
+}
+
+fluxnova_bpm_provenance:ParameterValue CLOSED {
+    (  $fluxnova_bpm_provenance:ParameterValue_tes (  &fluxnova_bpm_provenance:NamedThing_tes ;
+          rdf:type [ fluxnova_bpm_provenance:NamedThing ] ? ;
+          schema1:exampleOfWork @fluxnova_bpm_provenance:ParameterDefinition ? ;
+          fluxnova_bpm_provenance:observed_type @linkml:String ? ;
+          fluxnova_bpm_provenance:parameter_direction [ <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/DirectionEnum#IN>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/DirectionEnum#OUT>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/DirectionEnum#INOUT>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/DirectionEnum#LOCAL> ] ? ;
+          fluxnova_bpm_provenance:serialized_value @linkml:String ? ;
+          fluxnova_bpm_provenance:value_hash @linkml:String ? ;
+          fluxnova_bpm_provenance:observed_at @linkml:Datetime ? ;
+          prov:wasGeneratedBy @fluxnova_bpm_provenance:StepRun ? ;
+          prov:used @fluxnova_bpm_provenance:StepRun * ;
+          prov:wasDerivedFrom @fluxnova_bpm_provenance:ParameterValue * ;
+          fluxnova_bpm_provenance:redacted @linkml:Boolean ? ;
+          fluxnova_bpm_provenance:classification [
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/DataClassification#PUBLIC>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/DataClassification#INTERNAL>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/DataClassification#CONFIDENTIAL>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/DataClassification#RESTRICTED> ] ?
+       ) ;
+       rdf:type [ fluxnova_bpm_provenance:ParameterValue ]
     )
 }
 
@@ -2589,9 +2841,67 @@ fluxnova_bpm_repository:ProcessDefinition CLOSED {
     )
 }
 
+fluxnova_bpm_ai_provenance:PromptMessage CLOSED {
+    (  $fluxnova_bpm_ai_provenance:PromptMessage_tes (  &fluxnova_bpm_provenance:NamedThing_tes ;
+          rdf:type [ fluxnova_bpm_provenance:NamedThing ] ? ;
+          fluxnova_bpm_ai_provenance:message_role [
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/MessageRole#SYSTEM>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/MessageRole#USER>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/MessageRole#ASSISTANT>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/MessageRole#TOOL> ] ? ;
+          fluxnova_bpm_ai_provenance:content @linkml:String ? ;
+          fluxnova_bpm_ai_provenance:content_hash @linkml:String ? ;
+          fluxnova_bpm_provenance:sequence_no @linkml:Integer ? ;
+          fluxnova_bpm_provenance:redacted @linkml:Boolean ? ;
+          fluxnova_bpm_provenance:classification [
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/DataClassification#PUBLIC>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/DataClassification#INTERNAL>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/DataClassification#CONFIDENTIAL>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/DataClassification#RESTRICTED> ] ? ;
+          fluxnova_bpm_ai_provenance:parent_invocation @fluxnova_bpm_ai_provenance:AiModelInvocation ?
+       ) ;
+       rdf:type [ fluxnova_bpm_ai_provenance:PromptMessage ]
+    )
+}
+
 fluxnova_bpm_base:Property CLOSED {
     (  $fluxnova_bpm_base:Property_tes fluxnova_common:value @linkml:String ? ;
        rdf:type [ fluxnova_bpm_base:Property ]
+    )
+}
+
+fluxnova_bpm_provenance:ProvenanceBundle CLOSED {
+    (  $fluxnova_bpm_provenance:ProvenanceBundle_tes (  schema1:name @linkml:String ? ;
+          prov:generatedAtTime @linkml:Datetime ? ;
+          prov:wasAttributedTo @linkml:String ? ;
+          dcterms:hasVersion @linkml:String ? ;
+          fluxnova_bpm_provenance:workflow_definitions @fluxnova_bpm_provenance:WorkflowDefinition * ;
+          fluxnova_bpm_provenance:workflow_runs @fluxnova_bpm_provenance:WorkflowRun * ;
+          fluxnova_bpm_provenance:agents @fluxnova_bpm_provenance:Agent * ;
+          fluxnova_bpm_provenance:environments @fluxnova_bpm_provenance:Environment * ;
+          fluxnova_bpm_provenance:runtime_components @fluxnova_bpm_provenance:RuntimeComponent * ;
+          fluxnova_bpm_provenance:workflow_artifacts @fluxnova_bpm_provenance:WorkflowArtifact * ;
+          fluxnova_bpm_provenance:parameter_values @fluxnova_bpm_provenance:ParameterValue * ;
+          fluxnova_bpm_provenance:resources @fluxnova_bpm_provenance:ExecutionResource *
+       ) ;
+       rdf:type [ fluxnova_bpm_provenance:ProvenanceBundle ]
+    )
+}
+
+fluxnova_bpm_provenance:ProvenanceIncident CLOSED {
+    (  $fluxnova_bpm_provenance:ProvenanceIncident_tes (  &fluxnova_bpm_provenance:NamedThing_tes ;
+          rdf:type [ fluxnova_bpm_provenance:NamedThing ] ? ;
+          fluxnova_bpm_provenance:incident_status [ <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/IncidentStatus#OPEN>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/IncidentStatus#INVESTIGATING>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/IncidentStatus#RESOLVED>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/IncidentStatus#IGNORED> ] ? ;
+          fluxnova_common:message @linkml:String ? ;
+          fluxnova_bpm_provenance:code @linkml:String ? ;
+          fluxnova_bpm_provenance:observed_at @linkml:Datetime ? ;
+          fluxnova_bpm_provenance:related_step_run @fluxnova_bpm_provenance:StepRun ? ;
+          fluxnova_bpm_provenance:related_workflow_run @fluxnova_bpm_provenance:WorkflowRun ?
+       ) ;
+       rdf:type [ fluxnova_bpm_provenance:ProvenanceIncident ]
     )
 }
 
@@ -2702,6 +3012,20 @@ fluxnova_bpmn_model_instance:ResourceRole  (
     } OR @fluxnova_bpmn_model_instance:Performer
 )
 
+fluxnova_bpm_provenance:ResourceUsage CLOSED {
+    (  $fluxnova_bpm_provenance:ResourceUsage_tes (  &fluxnova_bpm_provenance:NamedThing_tes ;
+          rdf:type [ fluxnova_bpm_provenance:NamedThing ] ? ;
+          fluxnova_bpm_provenance:metric_name @linkml:String ? ;
+          fluxnova_bpm_provenance:metric_value @linkml:Decimal ? ;
+          fluxnova_bpm_provenance:metric_unit @linkml:String ? ;
+          fluxnova_bpm_provenance:measured_for_workflow_run @fluxnova_bpm_provenance:WorkflowRun ? ;
+          fluxnova_bpm_provenance:measured_for_step_run @fluxnova_bpm_provenance:StepRun ? ;
+          fluxnova_bpm_provenance:execution_resource @fluxnova_bpm_provenance:ExecutionResource ?
+       ) ;
+       rdf:type [ fluxnova_bpm_provenance:ResourceUsage ]
+    )
+}
+
 fluxnova_bpmn_model_instance:RootElement  (
     CLOSED {
        (  $fluxnova_bpmn_model_instance:RootElement_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
@@ -2715,6 +3039,26 @@ fluxnova_bpmn_model_instance:RootElement  (
     @fluxnova_bpmn_model_instance:Escalation OR @fluxnova_bpmn_model_instance:EventDefinition OR
     @fluxnova_bpmn_model_instance:Interface OR @fluxnova_bpmn_model_instance:ItemDefinition OR
     @fluxnova_bpmn_model_instance:Message OR @fluxnova_bpmn_model_instance:Resource OR @fluxnova_bpmn_model_instance:Signal
+)
+
+fluxnova_bpm_provenance:RuntimeComponent  (
+    CLOSED {
+       (  $fluxnova_bpm_provenance:RuntimeComponent_tes (  &fluxnova_bpm_provenance:NamedThing_tes ;
+             rdf:type [ fluxnova_bpm_provenance:NamedThing ] ? ;
+             fluxnova_bpm_provenance:component_kind [
+                <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/RuntimeComponentKind#ENGINE>
+                <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/RuntimeComponentKind#REST_API>
+                <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/RuntimeComponentKind#JOB_EXECUTOR>
+                <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/RuntimeComponentKind#HISTORY_EXPORTER>
+                <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/RuntimeComponentKind#PLUGIN>
+                <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/RuntimeComponentKind#CONNECTOR>
+                <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/RuntimeComponentKind#MODELER_DEPLOYER> ] ? ;
+             schema1:version @linkml:String ? ;
+             fluxnova_bpm_provenance:endpoint @linkml:String ?
+          ) ;
+          rdf:type [ fluxnova_bpm_provenance:RuntimeComponent ]
+       )
+    } OR @fluxnova_bpm_ai_provenance:AiModelDescriptor
 )
 
 fluxnova_bpm_base:SchemaLogEntry CLOSED {
@@ -2838,6 +3182,81 @@ fluxnova_bpmn_model_instance:StartEvent CLOSED {
        rdf:type [ fluxnova_bpmn_model_instance:StartEvent ]
     )
 }
+
+fluxnova_bpm_provenance:StepDefinition CLOSED {
+    (  $fluxnova_bpm_provenance:StepDefinition_tes (  &fluxnova_bpm_provenance:NamedThing_tes ;
+          rdf:type [ fluxnova_bpm_provenance:NamedThing ] ? ;
+          schema1:instrument @fluxnova_bpm_provenance:WorkflowDefinition ? ;
+          fluxnova_bpm_provenance:bpmn_type [ <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/BPMNElementType#PROCESS>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/BPMNElementType#START_EVENT>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/BPMNElementType#END_EVENT>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/BPMNElementType#USER_TASK>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/BPMNElementType#SERVICE_TASK>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/BPMNElementType#SCRIPT_TASK>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/BPMNElementType#BUSINESS_RULE_TASK>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/BPMNElementType#MANUAL_TASK>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/BPMNElementType#CALL_ACTIVITY>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/BPMNElementType#SUB_PROCESS>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/BPMNElementType#EXCLUSIVE_GATEWAY>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/BPMNElementType#PARALLEL_GATEWAY>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/BPMNElementType#EVENT_BASED_GATEWAY>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/BPMNElementType#INTERMEDIATE_CATCH_EVENT>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/BPMNElementType#INTERMEDIATE_THROW_EVENT>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/BPMNElementType#BOUNDARY_EVENT>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/BPMNElementType#SEQUENCE_FLOW> ] ? ;
+          fluxnova_bpm_provenance:implementation_kind [
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ImplementationKind#USER_TASK>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ImplementationKind#JAVA_DELEGATE>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ImplementationKind#EXPRESSION>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ImplementationKind#SCRIPT>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ImplementationKind#CONNECTOR>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ImplementationKind#CALL_ACTIVITY>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ImplementationKind#BUSINESS_RULE>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ImplementationKind#EXTERNAL_SERVICE>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ImplementationKind#EVENT>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ImplementationKind#GATEWAY>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ImplementationKind#SUBPROCESS> ] ? ;
+          fluxnova_bpmn_model_instance:implementation_ref @linkml:String ? ;
+          fluxnova_bpmn_model_instance:called_element @linkml:String ? ;
+          fluxnova_bpm_provenance:decision_ref @linkml:String ? ;
+          fluxnova_bpm_provenance:form_ref @linkml:String ? ;
+          fluxnova_bpm_provenance:input_parameters @fluxnova_bpm_provenance:ParameterDefinition * ;
+          fluxnova_bpm_provenance:output_parameters @fluxnova_bpm_provenance:ParameterDefinition * ;
+          fluxnova_bpm_provenance:bpmn_extension_names @linkml:String *
+       ) ;
+       rdf:type [ fluxnova_bpm_provenance:StepDefinition ]
+    )
+}
+
+fluxnova_bpm_provenance:StepRun  (
+    CLOSED {
+       (  $fluxnova_bpm_provenance:StepRun_tes (  &fluxnova_bpm_provenance:NamedThing_tes ;
+             rdf:type [ fluxnova_bpm_provenance:NamedThing ] ? ;
+             fluxnova_bpm_provenance:workflow_run @fluxnova_bpm_provenance:WorkflowRun ? ;
+             schema1:instrument @fluxnova_bpm_provenance:StepDefinition ? ;
+             fluxnova_bpm_runtime:activity_instance_id @linkml:String ? ;
+             fluxnova_bpm_provenance:parent_step_run @fluxnova_bpm_provenance:StepRun ? ;
+             prov:wasInformedBy @fluxnova_bpm_provenance:StepRun * ;
+             schema1:actionStatus [ schema1:PotentialActionStatus schema1:ActiveActionStatus schema1:CompletedActionStatus
+                schema1:FailedActionStatus <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/RunStatus#CANCELLED>
+                <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/RunStatus#SUSPENDED> ] ? ;
+             schema1:startTime @linkml:Datetime ? ;
+             schema1:endTime @linkml:Datetime ? ;
+             prov:wasAssociatedWith @fluxnova_bpm_provenance:Agent ? ;
+             fluxnova_bpm_provenance:environment @fluxnova_bpm_provenance:Environment ? ;
+             fluxnova_bpm_provenance:execution_resource @fluxnova_bpm_provenance:ExecutionResource ? ;
+             schema1:object @fluxnova_bpm_provenance:ParameterValue * ;
+             schema1:result @fluxnova_bpm_provenance:ParameterValue * ;
+             prov:used @fluxnova_bpm_provenance:WorkflowArtifact * ;
+             prov:generated @fluxnova_bpm_provenance:WorkflowArtifact * ;
+             fluxnova_bpm_runtime:incident_message @linkml:String ? ;
+             fluxnova_bpm_runtime:retries @linkml:Integer ? ;
+             fluxnova_bpm_provenance:sequence_no @linkml:Integer ?
+          ) ;
+          rdf:type [ fluxnova_bpm_provenance:StepRun ]
+       )
+    } OR @fluxnova_bpm_ai_provenance:AiModelInvocation
+)
 
 fluxnova_bpmn_model_di:Style  (
     CLOSED {
@@ -3000,6 +3419,26 @@ fluxnova_bpmn_model_instance:TimerEventDefinition CLOSED {
     )
 }
 
+fluxnova_bpm_ai_provenance:ToolCall CLOSED {
+    (  $fluxnova_bpm_ai_provenance:ToolCall_tes (  &fluxnova_bpm_provenance:NamedThing_tes ;
+          rdf:type [ fluxnova_bpm_provenance:NamedThing ] ? ;
+          fluxnova_bpm_ai_provenance:tool_name @linkml:String ? ;
+          fluxnova_bpm_ai_provenance:tool_call_id @linkml:String ? ;
+          fluxnova_bpm_ai_provenance:arguments_json @linkml:String ? ;
+          fluxnova_bpm_ai_provenance:result_json @linkml:String ? ;
+          fluxnova_bpm_ai_provenance:result_artifact @fluxnova_bpm_provenance:WorkflowArtifact ? ;
+          fluxnova_bpm_ai_provenance:called_step_run @fluxnova_bpm_provenance:StepRun ? ;
+          schema1:startTime @linkml:Datetime ? ;
+          schema1:endTime @linkml:Datetime ? ;
+          schema1:actionStatus [ schema1:PotentialActionStatus schema1:ActiveActionStatus schema1:CompletedActionStatus
+             schema1:FailedActionStatus <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/RunStatus#CANCELLED>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/RunStatus#SUSPENDED> ] ? ;
+          fluxnova_bpm_ai_provenance:parent_invocation @fluxnova_bpm_ai_provenance:AiModelInvocation ?
+       ) ;
+       rdf:type [ fluxnova_bpm_ai_provenance:ToolCall ]
+    )
+}
+
 fluxnova_bpmn_model_instance:Transaction CLOSED {
     (  $fluxnova_bpmn_model_instance:Transaction_tes (  &fluxnova_bpmn_model_instance:SubProcess_tes ;
           rdf:type [ fluxnova_bpmn_model_instance:SubProcess ] ? ;
@@ -3107,5 +3546,72 @@ fluxnova_bpmn_model_di:Waypoint CLOSED {
           rdf:type [ fluxnova_bpmn_model_dc:Point ] ?
        ) ;
        rdf:type [ fluxnova_bpmn_model_di:Waypoint ] ?
+    )
+}
+
+fluxnova_bpm_provenance:WorkflowArtifact  (
+    CLOSED {
+       (  $fluxnova_bpm_provenance:WorkflowArtifact_tes (  &fluxnova_bpm_provenance:NamedThing_tes ;
+             rdf:type [ fluxnova_bpm_provenance:NamedThing ] ? ;
+             fluxnova_bpm_provenance:artifact_kind [
+                <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ArtifactKind#BPMN_XML>
+                <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ArtifactKind#DMN_XML>
+                <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ArtifactKind#FORM_SCHEMA>
+                <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ArtifactKind#PAYLOAD>
+                <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ArtifactKind#DOCUMENT>
+                <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ArtifactKind#LOG>
+                <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ArtifactKind#EXPORT_BUNDLE>
+                <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ArtifactKind#SCREENSHOT>
+                <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ArtifactKind#OTHER> ] ? ;
+             schema1:encodingFormat @linkml:String ? ;
+             schema1:contentUrl @linkml:String ? ;
+             fluxnova_bpm_provenance:hash @linkml:String ? ;
+             schema1:contentSize @linkml:Integer ? ;
+             prov:wasGeneratedBy @fluxnova_bpm_provenance:StepRun ? ;
+             prov:used @fluxnova_bpm_provenance:StepRun *
+          ) ;
+          rdf:type [ fluxnova_bpm_provenance:WorkflowArtifact ]
+       )
+    } OR @fluxnova_bpm_ai_provenance:AiDataset OR @fluxnova_bpm_ai_provenance:ModelArtifact
+)
+
+fluxnova_bpm_provenance:WorkflowDefinition CLOSED {
+    (  $fluxnova_bpm_provenance:WorkflowDefinition_tes (  &fluxnova_bpm_provenance:NamedThing_tes ;
+          rdf:type [ fluxnova_bpm_provenance:NamedThing ] ? ;
+          schema1:version @linkml:String ? ;
+          fluxnova_bpm_provenance:definition_key @linkml:String ? ;
+          fluxnova_bpm_base:deployment_id @linkml:String ? ;
+          prov:hadPrimarySource @fluxnova_bpm_provenance:WorkflowArtifact ? ;
+          schema1:instrument @fluxnova_bpm_provenance:RuntimeComponent ? ;
+          fluxnova_bpm_provenance:steps @fluxnova_bpm_provenance:StepDefinition * ;
+          fluxnova_bpm_provenance:authors @fluxnova_bpm_provenance:Agent * ;
+          fluxnova_bpm_provenance:tags @linkml:String *
+       ) ;
+       rdf:type [ fluxnova_bpm_provenance:WorkflowDefinition ]
+    )
+}
+
+fluxnova_bpm_provenance:WorkflowRun CLOSED {
+    (  $fluxnova_bpm_provenance:WorkflowRun_tes (  &fluxnova_bpm_provenance:NamedThing_tes ;
+          rdf:type [ fluxnova_bpm_provenance:NamedThing ] ? ;
+          schema1:instrument @fluxnova_bpm_provenance:WorkflowDefinition ? ;
+          fluxnova_bpm_runtime:business_key @linkml:String ? ;
+          fluxnova_bpm_provenance:parent_workflow_run @fluxnova_bpm_provenance:WorkflowRun ? ;
+          schema1:actionStatus [ schema1:PotentialActionStatus schema1:ActiveActionStatus schema1:CompletedActionStatus
+             schema1:FailedActionStatus <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/RunStatus#CANCELLED>
+             <https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/RunStatus#SUSPENDED> ] ? ;
+          schema1:startTime @linkml:Datetime ? ;
+          schema1:endTime @linkml:Datetime ? ;
+          prov:wasAssociatedWith @fluxnova_bpm_provenance:Agent ? ;
+          fluxnova_bpm_provenance:environment @fluxnova_bpm_provenance:Environment ? ;
+          schema1:instrument @fluxnova_bpm_provenance:RuntimeComponent ? ;
+          schema1:object @fluxnova_bpm_provenance:ParameterValue * ;
+          schema1:result @fluxnova_bpm_provenance:ParameterValue * ;
+          fluxnova_bpm_provenance:step_runs @fluxnova_bpm_provenance:StepRun * ;
+          fluxnova_bpm_provenance:incidents @fluxnova_bpm_provenance:ProvenanceIncident * ;
+          fluxnova_bpm_provenance:resource_usage @fluxnova_bpm_provenance:ResourceUsage * ;
+          fluxnova_bpm_provenance:tags @linkml:String *
+       ) ;
+       rdf:type [ fluxnova_bpm_provenance:WorkflowRun ]
     )
 }

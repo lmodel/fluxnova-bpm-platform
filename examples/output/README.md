@@ -108,6 +108,352 @@ name: Accounting
 type: ORGANIZATION
 
 ```
+## ProvenanceBundle-customer-onboarding
+### Input
+```yaml
+agents:
+- agent_kind: ORGANIZATION
+  id: agent-team-onboarding-platform
+  name: Onboarding Platform Team
+  role:
+  - AUTHOR
+  - OWNER
+- agent_kind: SERVICE_ACCOUNT
+  id: agent-user-svc-intake-api
+  name: svc-intake-api
+  role:
+  - STARTER
+- agent_kind: PERSON
+  email: jane.doe@example.org
+  id: agent-user-analyst-jane-doe
+  name: Jane Doe
+  role:
+  - ASSIGNEE
+  - APPROVER
+- agent_kind: SYSTEM
+  id: agent-system-intake-delegate
+  name: intake-delegate
+  role:
+  - EXECUTOR
+- agent_kind: SYSTEM
+  id: agent-system-screening-connector
+  name: screening-connector
+  role:
+  - EXECUTOR
+environments:
+- deployment_ref: helm://fluxnova/2.0.0
+  host: fluxnova-prod-a.internal
+  id: env-prod-eu-west-1-cluster-a
+  name: prod-eu-west-1 cluster-a
+  region: eu-west-1
+  runtime_name: Fluxnova BPM Platform
+  runtime_version: 2.0.0
+generated_at: '2026-06-11T17:30:38+01:00'
+id: bundle-sample-approval-2026-06-11
+name: Sample Fluxnova provenance bundle for customer onboarding review
+parameter_values:
+- classification: INTERNAL
+  id: pval-90001-customer-id
+  name: customer_id value
+  observed_at: '2026-06-11T09:00:00+01:00'
+  observed_type: string
+  parameter_definition: paramdef-workflow-customer-id
+  parameter_direction: IN
+  redacted: false
+  serialized_value: CUST-00004561
+  value_hash: sha256:cf2d8dc9f0e6d7f1977ea4b0d0af3b0fb3dcc61d74f2f0db3cf8c2d3fcb84f8b
+- classification: PUBLIC
+  id: pval-90001-country-code
+  name: country_code value
+  observed_at: '2026-06-11T09:00:00+01:00'
+  observed_type: string
+  parameter_definition: paramdef-workflow-country-code
+  parameter_direction: IN
+  redacted: false
+  serialized_value: IE
+  value_hash: sha256:d6f8f248d1e56c4f1fa091ce0ca4f1f5dcb1b9be1aaf53284f9ac5f7f5e2b43e
+- classification: INTERNAL
+  id: pval-90001-screening-required
+  name: screening_required value
+  observed_at: '2026-06-11T09:00:04+01:00'
+  observed_type: boolean
+  parameter_definition: paramdef-workflow-screening-required
+  parameter_direction: OUT
+  produced_by_step_run: steprun-90001-intake-service-task
+  redacted: false
+  serialized_value: 'true'
+  value_hash: sha256:b5bea41b6c623f7c09f1bf24dcae58eb807f4cffa95b40d44e5f1b7d3c1f9d90
+- classification: INTERNAL
+  id: pval-90001-screening-result
+  name: screening_result value
+  observed_at: '2026-06-11T09:00:25+01:00'
+  observed_type: string
+  parameter_definition: paramdef-workflow-screening-result
+  parameter_direction: OUT
+  produced_by_step_run: steprun-90001-screening-task
+  redacted: false
+  serialized_value: CLEAR
+  value_hash: sha256:36f958646526829fc0e6fe0ea0e4f6de6cd47d9b6f5b2746e3f4d5f7d77b76d3
+- classification: INTERNAL
+  id: pval-90001-approval-status
+  name: approval_status value
+  observed_at: '2026-06-11T09:08:45+01:00'
+  observed_type: string
+  parameter_definition: paramdef-workflow-approval-status
+  parameter_direction: OUT
+  produced_by_step_run: steprun-90001-analyst-user-task
+  redacted: false
+  serialized_value: APPROVED
+  value_hash: sha256:6898c7238ef27d7a346ca1f13f9d0a6d3295278e5a7552e71c0ec8f4f33f3e70
+resources:
+- host: worker-a1.internal
+  id: resource-pod-fluxnova-worker-a1
+  labels:
+  - namespace=fluxnova
+  - cluster=prod-a
+  name: fluxnova-worker-a1
+  resource_kind: POD
+runtime_components:
+- component_kind: ENGINE
+  definition_version: 2.0.0
+  endpoint: http://localhost:8080/engine-rest
+  id: runtime-engine-fluxnova-2-0-0
+  name: Fluxnova Engine
+- component_kind: REST_API
+  definition_version: 2.0.0
+  endpoint: http://localhost:8080/engine-rest
+  id: runtime-rest-api-fluxnova-2-0-0
+  name: Fluxnova REST API
+- component_kind: PLUGIN
+  definition_version: 0.1.0
+  id: runtime-plugin-provenance-exporter
+  name: Fluxnova Provenance Exporter Plugin
+schema_version: 0.1.0
+source_system: Fluxnova BPM Platform sidecar exporter
+workflow_artifacts:
+- artifact_kind: BPMN_XML
+  hash: sha256:18d8d480f5d7f7ef0b4c93f7af7e84e8f1ed6c2337c1d4d1f87d52b8d773b001
+  id: artifact-bpmn-customer-onboarding-review-v1
+  media_type: application/xml
+  name: customer-onboarding-review.bpmn
+  path_or_uri: repo://models/customer-onboarding-review.bpmn
+  size_in_bytes: 16284
+- artifact_kind: PAYLOAD
+  hash: sha256:3c8b8f2b7809cf0f02fe2a3c22f4f387d4dcf46c6df3bb19f2b8d7ca98d6c0ab
+  id: artifact-payload-screening-request-90001
+  media_type: application/json
+  name: screening-request.json
+  path_or_uri: s3://example/screening/request/90001.json
+  size_in_bytes: 512
+- artifact_kind: PAYLOAD
+  hash: sha256:fb44de8c4dead7e5eb26735d5c438035aa17fcc84efad71c1a2bb1c8752ed2cf
+  id: artifact-payload-screening-response-90001
+  media_type: application/json
+  name: screening-response.json
+  path_or_uri: s3://example/screening/response/90001.json
+  size_in_bytes: 896
+- artifact_kind: EXPORT_BUNDLE
+  id: artifact-export-bundle-90001
+  media_type: application/yaml
+  name: sample_fluxnova_provenance_instance.yaml
+  path_or_uri: ./sample_fluxnova_provenance_instance.yaml
+workflow_definitions:
+- authors:
+  - agent-team-onboarding-platform
+  definition_key: customerOnboardingReview
+  definition_version: 1.0.0
+  deployment_id: dep-1001
+  external_ref: process-definition:customerOnboardingReview:1:dep-1001
+  id: wfdef-customer-onboarding-review-1
+  name: Customer Onboarding Review
+  runtime_component: runtime-engine-fluxnova-2-0-0
+  source_model_ref: artifact-bpmn-customer-onboarding-review-v1
+  steps:
+  - bpmn_type: START_EVENT
+    id: stepdef-start-event
+    implementation_kind: EVENT
+    name: Start Onboarding
+    workflow_definition: wfdef-customer-onboarding-review-1
+  - bpmn_type: SERVICE_TASK
+    id: stepdef-intake-service-task
+    implementation_kind: JAVA_DELEGATE
+    implementation_ref: com.example.onboarding.CaptureIntakeDelegate
+    input_parameters:
+    - declared_type: string
+      id: paramdef-workflow-customer-id
+      is_required: true
+      name: customer_id
+      parameter_direction: IN
+      parameter_scope: WORKFLOW
+      secret: false
+    - declared_type: string
+      id: paramdef-workflow-country-code
+      is_required: true
+      name: country_code
+      parameter_direction: IN
+      parameter_scope: WORKFLOW
+      secret: false
+    name: Capture Intake Data
+    output_parameters:
+    - declared_type: boolean
+      id: paramdef-workflow-screening-required
+      is_required: true
+      name: screening_required
+      parameter_direction: OUT
+      parameter_scope: WORKFLOW
+      secret: false
+    workflow_definition: wfdef-customer-onboarding-review-1
+  - bpmn_type: SERVICE_TASK
+    id: stepdef-screening-task
+    implementation_kind: EXTERNAL_SERVICE
+    implementation_ref: screening-api:v2/check
+    name: Sanctions Screening
+    output_parameters:
+    - allowed_values:
+      - CLEAR
+      - REVIEW
+      - MATCH
+      declared_type: string
+      id: paramdef-workflow-screening-result
+      is_required: true
+      name: screening_result
+      parameter_direction: OUT
+      parameter_scope: WORKFLOW
+      secret: false
+    workflow_definition: wfdef-customer-onboarding-review-1
+  - bpmn_type: USER_TASK
+    form_ref: forms://customer-onboarding-review
+    id: stepdef-analyst-user-task
+    implementation_kind: USER_TASK
+    name: Analyst Approval
+    output_parameters:
+    - allowed_values:
+      - APPROVED
+      - REJECTED
+      declared_type: string
+      id: paramdef-workflow-approval-status
+      is_required: true
+      name: approval_status
+      parameter_direction: OUT
+      parameter_scope: WORKFLOW
+      secret: false
+    workflow_definition: wfdef-customer-onboarding-review-1
+  - bpmn_type: END_EVENT
+    id: stepdef-end-event
+    implementation_kind: EVENT
+    name: Onboarding Complete
+    workflow_definition: wfdef-customer-onboarding-review-1
+workflow_runs:
+- business_key: CASE-2026-000123
+  ended_at: '2026-06-11T09:08:45+01:00'
+  environment: env-prod-eu-west-1-cluster-a
+  id: wfrun-customer-onboarding-review-90001
+  input_values:
+  - pval-90001-customer-id
+  - pval-90001-country-code
+  name: Customer Onboarding Review instance 90001
+  output_values:
+  - pval-90001-approval-status
+  resource_usage:
+  - id: metric-90001-duration-ms
+    measured_for_workflow_run: wfrun-customer-onboarding-review-90001
+    metric_name: duration_ms
+    metric_unit: ms
+    metric_value: 525000.0
+    name: Workflow duration
+  - execution_resource: resource-pod-fluxnova-worker-a1
+    id: metric-90001-screening-duration-ms
+    measured_for_step_run: steprun-90001-screening-task
+    metric_name: duration_ms
+    metric_unit: ms
+    metric_value: 20000.0
+    name: Screening step duration
+  runtime_component: runtime-engine-fluxnova-2-0-0
+  started_at: '2026-06-11T09:00:00+01:00'
+  started_by: agent-user-svc-intake-api
+  status: COMPLETED
+  step_runs:
+  - activity_instance_id: act-90001-001
+    ended_at: '2026-06-11T09:00:00+01:00'
+    id: steprun-90001-start-event
+    name: Start Onboarding execution
+    sequence_no: 1
+    started_at: '2026-06-11T09:00:00+01:00'
+    status: COMPLETED
+    step_definition: stepdef-start-event
+    workflow_run: wfrun-customer-onboarding-review-90001
+  - activity_instance_id: act-90001-002
+    ended_at: '2026-06-11T09:00:04+01:00'
+    executed_by: agent-system-intake-delegate
+    execution_resource: resource-pod-fluxnova-worker-a1
+    id: steprun-90001-intake-service-task
+    input_values:
+    - pval-90001-customer-id
+    - pval-90001-country-code
+    name: Capture Intake Data execution
+    output_values:
+    - pval-90001-screening-required
+    sequence_no: 2
+    started_at: '2026-06-11T09:00:01+01:00'
+    status: COMPLETED
+    step_definition: stepdef-intake-service-task
+    workflow_run: wfrun-customer-onboarding-review-90001
+  - activity_instance_id: act-90001-003
+    consumed_artifacts:
+    - artifact-payload-screening-request-90001
+    ended_at: '2026-06-11T09:00:25+01:00'
+    executed_by: agent-system-screening-connector
+    execution_resource: resource-pod-fluxnova-worker-a1
+    id: steprun-90001-screening-task
+    informed_by:
+    - steprun-90001-intake-service-task
+    input_values:
+    - pval-90001-customer-id
+    - pval-90001-country-code
+    name: Sanctions Screening execution
+    output_values:
+    - pval-90001-screening-result
+    produced_artifacts:
+    - artifact-payload-screening-response-90001
+    sequence_no: 3
+    started_at: '2026-06-11T09:00:05+01:00'
+    status: COMPLETED
+    step_definition: stepdef-screening-task
+    workflow_run: wfrun-customer-onboarding-review-90001
+  - activity_instance_id: act-90001-004
+    ended_at: '2026-06-11T09:08:40+01:00'
+    executed_by: agent-user-analyst-jane-doe
+    id: steprun-90001-analyst-user-task
+    informed_by:
+    - steprun-90001-screening-task
+    input_values:
+    - pval-90001-screening-result
+    name: Analyst Approval execution
+    output_values:
+    - pval-90001-approval-status
+    sequence_no: 4
+    started_at: '2026-06-11T09:01:00+01:00'
+    status: COMPLETED
+    step_definition: stepdef-analyst-user-task
+    workflow_run: wfrun-customer-onboarding-review-90001
+  - activity_instance_id: act-90001-005
+    ended_at: '2026-06-11T09:08:45+01:00'
+    id: steprun-90001-end-event
+    informed_by:
+    - steprun-90001-analyst-user-task
+    name: Onboarding Complete execution
+    sequence_no: 5
+    started_at: '2026-06-11T09:08:45+01:00'
+    status: COMPLETED
+    step_definition: stepdef-end-event
+    workflow_run: wfrun-customer-onboarding-review-90001
+  tags:
+  - completed
+  - sample
+  - screening-clear
+  workflow_definition: wfdef-customer-onboarding-review-1
+
+```
 ## SchemaLogEntry-001
 ### Input
 ```yaml
@@ -1440,6 +1786,20 @@ worker_id: aWorkerId
 email: john@example.com
 first_name: John
 last_name: Smith
+
+```
+## ProvenanceBundle-bad-status
+### Input
+```yaml
+id: bundle-invalid-bad-status
+name: Invalid provenance bundle with unknown status value
+workflow_definitions:
+- id: wfdef-customer-onboarding-review-1
+  name: Customer onboarding review
+workflow_runs:
+- id: wfrun-90001
+  status: NOT_A_REAL_STATUS
+  workflow_definition: wfdef-customer-onboarding-review-1
 
 ```
 ## Font-bad-bool

@@ -1,47 +1,26 @@
 # About fluxnova-bpm-platform
 
-Fluxnova BPMN Platform - LinkML Schema
+A [LinkML](https://linkml.io/) data model for the **Fluxnova BPM Platform** - the process engine's persistence schema and its BPMN 2.0 model API, expressed as one coherent, machine-validatable schema.
 
-# References
+The schema is **generated, not hand-written**: transformer scripts read the engine's own sources (H2 DDL, Java interface Javadoc, MyBatis mappings) and produce LinkML YAML that you can validate data against, render as docs, or project into JSON Schema, Python, OWL, and more. Re-running the generators on unchanged inputs produces byte-identical output.
 
-- [https://github.com/finos/fluxnova-bpm-platform](https://github.com/finos/fluxnova-bpm-platform)
-- [https://fluxnova.finos.org/](https://fluxnova.finos.org/)
+## At a glance
 
-# Schema Directory
+- **Two domains in one model** - runtime/persistence entities (from the database schema) and the BPMN 2.0 model API (from Java interfaces).
+- **Platform side:** 49 SQL tables -> 51 classes, 192 slots, 7 enums (100% of tables mapped).
+- **BPMN side:** 181 Java interfaces -> 6 modular schemas, 10 enums, 28 Fluxnova extension classes.
+- **Provenance overlay** - a W3C PROV-aligned record of workflow definitions, runs, and per-invocation AI activity.
+- **Ontology cross-walks** - 26 SSSOM mapping files (~4,450 element mappings) to standards like ATT&CK, D3FEND, OCSF, NIST, and the FINOS CDM.
+- **419 tests, all passing**, plus reproducible regeneration and `linkml-lint` clean.
 
-This folder contains the LinkML schema yaml files.
+## Links
 
-## Fluxnova BPM Platform — LinkML Schema Status
+- Source: [github.com/finos/fluxnova-bpm-platform](https://github.com/finos/fluxnova-bpm-platform)
+- Project home: [fluxnova.finos.org](https://fluxnova.finos.org/)
 
-Generated: 2026-05-14
-Generators: `scripts/fluxnova_to_linkml.py`, `scripts/fluxnova_bpmn_model_to_linkml.py`
-Features: Modular schemas, shared common-slot schema, subset enrichment (model + module-level + filename), MyBatis cross-validation, SQL column annotations, top-level platform schema imports the BPMN Model API, SSSOM mapping overlay
+## Quality gates
 
-### Coverage
-
-#### Platform (Runtime & Persistence)
-
-| Metric | Count |
-| --- | --- |
-| SQL tables parsed | 49 |
-| SQL tables mapped | 49 (100%) |
-| SQL tables unmapped | 0 |
-| Classes generated | 51 |
-| Slots generated | 192 |
-| Enums generated | 7 |
-| Columns in mapped tables | 652 |
-
-#### BPMN Model API
-
-| Metric | Count |
-| --- | --- |
-| Java interfaces mapped | 181 |
-| Public API interfaces | 181 (100% coverage) |
-| Enums generated | 10 |
-| Modular schema files | 6 |
-| Fluxnova extensions | 28 classes |
-
-### Quality Gates
+Every regeneration is checked against these gates:
 
 | Gate | Status |
 | --- | --- |
@@ -51,70 +30,57 @@ Features: Modular schemas, shared common-slot schema, subset enrichment (model +
 | Reproducibility (identical output on re-run) | ✅ Pass |
 | SSSOM overlay (`overlay-sssom-mappings`) | ✅ Pass (idempotent, 26 mapping files loaded) |
 
-### Supported Scripts
+## What's in the schema
 
-The maintained workflow in `scripts/` is intentionally limited to three scripts:
+The model is split into small, focused modules. A handful of **root schemas** import the modules to give you a single entry point per domain.
 
-- `fluxnova_to_linkml.py` — generates the platform LinkML schemas from H2 DDL, Java interface Javadoc, and MyBatis-derived validation inputs. Enriches schemas with:
-  - **Subsets** for module-level (`base`, `repository`, `runtime`, `job`, `identity`, `history`, `collaboration`, `platform`) and cross-cutting (`fluxnova_bpm`) partitioning. Every class carries `in_subset: [<filename_module>, fluxnova_bpm]`.
-  - **SQL column annotations** embedded in every slot (`annotations: {sql_column: COL_NAME_}`).
-  - **Shared `fluxnova_common.yaml`** emitted alongside module schemas, holding 8 cross-cutting slot definitions (id, tenant_id, revision, etc.) imported by every module to avoid URI collisions when the platform also imports the BPMN Model API.
-  - Automatic Javadoc extraction and fallback descriptions.
+### Platform modules (persistence & runtime)
 
-- `fluxnova_bpmn_model_to_linkml.py` — generates the modular BPMN Model API LinkML schemas from public Java interfaces and enums. Enriches schemas with:
-  - **Subsets** for package-level partitioning (`core_api`, `instance`, `bpmndi`, `di`, `dc`, `fluxnova_extensions`).
-  - Curated slot descriptions using hand-crafted fallbacks + automatic pattern inference.
-  - Modular imports to avoid circular dependencies.
+Generated from the H2 DDL - one module per functional area:
 
-- `fluxnova_mybatis_enrichment.py` — validates MyBatis XML field mappings against the DDL-derived LinkML slot names and embedded `annotations.sql_column` metadata. Confirms:
-  - 55 entity mappers parsed.
-  - 336 field→column mappings verified.
-  - Zero discrepancies detected on each run.
-
-- `overlay_sssom.py` — deterministically applies all SSSOM mapping files from `src/fluxnova_bpm_platform/mappings/` to the generated LinkML schema YAML files. Runs automatically after every `gen-linkml` / `gen-bpmn-model` / `gen-all` invocation. Key properties:
-  - Reads all `fluxnova-*.sssom.tsv` files in **sorted filename order** (deterministic).
-  - Matches `subject_id` CURIE prefix against each schema's `default_prefix`.
-  - Injects/merges `exact_mappings`, `close_mappings`, `broad_mappings`, `narrow_mappings`, and `related_mappings` into classes, slots, class attributes, and enum permissible_values.
-  - Updates the `prefixes:` block with any newly referenced namespace URIs.
-  - Uses `ruamel.yaml` round-trip parsing — YAML comments and block structure are preserved.
-  - **Idempotent**: mapping lists are sorted and deduplicated; files are written only when content changes.
-  - Supports `--dry-run` and `--verbose` flags.
-
-### Module Breakdown
-
-#### Platform Modules
-
-| Module | Classes | Description |
+| Module | Classes | Highlights |
 | --- | --- | --- |
-| `fluxnova_bpm_base` | 5 | ByteArray, MeterLog, Property, SchemaLogEntry, TaskMeterLog + 7 enums |
+| `fluxnova_bpm_base` | 5 | ByteArray, MeterLog, Property, SchemaLogEntry, TaskMeterLog (+ 7 enums) |
 | `fluxnova_bpm_repository` | 7 | ResourceDefinition (abstract), ProcessDefinition, CaseDefinition, DecisionDefinition, DecisionRequirementsDefinition, FormDefinition, Deployment |
 | `fluxnova_bpm_runtime` | 8 | Execution, Task, VariableInstance, EventSubscription, Incident, ExternalTask, CaseExecution, CaseSentryPart |
 | `fluxnova_bpm_job` | 3 | Job, JobDefinition, Batch |
 | `fluxnova_bpm_identity` | 8 | User, Group, Tenant, Membership, TenantMembership, IdentityLink, IdentityInfo, Authorization |
-| `fluxnova_bpm_history` | 17 | HistoricProcessInstance, HistoricActivityInstance, HistoricTaskInstance, HistoricVariableInstance, HistoricDetail, HistoricIdentityLink, HistoricIncident, HistoricJobLog, HistoricBatch, HistoricExternalTaskLog, HistoricDecisionInstance, HistoricDecisionInputInstance, HistoricDecisionOutputInstance, HistoricCaseInstance, HistoricCaseActivityInstance, HistoricScopeInstance (abstract), UserOperationLogEntry |
+| `fluxnova_bpm_history` | 17 | Historic* snapshots (process, activity, task, variable, decision, case, …) + UserOperationLogEntry |
 | `fluxnova_bpm_collaboration` | 3 | Comment, Attachment, Filter |
 
-#### BPMN Model Modules
+### BPMN model modules
 
-| Module | Classes | Description |
+Generated from the public BPMN Model API Java interfaces:
+
+| Module | Classes | Covers |
 | --- | --- | --- |
 | `fluxnova_bpmn_model_dc` | 3 | Diagram Common (Bounds, Font, Point) |
-| `fluxnova_bpmn_model_di` | 12 | Diagram Interchange (Diagram, DiagramElement, Edge, Plane, Shape, Style, Label, and related DI base types) |
-| `fluxnova_bpmn_model_instance` | 130 | Core BPMN 2.0 elements (Process, Activity, Task, Gateway, Event, Data objects, etc.) |
+| `fluxnova_bpmn_model_di` | 12 | Diagram Interchange (Diagram, Edge, Plane, Shape, Style, Label, …) |
+| `fluxnova_bpmn_model_instance` | 130 | Core BPMN 2.0 elements (Process, Activity, Task, Gateway, Event, Data objects, …) |
 | `fluxnova_bpmn_model_bpmndi` | 6 | BPMN Diagram Interchange (BpmnDiagram, BpmnPlane, BpmnShape, BpmnEdge, BpmnLabel, BpmnLabelStyle) |
-| `fluxnova_bpmn_model_fluxnova` | 28 | Fluxnova extensions (FluxnovaConnector, FluxnovaFormField, FluxnovaListener, etc.) |
+| `fluxnova_bpmn_model_fluxnova` | 28 | Fluxnova extensions (FluxnovaConnector, FluxnovaFormField, FluxnovaListener, …) |
 
-#### Root Schemas
+The BPMN modules import each other in layers (`dc` -> `di`; `instance` -> `di`; `bpmndi` -> `di` + `dc`; `fluxnova_extensions` -> `instance`), with cross-module types that would create cycles flattened to `range: string`. Slot descriptions come from a mix of curated fallbacks and automatic pattern inference (~300 of them).
+
+### Root schemas
+
+These tie everything together:
 
 | Schema | Local classes | Role |
 | --- | --- | --- |
-| `fluxnova_common` | 0 (slots only) | Shared slot definitions (id, tenant_id, revision, …) imported by every module to avoid URI collisions across schemas. |
-| `fluxnova_bpm_platform` | 1 | Aggregate root schema importing `fluxnova_common`, all platform modules, and `fluxnova_bpmn_model`; locally defines `FluxnovaPlatformData` as the tree root. Classes tagged `in_subset: [platform, fluxnova_bpm]`. |
-| `fluxnova_bpmn_model` | 2 | Aggregate root schema importing all BPMN modules; locally defines `BpmnModelInstance` and `BpmnModelType`. |
+| `fluxnova_common` | 0 (slots only) | Shared slot definitions (`id`, `tenant_id`, `revision`, …) imported by every module so the same concept never gets two conflicting URIs. |
+| `fluxnova_bpm_platform` | 1 | The top-level entry point: imports `fluxnova_common`, all platform modules, `fluxnova_bpmn_model`, and the provenance overlay. Defines `FluxnovaPlatformData` as the tree root. |
+| `fluxnova_bpmn_model` | 2 | BPMN entry point: imports all BPMN modules. Defines `BpmnModelInstance` and `BpmnModelType`. |
+
+### Provenance
+
+A hand-authored, [W3C PROV](https://www.w3.org/TR/prov-overview/)-aligned provenance overlay lives under `src/fluxnova_bpm_platform/schema/provenance/` (base + per-invocation AI overlay + opt-in strict profile). It is not derived from the H2 DDL; the platform root imports it so `ProvenanceBundle` and friends survive regeneration.
+
+See **[elements/provenance/README.md](elements/provenance/README.md)** for the module breakdown, mapping spec, RO-Crate/JSON-LD projection, AI overlay overview, fixtures, and the SSSOM cross-walk to the FINOS AI Governance Framework (`nexus:`).
 
 ### Enums
 
-#### Platform Enums
+**Platform:**
 
 | Enum | Values |
 | --- | --- |
@@ -126,7 +92,7 @@ The maintained workflow in `scripts/` is intentionally limited to three scripts:
 | EntityState | ACTIVE, SUSPENDED, COMPLETED, EXTERNALLY_TERMINATED, INTERNALLY_TERMINATED |
 | AuthorizationType | GLOBAL, GRANT, REVOKE |
 
-#### BPMN Model Enums
+**BPMN model:**
 
 | Enum | Values |
 | --- | --- |
@@ -141,32 +107,65 @@ The maintained workflow in `scripts/` is intentionally limited to three scripts:
 | RelationshipDirection | None, Forward, Backward, Both |
 | TransactionMethod | Compensate, Image, Store |
 
-### Source Data
+### Subsets (filtered views)
 
-The transformer reads H2 DDL SQL from 7 files in `engine/src/main/resources/org/finos/fluxnova/bpm/engine/db/create/`:
+Every class is tagged with subsets so you can carve out domain-specific views or docs. Tagging is automatic and deterministic - derived from the file a class lives in - and enforced by a unit test, so it never drifts.
 
-- `activiti.h2.create.engine.sql` — core runtime and repository tables
-- `activiti.h2.create.identity.sql` — identity management tables
-- `activiti.h2.create.history.sql` — history tables
-- `activiti.h2.create.case.engine.sql` — CMMN case runtime tables
-- `activiti.h2.create.case.history.sql` — CMMN case history tables
-- `activiti.h2.create.decision.engine.sql` — DMN decision tables
-- `activiti.h2.create.decision.history.sql` — DMN decision history tables
+Each class carries **two** subsets: its module subset and a cross-cutting model subset (`fluxnova_bpm` or `fluxnova_bpmn_model`). For example, `ByteArray` -> `in_subset: [base, fluxnova_bpm]`.
 
-### Modular Approach
+| Platform subset | Contents |
+| --- | --- |
+| `base` | Base types and utility entities (ByteArray, Property, Meter, Schema). |
+| `repository` | Resource definitions (Process, Case, Decision, Form). |
+| `runtime` | Active execution, task, and event instances. |
+| `job` | Job and batch management entities. |
+| `identity` | Identity and authorization entities (User, Group, Tenant, Role). |
+| `history` | Historical snapshots of completed runtime entities. |
+| `collaboration` | Collaboration features (Comments, Attachments, Filters). |
+| `fluxnova_bpm` | **Cross-cutting:** all Fluxnova BPM platform entities. |
 
-**BPMN Model API** (`model-api/bpmn-model/`) — included as 6 modular schema files:
+| BPMN subset | Contents |
+| --- | --- |
+| `core_api` | Top-level BPMN API types and enums. |
+| `instance` | Core BPMN element interfaces. |
+| `bpmndi` | BPMN diagram interchange interfaces and enums. |
+| `di` | Generic diagram interchange interfaces. |
+| `dc` | Diagram coordinate and bounds interfaces. |
+| `fluxnova_extensions` | Fluxnova BPMN extension interfaces. |
 
-- Import structure: `dc` -> `di`; `instance` -> `di`; `bpmndi` -> `di` + `dc`; `fluxnova_extensions` -> `instance`; root `fluxnova_bpmn_model` imports all modules
-- Inaccessible cross-module types converted to `range: string` to break circular imports
-- 300+ curated slot descriptions using hand-crafted fallbacks + automatic pattern inference
-- Full BPMN 2.0 spec compliance with all multiparent inheritance and enumerations
+## How it's built
 
-### SQL Column Annotations
+### Source data
 
-Every slot generated from H2 DDL carries an `annotations: {sql_column: COL_NAME_}` entry embedded directly in the LinkML schema. This is the authoritative ORM mapping — no sidecar JSON needed.
+The platform transformer reads the engine's H2 DDL - 7 SQL files in `engine/src/main/resources/org/finos/fluxnova/bpm/engine/db/create/`:
 
-Example from `fluxnova_bpm_job.yaml`:
+| File | Tables |
+| --- | --- |
+| `activiti.h2.create.engine.sql` | Core runtime and repository |
+| `activiti.h2.create.identity.sql` | Identity management |
+| `activiti.h2.create.history.sql` | History |
+| `activiti.h2.create.case.engine.sql` | CMMN case runtime |
+| `activiti.h2.create.case.history.sql` | CMMN case history |
+| `activiti.h2.create.decision.engine.sql` | DMN decision |
+| `activiti.h2.create.decision.history.sql` | DMN decision history |
+
+The BPMN transformer reads the public Java interfaces and enums under `model-api/bpmn-model/`.
+
+### The transformer scripts
+
+The maintained workflow lives in four scripts:
+
+- **`fluxnova_to_linkml.py`** - builds the platform schemas from H2 DDL, Java Javadoc, and MyBatis inputs. It adds subset tags, embeds the SQL column name on every slot, emits the shared `fluxnova_common.yaml`, and fills in descriptions from Javadoc (with sensible fallbacks).
+
+- **`fluxnova_bpmn_model_to_linkml.py`** - builds the modular BPMN model schemas from the public Java interfaces, with package-level subsets and curated slot descriptions.
+
+- **`fluxnova_mybatis_enrichment.py`** - a cross-check, not a generator: it parses the 55 MyBatis XML mappers (336 field->column mappings) and confirms they line up with the DDL-derived slot names. It writes nothing and exits non-zero if anything disagrees.
+
+- **`overlay_sssom.py`** - applies the SSSOM ontology mappings onto the generated YAML (see [SSSOM mappings](#sssom-mappings) below). It runs automatically after each generation step.
+
+### SQL column annotations
+
+Every slot generated from the DDL records the database column it came from, right in the schema - no sidecar mapping file needed:
 
 ```yaml
 slots:
@@ -177,173 +176,18 @@ slots:
       sql_column: EXCEPTION_MSG_
 ```
 
-The SQL column name is the ground truth from the H2 DDL; the slot name is the LinkML-idiomatic snake_case representation. Consumers can use `annotations.sql_column` to map back to the database column without any external file.
-
-**MyBatis cross-validation** (`scripts/fluxnova_mybatis_enrichment.py`) parses the 55 MyBatis XML mapping files to verify field names against the DDL-derived slot names. It does not produce any output artifact — it exits non-zero if discrepancies are found:
+The SQL column name is the ground truth; the slot name is its LinkML-idiomatic snake_case form. Consumers read `annotations.sql_column` to map a slot back to its database column. The `fluxnova_mybatis_enrichment.py` cross-check keeps these honest against the MyBatis ORM mappings:
 
 ```bash
-python scripts/fluxnova_mybatis_enrichment.py          # pass/fail check
-python scripts/fluxnova_mybatis_enrichment.py --verbose # show all field mappings
+python scripts/fluxnova_mybatis_enrichment.py            # pass/fail check
+python scripts/fluxnova_mybatis_enrichment.py --verbose  # show all field mappings
 ```
 
-### Subset Enrichment
+### SSSOM mappings
 
-Both transformer scripts now generate **subsets** for LinkML schema partitioning and documentation:
+Cross-walks to external ontologies and standards are kept as [SSSOM](https://mapping-commons.github.io/sssom/) v0.9 TSV files in `src/fluxnova_bpm_platform/mappings/`. `overlay_sssom.py` reads them and injects `*_mappings` and `prefixes` entries into the generated schema YAML - in sorted, deduplicated, comment-preserving, idempotent fashion.
 
-#### Platform Schema Subsets
-
-The platform schema defines **7 module-level subsets** plus a cross-cutting **model-level subset**:
-
-| Subset | Description |
-| --- | --- |
-| `base` | Base types and utility entities (ByteArray, Property, Meter, Schema). |
-| `repository` | Resource definitions (Process, Case, Decision, Form). |
-| `runtime` | Active execution, task, and event instances. |
-| `job` | Job and batch management entities. |
-| `identity` | Identity and authorization entities (User, Group, Tenant, Role). |
-| `history` | Historical snapshots of completed runtime entities. |
-| `collaboration` | Collaboration features (Comments, Attachments, Filters). |
-| `fluxnova_bpm` | **Cross-cutting:** All Fluxnova BPM platform entities. |
-
-**Usage:**
-
-- Every platform entity is tagged with its **module subset** (e.g., `ByteArray` -> `in_subset: [base, fluxnova_bpm]`).
-- Use subsets to filter schema for domain-specific views or documentation generation.
-- The root schema `fluxnova_bpm_platform.yaml` declares all subsets so consumers see available partitions.
-
-#### BPMN Model API Subsets
-
-The BPMN schema defines **6 package-level subsets**:
-
-| Subset | Description |
-| --- | --- |
-| `core_api` | Top-level BPMN API types and enums. |
-| `instance` | Core BPMN element interfaces. |
-| `bpmndi` | BPMN diagram interchange interfaces and enums. |
-| `di` | Generic diagram interchange interfaces. |
-| `dc` | Diagram coordinate and bounds interfaces. |
-| `fluxnova_extensions` | Fluxnova BPMN extension interfaces. |
-
-**Usage:**
-
-- Each BPMN interface is tagged by its package (e.g., `Process` -> `in_subset: [instance]`).
-- Modular schema files declare their own subsets for isolated schema views.
-- The root BPMN schema aggregates all subsets from sub-modules.
-
-#### Subset Filename Mapping
-
-Transformer scripts use **filename-based subset assignment**:
-
-- Platform: module name from `fluxnova_bpm_<module>.yaml` -> `<module>` subset (including the top-level `platform` subset for `fluxnova_bpm_platform.yaml`).
-- BPMN: package hierarchy (`dc`, `di`, `instance`, `bpmndi`, `fluxnova_extensions`, `core_api`) -> named subsets.
-
-Every generated class carries **two subsets**: its filename-derived module subset and the cross-cutting model subset (`fluxnova_bpm` or `fluxnova_bpmn_model`). This is enforced by a unit test in `tests/test_fluxnova_to_linkml.py`.
-
-This ensures **reproducible, deterministic tagging** without manual configuration.
-
-### Not in Scope
-
-- **REST DTOs** (`engine-rest/`) — API data transfer objects that mirror persistence entities. Excluded to avoid duplication.
-- **Java implementation entity sources** — implementation classes under `engine/.../impl/.../entity` are not part of schema generation. A review of representative  entities (`ExecutionEntity`, `TaskEntity`, `CamundaFormDefinitionEntity`, job subclasses such as `TimerEntity`) do not expose additional DDL-backed schema surface beyond the generated model. Most extra fields are transient navigation caches, runtime helpers, or subtype-specific behavior already represented by existing tables/slots.
-
-### Test Coverage
-
-| Test Module | Tests | Description |
-| --- | --- | --- |
-| `tests/test_fluxnova_to_linkml.py` | 96 | Transformer unit tests (parsing, mapping, generation) |
-| `tests/test_schema.py` | 20 | Schema-level lint, generators, structure checks |
-| `tests/test_data.py` | 185 | Valid/invalid YAML data files against schema (yaml_loader + linkml-validate); covers BPM + BPMN classes |
-| `tests/test_ddl_coverage.py` | 104 | DDL cross-validation: table coverage, column-to-slot, vendor file checks |
-| `tests/test_bpmn_model_schema.py` | 4 | BPMN schema file validation, lint, JSON schema generation |
-| `tests/test_fluxnova_bpmn_model_to_linkml.py` | 7 | BPMN generator unit tests (discovery, headers, coverage, inheritance, serialization) |
-| **Total** | **409** | All passing |
-
-#### Vendor Test Data
-
-33 vendor-data YAML files in `tests/data/valid/*-vendor.yaml` derived from
-`engine-rest/.../helper/MockProvider.java` constants. These exercise the schema with the same values the upstream BPM engine uses in its own REST API tests.
-
-13 invalid YAML files in `tests/data/invalid/` test rejection of:
-
-- Missing required fields (id, event_time, query)
-- Invalid enum values (suspension_state, state)
-- Wrong types (string where integer/float/boolean expected, bad timestamps)
-
-#### BPMN Model Test Data
-
-Valid: `Point-001.yaml`, `Bounds-001.yaml`, `Font-001.yaml` exercise the cross-schema integration where `fluxnova_bpm_platform.yaml` imports `fluxnova_bpmn_model.yaml`. Invalid counterparts (`Point-bad-type.yaml`, `Font-bad-bool.yaml`) verify that the platform-level `linkml-validate` correctly rejects bad data on imported BPMN classes.
-
-### Regeneration
-
-#### Platform Schema (H2 DDL  -> LinkML)
-
-```bash
-# Regenerate all platform schemas from H2 DDL sources, then overlay SSSOM mappings
-python scripts/fluxnova_to_linkml.py
-
-# Or via justfile (overlay runs automatically after generation)
-just gen-linkml
-
-# Dry-run (report only, no files written)
-just gen-linkml --dry-run
-
-# Apply SSSOM mappings without regenerating schemas
-just overlay-sssom-mappings
-
-# Dry-run the overlay only
-just overlay-sssom-mappings --dry-run --verbose
-```
-
-#### Full reproducibility gate
-
-```bash
-# Regenerate everything (BPMN model + platform), lint, cross-validate, and test transformers
-just verify-schema
-
-# Individual recipes
-just gen-all                    # gen-bpmn-model + gen-linkml + overlay-sssom-mappings
-just overlay-sssom-mappings     # apply SSSOM mappings to generated schemas (idempotent)
-just lint-schema                # linkml-lint over src/fluxnova_bpm_platform/schema/
-just validate-mybatis           # MyBatis ↔ DDL field-name cross-validation
-just test-transformers          # focused pytest scope (transformer + schema tests)
-```
-
-#### MyBatis Cross-Validation (optional)
-
-```bash
-# Validate MyBatis field names against DDL-derived slot names
-python scripts/fluxnova_mybatis_enrichment.py
-# SQL column↔slot annotations are already embedded in generated schemas
-```
-
-#### BPMN Model API Schema (Java interfaces  -> LinkML)
-
-```bash
-# Regenerate BPMN schemas from BPMN Model API sources
-python scripts/fluxnova_bpmn_model_to_linkml.py
-
-# Output: 6 modular YAML files in src/fluxnova_bpm_platform/schema/
-#   - fluxnova_bpmn_model.yaml (root)
-#   - fluxnova_bpmn_model_{dc,di,instance,bpmndi,fluxnova}.yaml (modules)
-```
-
-#### Validation
-
-```bash
-# Lint all schemas (focused on schema dir)
-just lint-schema
-
-# Run full test suite
-just test
-# or directly:
-pytest tests/ -v
-```
-
-### SSSOM Mappings
-
-All ontology/standard cross-walk mappings are stored as [SSSOM](https://mapping-commons.github.io/sssom/) v0.9 TSV files in `src/fluxnova_bpm_platform/mappings/`.
-
-#### Coverage — 26 mapping files (4 451 element mappings)
+**Coverage - 26 mapping files (~4,451 element mappings):**
 
 | File | Rows | Covers |
 | --- | --- | --- |
@@ -355,8 +199,8 @@ All ontology/standard cross-walk mappings are stored as [SSSOM](https://mapping-
 | `fluxnova-cve.sssom.tsv` | 61 | MITRE CVE |
 | `fluxnova-cwe.sssom.tsv` | 25 | MITRE CWE |
 | `fluxnova-cyberinfra.sssom.tsv` | 8 | Cyber Infrastructure |
-| `fluxnova-d3fend.sssom.tsv` | 7 523 | MITRE D3FEND |
-| `fluxnova-generic.sssom.tsv` | 1 530 | Generic/cross-cutting concepts |
+| `fluxnova-d3fend.sssom.tsv` | 7,523 | MITRE D3FEND |
+| `fluxnova-generic.sssom.tsv` | 1,530 | Generic/cross-cutting concepts |
 | `fluxnova-gist.sssom.tsv` | 40 | Semantic Arts GIST (merged from 4 sub-schemas) |
 | `fluxnova-iso27001.sssom.tsv` | 14 | ISO/IEC 27001 |
 | `fluxnova-iso29100.sssom.tsv` | 58 | ISO/IEC 29100 (Privacy) |
@@ -374,7 +218,7 @@ All ontology/standard cross-walk mappings are stored as [SSSOM](https://mapping-
 | `fluxnova-stix.sssom.tsv` | 58 | OASIS STIX 2.1 |
 | `fluxnova-vulnerability-core.sssom.tsv` | 30 | Vulnerability Core ontology |
 
-#### Key Namespaces
+**Key namespaces:**
 
 | Prefix | URI |
 | --- | --- |
@@ -384,17 +228,7 @@ All ontology/standard cross-walk mappings are stored as [SSSOM](https://mapping-
 | `d3f:` | `https://d3fend.mitre.org/ontologies/d3fend.owl#` |
 | `attack:` | `https://w3id.org/lmodel/attack/` |
 
-#### Overlay Integration
-
-`scripts/overlay_sssom.py` reads the mapping files and injects `*_mappings` / `prefixes` entries into the generated LinkML YAML files. It is called automatically as part of every schema generation recipe:
-
-```
-gen-linkml      → fluxnova_to_linkml.py   → overlay_sssom.py
-gen-bpmn-model  → bpmn_model_to_linkml.py → overlay_sssom.py
-gen-all         → gen-bpmn-model + gen-linkml + overlay_sssom.py (final dedup pass)
-```
-
-Predicate mapping from SSSOM to LinkML:
+SSSOM predicates map onto LinkML mapping slots as follows:
 
 | SSSOM predicate | LinkML field |
 | --- | --- |
@@ -404,8 +238,64 @@ Predicate mapping from SSSOM to LinkML:
 | `skos:narrowMatch` | `narrow_mappings` |
 | `skos:relatedMatch` | `related_mappings` |
 
-## Known Upstream Issues
+## Working with the schema
 
-| # | Component | Bug | Fix |
-|---|-----------|-----|-----|
-| 1 | `linkml-runtime` `yamlutils.py` | `SafeDumper` lacks `JsonObj` representer; `gen-yaml` raises `RepresenterError` on boolean annotations | `scripts/gen_yaml_patched.py` registers the missing representer before invoking the generator; `justfile` `_gen-yaml` recipe calls this wrapper instead of `gen-yaml` directly. Remove once `linkml-runtime > 1.11.0` is on PyPI. |
+### Regenerating
+
+The overlay step runs automatically after each generation recipe, so you rarely call it by hand.
+
+```bash
+# Everything (BPMN model + platform), then overlay mappings
+just gen-all
+
+# Just the platform schemas (from H2 DDL)
+just gen-linkml
+just gen-linkml --dry-run        # report only, write nothing
+
+# Just the BPMN model schemas (from Java interfaces)
+python scripts/fluxnova_bpmn_model_to_linkml.py
+
+# Re-apply SSSOM mappings without regenerating
+just overlay-sssom-mappings
+just overlay-sssom-mappings --dry-run --verbose
+```
+
+### Validating & testing
+
+```bash
+# Lint the schema
+just lint-schema
+
+# Full reproducibility gate: regenerate -> lint -> cross-validate -> test
+just verify-schema
+
+# MyBatis ↔ DDL field-name cross-check
+just validate-mybatis
+
+# Run the test suite
+just test
+# or directly:
+pytest tests/ -v
+```
+
+### Test coverage
+
+419 tests, all passing:
+
+| Test module | Tests | What it checks |
+| --- | --- | --- |
+| `tests/test_fluxnova_to_linkml.py` | 97 | Platform transformer (parsing, mapping, generation) |
+| `tests/test_schema.py` | 20 | Schema-level lint, generators, structure |
+| `tests/test_data.py` | 187 | Valid/invalid example data against the schema (covers BPM, BPMN, and provenance classes) |
+| `tests/test_ddl_coverage.py` | 104 | DDL cross-validation: table coverage, column->slot, vendor files |
+| `tests/test_bpmn_model_schema.py` | 4 | BPMN schema validation, lint, JSON Schema generation |
+| `tests/test_fluxnova_bpmn_model_to_linkml.py` | 7 | BPMN transformer (discovery, headers, coverage, inheritance, serialization) |
+
+The example data is realistic: 33 of the valid files (`tests/data/valid/*-vendor.yaml`) reuse the exact constants the upstream engine uses in its own REST API tests (`engine-rest/.../helper/MockProvider.java`). The invalid files deliberately break things - missing required fields, bad enum values, wrong types - to prove validation rejects them. A few cross-schema cases (`Point-001.yaml`, `Bounds-001.yaml`, `Font-001.yaml`, and their bad counterparts) confirm the platform root correctly validates imported BPMN classes.
+
+## Reference
+
+### What's intentionally out of scope
+
+- **REST DTOs** (`engine-rest/`) - API transfer objects that mirror persistence entities; excluded to avoid duplication.
+- **Java implementation entity classes** (`engine/.../impl/.../entity`) - a review of representative entities (`ExecutionEntity`, `TaskEntity`, `CamundaFormDefinitionEntity`, timer/job subclasses) found no DDL-backed surface beyond the generated model. Their extra fields are transient caches, runtime helpers, or subtype behavior already covered by existing tables.

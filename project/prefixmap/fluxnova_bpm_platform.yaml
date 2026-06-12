@@ -1,17 +1,23 @@
 {
+   "airo": "https://w3id.org/airo#",
    "bpmn": "http://www.omg.org/spec/BPMN/20100524/MODEL#",
    "cis_controls": "https://w3id.org/lmodel/cis-controls/",
    "core": "https://w3id.org/lmodel/vulnerability-core/",
+   "cr": "http://mlcommons.org/croissant/",
    "cve": "https://w3id.org/lmodel/cve/",
    "cwe": "https://w3id.org/lmodel/cwe/",
    "d3f": "http://d3fend.mitre.org/ontologies/d3fend.owl#",
    "dcterms": "http://purl.org/dc/terms/",
+   "dpv_ai": "https://w3id.org/dpv/ai#",
+   "dqv": "http://www.w3.org/ns/dqv#",
+   "fluxnova_bpm_ai_provenance": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/",
    "fluxnova_bpm_base": "https://w3id.org/lmodel/fluxnova-bpm-platform/base/",
    "fluxnova_bpm_collaboration": "https://w3id.org/lmodel/fluxnova-bpm-platform/collaboration/",
    "fluxnova_bpm_history": "https://w3id.org/lmodel/fluxnova-bpm-platform/history/",
    "fluxnova_bpm_identity": "https://w3id.org/lmodel/fluxnova-bpm-platform/identity/",
    "fluxnova_bpm_job": "https://w3id.org/lmodel/fluxnova-bpm-platform/job/",
    "fluxnova_bpm_platform": "https://w3id.org/lmodel/fluxnova-bpm-platform/",
+   "fluxnova_bpm_provenance": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/",
    "fluxnova_bpm_repository": "https://w3id.org/lmodel/fluxnova-bpm-platform/repository/",
    "fluxnova_bpm_runtime": "https://w3id.org/lmodel/fluxnova-bpm-platform/runtime/",
    "fluxnova_bpmn_model": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model/",
@@ -23,19 +29,39 @@
    "fluxnova_common": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_common/",
    "kev_catalog": "https://w3id.org/lmodel/kev-catalog/",
    "linkml": "https://w3id.org/linkml/",
+   "mls": "http://www.w3.org/ns/mls#",
+   "nexus": "https://ibm.github.io/ai-atlas-nexus/ontology/",
    "nist_csf_v2": "https://w3id.org/lmodel/nist-csf-v2/",
+   "nvd": "https://w3id.org/lmodel/nist-nvd/",
    "ocsf": "https://w3id.org/lmodel/ocsf/",
    "oscal": "https://lmodel.github.io/oscal/",
+   "prov": "http://www.w3.org/ns/prov#",
    "schema": "http://schema.org/",
    "spdx": "https://lmodel.github.io/spdx/",
    "stix": "https://w3id.org/lmodel/stix/",
    "uco_master": "https://lmodel.github.io/uco-master/",
    "unified_cyber_ontology": "https://w3id.org/lmodel/uco-master/",
+   "wrroc": "https://w3id.org/ro/terms/workflow-run#",
    "ActivationCondition": {
       "@id": "fluxnova_bpmn_model_instance:ActivationCondition"
    },
    "Activity": {
       "@id": "fluxnova_bpmn_model_instance:Activity"
+   },
+   "Agent": {
+      "@id": "fluxnova_bpm_provenance:Agent"
+   },
+   "AiAgent": {
+      "@id": "fluxnova_bpm_ai_provenance:AiAgent"
+   },
+   "AiDataset": {
+      "@id": "fluxnova_bpm_ai_provenance:AiDataset"
+   },
+   "AiModelDescriptor": {
+      "@id": "fluxnova_bpm_ai_provenance:AiModelDescriptor"
+   },
+   "AiModelInvocation": {
+      "@id": "fluxnova_bpm_ai_provenance:AiModelInvocation"
    },
    "Artifact": {
       "@id": "fluxnova_bpmn_model_instance:Artifact"
@@ -253,6 +279,9 @@
    "EndPoint": {
       "@id": "fluxnova_bpmn_model_instance:EndPoint"
    },
+   "Environment": {
+      "@id": "fluxnova_bpm_provenance:Environment"
+   },
    "Error": {
       "@id": "fluxnova_bpmn_model_instance:Error"
    },
@@ -264,6 +293,9 @@
    },
    "EscalationEventDefinition": {
       "@id": "fluxnova_bpmn_model_instance:EscalationEventDefinition"
+   },
+   "EvaluationResult": {
+      "@id": "fluxnova_bpm_ai_provenance:EvaluationResult"
    },
    "Event": {
       "@id": "fluxnova_bpmn_model_instance:Event"
@@ -282,6 +314,9 @@
    },
    "Execution": {
       "@id": "fluxnova_bpm_runtime:Execution"
+   },
+   "ExecutionResource": {
+      "@id": "fluxnova_bpm_provenance:ExecutionResource"
    },
    "Expression": {
       "@id": "fluxnova_bpmn_model_instance:Expression"
@@ -553,11 +588,17 @@
    "MeterLog": {
       "@id": "fluxnova_bpm_base:MeterLog"
    },
+   "ModelArtifact": {
+      "@id": "fluxnova_bpm_ai_provenance:ModelArtifact"
+   },
    "Monitoring": {
       "@id": "fluxnova_bpmn_model_instance:Monitoring"
    },
    "MultiInstanceLoopCharacteristics": {
       "@id": "fluxnova_bpmn_model_instance:MultiInstanceLoopCharacteristics"
+   },
+   "NamedThing": {
+      "@id": "fluxnova_bpm_provenance:NamedThing"
    },
    "Node": {
       "@id": "fluxnova_bpmn_model_di:Node"
@@ -573,6 +614,12 @@
    },
    "ParallelGateway": {
       "@id": "fluxnova_bpmn_model_instance:ParallelGateway"
+   },
+   "ParameterDefinition": {
+      "@id": "fluxnova_bpm_provenance:ParameterDefinition"
+   },
+   "ParameterValue": {
+      "@id": "fluxnova_bpm_provenance:ParameterValue"
    },
    "Participant": {
       "@id": "fluxnova_bpmn_model_instance:Participant"
@@ -601,8 +648,17 @@
    "ProcessDefinition": {
       "@id": "fluxnova_bpm_repository:ProcessDefinition"
    },
+   "PromptMessage": {
+      "@id": "fluxnova_bpm_ai_provenance:PromptMessage"
+   },
    "Property": {
       "@id": "fluxnova_bpm_base:Property"
+   },
+   "ProvenanceBundle": {
+      "@id": "fluxnova_bpm_provenance:ProvenanceBundle"
+   },
+   "ProvenanceIncident": {
+      "@id": "fluxnova_bpm_provenance:ProvenanceIncident"
    },
    "ReceiveTask": {
       "@id": "fluxnova_bpmn_model_instance:ReceiveTask"
@@ -631,8 +687,14 @@
    "ResourceRole": {
       "@id": "fluxnova_bpmn_model_instance:ResourceRole"
    },
+   "ResourceUsage": {
+      "@id": "fluxnova_bpm_provenance:ResourceUsage"
+   },
    "RootElement": {
       "@id": "fluxnova_bpmn_model_instance:RootElement"
+   },
+   "RuntimeComponent": {
+      "@id": "fluxnova_bpm_provenance:RuntimeComponent"
    },
    "SchemaLogEntry": {
       "@id": "fluxnova_bpm_base:SchemaLogEntry"
@@ -663,6 +725,12 @@
    },
    "StartEvent": {
       "@id": "fluxnova_bpmn_model_instance:StartEvent"
+   },
+   "StepDefinition": {
+      "@id": "fluxnova_bpm_provenance:StepDefinition"
+   },
+   "StepRun": {
+      "@id": "fluxnova_bpm_provenance:StepRun"
    },
    "Style": {
       "@id": "fluxnova_bpmn_model_di:Style"
@@ -709,6 +777,9 @@
    "TimerEventDefinition": {
       "@id": "fluxnova_bpmn_model_instance:TimerEventDefinition"
    },
+   "ToolCall": {
+      "@id": "fluxnova_bpm_ai_provenance:ToolCall"
+   },
    "Transaction": {
       "@id": "fluxnova_bpmn_model_instance:Transaction"
    },
@@ -726,5 +797,14 @@
    },
    "Waypoint": {
       "@id": "fluxnova_bpmn_model_di:Waypoint"
+   },
+   "WorkflowArtifact": {
+      "@id": "fluxnova_bpm_provenance:WorkflowArtifact"
+   },
+   "WorkflowDefinition": {
+      "@id": "fluxnova_bpm_provenance:WorkflowDefinition"
+   },
+   "WorkflowRun": {
+      "@id": "fluxnova_bpm_provenance:WorkflowRun"
    }
 }

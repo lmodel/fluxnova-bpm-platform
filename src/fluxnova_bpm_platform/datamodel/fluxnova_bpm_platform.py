@@ -1,5 +1,5 @@
 # Auto generated from fluxnova_bpm_platform.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-05-18T11:43:31
+# Generation date: 2026-06-12T02:49:03
 # Schema: fluxnova_bpm_platform
 #
 # id: https://w3id.org/lmodel/fluxnova-bpm-platform
@@ -56,26 +56,32 @@ from rdflib import (
     URIRef
 )
 
-from linkml_runtime.linkml_model.types import Boolean, Datetime, Float, Integer, String
-from linkml_runtime.utils.metamodelcore import Bool, XSDDateTime
+from linkml_runtime.linkml_model.types import Boolean, Datetime, Decimal, Float, Integer, String
+from linkml_runtime.utils.metamodelcore import Bool, Decimal, XSDDateTime
 
 metamodel_version = "1.11.0"
 version = "2.0.0-SNAPSHOT"
 
 # Namespaces
+AIRO = CurieNamespace('airo', 'https://w3id.org/airo#')
 BPMN = CurieNamespace('bpmn', 'http://www.omg.org/spec/BPMN/20100524/MODEL#')
 CIS_CONTROLS = CurieNamespace('cis_controls', 'https://w3id.org/lmodel/cis-controls/')
 CORE = CurieNamespace('core', 'https://w3id.org/lmodel/vulnerability-core/')
+CR = CurieNamespace('cr', 'http://mlcommons.org/croissant/')
 CVE = CurieNamespace('cve', 'https://w3id.org/lmodel/cve/')
 CWE = CurieNamespace('cwe', 'https://w3id.org/lmodel/cwe/')
 D3F = CurieNamespace('d3f', 'http://d3fend.mitre.org/ontologies/d3fend.owl#')
 DCTERMS = CurieNamespace('dcterms', 'http://purl.org/dc/terms/')
+DPV_AI = CurieNamespace('dpv_ai', 'https://w3id.org/dpv/ai#')
+DQV = CurieNamespace('dqv', 'http://www.w3.org/ns/dqv#')
+FLUXNOVA_BPM_AI_PROVENANCE = CurieNamespace('fluxnova_bpm_ai_provenance', 'https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/')
 FLUXNOVA_BPM_BASE = CurieNamespace('fluxnova_bpm_base', 'https://w3id.org/lmodel/fluxnova-bpm-platform/base/')
 FLUXNOVA_BPM_COLLABORATION = CurieNamespace('fluxnova_bpm_collaboration', 'https://w3id.org/lmodel/fluxnova-bpm-platform/collaboration/')
 FLUXNOVA_BPM_HISTORY = CurieNamespace('fluxnova_bpm_history', 'https://w3id.org/lmodel/fluxnova-bpm-platform/history/')
 FLUXNOVA_BPM_IDENTITY = CurieNamespace('fluxnova_bpm_identity', 'https://w3id.org/lmodel/fluxnova-bpm-platform/identity/')
 FLUXNOVA_BPM_JOB = CurieNamespace('fluxnova_bpm_job', 'https://w3id.org/lmodel/fluxnova-bpm-platform/job/')
 FLUXNOVA_BPM_PLATFORM = CurieNamespace('fluxnova_bpm_platform', 'https://w3id.org/lmodel/fluxnova-bpm-platform/')
+FLUXNOVA_BPM_PROVENANCE = CurieNamespace('fluxnova_bpm_provenance', 'https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/')
 FLUXNOVA_BPM_REPOSITORY = CurieNamespace('fluxnova_bpm_repository', 'https://w3id.org/lmodel/fluxnova-bpm-platform/repository/')
 FLUXNOVA_BPM_RUNTIME = CurieNamespace('fluxnova_bpm_runtime', 'https://w3id.org/lmodel/fluxnova-bpm-platform/runtime/')
 FLUXNOVA_BPMN_MODEL = CurieNamespace('fluxnova_bpmn_model', 'https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model/')
@@ -87,14 +93,19 @@ FLUXNOVA_BPMN_MODEL_INSTANCE = CurieNamespace('fluxnova_bpmn_model_instance', 'h
 FLUXNOVA_COMMON = CurieNamespace('fluxnova_common', 'https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_common/')
 KEV_CATALOG = CurieNamespace('kev_catalog', 'https://w3id.org/lmodel/kev-catalog/')
 LINKML = CurieNamespace('linkml', 'https://w3id.org/linkml/')
+MLS = CurieNamespace('mls', 'http://www.w3.org/ns/mls#')
+NEXUS = CurieNamespace('nexus', 'https://ibm.github.io/ai-atlas-nexus/ontology/')
 NIST_CSF_V2 = CurieNamespace('nist_csf_v2', 'https://w3id.org/lmodel/nist-csf-v2/')
+NVD = CurieNamespace('nvd', 'https://w3id.org/lmodel/nist-nvd/')
 OCSF = CurieNamespace('ocsf', 'https://w3id.org/lmodel/ocsf/')
 OSCAL = CurieNamespace('oscal', 'https://lmodel.github.io/oscal/')
+PROV = CurieNamespace('prov', 'http://www.w3.org/ns/prov#')
 SCHEMA = CurieNamespace('schema', 'http://schema.org/')
 SPDX = CurieNamespace('spdx', 'https://lmodel.github.io/spdx/')
 STIX = CurieNamespace('stix', 'https://w3id.org/lmodel/stix/')
 UCO_MASTER = CurieNamespace('uco_master', 'https://lmodel.github.io/uco-master/')
 UNIFIED_CYBER_ONTOLOGY = CurieNamespace('unified_cyber_ontology', 'https://w3id.org/lmodel/uco-master/')
+WRROC = CurieNamespace('wrroc', 'https://w3id.org/ro/terms/workflow-run#')
 DEFAULT_ = FLUXNOVA_BPM_PLATFORM
 
 
@@ -298,6 +309,66 @@ class TaskId(extended_str):
 
 
 class VariableInstanceId(extended_str):
+    pass
+
+
+class NamedThingId(extended_str):
+    pass
+
+
+class ProvenanceBundleId(extended_str):
+    pass
+
+
+class WorkflowDefinitionId(NamedThingId):
+    pass
+
+
+class StepDefinitionId(NamedThingId):
+    pass
+
+
+class ParameterDefinitionId(NamedThingId):
+    pass
+
+
+class AgentId(NamedThingId):
+    pass
+
+
+class EnvironmentId(NamedThingId):
+    pass
+
+
+class RuntimeComponentId(NamedThingId):
+    pass
+
+
+class WorkflowArtifactId(NamedThingId):
+    pass
+
+
+class WorkflowRunId(NamedThingId):
+    pass
+
+
+class StepRunId(NamedThingId):
+    pass
+
+
+class ParameterValueId(NamedThingId):
+    pass
+
+
+class ResourceUsageId(NamedThingId):
+    pass
+
+
+class ExecutionResourceId(NamedThingId):
+    pass
+
+
+class ProvenanceIncidentId(NamedThingId):
     pass
 
 
@@ -866,6 +937,38 @@ class BpmnShapeId(LabeledShapeId):
 
 
 class FluxnovaErrorEventDefinitionId(ErrorEventDefinitionId):
+    pass
+
+
+class AiAgentId(AgentId):
+    pass
+
+
+class AiModelDescriptorId(RuntimeComponentId):
+    pass
+
+
+class AiModelInvocationId(StepRunId):
+    pass
+
+
+class PromptMessageId(NamedThingId):
+    pass
+
+
+class ToolCallId(NamedThingId):
+    pass
+
+
+class EvaluationResultId(NamedThingId):
+    pass
+
+
+class AiDatasetId(WorkflowArtifactId):
+    pass
+
+
+class ModelArtifactId(WorkflowArtifactId):
     pass
 
 
@@ -4560,6 +4663,826 @@ class BpmnModelType(YAMLRoot):
     class_class_curie: ClassVar[str] = "fluxnova_bpmn_model:BpmnModelType"
     class_name: ClassVar[str] = "BpmnModelType"
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.BpmnModelType
+
+
+@dataclass(repr=False)
+class NamedThing(YAMLRoot):
+    """
+    Abstract identifiable provenance entity with optional human-readable name and external reference.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PROVENANCE["NamedThing"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_provenance:NamedThing"
+    class_name: ClassVar[str] = "NamedThing"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.NamedThing
+
+    id: Union[str, NamedThingId] = None
+    name: Optional[str] = None
+    external_ref: Optional[str] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, NamedThingId):
+            self.id = NamedThingId(self.id)
+
+        if self.name is not None and not isinstance(self.name, str):
+            self.name = str(self.name)
+
+        if self.external_ref is not None and not isinstance(self.external_ref, str):
+            self.external_ref = str(self.external_ref)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class ProvenanceBundle(YAMLRoot):
+    """
+    Top-level export package for Fluxnova provenance.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PROVENANCE["ProvenanceBundle"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_provenance:ProvenanceBundle"
+    class_name: ClassVar[str] = "ProvenanceBundle"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.ProvenanceBundle
+
+    id: Union[str, ProvenanceBundleId] = None
+    name: Optional[str] = None
+    generated_at: Optional[Union[str, XSDDateTime]] = None
+    source_system: Optional[str] = None
+    schema_version: Optional[str] = None
+    workflow_definitions: Optional[Union[dict[Union[str, WorkflowDefinitionId], Union[dict, "WorkflowDefinition"]], list[Union[dict, "WorkflowDefinition"]]]] = empty_dict()
+    workflow_runs: Optional[Union[dict[Union[str, WorkflowRunId], Union[dict, "WorkflowRun"]], list[Union[dict, "WorkflowRun"]]]] = empty_dict()
+    agents: Optional[Union[dict[Union[str, AgentId], Union[dict, "Agent"]], list[Union[dict, "Agent"]]]] = empty_dict()
+    environments: Optional[Union[dict[Union[str, EnvironmentId], Union[dict, "Environment"]], list[Union[dict, "Environment"]]]] = empty_dict()
+    runtime_components: Optional[Union[dict[Union[str, RuntimeComponentId], Union[dict, "RuntimeComponent"]], list[Union[dict, "RuntimeComponent"]]]] = empty_dict()
+    workflow_artifacts: Optional[Union[dict[Union[str, WorkflowArtifactId], Union[dict, "WorkflowArtifact"]], list[Union[dict, "WorkflowArtifact"]]]] = empty_dict()
+    parameter_values: Optional[Union[dict[Union[str, ParameterValueId], Union[dict, "ParameterValue"]], list[Union[dict, "ParameterValue"]]]] = empty_dict()
+    resources: Optional[Union[dict[Union[str, ExecutionResourceId], Union[dict, "ExecutionResource"]], list[Union[dict, "ExecutionResource"]]]] = empty_dict()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, ProvenanceBundleId):
+            self.id = ProvenanceBundleId(self.id)
+
+        if self.name is not None and not isinstance(self.name, str):
+            self.name = str(self.name)
+
+        if self.generated_at is not None and not isinstance(self.generated_at, XSDDateTime):
+            self.generated_at = XSDDateTime(self.generated_at)
+
+        if self.source_system is not None and not isinstance(self.source_system, str):
+            self.source_system = str(self.source_system)
+
+        if self.schema_version is not None and not isinstance(self.schema_version, str):
+            self.schema_version = str(self.schema_version)
+
+        self._normalize_inlined_as_list(slot_name="workflow_definitions", slot_type=WorkflowDefinition, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="workflow_runs", slot_type=WorkflowRun, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="agents", slot_type=Agent, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="environments", slot_type=Environment, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="runtime_components", slot_type=RuntimeComponent, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="workflow_artifacts", slot_type=WorkflowArtifact, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="parameter_values", slot_type=ParameterValue, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="resources", slot_type=ExecutionResource, key_name="id", keyed=True)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class WorkflowDefinition(NamedThing):
+    """
+    BPMN workflow / process definition (prospective provenance).
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PROVENANCE["WorkflowDefinition"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_provenance:WorkflowDefinition"
+    class_name: ClassVar[str] = "WorkflowDefinition"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.WorkflowDefinition
+
+    id: Union[str, WorkflowDefinitionId] = None
+    definition_version: Optional[str] = None
+    definition_key: Optional[str] = None
+    deployment_id: Optional[str] = None
+    source_model_ref: Optional[Union[str, WorkflowArtifactId]] = None
+    runtime_component: Optional[Union[str, RuntimeComponentId]] = None
+    steps: Optional[Union[dict[Union[str, StepDefinitionId], Union[dict, "StepDefinition"]], list[Union[dict, "StepDefinition"]]]] = empty_dict()
+    authors: Optional[Union[Union[str, AgentId], list[Union[str, AgentId]]]] = empty_list()
+    tags: Optional[Union[str, list[str]]] = empty_list()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, WorkflowDefinitionId):
+            self.id = WorkflowDefinitionId(self.id)
+
+        if self.definition_version is not None and not isinstance(self.definition_version, str):
+            self.definition_version = str(self.definition_version)
+
+        if self.definition_key is not None and not isinstance(self.definition_key, str):
+            self.definition_key = str(self.definition_key)
+
+        if self.deployment_id is not None and not isinstance(self.deployment_id, str):
+            self.deployment_id = str(self.deployment_id)
+
+        if self.source_model_ref is not None and not isinstance(self.source_model_ref, WorkflowArtifactId):
+            self.source_model_ref = WorkflowArtifactId(self.source_model_ref)
+
+        if self.runtime_component is not None and not isinstance(self.runtime_component, RuntimeComponentId):
+            self.runtime_component = RuntimeComponentId(self.runtime_component)
+
+        self._normalize_inlined_as_list(slot_name="steps", slot_type=StepDefinition, key_name="id", keyed=True)
+
+        if not isinstance(self.authors, list):
+            self.authors = [self.authors] if self.authors is not None else []
+        self.authors = [v if isinstance(v, AgentId) else AgentId(v) for v in self.authors]
+
+        if not isinstance(self.tags, list):
+            self.tags = [self.tags] if self.tags is not None else []
+        self.tags = [v if isinstance(v, str) else str(v) for v in self.tags]
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class StepDefinition(NamedThing):
+    """
+    BPMN step / activity / event / gateway definition within a workflow.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PROVENANCE["StepDefinition"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_provenance:StepDefinition"
+    class_name: ClassVar[str] = "StepDefinition"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.StepDefinition
+
+    id: Union[str, StepDefinitionId] = None
+    workflow_definition: Optional[Union[str, WorkflowDefinitionId]] = None
+    bpmn_type: Optional[Union[str, "BPMNElementType"]] = None
+    implementation_kind: Optional[Union[str, "ImplementationKind"]] = None
+    implementation_ref: Optional[str] = None
+    called_element: Optional[str] = None
+    decision_ref: Optional[str] = None
+    form_ref: Optional[str] = None
+    input_parameters: Optional[Union[dict[Union[str, ParameterDefinitionId], Union[dict, "ParameterDefinition"]], list[Union[dict, "ParameterDefinition"]]]] = empty_dict()
+    output_parameters: Optional[Union[dict[Union[str, ParameterDefinitionId], Union[dict, "ParameterDefinition"]], list[Union[dict, "ParameterDefinition"]]]] = empty_dict()
+    bpmn_extension_names: Optional[Union[str, list[str]]] = empty_list()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, StepDefinitionId):
+            self.id = StepDefinitionId(self.id)
+
+        if self.workflow_definition is not None and not isinstance(self.workflow_definition, WorkflowDefinitionId):
+            self.workflow_definition = WorkflowDefinitionId(self.workflow_definition)
+
+        if self.bpmn_type is not None and not isinstance(self.bpmn_type, BPMNElementType):
+            self.bpmn_type = BPMNElementType(self.bpmn_type)
+
+        if self.implementation_kind is not None and not isinstance(self.implementation_kind, ImplementationKind):
+            self.implementation_kind = ImplementationKind(self.implementation_kind)
+
+        if self.implementation_ref is not None and not isinstance(self.implementation_ref, str):
+            self.implementation_ref = str(self.implementation_ref)
+
+        if self.called_element is not None and not isinstance(self.called_element, str):
+            self.called_element = str(self.called_element)
+
+        if self.decision_ref is not None and not isinstance(self.decision_ref, str):
+            self.decision_ref = str(self.decision_ref)
+
+        if self.form_ref is not None and not isinstance(self.form_ref, str):
+            self.form_ref = str(self.form_ref)
+
+        self._normalize_inlined_as_list(slot_name="input_parameters", slot_type=ParameterDefinition, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="output_parameters", slot_type=ParameterDefinition, key_name="id", keyed=True)
+
+        if not isinstance(self.bpmn_extension_names, list):
+            self.bpmn_extension_names = [self.bpmn_extension_names] if self.bpmn_extension_names is not None else []
+        self.bpmn_extension_names = [v if isinstance(v, str) else str(v) for v in self.bpmn_extension_names]
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class ParameterDefinition(NamedThing):
+    """
+    Formal parameter or variable contract for a workflow or step.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PROVENANCE["ParameterDefinition"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_provenance:ParameterDefinition"
+    class_name: ClassVar[str] = "ParameterDefinition"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.ParameterDefinition
+
+    id: Union[str, ParameterDefinitionId] = None
+    parameter_scope: Optional[Union[str, "ParameterScope"]] = None
+    parameter_direction: Optional[Union[str, "DirectionEnum"]] = None
+    declared_type: Optional[str] = None
+    is_required: Optional[Union[bool, Bool]] = None
+    default_value: Optional[str] = None
+    secret: Optional[Union[bool, Bool]] = None
+    allowed_values: Optional[Union[str, list[str]]] = empty_list()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, ParameterDefinitionId):
+            self.id = ParameterDefinitionId(self.id)
+
+        if self.parameter_scope is not None and not isinstance(self.parameter_scope, ParameterScope):
+            self.parameter_scope = ParameterScope(self.parameter_scope)
+
+        if self.parameter_direction is not None and not isinstance(self.parameter_direction, DirectionEnum):
+            self.parameter_direction = DirectionEnum(self.parameter_direction)
+
+        if self.declared_type is not None and not isinstance(self.declared_type, str):
+            self.declared_type = str(self.declared_type)
+
+        if self.is_required is not None and not isinstance(self.is_required, Bool):
+            self.is_required = Bool(self.is_required)
+
+        if self.default_value is not None and not isinstance(self.default_value, str):
+            self.default_value = str(self.default_value)
+
+        if self.secret is not None and not isinstance(self.secret, Bool):
+            self.secret = Bool(self.secret)
+
+        if not isinstance(self.allowed_values, list):
+            self.allowed_values = [self.allowed_values] if self.allowed_values is not None else []
+        self.allowed_values = [v if isinstance(v, str) else str(v) for v in self.allowed_values]
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class Agent(NamedThing):
+    """
+    Person, organization, system, or service account participating in workflow execution.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PROVENANCE["Agent"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_provenance:Agent"
+    class_name: ClassVar[str] = "Agent"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.Agent
+
+    id: Union[str, AgentId] = None
+    agent_kind: Optional[Union[str, "AgentKind"]] = None
+    email: Optional[str] = None
+    role: Optional[Union[str, list[str]]] = empty_list()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, AgentId):
+            self.id = AgentId(self.id)
+
+        if self.agent_kind is not None and not isinstance(self.agent_kind, AgentKind):
+            self.agent_kind = AgentKind(self.agent_kind)
+
+        if self.email is not None and not isinstance(self.email, str):
+            self.email = str(self.email)
+
+        if not isinstance(self.role, list):
+            self.role = [self.role] if self.role is not None else []
+        self.role = [v if isinstance(v, str) else str(v) for v in self.role]
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class Environment(NamedThing):
+    """
+    Runtime environment for process execution or export generation.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PROVENANCE["Environment"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_provenance:Environment"
+    class_name: ClassVar[str] = "Environment"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.Environment
+
+    id: Union[str, EnvironmentId] = None
+    runtime_name: Optional[str] = None
+    runtime_version: Optional[str] = None
+    host: Optional[str] = None
+    region: Optional[str] = None
+    deployment_ref: Optional[str] = None
+    configuration_ref: Optional[Union[str, WorkflowArtifactId]] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, EnvironmentId):
+            self.id = EnvironmentId(self.id)
+
+        if self.runtime_name is not None and not isinstance(self.runtime_name, str):
+            self.runtime_name = str(self.runtime_name)
+
+        if self.runtime_version is not None and not isinstance(self.runtime_version, str):
+            self.runtime_version = str(self.runtime_version)
+
+        if self.host is not None and not isinstance(self.host, str):
+            self.host = str(self.host)
+
+        if self.region is not None and not isinstance(self.region, str):
+            self.region = str(self.region)
+
+        if self.deployment_ref is not None and not isinstance(self.deployment_ref, str):
+            self.deployment_ref = str(self.deployment_ref)
+
+        if self.configuration_ref is not None and not isinstance(self.configuration_ref, WorkflowArtifactId):
+            self.configuration_ref = WorkflowArtifactId(self.configuration_ref)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class RuntimeComponent(NamedThing):
+    """
+    Engine, plugin, or service component involved in orchestration.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PROVENANCE["RuntimeComponent"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_provenance:RuntimeComponent"
+    class_name: ClassVar[str] = "RuntimeComponent"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.RuntimeComponent
+
+    id: Union[str, RuntimeComponentId] = None
+    component_kind: Optional[Union[str, "RuntimeComponentKind"]] = None
+    definition_version: Optional[str] = None
+    endpoint: Optional[str] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, RuntimeComponentId):
+            self.id = RuntimeComponentId(self.id)
+
+        if self.component_kind is not None and not isinstance(self.component_kind, RuntimeComponentKind):
+            self.component_kind = RuntimeComponentKind(self.component_kind)
+
+        if self.definition_version is not None and not isinstance(self.definition_version, str):
+            self.definition_version = str(self.definition_version)
+
+        if self.endpoint is not None and not isinstance(self.endpoint, str):
+            self.endpoint = str(self.endpoint)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class WorkflowArtifact(NamedThing):
+    """
+    File, payload, or URI referenced by a process definition or execution.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PROVENANCE["WorkflowArtifact"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_provenance:WorkflowArtifact"
+    class_name: ClassVar[str] = "WorkflowArtifact"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.WorkflowArtifact
+
+    id: Union[str, WorkflowArtifactId] = None
+    artifact_kind: Optional[Union[str, "ArtifactKind"]] = None
+    media_type: Optional[str] = None
+    path_or_uri: Optional[str] = None
+    hash: Optional[str] = None
+    size_in_bytes: Optional[int] = None
+    produced_by_step_run: Optional[Union[str, StepRunId]] = None
+    consumed_by_step_runs: Optional[Union[Union[str, StepRunId], list[Union[str, StepRunId]]]] = empty_list()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, WorkflowArtifactId):
+            self.id = WorkflowArtifactId(self.id)
+
+        if self.artifact_kind is not None and not isinstance(self.artifact_kind, ArtifactKind):
+            self.artifact_kind = ArtifactKind(self.artifact_kind)
+
+        if self.media_type is not None and not isinstance(self.media_type, str):
+            self.media_type = str(self.media_type)
+
+        if self.path_or_uri is not None and not isinstance(self.path_or_uri, str):
+            self.path_or_uri = str(self.path_or_uri)
+
+        if self.hash is not None and not isinstance(self.hash, str):
+            self.hash = str(self.hash)
+
+        if self.size_in_bytes is not None and not isinstance(self.size_in_bytes, int):
+            self.size_in_bytes = int(self.size_in_bytes)
+
+        if self.produced_by_step_run is not None and not isinstance(self.produced_by_step_run, StepRunId):
+            self.produced_by_step_run = StepRunId(self.produced_by_step_run)
+
+        if not isinstance(self.consumed_by_step_runs, list):
+            self.consumed_by_step_runs = [self.consumed_by_step_runs] if self.consumed_by_step_runs is not None else []
+        self.consumed_by_step_runs = [v if isinstance(v, StepRunId) else StepRunId(v) for v in self.consumed_by_step_runs]
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class WorkflowRun(NamedThing):
+    """
+    Concrete execution of a WorkflowDefinition (retrospective provenance).
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PROVENANCE["WorkflowRun"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_provenance:WorkflowRun"
+    class_name: ClassVar[str] = "WorkflowRun"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.WorkflowRun
+
+    id: Union[str, WorkflowRunId] = None
+    workflow_definition: Optional[Union[str, WorkflowDefinitionId]] = None
+    business_key: Optional[str] = None
+    parent_workflow_run: Optional[Union[str, WorkflowRunId]] = None
+    status: Optional[Union[str, "RunStatus"]] = None
+    started_at: Optional[Union[str, XSDDateTime]] = None
+    ended_at: Optional[Union[str, XSDDateTime]] = None
+    started_by: Optional[Union[str, AgentId]] = None
+    environment: Optional[Union[str, EnvironmentId]] = None
+    runtime_component: Optional[Union[str, RuntimeComponentId]] = None
+    input_values: Optional[Union[Union[str, ParameterValueId], list[Union[str, ParameterValueId]]]] = empty_list()
+    output_values: Optional[Union[Union[str, ParameterValueId], list[Union[str, ParameterValueId]]]] = empty_list()
+    step_runs: Optional[Union[dict[Union[str, StepRunId], Union[dict, "StepRun"]], list[Union[dict, "StepRun"]]]] = empty_dict()
+    incidents: Optional[Union[dict[Union[str, ProvenanceIncidentId], Union[dict, "ProvenanceIncident"]], list[Union[dict, "ProvenanceIncident"]]]] = empty_dict()
+    resource_usage: Optional[Union[dict[Union[str, ResourceUsageId], Union[dict, "ResourceUsage"]], list[Union[dict, "ResourceUsage"]]]] = empty_dict()
+    tags: Optional[Union[str, list[str]]] = empty_list()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, WorkflowRunId):
+            self.id = WorkflowRunId(self.id)
+
+        if self.workflow_definition is not None and not isinstance(self.workflow_definition, WorkflowDefinitionId):
+            self.workflow_definition = WorkflowDefinitionId(self.workflow_definition)
+
+        if self.business_key is not None and not isinstance(self.business_key, str):
+            self.business_key = str(self.business_key)
+
+        if self.parent_workflow_run is not None and not isinstance(self.parent_workflow_run, WorkflowRunId):
+            self.parent_workflow_run = WorkflowRunId(self.parent_workflow_run)
+
+        if self.status is not None and not isinstance(self.status, RunStatus):
+            self.status = RunStatus(self.status)
+
+        if self.started_at is not None and not isinstance(self.started_at, XSDDateTime):
+            self.started_at = XSDDateTime(self.started_at)
+
+        if self.ended_at is not None and not isinstance(self.ended_at, XSDDateTime):
+            self.ended_at = XSDDateTime(self.ended_at)
+
+        if self.started_by is not None and not isinstance(self.started_by, AgentId):
+            self.started_by = AgentId(self.started_by)
+
+        if self.environment is not None and not isinstance(self.environment, EnvironmentId):
+            self.environment = EnvironmentId(self.environment)
+
+        if self.runtime_component is not None and not isinstance(self.runtime_component, RuntimeComponentId):
+            self.runtime_component = RuntimeComponentId(self.runtime_component)
+
+        if not isinstance(self.input_values, list):
+            self.input_values = [self.input_values] if self.input_values is not None else []
+        self.input_values = [v if isinstance(v, ParameterValueId) else ParameterValueId(v) for v in self.input_values]
+
+        if not isinstance(self.output_values, list):
+            self.output_values = [self.output_values] if self.output_values is not None else []
+        self.output_values = [v if isinstance(v, ParameterValueId) else ParameterValueId(v) for v in self.output_values]
+
+        self._normalize_inlined_as_list(slot_name="step_runs", slot_type=StepRun, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="incidents", slot_type=ProvenanceIncident, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="resource_usage", slot_type=ResourceUsage, key_name="id", keyed=True)
+
+        if not isinstance(self.tags, list):
+            self.tags = [self.tags] if self.tags is not None else []
+        self.tags = [v if isinstance(v, str) else str(v) for v in self.tags]
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class StepRun(NamedThing):
+    """
+    Concrete execution of a StepDefinition (retrospective provenance).
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PROVENANCE["StepRun"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_provenance:StepRun"
+    class_name: ClassVar[str] = "StepRun"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.StepRun
+
+    id: Union[str, StepRunId] = None
+    workflow_run: Optional[Union[str, WorkflowRunId]] = None
+    step_definition: Optional[Union[str, StepDefinitionId]] = None
+    activity_instance_id: Optional[str] = None
+    parent_step_run: Optional[Union[str, StepRunId]] = None
+    informed_by: Optional[Union[Union[str, StepRunId], list[Union[str, StepRunId]]]] = empty_list()
+    status: Optional[Union[str, "RunStatus"]] = None
+    started_at: Optional[Union[str, XSDDateTime]] = None
+    ended_at: Optional[Union[str, XSDDateTime]] = None
+    executed_by: Optional[Union[str, AgentId]] = None
+    environment: Optional[Union[str, EnvironmentId]] = None
+    execution_resource: Optional[Union[str, ExecutionResourceId]] = None
+    input_values: Optional[Union[Union[str, ParameterValueId], list[Union[str, ParameterValueId]]]] = empty_list()
+    output_values: Optional[Union[Union[str, ParameterValueId], list[Union[str, ParameterValueId]]]] = empty_list()
+    consumed_artifacts: Optional[Union[Union[str, WorkflowArtifactId], list[Union[str, WorkflowArtifactId]]]] = empty_list()
+    produced_artifacts: Optional[Union[Union[str, WorkflowArtifactId], list[Union[str, WorkflowArtifactId]]]] = empty_list()
+    incident_message: Optional[str] = None
+    retries: Optional[int] = None
+    sequence_no: Optional[int] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, StepRunId):
+            self.id = StepRunId(self.id)
+
+        if self.workflow_run is not None and not isinstance(self.workflow_run, WorkflowRunId):
+            self.workflow_run = WorkflowRunId(self.workflow_run)
+
+        if self.step_definition is not None and not isinstance(self.step_definition, StepDefinitionId):
+            self.step_definition = StepDefinitionId(self.step_definition)
+
+        if self.activity_instance_id is not None and not isinstance(self.activity_instance_id, str):
+            self.activity_instance_id = str(self.activity_instance_id)
+
+        if self.parent_step_run is not None and not isinstance(self.parent_step_run, StepRunId):
+            self.parent_step_run = StepRunId(self.parent_step_run)
+
+        if not isinstance(self.informed_by, list):
+            self.informed_by = [self.informed_by] if self.informed_by is not None else []
+        self.informed_by = [v if isinstance(v, StepRunId) else StepRunId(v) for v in self.informed_by]
+
+        if self.status is not None and not isinstance(self.status, RunStatus):
+            self.status = RunStatus(self.status)
+
+        if self.started_at is not None and not isinstance(self.started_at, XSDDateTime):
+            self.started_at = XSDDateTime(self.started_at)
+
+        if self.ended_at is not None and not isinstance(self.ended_at, XSDDateTime):
+            self.ended_at = XSDDateTime(self.ended_at)
+
+        if self.executed_by is not None and not isinstance(self.executed_by, AgentId):
+            self.executed_by = AgentId(self.executed_by)
+
+        if self.environment is not None and not isinstance(self.environment, EnvironmentId):
+            self.environment = EnvironmentId(self.environment)
+
+        if self.execution_resource is not None and not isinstance(self.execution_resource, ExecutionResourceId):
+            self.execution_resource = ExecutionResourceId(self.execution_resource)
+
+        if not isinstance(self.input_values, list):
+            self.input_values = [self.input_values] if self.input_values is not None else []
+        self.input_values = [v if isinstance(v, ParameterValueId) else ParameterValueId(v) for v in self.input_values]
+
+        if not isinstance(self.output_values, list):
+            self.output_values = [self.output_values] if self.output_values is not None else []
+        self.output_values = [v if isinstance(v, ParameterValueId) else ParameterValueId(v) for v in self.output_values]
+
+        if not isinstance(self.consumed_artifacts, list):
+            self.consumed_artifacts = [self.consumed_artifacts] if self.consumed_artifacts is not None else []
+        self.consumed_artifacts = [v if isinstance(v, WorkflowArtifactId) else WorkflowArtifactId(v) for v in self.consumed_artifacts]
+
+        if not isinstance(self.produced_artifacts, list):
+            self.produced_artifacts = [self.produced_artifacts] if self.produced_artifacts is not None else []
+        self.produced_artifacts = [v if isinstance(v, WorkflowArtifactId) else WorkflowArtifactId(v) for v in self.produced_artifacts]
+
+        if self.incident_message is not None and not isinstance(self.incident_message, str):
+            self.incident_message = str(self.incident_message)
+
+        if self.retries is not None and not isinstance(self.retries, int):
+            self.retries = int(self.retries)
+
+        if self.sequence_no is not None and not isinstance(self.sequence_no, int):
+            self.sequence_no = int(self.sequence_no)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class ParameterValue(NamedThing):
+    """
+    Actual observed runtime value of a variable or parameter.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PROVENANCE["ParameterValue"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_provenance:ParameterValue"
+    class_name: ClassVar[str] = "ParameterValue"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.ParameterValue
+
+    id: Union[str, ParameterValueId] = None
+    parameter_definition: Optional[Union[str, ParameterDefinitionId]] = None
+    observed_type: Optional[str] = None
+    parameter_direction: Optional[Union[str, "DirectionEnum"]] = None
+    serialized_value: Optional[str] = None
+    value_hash: Optional[str] = None
+    observed_at: Optional[Union[str, XSDDateTime]] = None
+    produced_by_step_run: Optional[Union[str, StepRunId]] = None
+    consumed_by_step_runs: Optional[Union[Union[str, StepRunId], list[Union[str, StepRunId]]]] = empty_list()
+    derived_from: Optional[Union[Union[str, ParameterValueId], list[Union[str, ParameterValueId]]]] = empty_list()
+    redacted: Optional[Union[bool, Bool]] = None
+    classification: Optional[Union[str, "DataClassification"]] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, ParameterValueId):
+            self.id = ParameterValueId(self.id)
+
+        if self.parameter_definition is not None and not isinstance(self.parameter_definition, ParameterDefinitionId):
+            self.parameter_definition = ParameterDefinitionId(self.parameter_definition)
+
+        if self.observed_type is not None and not isinstance(self.observed_type, str):
+            self.observed_type = str(self.observed_type)
+
+        if self.parameter_direction is not None and not isinstance(self.parameter_direction, DirectionEnum):
+            self.parameter_direction = DirectionEnum(self.parameter_direction)
+
+        if self.serialized_value is not None and not isinstance(self.serialized_value, str):
+            self.serialized_value = str(self.serialized_value)
+
+        if self.value_hash is not None and not isinstance(self.value_hash, str):
+            self.value_hash = str(self.value_hash)
+
+        if self.observed_at is not None and not isinstance(self.observed_at, XSDDateTime):
+            self.observed_at = XSDDateTime(self.observed_at)
+
+        if self.produced_by_step_run is not None and not isinstance(self.produced_by_step_run, StepRunId):
+            self.produced_by_step_run = StepRunId(self.produced_by_step_run)
+
+        if not isinstance(self.consumed_by_step_runs, list):
+            self.consumed_by_step_runs = [self.consumed_by_step_runs] if self.consumed_by_step_runs is not None else []
+        self.consumed_by_step_runs = [v if isinstance(v, StepRunId) else StepRunId(v) for v in self.consumed_by_step_runs]
+
+        if not isinstance(self.derived_from, list):
+            self.derived_from = [self.derived_from] if self.derived_from is not None else []
+        self.derived_from = [v if isinstance(v, ParameterValueId) else ParameterValueId(v) for v in self.derived_from]
+
+        if self.redacted is not None and not isinstance(self.redacted, Bool):
+            self.redacted = Bool(self.redacted)
+
+        if self.classification is not None and not isinstance(self.classification, DataClassification):
+            self.classification = DataClassification(self.classification)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class ResourceUsage(NamedThing):
+    """
+    Resource usage measurement for a workflow run or step run.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PROVENANCE["ResourceUsage"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_provenance:ResourceUsage"
+    class_name: ClassVar[str] = "ResourceUsage"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.ResourceUsage
+
+    id: Union[str, ResourceUsageId] = None
+    metric_name: Optional[str] = None
+    metric_value: Optional[Decimal] = None
+    metric_unit: Optional[str] = None
+    measured_for_workflow_run: Optional[Union[str, WorkflowRunId]] = None
+    measured_for_step_run: Optional[Union[str, StepRunId]] = None
+    execution_resource: Optional[Union[str, ExecutionResourceId]] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, ResourceUsageId):
+            self.id = ResourceUsageId(self.id)
+
+        if self.metric_name is not None and not isinstance(self.metric_name, str):
+            self.metric_name = str(self.metric_name)
+
+        if self.metric_value is not None and not isinstance(self.metric_value, Decimal):
+            self.metric_value = Decimal(self.metric_value)
+
+        if self.metric_unit is not None and not isinstance(self.metric_unit, str):
+            self.metric_unit = str(self.metric_unit)
+
+        if self.measured_for_workflow_run is not None and not isinstance(self.measured_for_workflow_run, WorkflowRunId):
+            self.measured_for_workflow_run = WorkflowRunId(self.measured_for_workflow_run)
+
+        if self.measured_for_step_run is not None and not isinstance(self.measured_for_step_run, StepRunId):
+            self.measured_for_step_run = StepRunId(self.measured_for_step_run)
+
+        if self.execution_resource is not None and not isinstance(self.execution_resource, ExecutionResourceId):
+            self.execution_resource = ExecutionResourceId(self.execution_resource)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class ExecutionResource(NamedThing):
+    """
+    Execution resource such as worker, node, queue, container, or database.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PROVENANCE["ExecutionResource"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_provenance:ExecutionResource"
+    class_name: ClassVar[str] = "ExecutionResource"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.ExecutionResource
+
+    id: Union[str, ExecutionResourceId] = None
+    resource_kind: Optional[Union[str, "ResourceKind"]] = None
+    host: Optional[str] = None
+    endpoint: Optional[str] = None
+    labels: Optional[Union[str, list[str]]] = empty_list()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, ExecutionResourceId):
+            self.id = ExecutionResourceId(self.id)
+
+        if self.resource_kind is not None and not isinstance(self.resource_kind, ResourceKind):
+            self.resource_kind = ResourceKind(self.resource_kind)
+
+        if self.host is not None and not isinstance(self.host, str):
+            self.host = str(self.host)
+
+        if self.endpoint is not None and not isinstance(self.endpoint, str):
+            self.endpoint = str(self.endpoint)
+
+        if not isinstance(self.labels, list):
+            self.labels = [self.labels] if self.labels is not None else []
+        self.labels = [v if isinstance(v, str) else str(v) for v in self.labels]
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class ProvenanceIncident(NamedThing):
+    """
+    Error, escalation, or operational event attached to a workflow run or step run.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PROVENANCE["ProvenanceIncident"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_provenance:ProvenanceIncident"
+    class_name: ClassVar[str] = "ProvenanceIncident"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.ProvenanceIncident
+
+    id: Union[str, ProvenanceIncidentId] = None
+    incident_status: Optional[Union[str, "IncidentStatus"]] = None
+    message: Optional[str] = None
+    code: Optional[str] = None
+    observed_at: Optional[Union[str, XSDDateTime]] = None
+    related_step_run: Optional[Union[str, StepRunId]] = None
+    related_workflow_run: Optional[Union[str, WorkflowRunId]] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, ProvenanceIncidentId):
+            self.id = ProvenanceIncidentId(self.id)
+
+        if self.incident_status is not None and not isinstance(self.incident_status, IncidentStatus):
+            self.incident_status = IncidentStatus(self.incident_status)
+
+        if self.message is not None and not isinstance(self.message, str):
+            self.message = str(self.message)
+
+        if self.code is not None and not isinstance(self.code, str):
+            self.code = str(self.code)
+
+        if self.observed_at is not None and not isinstance(self.observed_at, XSDDateTime):
+            self.observed_at = XSDDateTime(self.observed_at)
+
+        if self.related_step_run is not None and not isinstance(self.related_step_run, StepRunId):
+            self.related_step_run = StepRunId(self.related_step_run)
+
+        if self.related_workflow_run is not None and not isinstance(self.related_workflow_run, WorkflowRunId):
+            self.related_workflow_run = WorkflowRunId(self.related_workflow_run)
+
+        super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
@@ -10358,6 +11281,472 @@ class FluxnovaValue(BpmnModelElementInstance):
         super().__post_init__(**kwargs)
 
 
+@dataclass(repr=False)
+class AiAgent(Agent):
+    """
+    Autonomous or semi-autonomous AI agent that acts as an Agent in a Fluxnova
+    workflow. Concrete embodiment of one or more AI models exposed through a
+    provider endpoint. Distinct from the human, organizational, or system Agent
+    kinds declared in the base provenance module.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_AI_PROVENANCE["AiAgent"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_ai_provenance:AiAgent"
+    class_name: ClassVar[str] = "AiAgent"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.AiAgent
+
+    id: Union[str, AiAgentId] = None
+    model_family: Optional[str] = None
+    model_name: Optional[str] = None
+    model_version: Optional[str] = None
+    provider: Optional[str] = None
+    endpoint: Optional[str] = None
+    parameter_count: Optional[int] = None
+    context_window_tokens: Optional[int] = None
+    input_modalities: Optional[Union[Union[str, "AiModality"], list[Union[str, "AiModality"]]]] = empty_list()
+    output_modalities: Optional[Union[Union[str, "AiModality"], list[Union[str, "AiModality"]]]] = empty_list()
+    is_part_of_ai_system: Optional[str] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, AiAgentId):
+            self.id = AiAgentId(self.id)
+
+        if self.model_family is not None and not isinstance(self.model_family, str):
+            self.model_family = str(self.model_family)
+
+        if self.model_name is not None and not isinstance(self.model_name, str):
+            self.model_name = str(self.model_name)
+
+        if self.model_version is not None and not isinstance(self.model_version, str):
+            self.model_version = str(self.model_version)
+
+        if self.provider is not None and not isinstance(self.provider, str):
+            self.provider = str(self.provider)
+
+        if self.endpoint is not None and not isinstance(self.endpoint, str):
+            self.endpoint = str(self.endpoint)
+
+        if self.parameter_count is not None and not isinstance(self.parameter_count, int):
+            self.parameter_count = int(self.parameter_count)
+
+        if self.context_window_tokens is not None and not isinstance(self.context_window_tokens, int):
+            self.context_window_tokens = int(self.context_window_tokens)
+
+        if not isinstance(self.input_modalities, list):
+            self.input_modalities = [self.input_modalities] if self.input_modalities is not None else []
+        self.input_modalities = [v if isinstance(v, AiModality) else AiModality(v) for v in self.input_modalities]
+
+        if not isinstance(self.output_modalities, list):
+            self.output_modalities = [self.output_modalities] if self.output_modalities is not None else []
+        self.output_modalities = [v if isinstance(v, AiModality) else AiModality(v) for v in self.output_modalities]
+
+        if self.is_part_of_ai_system is not None and not isinstance(self.is_part_of_ai_system, str):
+            self.is_part_of_ai_system = str(self.is_part_of_ai_system)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class AiModelDescriptor(RuntimeComponent):
+    """
+    Descriptor of an AI model used as a runtime component. Captures static
+    characteristics of the model (family, architecture, parameter count,
+    training tokens, context window, supported languages) without prescribing
+    how an individual call was made.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_AI_PROVENANCE["AiModelDescriptor"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_ai_provenance:AiModelDescriptor"
+    class_name: ClassVar[str] = "AiModelDescriptor"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.AiModelDescriptor
+
+    id: Union[str, AiModelDescriptorId] = None
+    model_family: Optional[str] = None
+    architecture: Optional[str] = None
+    parameter_count: Optional[int] = None
+    training_token_count: Optional[int] = None
+    context_window_tokens: Optional[int] = None
+    fine_tuning_description: Optional[str] = None
+    supported_languages: Optional[Union[str, list[str]]] = empty_list()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, AiModelDescriptorId):
+            self.id = AiModelDescriptorId(self.id)
+
+        if self.model_family is not None and not isinstance(self.model_family, str):
+            self.model_family = str(self.model_family)
+
+        if self.architecture is not None and not isinstance(self.architecture, str):
+            self.architecture = str(self.architecture)
+
+        if self.parameter_count is not None and not isinstance(self.parameter_count, int):
+            self.parameter_count = int(self.parameter_count)
+
+        if self.training_token_count is not None and not isinstance(self.training_token_count, int):
+            self.training_token_count = int(self.training_token_count)
+
+        if self.context_window_tokens is not None and not isinstance(self.context_window_tokens, int):
+            self.context_window_tokens = int(self.context_window_tokens)
+
+        if self.fine_tuning_description is not None and not isinstance(self.fine_tuning_description, str):
+            self.fine_tuning_description = str(self.fine_tuning_description)
+
+        if not isinstance(self.supported_languages, list):
+            self.supported_languages = [self.supported_languages] if self.supported_languages is not None else []
+        self.supported_languages = [v if isinstance(v, str) else str(v) for v in self.supported_languages]
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class AiModelInvocation(StepRun):
+    """
+    One concrete invocation of an AI model from a workflow step. Captures the
+    runtime call (kind, parameters, prompts, tool calls, response), the
+    consumption telemetry (token counts, cost), any safety flags raised, and
+    any evaluation results attached. Inherits status, timestamps, parent
+    workflow run, sequence number, and incident linkage from StepRun.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_AI_PROVENANCE["AiModelInvocation"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_ai_provenance:AiModelInvocation"
+    class_name: ClassVar[str] = "AiModelInvocation"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.AiModelInvocation
+
+    id: Union[str, AiModelInvocationId] = None
+    invoked_model: Optional[Union[str, AiAgentId]] = None
+    invocation_kind: Optional[Union[str, "AiInvocationKind"]] = None
+    prompt_messages: Optional[Union[dict[Union[str, PromptMessageId], Union[dict, "PromptMessage"]], list[Union[dict, "PromptMessage"]]]] = empty_dict()
+    tool_calls: Optional[Union[dict[Union[str, ToolCallId], Union[dict, "ToolCall"]], list[Union[dict, "ToolCall"]]]] = empty_dict()
+    response_message: Optional[Union[str, PromptMessageId]] = None
+    temperature: Optional[Decimal] = None
+    top_p: Optional[Decimal] = None
+    max_tokens: Optional[int] = None
+    total_input_tokens: Optional[int] = None
+    total_output_tokens: Optional[int] = None
+    cost_usd: Optional[Decimal] = None
+    safety_flags: Optional[Union[Union[str, "SafetyFlag"], list[Union[str, "SafetyFlag"]]]] = empty_list()
+    evaluation_results: Optional[Union[dict[Union[str, EvaluationResultId], Union[dict, "EvaluationResult"]], list[Union[dict, "EvaluationResult"]]]] = empty_dict()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, AiModelInvocationId):
+            self.id = AiModelInvocationId(self.id)
+
+        if self.invoked_model is not None and not isinstance(self.invoked_model, AiAgentId):
+            self.invoked_model = AiAgentId(self.invoked_model)
+
+        if self.invocation_kind is not None and not isinstance(self.invocation_kind, AiInvocationKind):
+            self.invocation_kind = AiInvocationKind(self.invocation_kind)
+
+        self._normalize_inlined_as_list(slot_name="prompt_messages", slot_type=PromptMessage, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="tool_calls", slot_type=ToolCall, key_name="id", keyed=True)
+
+        if self.response_message is not None and not isinstance(self.response_message, PromptMessageId):
+            self.response_message = PromptMessageId(self.response_message)
+
+        if self.temperature is not None and not isinstance(self.temperature, Decimal):
+            self.temperature = Decimal(self.temperature)
+
+        if self.top_p is not None and not isinstance(self.top_p, Decimal):
+            self.top_p = Decimal(self.top_p)
+
+        if self.max_tokens is not None and not isinstance(self.max_tokens, int):
+            self.max_tokens = int(self.max_tokens)
+
+        if self.total_input_tokens is not None and not isinstance(self.total_input_tokens, int):
+            self.total_input_tokens = int(self.total_input_tokens)
+
+        if self.total_output_tokens is not None and not isinstance(self.total_output_tokens, int):
+            self.total_output_tokens = int(self.total_output_tokens)
+
+        if self.cost_usd is not None and not isinstance(self.cost_usd, Decimal):
+            self.cost_usd = Decimal(self.cost_usd)
+
+        if not isinstance(self.safety_flags, list):
+            self.safety_flags = [self.safety_flags] if self.safety_flags is not None else []
+        self.safety_flags = [v if isinstance(v, SafetyFlag) else SafetyFlag(v) for v in self.safety_flags]
+
+        self._normalize_inlined_as_list(slot_name="evaluation_results", slot_type=EvaluationResult, key_name="id", keyed=True)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class PromptMessage(NamedThing):
+    """
+    A single message turn in an AI model invocation (system, user, assistant,
+    or tool turn). Records the role, the (possibly redacted) content, an
+    ordering index inside the invocation, and a data classification.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_AI_PROVENANCE["PromptMessage"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_ai_provenance:PromptMessage"
+    class_name: ClassVar[str] = "PromptMessage"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.PromptMessage
+
+    id: Union[str, PromptMessageId] = None
+    message_role: Optional[Union[str, "MessageRole"]] = None
+    content: Optional[str] = None
+    content_hash: Optional[str] = None
+    sequence_no: Optional[int] = None
+    redacted: Optional[Union[bool, Bool]] = None
+    classification: Optional[Union[str, "DataClassification"]] = None
+    parent_invocation: Optional[Union[str, AiModelInvocationId]] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, PromptMessageId):
+            self.id = PromptMessageId(self.id)
+
+        if self.message_role is not None and not isinstance(self.message_role, MessageRole):
+            self.message_role = MessageRole(self.message_role)
+
+        if self.content is not None and not isinstance(self.content, str):
+            self.content = str(self.content)
+
+        if self.content_hash is not None and not isinstance(self.content_hash, str):
+            self.content_hash = str(self.content_hash)
+
+        if self.sequence_no is not None and not isinstance(self.sequence_no, int):
+            self.sequence_no = int(self.sequence_no)
+
+        if self.redacted is not None and not isinstance(self.redacted, Bool):
+            self.redacted = Bool(self.redacted)
+
+        if self.classification is not None and not isinstance(self.classification, DataClassification):
+            self.classification = DataClassification(self.classification)
+
+        if self.parent_invocation is not None and not isinstance(self.parent_invocation, AiModelInvocationId):
+            self.parent_invocation = AiModelInvocationId(self.parent_invocation)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class ToolCall(NamedThing):
+    """
+    A single tool / function call made by an AI agent during an invocation.
+    Captures the tool name, the provider-assigned call identifier, the
+    arguments passed, the result returned, the status of the call, and an
+    optional link to the step run that materialized the call.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_AI_PROVENANCE["ToolCall"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_ai_provenance:ToolCall"
+    class_name: ClassVar[str] = "ToolCall"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.ToolCall
+
+    id: Union[str, ToolCallId] = None
+    tool_name: Optional[str] = None
+    tool_call_id: Optional[str] = None
+    arguments_json: Optional[str] = None
+    result_json: Optional[str] = None
+    result_artifact: Optional[Union[str, WorkflowArtifactId]] = None
+    called_step_run: Optional[Union[str, StepRunId]] = None
+    started_at: Optional[Union[str, XSDDateTime]] = None
+    ended_at: Optional[Union[str, XSDDateTime]] = None
+    status: Optional[Union[str, "RunStatus"]] = None
+    parent_invocation: Optional[Union[str, AiModelInvocationId]] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, ToolCallId):
+            self.id = ToolCallId(self.id)
+
+        if self.tool_name is not None and not isinstance(self.tool_name, str):
+            self.tool_name = str(self.tool_name)
+
+        if self.tool_call_id is not None and not isinstance(self.tool_call_id, str):
+            self.tool_call_id = str(self.tool_call_id)
+
+        if self.arguments_json is not None and not isinstance(self.arguments_json, str):
+            self.arguments_json = str(self.arguments_json)
+
+        if self.result_json is not None and not isinstance(self.result_json, str):
+            self.result_json = str(self.result_json)
+
+        if self.result_artifact is not None and not isinstance(self.result_artifact, WorkflowArtifactId):
+            self.result_artifact = WorkflowArtifactId(self.result_artifact)
+
+        if self.called_step_run is not None and not isinstance(self.called_step_run, StepRunId):
+            self.called_step_run = StepRunId(self.called_step_run)
+
+        if self.started_at is not None and not isinstance(self.started_at, XSDDateTime):
+            self.started_at = XSDDateTime(self.started_at)
+
+        if self.ended_at is not None and not isinstance(self.ended_at, XSDDateTime):
+            self.ended_at = XSDDateTime(self.ended_at)
+
+        if self.status is not None and not isinstance(self.status, RunStatus):
+            self.status = RunStatus(self.status)
+
+        if self.parent_invocation is not None and not isinstance(self.parent_invocation, AiModelInvocationId):
+            self.parent_invocation = AiModelInvocationId(self.parent_invocation)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class EvaluationResult(NamedThing):
+    """
+    Result of a quality or safety evaluation against an AI model invocation.
+    Supports human review, LLM-as-judge, deterministic metrics, guardrails,
+    and static rule checks. Distinct from offline benchmark scoring such as
+    nexus:AiEvalResult (a related but coarser concept).
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_AI_PROVENANCE["EvaluationResult"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_ai_provenance:EvaluationResult"
+    class_name: ClassVar[str] = "EvaluationResult"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.EvaluationResult
+
+    id: Union[str, EvaluationResultId] = None
+    evaluator_name: Optional[str] = None
+    evaluator_kind: Optional[Union[str, "EvaluatorKind"]] = None
+    metric_name: Optional[str] = None
+    metric_value: Optional[Decimal] = None
+    metric_unit: Optional[str] = None
+    passing: Optional[Union[bool, Bool]] = None
+    evaluated_at: Optional[Union[str, XSDDateTime]] = None
+    evaluated_invocation: Optional[Union[str, AiModelInvocationId]] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, EvaluationResultId):
+            self.id = EvaluationResultId(self.id)
+
+        if self.evaluator_name is not None and not isinstance(self.evaluator_name, str):
+            self.evaluator_name = str(self.evaluator_name)
+
+        if self.evaluator_kind is not None and not isinstance(self.evaluator_kind, EvaluatorKind):
+            self.evaluator_kind = EvaluatorKind(self.evaluator_kind)
+
+        if self.metric_name is not None and not isinstance(self.metric_name, str):
+            self.metric_name = str(self.metric_name)
+
+        if self.metric_value is not None and not isinstance(self.metric_value, Decimal):
+            self.metric_value = Decimal(self.metric_value)
+
+        if self.metric_unit is not None and not isinstance(self.metric_unit, str):
+            self.metric_unit = str(self.metric_unit)
+
+        if self.passing is not None and not isinstance(self.passing, Bool):
+            self.passing = Bool(self.passing)
+
+        if self.evaluated_at is not None and not isinstance(self.evaluated_at, XSDDateTime):
+            self.evaluated_at = XSDDateTime(self.evaluated_at)
+
+        if self.evaluated_invocation is not None and not isinstance(self.evaluated_invocation, AiModelInvocationId):
+            self.evaluated_invocation = AiModelInvocationId(self.evaluated_invocation)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class AiDataset(WorkflowArtifact):
+    """
+    Dataset artifact associated with an AI model invocation, an evaluation,
+    a training run, or a fine-tuning step. Extends the generic WorkflowArtifact
+    class with AI-specific metadata such as dataset kind, record count, license,
+    and data classification.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_AI_PROVENANCE["AiDataset"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_ai_provenance:AiDataset"
+    class_name: ClassVar[str] = "AiDataset"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.AiDataset
+
+    id: Union[str, AiDatasetId] = None
+    dataset_kind: Optional[Union[str, "DatasetKind"]] = None
+    record_count: Optional[int] = None
+    license_uri: Optional[str] = None
+    classification: Optional[Union[str, "DataClassification"]] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, AiDatasetId):
+            self.id = AiDatasetId(self.id)
+
+        if self.dataset_kind is not None and not isinstance(self.dataset_kind, DatasetKind):
+            self.dataset_kind = DatasetKind(self.dataset_kind)
+
+        if self.record_count is not None and not isinstance(self.record_count, int):
+            self.record_count = int(self.record_count)
+
+        if self.license_uri is not None and not isinstance(self.license_uri, str):
+            self.license_uri = str(self.license_uri)
+
+        if self.classification is not None and not isinstance(self.classification, DataClassification):
+            self.classification = DataClassification(self.classification)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class ModelArtifact(WorkflowArtifact):
+    """
+    Persistent model artifact such as a checkpoint, weights file, or model
+    card publication. Distinct from AiModelDescriptor: this is a concrete
+    file or URI, while AiModelDescriptor is the runtime component used
+    during invocation.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_AI_PROVENANCE["ModelArtifact"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_ai_provenance:ModelArtifact"
+    class_name: ClassVar[str] = "ModelArtifact"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.ModelArtifact
+
+    id: Union[str, ModelArtifactId] = None
+    model_card_uri: Optional[str] = None
+    weights_uri: Optional[str] = None
+    training_datasets: Optional[Union[Union[str, AiDatasetId], list[Union[str, AiDatasetId]]]] = empty_list()
+    base_model: Optional[Union[str, ModelArtifactId]] = None
+    parameter_count: Optional[int] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, ModelArtifactId):
+            self.id = ModelArtifactId(self.id)
+
+        if self.model_card_uri is not None and not isinstance(self.model_card_uri, str):
+            self.model_card_uri = str(self.model_card_uri)
+
+        if self.weights_uri is not None and not isinstance(self.weights_uri, str):
+            self.weights_uri = str(self.weights_uri)
+
+        if not isinstance(self.training_datasets, list):
+            self.training_datasets = [self.training_datasets] if self.training_datasets is not None else []
+        self.training_datasets = [v if isinstance(v, AiDatasetId) else AiDatasetId(v) for v in self.training_datasets]
+
+        if self.base_model is not None and not isinstance(self.base_model, ModelArtifactId):
+            self.base_model = ModelArtifactId(self.base_model)
+
+        if self.parameter_count is not None and not isinstance(self.parameter_count, int):
+            self.parameter_count = int(self.parameter_count)
+
+        super().__post_init__(**kwargs)
+
+
 # Enumerations
 class SuspensionState(EnumDefinitionImpl):
     """
@@ -10509,6 +11898,364 @@ class AuthorizationType(EnumDefinitionImpl):
     _defn = EnumDefinition(
         name="AuthorizationType",
         description="Type of authorization rule.",
+    )
+
+class RunStatus(EnumDefinitionImpl):
+    """
+    Lifecycle status of a workflow run or step run.
+    """
+    PENDING = PermissibleValue(
+        text="PENDING",
+        description="Scheduled but not yet started.",
+        meaning=SCHEMA["PotentialActionStatus"])
+    ACTIVE = PermissibleValue(
+        text="ACTIVE",
+        description="Currently executing.",
+        meaning=SCHEMA["ActiveActionStatus"])
+    COMPLETED = PermissibleValue(
+        text="COMPLETED",
+        description="Finished successfully.",
+        meaning=SCHEMA["CompletedActionStatus"])
+    FAILED = PermissibleValue(
+        text="FAILED",
+        description="Terminated with an error.",
+        meaning=SCHEMA["FailedActionStatus"])
+    CANCELLED = PermissibleValue(
+        text="CANCELLED",
+        description="Cancelled before completion.")
+    SUSPENDED = PermissibleValue(
+        text="SUSPENDED",
+        description="Paused; can be resumed.")
+
+    _defn = EnumDefinition(
+        name="RunStatus",
+        description="Lifecycle status of a workflow run or step run.",
+    )
+
+class IncidentStatus(EnumDefinitionImpl):
+    """
+    Lifecycle status of an incident.
+    """
+    OPEN = PermissibleValue(
+        text="OPEN",
+        description="Newly reported, not yet investigated.")
+    INVESTIGATING = PermissibleValue(
+        text="INVESTIGATING",
+        description="Currently being investigated or worked on.")
+    RESOLVED = PermissibleValue(
+        text="RESOLVED",
+        description="Resolved successfully.")
+    IGNORED = PermissibleValue(
+        text="IGNORED",
+        description="Acknowledged but not actioned.")
+
+    _defn = EnumDefinition(
+        name="IncidentStatus",
+        description="Lifecycle status of an incident.",
+    )
+
+class DirectionEnum(EnumDefinitionImpl):
+    """
+    Direction of data flow for a parameter.
+    """
+    IN = PermissibleValue(
+        text="IN",
+        description="Input parameter consumed by the workflow or step.")
+    OUT = PermissibleValue(
+        text="OUT",
+        description="Output parameter produced by the workflow or step.")
+    INOUT = PermissibleValue(
+        text="INOUT",
+        description="Read and updated by the workflow or step.")
+    LOCAL = PermissibleValue(
+        text="LOCAL",
+        description="Internal local variable not exposed at the boundary.")
+
+    _defn = EnumDefinition(
+        name="DirectionEnum",
+        description="Direction of data flow for a parameter.",
+    )
+
+class ParameterScope(EnumDefinitionImpl):
+    """
+    Scope at which a parameter or variable is defined.
+    """
+    WORKFLOW = PermissibleValue(
+        text="WORKFLOW",
+        description="Scoped to the entire workflow.")
+    STEP = PermissibleValue(
+        text="STEP",
+        description="Scoped to a single step / activity.")
+    TASK = PermissibleValue(
+        text="TASK",
+        description="Scoped to a user or service task.")
+    DECISION = PermissibleValue(
+        text="DECISION",
+        description="Scoped to a DMN decision.")
+    FORM = PermissibleValue(
+        text="FORM",
+        description="Scoped to a human-task form.")
+
+    _defn = EnumDefinition(
+        name="ParameterScope",
+        description="Scope at which a parameter or variable is defined.",
+    )
+
+class AgentKind(EnumDefinitionImpl):
+    """
+    Kind of agent participating in workflow execution.
+    """
+    PERSON = PermissibleValue(
+        text="PERSON",
+        description="A natural person.",
+        meaning=PROV["Person"])
+    ORGANIZATION = PermissibleValue(
+        text="ORGANIZATION",
+        description="An organizational entity.",
+        meaning=PROV["Organization"])
+    SYSTEM = PermissibleValue(
+        text="SYSTEM",
+        description="A software system or automated component.",
+        meaning=PROV["SoftwareAgent"])
+    SERVICE_ACCOUNT = PermissibleValue(
+        text="SERVICE_ACCOUNT",
+        description="A non-human service account identity.",
+        meaning=PROV["SoftwareAgent"])
+
+    _defn = EnumDefinition(
+        name="AgentKind",
+        description="Kind of agent participating in workflow execution.",
+    )
+
+class RuntimeComponentKind(EnumDefinitionImpl):
+    """
+    Kind of runtime component participating in orchestration.
+    """
+    ENGINE = PermissibleValue(
+        text="ENGINE",
+        description="The BPMN process engine itself.")
+    REST_API = PermissibleValue(
+        text="REST_API",
+        description="REST API surface fronting the engine.")
+    JOB_EXECUTOR = PermissibleValue(
+        text="JOB_EXECUTOR",
+        description="Asynchronous job execution component.")
+    HISTORY_EXPORTER = PermissibleValue(
+        text="HISTORY_EXPORTER",
+        description="Component that exports historic data.")
+    PLUGIN = PermissibleValue(
+        text="PLUGIN",
+        description="Engine plugin or extension.")
+    CONNECTOR = PermissibleValue(
+        text="CONNECTOR",
+        description="Integration connector to an external system.")
+    MODELER_DEPLOYER = PermissibleValue(
+        text="MODELER_DEPLOYER",
+        description="Deployment-time modeler/deployer tool.")
+
+    _defn = EnumDefinition(
+        name="RuntimeComponentKind",
+        description="Kind of runtime component participating in orchestration.",
+    )
+
+class ArtifactKind(EnumDefinitionImpl):
+    """
+    Classifier for the kind of artifact referenced.
+    """
+    BPMN_XML = PermissibleValue(
+        text="BPMN_XML",
+        description="BPMN 2.0 XML process model.")
+    DMN_XML = PermissibleValue(
+        text="DMN_XML",
+        description="DMN XML decision model.")
+    FORM_SCHEMA = PermissibleValue(
+        text="FORM_SCHEMA",
+        description="Form schema (e.g. JSON Schema, embedded form).")
+    PAYLOAD = PermissibleValue(
+        text="PAYLOAD",
+        description="Request/response payload for an integration call.")
+    DOCUMENT = PermissibleValue(
+        text="DOCUMENT",
+        description="Business document handled by the workflow.")
+    LOG = PermissibleValue(
+        text="LOG",
+        description="Diagnostic log file.")
+    EXPORT_BUNDLE = PermissibleValue(
+        text="EXPORT_BUNDLE",
+        description="Provenance export bundle file.")
+    SCREENSHOT = PermissibleValue(
+        text="SCREENSHOT",
+        description="Screenshot artifact.")
+    OTHER = PermissibleValue(
+        text="OTHER",
+        description="Unclassified artifact kind.")
+
+    _defn = EnumDefinition(
+        name="ArtifactKind",
+        description="Classifier for the kind of artifact referenced.",
+    )
+
+class ImplementationKind(EnumDefinitionImpl):
+    """
+    Normalized implementation strategy for a step.
+    """
+    USER_TASK = PermissibleValue(
+        text="USER_TASK",
+        description="Human user task.")
+    JAVA_DELEGATE = PermissibleValue(
+        text="JAVA_DELEGATE",
+        description="Java delegate class implementation.")
+    EXPRESSION = PermissibleValue(
+        text="EXPRESSION",
+        description="Engine expression evaluation.")
+    SCRIPT = PermissibleValue(
+        text="SCRIPT",
+        description="Inline or referenced script.")
+    CONNECTOR = PermissibleValue(
+        text="CONNECTOR",
+        description="Connector configuration.")
+    CALL_ACTIVITY = PermissibleValue(
+        text="CALL_ACTIVITY",
+        description="Call to another process.")
+    BUSINESS_RULE = PermissibleValue(
+        text="BUSINESS_RULE",
+        description="DMN business rule evaluation.")
+    EXTERNAL_SERVICE = PermissibleValue(
+        text="EXTERNAL_SERVICE",
+        description="External worker topic (external task pattern).")
+    EVENT = PermissibleValue(
+        text="EVENT",
+        description="BPMN event handler.")
+    GATEWAY = PermissibleValue(
+        text="GATEWAY",
+        description="BPMN gateway routing.")
+    SUBPROCESS = PermissibleValue(
+        text="SUBPROCESS",
+        description="Embedded subprocess.")
+
+    _defn = EnumDefinition(
+        name="ImplementationKind",
+        description="Normalized implementation strategy for a step.",
+    )
+
+class ResourceKind(EnumDefinitionImpl):
+    """
+    Kind of execution resource.
+    """
+    HOST = PermissibleValue(
+        text="HOST",
+        description="A physical or virtual host.")
+    CONTAINER = PermissibleValue(
+        text="CONTAINER",
+        description="A container instance.")
+    POD = PermissibleValue(
+        text="POD",
+        description="A Kubernetes pod.")
+    NODE = PermissibleValue(
+        text="NODE",
+        description="A cluster node.")
+    DATABASE = PermissibleValue(
+        text="DATABASE",
+        description="A database instance.")
+    QUEUE = PermissibleValue(
+        text="QUEUE",
+        description="A message queue.")
+    CLUSTER = PermissibleValue(
+        text="CLUSTER",
+        description="A cluster of nodes.")
+    THREAD_POOL = PermissibleValue(
+        text="THREAD_POOL",
+        description="An in-process thread pool.")
+    EXTERNAL_API = PermissibleValue(
+        text="EXTERNAL_API",
+        description="An external API endpoint.")
+
+    _defn = EnumDefinition(
+        name="ResourceKind",
+        description="Kind of execution resource.",
+    )
+
+class BPMNElementType(EnumDefinitionImpl):
+    """
+    Normalized BPMN element type for a step definition.
+    """
+    PROCESS = PermissibleValue(
+        text="PROCESS",
+        description="A BPMN process element.")
+    START_EVENT = PermissibleValue(
+        text="START_EVENT",
+        description="Start event.")
+    END_EVENT = PermissibleValue(
+        text="END_EVENT",
+        description="End event.")
+    USER_TASK = PermissibleValue(
+        text="USER_TASK",
+        description="User task.")
+    SERVICE_TASK = PermissibleValue(
+        text="SERVICE_TASK",
+        description="Service task.")
+    SCRIPT_TASK = PermissibleValue(
+        text="SCRIPT_TASK",
+        description="Script task.")
+    BUSINESS_RULE_TASK = PermissibleValue(
+        text="BUSINESS_RULE_TASK",
+        description="Business rule (DMN) task.")
+    MANUAL_TASK = PermissibleValue(
+        text="MANUAL_TASK",
+        description="Manual task.")
+    CALL_ACTIVITY = PermissibleValue(
+        text="CALL_ACTIVITY",
+        description="Call activity.")
+    SUB_PROCESS = PermissibleValue(
+        text="SUB_PROCESS",
+        description="Sub-process.")
+    EXCLUSIVE_GATEWAY = PermissibleValue(
+        text="EXCLUSIVE_GATEWAY",
+        description="Exclusive (XOR) gateway.")
+    PARALLEL_GATEWAY = PermissibleValue(
+        text="PARALLEL_GATEWAY",
+        description="Parallel (AND) gateway.")
+    EVENT_BASED_GATEWAY = PermissibleValue(
+        text="EVENT_BASED_GATEWAY",
+        description="Event-based gateway.")
+    INTERMEDIATE_CATCH_EVENT = PermissibleValue(
+        text="INTERMEDIATE_CATCH_EVENT",
+        description="Intermediate catch event.")
+    INTERMEDIATE_THROW_EVENT = PermissibleValue(
+        text="INTERMEDIATE_THROW_EVENT",
+        description="Intermediate throw event.")
+    BOUNDARY_EVENT = PermissibleValue(
+        text="BOUNDARY_EVENT",
+        description="Boundary event.")
+    SEQUENCE_FLOW = PermissibleValue(
+        text="SEQUENCE_FLOW",
+        description="Sequence flow.")
+
+    _defn = EnumDefinition(
+        name="BPMNElementType",
+        description="Normalized BPMN element type for a step definition.",
+    )
+
+class DataClassification(EnumDefinitionImpl):
+    """
+    Sensitivity / data-classification label for a parameter value.
+    """
+    PUBLIC = PermissibleValue(
+        text="PUBLIC",
+        description="Information that may be disclosed publicly.")
+    INTERNAL = PermissibleValue(
+        text="INTERNAL",
+        description="For internal use only.")
+    CONFIDENTIAL = PermissibleValue(
+        text="CONFIDENTIAL",
+        description="Confidential information.")
+    RESTRICTED = PermissibleValue(
+        text="RESTRICTED",
+        description="Restricted / regulated information requiring strict access controls.")
+
+    _defn = EnumDefinition(
+        name="DataClassification",
+        description="Sensitivity / data-classification label for a parameter value.",
     )
 
 class AssociationDirection(EnumDefinitionImpl):
@@ -10724,6 +12471,172 @@ class ParticipantBandKind(EnumDefinitionImpl):
     _defn = EnumDefinition(
         name="ParticipantBandKind",
         description="The BPMNDI ParticipantBandKind simpleType",
+    )
+
+class MessageRole(EnumDefinitionImpl):
+    """
+    Conversational role of a prompt or response message.
+    """
+    SYSTEM = PermissibleValue(
+        text="SYSTEM",
+        description="System-level instruction or persona-setting message.")
+    USER = PermissibleValue(
+        text="USER",
+        description="End-user input message.")
+    ASSISTANT = PermissibleValue(
+        text="ASSISTANT",
+        description="Model-generated response message.")
+    TOOL = PermissibleValue(
+        text="TOOL",
+        description="Tool / function result message returned to the model.")
+
+    _defn = EnumDefinition(
+        name="MessageRole",
+        description="Conversational role of a prompt or response message.",
+    )
+
+class AiModality(EnumDefinitionImpl):
+    """
+    Input or output modality supported by an AI model.
+    """
+    TEXT = PermissibleValue(
+        text="TEXT",
+        description="Natural-language text.")
+    IMAGE = PermissibleValue(
+        text="IMAGE",
+        description="Still image content.")
+    AUDIO = PermissibleValue(
+        text="AUDIO",
+        description="Audio content.")
+    VIDEO = PermissibleValue(
+        text="VIDEO",
+        description="Video content.")
+    MULTIMODAL = PermissibleValue(
+        text="MULTIMODAL",
+        description="Combined modalities in a single input or output.")
+    EMBEDDING = PermissibleValue(
+        text="EMBEDDING",
+        description="Numeric vector embedding.")
+
+    _defn = EnumDefinition(
+        name="AiModality",
+        description="Input or output modality supported by an AI model.",
+    )
+
+class AiInvocationKind(EnumDefinitionImpl):
+    """
+    Kind of AI model invocation performed from a workflow step.
+    """
+    CHAT_COMPLETION = PermissibleValue(
+        text="CHAT_COMPLETION",
+        description="Multi-turn chat completion call.")
+    COMPLETION = PermissibleValue(
+        text="COMPLETION",
+        description="Single-turn text completion call.")
+    EMBEDDING = PermissibleValue(
+        text="EMBEDDING",
+        description="Embedding generation call.")
+    TOOL_USE = PermissibleValue(
+        text="TOOL_USE",
+        description="Invocation that includes tool / function calling.")
+    AGENT_LOOP = PermissibleValue(
+        text="AGENT_LOOP",
+        description="Agentic loop with multiple model + tool turns.")
+    RETRIEVAL = PermissibleValue(
+        text="RETRIEVAL",
+        description="Retrieval-augmented generation lookup.")
+    GUARDRAIL = PermissibleValue(
+        text="GUARDRAIL",
+        description="Guardrail or policy-check invocation.")
+
+    _defn = EnumDefinition(
+        name="AiInvocationKind",
+        description="Kind of AI model invocation performed from a workflow step.",
+    )
+
+class SafetyFlag(EnumDefinitionImpl):
+    """
+    Safety, policy, or guardrail flag raised by the model, the provider, or
+    a local guardrail layer during an AI model invocation. Mapped to
+    dpv-risk terms where a stable upstream match exists.
+    """
+    NONE = PermissibleValue(
+        text="NONE",
+        description="No safety flag was raised.")
+    POLICY_VIOLATION = PermissibleValue(
+        text="POLICY_VIOLATION",
+        description="Output or input violates a configured content policy.")
+    HALLUCINATION_SUSPECTED = PermissibleValue(
+        text="HALLUCINATION_SUSPECTED",
+        description="Output was flagged as likely hallucinated or unsupported by retrieved evidence.")
+    JAILBREAK_ATTEMPT = PermissibleValue(
+        text="JAILBREAK_ATTEMPT",
+        description="Input was flagged as attempting to bypass the system instruction.")
+    PII_LEAK = PermissibleValue(
+        text="PII_LEAK",
+        description="Output or input contained personally identifiable information.")
+    PROMPT_INJECTION = PermissibleValue(
+        text="PROMPT_INJECTION",
+        description="Input was flagged as attempting to override the system instruction.")
+    TOXICITY = PermissibleValue(
+        text="TOXICITY",
+        description="Output or input was flagged as toxic.")
+
+    _defn = EnumDefinition(
+        name="SafetyFlag",
+        description="""Safety, policy, or guardrail flag raised by the model, the provider, or
+a local guardrail layer during an AI model invocation. Mapped to
+dpv-risk terms where a stable upstream match exists.""",
+    )
+
+class DatasetKind(EnumDefinitionImpl):
+    """
+    Role of a dataset relative to an AI model.
+    """
+    TRAINING = PermissibleValue(
+        text="TRAINING",
+        description="Used to train the model.")
+    FINE_TUNING = PermissibleValue(
+        text="FINE_TUNING",
+        description="Used to fine-tune the model.")
+    EVALUATION = PermissibleValue(
+        text="EVALUATION",
+        description="Used to evaluate the model.")
+    RAG_CORPUS = PermissibleValue(
+        text="RAG_CORPUS",
+        description="Used as a retrieval corpus at inference time.")
+    GROUND_TRUTH = PermissibleValue(
+        text="GROUND_TRUTH",
+        description="Used as ground-truth labels for evaluation or supervised tuning.")
+
+    _defn = EnumDefinition(
+        name="DatasetKind",
+        description="Role of a dataset relative to an AI model.",
+    )
+
+class EvaluatorKind(EnumDefinitionImpl):
+    """
+    Kind of evaluator that produced an EvaluationResult.
+    """
+    HUMAN_REVIEW = PermissibleValue(
+        text="HUMAN_REVIEW",
+        description="Human reviewer-assigned score or pass/fail.")
+    LLM_AS_JUDGE = PermissibleValue(
+        text="LLM_AS_JUDGE",
+        description="A separate LLM invocation that scored the evaluated invocation.")
+    METRIC = PermissibleValue(
+        text="METRIC",
+        description="A deterministic numeric metric (ROUGE, BLEU, exact match, etc.).")
+    GUARDRAIL = PermissibleValue(
+        text="GUARDRAIL",
+        description="A guardrail or policy-check layer.")
+    STATIC_RULE = PermissibleValue(
+        text="STATIC_RULE",
+        description="A static rule check (regex, schema validation, etc.).")
+
+    _defn = EnumDefinition(
+        name="EvaluatorKind",
+        description="Kind of evaluator that produced an EvaluationResult.",
     )
 
 # Slots
@@ -11329,6 +13242,273 @@ slots.worker_id = Slot(uri=FLUXNOVA_BPM_RUNTIME.worker_id, name="worker_id", cur
 
 slots.definitions = Slot(uri=FLUXNOVA_BPMN_MODEL.definitions, name="definitions", curie=FLUXNOVA_BPMN_MODEL.curie('definitions'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.definitions, domain=None, range=Optional[Union[str, DefinitionsId]])
+
+slots.external_ref = Slot(uri=SCHEMA.url, name="external_ref", curie=SCHEMA.curie('url'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.external_ref, domain=None, range=Optional[str])
+
+slots.definition_version = Slot(uri=SCHEMA.version, name="definition_version", curie=SCHEMA.curie('version'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.definition_version, domain=None, range=Optional[str])
+
+slots.generated_at = Slot(uri=PROV.generatedAtTime, name="generated_at", curie=PROV.curie('generatedAtTime'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.generated_at, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.source_system = Slot(uri=PROV.wasAttributedTo, name="source_system", curie=PROV.curie('wasAttributedTo'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.source_system, domain=None, range=Optional[str])
+
+slots.schema_version = Slot(uri=DCTERMS.hasVersion, name="schema_version", curie=DCTERMS.curie('hasVersion'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.schema_version, domain=None, range=Optional[str])
+
+slots.definition_key = Slot(uri=FLUXNOVA_BPM_PROVENANCE.definition_key, name="definition_key", curie=FLUXNOVA_BPM_PROVENANCE.curie('definition_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.definition_key, domain=None, range=Optional[str])
+
+slots.source_model_ref = Slot(uri=PROV.hadPrimarySource, name="source_model_ref", curie=PROV.curie('hadPrimarySource'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.source_model_ref, domain=None, range=Optional[Union[str, WorkflowArtifactId]])
+
+slots.runtime_component = Slot(uri=SCHEMA.instrument, name="runtime_component", curie=SCHEMA.curie('instrument'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.runtime_component, domain=None, range=Optional[Union[str, RuntimeComponentId]])
+
+slots.steps = Slot(uri=FLUXNOVA_BPM_PROVENANCE.steps, name="steps", curie=FLUXNOVA_BPM_PROVENANCE.curie('steps'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.steps, domain=None, range=Optional[Union[dict[Union[str, StepDefinitionId], Union[dict, StepDefinition]], list[Union[dict, StepDefinition]]]])
+
+slots.authors = Slot(uri=FLUXNOVA_BPM_PROVENANCE.authors, name="authors", curie=FLUXNOVA_BPM_PROVENANCE.curie('authors'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.authors, domain=None, range=Optional[Union[Union[str, AgentId], list[Union[str, AgentId]]]])
+
+slots.tags = Slot(uri=FLUXNOVA_BPM_PROVENANCE.tags, name="tags", curie=FLUXNOVA_BPM_PROVENANCE.curie('tags'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.tags, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.workflow_definition = Slot(uri=SCHEMA.instrument, name="workflow_definition", curie=SCHEMA.curie('instrument'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.workflow_definition, domain=None, range=Optional[Union[str, WorkflowDefinitionId]])
+
+slots.bpmn_type = Slot(uri=FLUXNOVA_BPM_PROVENANCE.bpmn_type, name="bpmn_type", curie=FLUXNOVA_BPM_PROVENANCE.curie('bpmn_type'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmn_type, domain=None, range=Optional[Union[str, "BPMNElementType"]])
+
+slots.implementation_kind = Slot(uri=FLUXNOVA_BPM_PROVENANCE.implementation_kind, name="implementation_kind", curie=FLUXNOVA_BPM_PROVENANCE.curie('implementation_kind'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.implementation_kind, domain=None, range=Optional[Union[str, "ImplementationKind"]])
+
+slots.decision_ref = Slot(uri=FLUXNOVA_BPM_PROVENANCE.decision_ref, name="decision_ref", curie=FLUXNOVA_BPM_PROVENANCE.curie('decision_ref'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.decision_ref, domain=None, range=Optional[str])
+
+slots.form_ref = Slot(uri=FLUXNOVA_BPM_PROVENANCE.form_ref, name="form_ref", curie=FLUXNOVA_BPM_PROVENANCE.curie('form_ref'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.form_ref, domain=None, range=Optional[str])
+
+slots.input_parameters = Slot(uri=FLUXNOVA_BPM_PROVENANCE.input_parameters, name="input_parameters", curie=FLUXNOVA_BPM_PROVENANCE.curie('input_parameters'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.input_parameters, domain=None, range=Optional[Union[dict[Union[str, ParameterDefinitionId], Union[dict, ParameterDefinition]], list[Union[dict, ParameterDefinition]]]])
+
+slots.output_parameters = Slot(uri=FLUXNOVA_BPM_PROVENANCE.output_parameters, name="output_parameters", curie=FLUXNOVA_BPM_PROVENANCE.curie('output_parameters'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.output_parameters, domain=None, range=Optional[Union[dict[Union[str, ParameterDefinitionId], Union[dict, ParameterDefinition]], list[Union[dict, ParameterDefinition]]]])
+
+slots.bpmn_extension_names = Slot(uri=FLUXNOVA_BPM_PROVENANCE.bpmn_extension_names, name="bpmn_extension_names", curie=FLUXNOVA_BPM_PROVENANCE.curie('bpmn_extension_names'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmn_extension_names, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.parameter_scope = Slot(uri=FLUXNOVA_BPM_PROVENANCE.parameter_scope, name="parameter_scope", curie=FLUXNOVA_BPM_PROVENANCE.curie('parameter_scope'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.parameter_scope, domain=None, range=Optional[Union[str, "ParameterScope"]])
+
+slots.parameter_direction = Slot(uri=FLUXNOVA_BPM_PROVENANCE.parameter_direction, name="parameter_direction", curie=FLUXNOVA_BPM_PROVENANCE.curie('parameter_direction'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.parameter_direction, domain=None, range=Optional[Union[str, "DirectionEnum"]])
+
+slots.declared_type = Slot(uri=FLUXNOVA_BPM_PROVENANCE.declared_type, name="declared_type", curie=FLUXNOVA_BPM_PROVENANCE.curie('declared_type'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.declared_type, domain=None, range=Optional[str])
+
+slots.default_value = Slot(uri=FLUXNOVA_BPM_PROVENANCE.default_value, name="default_value", curie=FLUXNOVA_BPM_PROVENANCE.curie('default_value'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.default_value, domain=None, range=Optional[str])
+
+slots.secret = Slot(uri=FLUXNOVA_BPM_PROVENANCE.secret, name="secret", curie=FLUXNOVA_BPM_PROVENANCE.curie('secret'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.secret, domain=None, range=Optional[Union[bool, Bool]])
+
+slots.allowed_values = Slot(uri=FLUXNOVA_BPM_PROVENANCE.allowed_values, name="allowed_values", curie=FLUXNOVA_BPM_PROVENANCE.curie('allowed_values'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.allowed_values, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.agent_kind = Slot(uri=FLUXNOVA_BPM_PROVENANCE.agent_kind, name="agent_kind", curie=FLUXNOVA_BPM_PROVENANCE.curie('agent_kind'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.agent_kind, domain=None, range=Optional[Union[str, "AgentKind"]])
+
+slots.role = Slot(uri=FLUXNOVA_BPM_PROVENANCE.role, name="role", curie=FLUXNOVA_BPM_PROVENANCE.curie('role'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.role, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.runtime_name = Slot(uri=SCHEMA.name, name="runtime_name", curie=SCHEMA.curie('name'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.runtime_name, domain=None, range=Optional[str])
+
+slots.runtime_version = Slot(uri=SCHEMA.softwareVersion, name="runtime_version", curie=SCHEMA.curie('softwareVersion'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.runtime_version, domain=None, range=Optional[str])
+
+slots.host = Slot(uri=FLUXNOVA_BPM_PROVENANCE.host, name="host", curie=FLUXNOVA_BPM_PROVENANCE.curie('host'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.host, domain=None, range=Optional[str])
+
+slots.region = Slot(uri=FLUXNOVA_BPM_PROVENANCE.region, name="region", curie=FLUXNOVA_BPM_PROVENANCE.curie('region'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.region, domain=None, range=Optional[str])
+
+slots.deployment_ref = Slot(uri=FLUXNOVA_BPM_PROVENANCE.deployment_ref, name="deployment_ref", curie=FLUXNOVA_BPM_PROVENANCE.curie('deployment_ref'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.deployment_ref, domain=None, range=Optional[str])
+
+slots.configuration_ref = Slot(uri=FLUXNOVA_BPM_PROVENANCE.configuration_ref, name="configuration_ref", curie=FLUXNOVA_BPM_PROVENANCE.curie('configuration_ref'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.configuration_ref, domain=None, range=Optional[Union[str, WorkflowArtifactId]])
+
+slots.component_kind = Slot(uri=FLUXNOVA_BPM_PROVENANCE.component_kind, name="component_kind", curie=FLUXNOVA_BPM_PROVENANCE.curie('component_kind'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.component_kind, domain=None, range=Optional[Union[str, "RuntimeComponentKind"]])
+
+slots.endpoint = Slot(uri=FLUXNOVA_BPM_PROVENANCE.endpoint, name="endpoint", curie=FLUXNOVA_BPM_PROVENANCE.curie('endpoint'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.endpoint, domain=None, range=Optional[str])
+
+slots.artifact_kind = Slot(uri=FLUXNOVA_BPM_PROVENANCE.artifact_kind, name="artifact_kind", curie=FLUXNOVA_BPM_PROVENANCE.curie('artifact_kind'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.artifact_kind, domain=None, range=Optional[Union[str, "ArtifactKind"]])
+
+slots.media_type = Slot(uri=SCHEMA.encodingFormat, name="media_type", curie=SCHEMA.curie('encodingFormat'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.media_type, domain=None, range=Optional[str])
+
+slots.path_or_uri = Slot(uri=SCHEMA.contentUrl, name="path_or_uri", curie=SCHEMA.curie('contentUrl'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.path_or_uri, domain=None, range=Optional[str])
+
+slots.hash = Slot(uri=FLUXNOVA_BPM_PROVENANCE.hash, name="hash", curie=FLUXNOVA_BPM_PROVENANCE.curie('hash'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.hash, domain=None, range=Optional[str])
+
+slots.size_in_bytes = Slot(uri=SCHEMA.contentSize, name="size_in_bytes", curie=SCHEMA.curie('contentSize'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.size_in_bytes, domain=None, range=Optional[int])
+
+slots.produced_by_step_run = Slot(uri=PROV.wasGeneratedBy, name="produced_by_step_run", curie=PROV.curie('wasGeneratedBy'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.produced_by_step_run, domain=None, range=Optional[Union[str, StepRunId]])
+
+slots.consumed_by_step_runs = Slot(uri=PROV.used, name="consumed_by_step_runs", curie=PROV.curie('used'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.consumed_by_step_runs, domain=None, range=Optional[Union[Union[str, StepRunId], list[Union[str, StepRunId]]]])
+
+slots.parent_workflow_run = Slot(uri=FLUXNOVA_BPM_PROVENANCE.parent_workflow_run, name="parent_workflow_run", curie=FLUXNOVA_BPM_PROVENANCE.curie('parent_workflow_run'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.parent_workflow_run, domain=None, range=Optional[Union[str, WorkflowRunId]])
+
+slots.status = Slot(uri=SCHEMA.actionStatus, name="status", curie=SCHEMA.curie('actionStatus'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.status, domain=None, range=Optional[Union[str, "RunStatus"]])
+
+slots.incident_status = Slot(uri=FLUXNOVA_BPM_PROVENANCE.incident_status, name="incident_status", curie=FLUXNOVA_BPM_PROVENANCE.curie('incident_status'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.incident_status, domain=None, range=Optional[Union[str, "IncidentStatus"]])
+
+slots.started_at = Slot(uri=SCHEMA.startTime, name="started_at", curie=SCHEMA.curie('startTime'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.started_at, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.ended_at = Slot(uri=SCHEMA.endTime, name="ended_at", curie=SCHEMA.curie('endTime'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.ended_at, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.started_by = Slot(uri=PROV.wasAssociatedWith, name="started_by", curie=PROV.curie('wasAssociatedWith'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.started_by, domain=None, range=Optional[Union[str, AgentId]])
+
+slots.environment = Slot(uri=FLUXNOVA_BPM_PROVENANCE.environment, name="environment", curie=FLUXNOVA_BPM_PROVENANCE.curie('environment'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.environment, domain=None, range=Optional[Union[str, EnvironmentId]])
+
+slots.input_values = Slot(uri=SCHEMA.object, name="input_values", curie=SCHEMA.curie('object'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.input_values, domain=None, range=Optional[Union[Union[str, ParameterValueId], list[Union[str, ParameterValueId]]]])
+
+slots.output_values = Slot(uri=SCHEMA.result, name="output_values", curie=SCHEMA.curie('result'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.output_values, domain=None, range=Optional[Union[Union[str, ParameterValueId], list[Union[str, ParameterValueId]]]])
+
+slots.step_runs = Slot(uri=FLUXNOVA_BPM_PROVENANCE.step_runs, name="step_runs", curie=FLUXNOVA_BPM_PROVENANCE.curie('step_runs'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.step_runs, domain=None, range=Optional[Union[dict[Union[str, StepRunId], Union[dict, StepRun]], list[Union[dict, StepRun]]]])
+
+slots.incidents = Slot(uri=FLUXNOVA_BPM_PROVENANCE.incidents, name="incidents", curie=FLUXNOVA_BPM_PROVENANCE.curie('incidents'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.incidents, domain=None, range=Optional[Union[dict[Union[str, ProvenanceIncidentId], Union[dict, ProvenanceIncident]], list[Union[dict, ProvenanceIncident]]]])
+
+slots.resource_usage = Slot(uri=FLUXNOVA_BPM_PROVENANCE.resource_usage, name="resource_usage", curie=FLUXNOVA_BPM_PROVENANCE.curie('resource_usage'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.resource_usage, domain=None, range=Optional[Union[dict[Union[str, ResourceUsageId], Union[dict, ResourceUsage]], list[Union[dict, ResourceUsage]]]])
+
+slots.workflow_run = Slot(uri=FLUXNOVA_BPM_PROVENANCE.workflow_run, name="workflow_run", curie=FLUXNOVA_BPM_PROVENANCE.curie('workflow_run'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.workflow_run, domain=None, range=Optional[Union[str, WorkflowRunId]])
+
+slots.step_definition = Slot(uri=SCHEMA.instrument, name="step_definition", curie=SCHEMA.curie('instrument'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.step_definition, domain=None, range=Optional[Union[str, StepDefinitionId]])
+
+slots.parent_step_run = Slot(uri=FLUXNOVA_BPM_PROVENANCE.parent_step_run, name="parent_step_run", curie=FLUXNOVA_BPM_PROVENANCE.curie('parent_step_run'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.parent_step_run, domain=None, range=Optional[Union[str, StepRunId]])
+
+slots.informed_by = Slot(uri=PROV.wasInformedBy, name="informed_by", curie=PROV.curie('wasInformedBy'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.informed_by, domain=None, range=Optional[Union[Union[str, StepRunId], list[Union[str, StepRunId]]]])
+
+slots.executed_by = Slot(uri=PROV.wasAssociatedWith, name="executed_by", curie=PROV.curie('wasAssociatedWith'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.executed_by, domain=None, range=Optional[Union[str, AgentId]])
+
+slots.execution_resource = Slot(uri=FLUXNOVA_BPM_PROVENANCE.execution_resource, name="execution_resource", curie=FLUXNOVA_BPM_PROVENANCE.curie('execution_resource'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.execution_resource, domain=None, range=Optional[Union[str, ExecutionResourceId]])
+
+slots.consumed_artifacts = Slot(uri=PROV.used, name="consumed_artifacts", curie=PROV.curie('used'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.consumed_artifacts, domain=None, range=Optional[Union[Union[str, WorkflowArtifactId], list[Union[str, WorkflowArtifactId]]]])
+
+slots.produced_artifacts = Slot(uri=PROV.generated, name="produced_artifacts", curie=PROV.curie('generated'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.produced_artifacts, domain=None, range=Optional[Union[Union[str, WorkflowArtifactId], list[Union[str, WorkflowArtifactId]]]])
+
+slots.sequence_no = Slot(uri=FLUXNOVA_BPM_PROVENANCE.sequence_no, name="sequence_no", curie=FLUXNOVA_BPM_PROVENANCE.curie('sequence_no'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.sequence_no, domain=None, range=Optional[int])
+
+slots.parameter_definition = Slot(uri=SCHEMA.exampleOfWork, name="parameter_definition", curie=SCHEMA.curie('exampleOfWork'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.parameter_definition, domain=None, range=Optional[Union[str, ParameterDefinitionId]])
+
+slots.observed_type = Slot(uri=FLUXNOVA_BPM_PROVENANCE.observed_type, name="observed_type", curie=FLUXNOVA_BPM_PROVENANCE.curie('observed_type'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.observed_type, domain=None, range=Optional[str])
+
+slots.serialized_value = Slot(uri=FLUXNOVA_BPM_PROVENANCE.serialized_value, name="serialized_value", curie=FLUXNOVA_BPM_PROVENANCE.curie('serialized_value'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.serialized_value, domain=None, range=Optional[str])
+
+slots.value_hash = Slot(uri=FLUXNOVA_BPM_PROVENANCE.value_hash, name="value_hash", curie=FLUXNOVA_BPM_PROVENANCE.curie('value_hash'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.value_hash, domain=None, range=Optional[str])
+
+slots.observed_at = Slot(uri=FLUXNOVA_BPM_PROVENANCE.observed_at, name="observed_at", curie=FLUXNOVA_BPM_PROVENANCE.curie('observed_at'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.observed_at, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.derived_from = Slot(uri=PROV.wasDerivedFrom, name="derived_from", curie=PROV.curie('wasDerivedFrom'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.derived_from, domain=None, range=Optional[Union[Union[str, ParameterValueId], list[Union[str, ParameterValueId]]]])
+
+slots.redacted = Slot(uri=FLUXNOVA_BPM_PROVENANCE.redacted, name="redacted", curie=FLUXNOVA_BPM_PROVENANCE.curie('redacted'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.redacted, domain=None, range=Optional[Union[bool, Bool]])
+
+slots.classification = Slot(uri=FLUXNOVA_BPM_PROVENANCE.classification, name="classification", curie=FLUXNOVA_BPM_PROVENANCE.curie('classification'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.classification, domain=None, range=Optional[Union[str, "DataClassification"]])
+
+slots.metric_name = Slot(uri=FLUXNOVA_BPM_PROVENANCE.metric_name, name="metric_name", curie=FLUXNOVA_BPM_PROVENANCE.curie('metric_name'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.metric_name, domain=None, range=Optional[str])
+
+slots.metric_value = Slot(uri=FLUXNOVA_BPM_PROVENANCE.metric_value, name="metric_value", curie=FLUXNOVA_BPM_PROVENANCE.curie('metric_value'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.metric_value, domain=None, range=Optional[Decimal])
+
+slots.metric_unit = Slot(uri=FLUXNOVA_BPM_PROVENANCE.metric_unit, name="metric_unit", curie=FLUXNOVA_BPM_PROVENANCE.curie('metric_unit'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.metric_unit, domain=None, range=Optional[str])
+
+slots.measured_for_workflow_run = Slot(uri=FLUXNOVA_BPM_PROVENANCE.measured_for_workflow_run, name="measured_for_workflow_run", curie=FLUXNOVA_BPM_PROVENANCE.curie('measured_for_workflow_run'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.measured_for_workflow_run, domain=None, range=Optional[Union[str, WorkflowRunId]])
+
+slots.measured_for_step_run = Slot(uri=FLUXNOVA_BPM_PROVENANCE.measured_for_step_run, name="measured_for_step_run", curie=FLUXNOVA_BPM_PROVENANCE.curie('measured_for_step_run'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.measured_for_step_run, domain=None, range=Optional[Union[str, StepRunId]])
+
+slots.resource_kind = Slot(uri=FLUXNOVA_BPM_PROVENANCE.resource_kind, name="resource_kind", curie=FLUXNOVA_BPM_PROVENANCE.curie('resource_kind'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.resource_kind, domain=None, range=Optional[Union[str, "ResourceKind"]])
+
+slots.labels = Slot(uri=FLUXNOVA_BPM_PROVENANCE.labels, name="labels", curie=FLUXNOVA_BPM_PROVENANCE.curie('labels'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.labels, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.code = Slot(uri=FLUXNOVA_BPM_PROVENANCE.code, name="code", curie=FLUXNOVA_BPM_PROVENANCE.curie('code'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.code, domain=None, range=Optional[str])
+
+slots.related_step_run = Slot(uri=FLUXNOVA_BPM_PROVENANCE.related_step_run, name="related_step_run", curie=FLUXNOVA_BPM_PROVENANCE.curie('related_step_run'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.related_step_run, domain=None, range=Optional[Union[str, StepRunId]])
+
+slots.related_workflow_run = Slot(uri=FLUXNOVA_BPM_PROVENANCE.related_workflow_run, name="related_workflow_run", curie=FLUXNOVA_BPM_PROVENANCE.curie('related_workflow_run'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.related_workflow_run, domain=None, range=Optional[Union[str, WorkflowRunId]])
+
+slots.workflow_definitions = Slot(uri=FLUXNOVA_BPM_PROVENANCE.workflow_definitions, name="workflow_definitions", curie=FLUXNOVA_BPM_PROVENANCE.curie('workflow_definitions'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.workflow_definitions, domain=None, range=Optional[Union[dict[Union[str, WorkflowDefinitionId], Union[dict, WorkflowDefinition]], list[Union[dict, WorkflowDefinition]]]])
+
+slots.workflow_runs = Slot(uri=FLUXNOVA_BPM_PROVENANCE.workflow_runs, name="workflow_runs", curie=FLUXNOVA_BPM_PROVENANCE.curie('workflow_runs'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.workflow_runs, domain=None, range=Optional[Union[dict[Union[str, WorkflowRunId], Union[dict, WorkflowRun]], list[Union[dict, WorkflowRun]]]])
+
+slots.agents = Slot(uri=FLUXNOVA_BPM_PROVENANCE.agents, name="agents", curie=FLUXNOVA_BPM_PROVENANCE.curie('agents'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.agents, domain=None, range=Optional[Union[dict[Union[str, AgentId], Union[dict, Agent]], list[Union[dict, Agent]]]])
+
+slots.environments = Slot(uri=FLUXNOVA_BPM_PROVENANCE.environments, name="environments", curie=FLUXNOVA_BPM_PROVENANCE.curie('environments'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.environments, domain=None, range=Optional[Union[dict[Union[str, EnvironmentId], Union[dict, Environment]], list[Union[dict, Environment]]]])
+
+slots.runtime_components = Slot(uri=FLUXNOVA_BPM_PROVENANCE.runtime_components, name="runtime_components", curie=FLUXNOVA_BPM_PROVENANCE.curie('runtime_components'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.runtime_components, domain=None, range=Optional[Union[dict[Union[str, RuntimeComponentId], Union[dict, RuntimeComponent]], list[Union[dict, RuntimeComponent]]]])
+
+slots.workflow_artifacts = Slot(uri=FLUXNOVA_BPM_PROVENANCE.workflow_artifacts, name="workflow_artifacts", curie=FLUXNOVA_BPM_PROVENANCE.curie('workflow_artifacts'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.workflow_artifacts, domain=None, range=Optional[Union[dict[Union[str, WorkflowArtifactId], Union[dict, WorkflowArtifact]], list[Union[dict, WorkflowArtifact]]]])
+
+slots.parameter_values = Slot(uri=FLUXNOVA_BPM_PROVENANCE.parameter_values, name="parameter_values", curie=FLUXNOVA_BPM_PROVENANCE.curie('parameter_values'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.parameter_values, domain=None, range=Optional[Union[dict[Union[str, ParameterValueId], Union[dict, ParameterValue]], list[Union[dict, ParameterValue]]]])
+
+slots.resources = Slot(uri=FLUXNOVA_BPM_PROVENANCE.resources, name="resources", curie=FLUXNOVA_BPM_PROVENANCE.curie('resources'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.resources, domain=None, range=Optional[Union[dict[Union[str, ExecutionResourceId], Union[dict, ExecutionResource]], list[Union[dict, ExecutionResource]]]])
 
 slots.x = Slot(uri=FLUXNOVA_BPMN_MODEL_DC.x, name="x", curie=FLUXNOVA_BPMN_MODEL_DC.curie('x'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.x, domain=None, range=Optional[float])
@@ -12217,6 +14397,150 @@ slots.timeouts = Slot(uri=FLUXNOVA_BPMN_MODEL_FLUXNOVA.timeouts, name="timeouts"
 
 slots.fluxnova_constraints = Slot(uri=FLUXNOVA_BPMN_MODEL_FLUXNOVA.fluxnova_constraints, name="fluxnova_constraints", curie=FLUXNOVA_BPMN_MODEL_FLUXNOVA.curie('fluxnova_constraints'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.fluxnova_constraints, domain=None, range=Optional[Union[Union[dict, FluxnovaConstraint], list[Union[dict, FluxnovaConstraint]]]])
+
+slots.model_family = Slot(uri=SCHEMA.productID, name="model_family", curie=SCHEMA.curie('productID'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.model_family, domain=None, range=Optional[str])
+
+slots.model_name = Slot(uri=SCHEMA.name, name="model_name", curie=SCHEMA.curie('name'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.model_name, domain=None, range=Optional[str])
+
+slots.model_version = Slot(uri=SCHEMA.softwareVersion, name="model_version", curie=SCHEMA.curie('softwareVersion'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.model_version, domain=None, range=Optional[str])
+
+slots.provider = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.provider, name="provider", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('provider'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.provider, domain=None, range=Optional[str])
+
+slots.parameter_count = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.parameter_count, name="parameter_count", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('parameter_count'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.parameter_count, domain=None, range=Optional[int])
+
+slots.training_token_count = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.training_token_count, name="training_token_count", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('training_token_count'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.training_token_count, domain=None, range=Optional[int])
+
+slots.context_window_tokens = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.context_window_tokens, name="context_window_tokens", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('context_window_tokens'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.context_window_tokens, domain=None, range=Optional[int])
+
+slots.input_modalities = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.input_modalities, name="input_modalities", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('input_modalities'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.input_modalities, domain=None, range=Optional[Union[Union[str, "AiModality"], list[Union[str, "AiModality"]]]])
+
+slots.output_modalities = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.output_modalities, name="output_modalities", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('output_modalities'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.output_modalities, domain=None, range=Optional[Union[Union[str, "AiModality"], list[Union[str, "AiModality"]]]])
+
+slots.is_part_of_ai_system = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.is_part_of_ai_system, name="is_part_of_ai_system", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('is_part_of_ai_system'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.is_part_of_ai_system, domain=None, range=Optional[str])
+
+slots.architecture = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.architecture, name="architecture", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('architecture'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.architecture, domain=None, range=Optional[str])
+
+slots.fine_tuning_description = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.fine_tuning_description, name="fine_tuning_description", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('fine_tuning_description'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.fine_tuning_description, domain=None, range=Optional[str])
+
+slots.supported_languages = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.supported_languages, name="supported_languages", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('supported_languages'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.supported_languages, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.invoked_model = Slot(uri=PROV.wasAssociatedWith, name="invoked_model", curie=PROV.curie('wasAssociatedWith'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.invoked_model, domain=None, range=Optional[Union[str, AiAgentId]])
+
+slots.invocation_kind = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.invocation_kind, name="invocation_kind", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('invocation_kind'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.invocation_kind, domain=None, range=Optional[Union[str, "AiInvocationKind"]])
+
+slots.prompt_messages = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.prompt_messages, name="prompt_messages", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('prompt_messages'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.prompt_messages, domain=None, range=Optional[Union[dict[Union[str, PromptMessageId], Union[dict, PromptMessage]], list[Union[dict, PromptMessage]]]])
+
+slots.tool_calls = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.tool_calls, name="tool_calls", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('tool_calls'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.tool_calls, domain=None, range=Optional[Union[dict[Union[str, ToolCallId], Union[dict, ToolCall]], list[Union[dict, ToolCall]]]])
+
+slots.response_message = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.response_message, name="response_message", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('response_message'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.response_message, domain=None, range=Optional[Union[str, PromptMessageId]])
+
+slots.temperature = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.temperature, name="temperature", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('temperature'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.temperature, domain=None, range=Optional[Decimal])
+
+slots.top_p = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.top_p, name="top_p", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('top_p'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.top_p, domain=None, range=Optional[Decimal])
+
+slots.max_tokens = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.max_tokens, name="max_tokens", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('max_tokens'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.max_tokens, domain=None, range=Optional[int])
+
+slots.total_input_tokens = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.total_input_tokens, name="total_input_tokens", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('total_input_tokens'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.total_input_tokens, domain=None, range=Optional[int])
+
+slots.total_output_tokens = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.total_output_tokens, name="total_output_tokens", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('total_output_tokens'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.total_output_tokens, domain=None, range=Optional[int])
+
+slots.cost_usd = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.cost_usd, name="cost_usd", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('cost_usd'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.cost_usd, domain=None, range=Optional[Decimal])
+
+slots.safety_flags = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.safety_flags, name="safety_flags", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('safety_flags'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.safety_flags, domain=None, range=Optional[Union[Union[str, "SafetyFlag"], list[Union[str, "SafetyFlag"]]]])
+
+slots.evaluation_results = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.evaluation_results, name="evaluation_results", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('evaluation_results'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.evaluation_results, domain=None, range=Optional[Union[dict[Union[str, EvaluationResultId], Union[dict, EvaluationResult]], list[Union[dict, EvaluationResult]]]])
+
+slots.message_role = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.message_role, name="message_role", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('message_role'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.message_role, domain=None, range=Optional[Union[str, "MessageRole"]])
+
+slots.content = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.content, name="content", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('content'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.content, domain=None, range=Optional[str])
+
+slots.content_hash = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.content_hash, name="content_hash", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('content_hash'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.content_hash, domain=None, range=Optional[str])
+
+slots.parent_invocation = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.parent_invocation, name="parent_invocation", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('parent_invocation'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.parent_invocation, domain=None, range=Optional[Union[str, AiModelInvocationId]])
+
+slots.tool_name = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.tool_name, name="tool_name", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('tool_name'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.tool_name, domain=None, range=Optional[str])
+
+slots.tool_call_id = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.tool_call_id, name="tool_call_id", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('tool_call_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.tool_call_id, domain=None, range=Optional[str])
+
+slots.arguments_json = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.arguments_json, name="arguments_json", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('arguments_json'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.arguments_json, domain=None, range=Optional[str])
+
+slots.result_json = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.result_json, name="result_json", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('result_json'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.result_json, domain=None, range=Optional[str])
+
+slots.result_artifact = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.result_artifact, name="result_artifact", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('result_artifact'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.result_artifact, domain=None, range=Optional[Union[str, WorkflowArtifactId]])
+
+slots.called_step_run = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.called_step_run, name="called_step_run", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('called_step_run'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.called_step_run, domain=None, range=Optional[Union[str, StepRunId]])
+
+slots.evaluator_name = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.evaluator_name, name="evaluator_name", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('evaluator_name'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.evaluator_name, domain=None, range=Optional[str])
+
+slots.evaluator_kind = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.evaluator_kind, name="evaluator_kind", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('evaluator_kind'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.evaluator_kind, domain=None, range=Optional[Union[str, "EvaluatorKind"]])
+
+slots.passing = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.passing, name="passing", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('passing'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.passing, domain=None, range=Optional[Union[bool, Bool]])
+
+slots.evaluated_at = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.evaluated_at, name="evaluated_at", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('evaluated_at'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.evaluated_at, domain=None, range=Optional[Union[str, XSDDateTime]])
+
+slots.evaluated_invocation = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.evaluated_invocation, name="evaluated_invocation", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('evaluated_invocation'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.evaluated_invocation, domain=None, range=Optional[Union[str, AiModelInvocationId]])
+
+slots.dataset_kind = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.dataset_kind, name="dataset_kind", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('dataset_kind'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.dataset_kind, domain=None, range=Optional[Union[str, "DatasetKind"]])
+
+slots.record_count = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.record_count, name="record_count", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('record_count'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.record_count, domain=None, range=Optional[int])
+
+slots.license_uri = Slot(uri=SCHEMA.license, name="license_uri", curie=SCHEMA.curie('license'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.license_uri, domain=None, range=Optional[str])
+
+slots.model_card_uri = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.model_card_uri, name="model_card_uri", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('model_card_uri'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.model_card_uri, domain=None, range=Optional[str])
+
+slots.weights_uri = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.weights_uri, name="weights_uri", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('weights_uri'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.weights_uri, domain=None, range=Optional[str])
+
+slots.training_datasets = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.training_datasets, name="training_datasets", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('training_datasets'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.training_datasets, domain=None, range=Optional[Union[Union[str, AiDatasetId], list[Union[str, AiDatasetId]]]])
+
+slots.base_model = Slot(uri=PROV.wasDerivedFrom, name="base_model", curie=PROV.curie('wasDerivedFrom'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.base_model, domain=None, range=Optional[Union[str, ModelArtifactId]])
 
 slots.FluxnovaPlatformData_deployments = Slot(uri=FLUXNOVA_BPM_PLATFORM.deployments, name="FluxnovaPlatformData_deployments", curie=FLUXNOVA_BPM_PLATFORM.curie('deployments'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_deployments, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, DeploymentId], Union[dict, "Deployment"]], list[Union[dict, "Deployment"]]]])
