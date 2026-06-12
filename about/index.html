@@ -1040,8 +1040,8 @@
 <li><strong>Platform side:</strong> 49 SQL tables -&gt; 51 classes, 192 slots, 7 enums (100% of tables mapped).</li>
 <li><strong>BPMN side:</strong> 181 Java interfaces -&gt; 6 modular schemas, 10 enums, 28 Fluxnova extension classes.</li>
 <li><strong>Provenance overlay</strong> - a W3C PROV-aligned record of workflow definitions, runs, and per-invocation AI activity.</li>
-<li><strong>Ontology cross-walks</strong> - 26 SSSOM mapping files (~4,450 element mappings) to standards like ATT&amp;CK, D3FEND, OCSF, NIST, and the FINOS CDM.</li>
-<li><strong>419 tests, all passing</strong>, plus reproducible regeneration and <code>linkml-lint</code> clean.</li>
+<li><strong>Ontology cross-walks</strong> - 16 SSSOM mapping files (~7,530 element mappings) to standards like D3FEND, OCSF, STIX, NIST CSF, and CIS Controls, plus an AI-provenance crosswalk to IBM AI Atlas Nexus.</li>
+<li><strong>484 tests, all passing</strong>, plus reproducible regeneration and <code>linkml-lint</code> clean.</li>
 </ul>
 <h2 id="links">Links</h2>
 <ul>
@@ -1076,7 +1076,7 @@
 </tr>
 <tr>
 <td>SSSOM overlay (<code>overlay-sssom-mappings</code>)</td>
-<td>✅ Pass (idempotent, 26 mapping files loaded)</td>
+<td>✅ Pass (idempotent, 16 mapping files loaded)</td>
 </tr>
 </tbody>
 </table>
@@ -1199,7 +1199,7 @@
 </table>
 <h3 id="provenance">Provenance</h3>
 <p>A hand-authored, <a href="https://www.w3.org/TR/prov-overview/">W3C PROV</a>-aligned provenance overlay lives under <code>src/fluxnova_bpm_platform/schema/provenance/</code> (base + per-invocation AI overlay + opt-in strict profile). It is not derived from the H2 DDL; the platform root imports it so <code>ProvenanceBundle</code> and friends survive regeneration.</p>
-<p>See <strong><a href="../elements/provenance/">elements/provenance/README.md</a></strong> for the module breakdown, mapping spec, RO-Crate/JSON-LD projection, AI overlay overview, fixtures, and the SSSOM cross-walk to the FINOS AI Governance Framework (<code>nexus:</code>).</p>
+<p>See <strong><a href="../elements/provenance/">elements/provenance/README.md</a></strong> for the module breakdown, mapping spec, RO-Crate/JSON-LD projection, AI overlay overview, fixtures, and the SSSOM cross-walk to IBM AI Atlas Nexus (<code>nexus:</code>), W3C AIRO, and DPV-AI.</p>
 <h3 id="enums">Enums</h3>
 <p><strong>Platform:</strong></p>
 <table>
@@ -1443,7 +1443,7 @@ python<span class="w"> </span>scripts/fluxnova_mybatis_enrichment.py<span class=
 </code></pre></div>
 <h3 id="sssom-mappings">SSSOM mappings</h3>
 <p>Cross-walks to external ontologies and standards are kept as <a href="https://mapping-commons.github.io/sssom/">SSSOM</a> v0.9 TSV files in <code>src/fluxnova_bpm_platform/mappings/</code>. <code>overlay_sssom.py</code> reads them and injects <code>*_mappings</code> and <code>prefixes</code> entries into the generated schema YAML - in sorted, deduplicated, comment-preserving, idempotent fashion.</p>
-<p><strong>Coverage - 26 mapping files (~4,451 element mappings):</strong></p>
+<p><strong>Coverage - 16 mapping files (~7,533 element mappings):</strong></p>
 <table>
 <thead>
 <tr>
@@ -1454,38 +1454,28 @@ python<span class="w"> </span>scripts/fluxnova_mybatis_enrichment.py<span class=
 </thead>
 <tbody>
 <tr>
-<td><code>fluxnova-attack.sssom.tsv</code></td>
-<td>325</td>
-<td>MITRE ATT&amp;CK</td>
+<td><code>fluxnova-ai-provenance-to-nexus.sssom.tsv</code></td>
+<td>36</td>
+<td>AI-provenance overlay → IBM AI Atlas Nexus, AIRO, DPV-AI, W3C PROV, schema.org</td>
 </tr>
 <tr>
 <td><code>fluxnova-capec.sssom.tsv</code></td>
-<td>14</td>
+<td>4</td>
 <td>MITRE CAPEC</td>
 </tr>
 <tr>
 <td><code>fluxnova-cis-controls.sssom.tsv</code></td>
-<td>37</td>
+<td>22</td>
 <td>CIS Controls v8</td>
 </tr>
 <tr>
-<td><code>fluxnova-common-domain-model.sssom.tsv</code></td>
-<td>659</td>
-<td>FINOS CDM (merged from 23 sub-schemas)</td>
-</tr>
-<tr>
-<td><code>fluxnova-cra.sssom.tsv</code></td>
-<td>99</td>
-<td>EU Cyber Resilience Act</td>
-</tr>
-<tr>
 <td><code>fluxnova-cve.sssom.tsv</code></td>
-<td>61</td>
+<td>19</td>
 <td>MITRE CVE</td>
 </tr>
 <tr>
 <td><code>fluxnova-cwe.sssom.tsv</code></td>
-<td>25</td>
+<td>15</td>
 <td>MITRE CWE</td>
 </tr>
 <tr>
@@ -1495,83 +1485,43 @@ python<span class="w"> </span>scripts/fluxnova_mybatis_enrichment.py<span class=
 </tr>
 <tr>
 <td><code>fluxnova-d3fend.sssom.tsv</code></td>
-<td>7,523</td>
+<td>7,162</td>
 <td>MITRE D3FEND</td>
 </tr>
 <tr>
-<td><code>fluxnova-generic.sssom.tsv</code></td>
-<td>1,530</td>
-<td>Generic/cross-cutting concepts</td>
-</tr>
-<tr>
 <td><code>fluxnova-gist.sssom.tsv</code></td>
-<td>40</td>
-<td>Semantic Arts GIST (merged from 4 sub-schemas)</td>
+<td>3</td>
+<td>Semantic Arts GIST</td>
 </tr>
 <tr>
 <td><code>fluxnova-iso27001.sssom.tsv</code></td>
-<td>14</td>
+<td>4</td>
 <td>ISO/IEC 27001</td>
 </tr>
 <tr>
 <td><code>fluxnova-iso29100.sssom.tsv</code></td>
-<td>58</td>
+<td>24</td>
 <td>ISO/IEC 29100 (Privacy)</td>
 </tr>
 <tr>
 <td><code>fluxnova-kev-catalog.sssom.tsv</code></td>
-<td>58</td>
+<td>10</td>
 <td>CISA KEV Catalog</td>
 </tr>
 <tr>
-<td><code>fluxnova-mcp.sssom.tsv</code></td>
-<td>10</td>
-<td>Model Context Protocol</td>
-</tr>
-<tr>
 <td><code>fluxnova-nist-csf-v2.sssom.tsv</code></td>
-<td>22</td>
+<td>12</td>
 <td>NIST CSF v2</td>
 </tr>
 <tr>
-<td><code>fluxnova-nist-nvd.sssom.tsv</code></td>
-<td>63</td>
+<td><code>fluxnova-nvd.sssom.tsv</code></td>
+<td>12</td>
 <td>NIST NVD</td>
 </tr>
 <tr>
-<td><code>fluxnova-nist-sp-800-171.sssom.tsv</code></td>
-<td>10</td>
-<td>NIST SP 800-171</td>
-</tr>
-<tr>
-<td><code>fluxnova-nist-sp-800-218.sssom.tsv</code></td>
-<td>10</td>
-<td>NIST SP 800-218 (SSDF)</td>
-</tr>
-<tr>
-<td><code>fluxnova-nist-sp-800-53.sssom.tsv</code></td>
-<td>10</td>
-<td>NIST SP 800-53</td>
-</tr>
-<tr>
 <td><code>fluxnova-ocsf.sssom.tsv</code></td>
-<td>124</td>
-<td>OCSF (merged from 4 sub-schemas)</td>
-</tr>
-<tr>
-<td><code>fluxnova-oscal.sssom.tsv</code></td>
-<td>10</td>
-<td>NIST OSCAL</td>
-</tr>
-<tr>
-<td><code>fluxnova-slsa.sssom.tsv</code></td>
-<td>10</td>
-<td>SLSA Supply-Chain Security</td>
-</tr>
-<tr>
-<td><code>fluxnova-spdx.sssom.tsv</code></td>
-<td>10</td>
-<td>SPDX (Software Package Data Exchange)</td>
+<td>114</td>
+<td>OCSF</td>
 </tr>
 <tr>
 <td><code>fluxnova-stix.sssom.tsv</code></td>
@@ -1595,24 +1545,24 @@ python<span class="w"> </span>scripts/fluxnova_mybatis_enrichment.py<span class=
 </thead>
 <tbody>
 <tr>
-<td><code>common_domain_model:</code></td>
-<td><code>https://w3id.org/lmodel/common-domain-model/</code></td>
-</tr>
-<tr>
-<td><code>gist:</code></td>
-<td><code>https://w3id.org/lmodel/gist/</code></td>
+<td><code>d3f:</code></td>
+<td><code>http://d3fend.mitre.org/ontologies/d3fend.owl#</code></td>
 </tr>
 <tr>
 <td><code>ocsf:</code></td>
 <td><code>https://w3id.org/lmodel/ocsf/</code></td>
 </tr>
 <tr>
-<td><code>d3f:</code></td>
-<td><code>https://d3fend.mitre.org/ontologies/d3fend.owl#</code></td>
+<td><code>gist:</code></td>
+<td><code>https://w3id.org/lmodel/gist/</code></td>
 </tr>
 <tr>
-<td><code>attack:</code></td>
-<td><code>https://w3id.org/lmodel/attack/</code></td>
+<td><code>core:</code></td>
+<td><code>https://w3id.org/lmodel/vulnerability-core/</code></td>
+</tr>
+<tr>
+<td><code>nexus:</code></td>
+<td><code>https://ibm.github.io/ai-atlas-nexus/ontology/</code></td>
 </tr>
 </tbody>
 </table>
@@ -1651,7 +1601,7 @@ python<span class="w"> </span>scripts/fluxnova_mybatis_enrichment.py<span class=
 <h3 id="regenerating">Regenerating</h3>
 <p>The overlay step runs automatically after each generation recipe, so you rarely call it by hand.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Everything (BPMN model + platform), then overlay mappings</span>
-just<span class="w"> </span>gen-all
+just<span class="w"> </span>gen-linkml-all
 
 <span class="c1"># Just the platform schemas (from H2 DDL)</span>
 just<span class="w"> </span>gen-linkml
@@ -1680,7 +1630,7 @@ just<span class="w"> </span><span class="nb">test</span>
 pytest<span class="w"> </span>tests/<span class="w"> </span>-v
 </code></pre></div>
 <h3 id="test-coverage">Test coverage</h3>
-<p>419 tests, all passing:</p>
+<p>484 tests, all passing:</p>
 <table>
 <thead>
 <tr>
@@ -1719,6 +1669,11 @@ pytest<span class="w"> </span>tests/<span class="w"> </span>-v
 <td><code>tests/test_fluxnova_bpmn_model_to_linkml.py</code></td>
 <td>7</td>
 <td>BPMN transformer (discovery, headers, coverage, inheritance, serialization)</td>
+</tr>
+<tr>
+<td><code>tests/test_ai_provenance.py</code></td>
+<td>65</td>
+<td>AI-provenance overlay: classes, fixtures, PROV alignment, Nexus crosswalk</td>
 </tr>
 </tbody>
 </table>

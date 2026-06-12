@@ -9059,6 +9059,8 @@ slots:
     domain_of:
     - AiModelInvocation
     range: PromptMessage
+    inlined: true
+    inlined_as_list: false
   temperature:
     name: temperature
     definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/temperature
@@ -18832,7 +18834,7 @@ classes:
     class_uri: fluxnova_bpm_ai_provenance:ModelArtifact
 metamodel_version: 1.11.0
 source_file: fluxnova_bpm_platform.yaml
-source_file_date: '2026-06-12T02:16:52'
+source_file_date: '2026-06-12T10:50:25'
 source_file_size: 4673
-generation_date: '2026-06-12T02:17:05'
+generation_date: '2026-06-12T10:50:36'
 
