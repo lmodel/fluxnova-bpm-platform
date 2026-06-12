@@ -352,6 +352,7 @@ slots:
 
   response_message:
     range: PromptMessage
+    inlined: true
     description: |-
       Assistant or tool message returned by the model as the response.
       Inlined as a single PromptMessage with role ASSISTANT or TOOL.

@@ -1,5 +1,5 @@
 # Auto generated from fluxnova_bpm_platform.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-06-12T02:49:03
+# Generation date: 2026-06-12T11:25:11
 # Schema: fluxnova_bpm_platform
 #
 # id: https://w3id.org/lmodel/fluxnova-bpm-platform
@@ -11425,7 +11425,7 @@ class AiModelInvocation(StepRun):
     invocation_kind: Optional[Union[str, "AiInvocationKind"]] = None
     prompt_messages: Optional[Union[dict[Union[str, PromptMessageId], Union[dict, "PromptMessage"]], list[Union[dict, "PromptMessage"]]]] = empty_dict()
     tool_calls: Optional[Union[dict[Union[str, ToolCallId], Union[dict, "ToolCall"]], list[Union[dict, "ToolCall"]]]] = empty_dict()
-    response_message: Optional[Union[str, PromptMessageId]] = None
+    response_message: Optional[Union[dict, "PromptMessage"]] = None
     temperature: Optional[Decimal] = None
     top_p: Optional[Decimal] = None
     max_tokens: Optional[int] = None
@@ -11451,8 +11451,8 @@ class AiModelInvocation(StepRun):
 
         self._normalize_inlined_as_list(slot_name="tool_calls", slot_type=ToolCall, key_name="id", keyed=True)
 
-        if self.response_message is not None and not isinstance(self.response_message, PromptMessageId):
-            self.response_message = PromptMessageId(self.response_message)
+        if self.response_message is not None and not isinstance(self.response_message, PromptMessage):
+            self.response_message = PromptMessage(**as_dict(self.response_message))
 
         if self.temperature is not None and not isinstance(self.temperature, Decimal):
             self.temperature = Decimal(self.temperature)
@@ -14450,7 +14450,7 @@ slots.tool_calls = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.tool_calls, name="tool_ca
                    model_uri=FLUXNOVA_BPM_PLATFORM.tool_calls, domain=None, range=Optional[Union[dict[Union[str, ToolCallId], Union[dict, ToolCall]], list[Union[dict, ToolCall]]]])
 
 slots.response_message = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.response_message, name="response_message", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('response_message'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.response_message, domain=None, range=Optional[Union[str, PromptMessageId]])
+                   model_uri=FLUXNOVA_BPM_PLATFORM.response_message, domain=None, range=Optional[Union[dict, PromptMessage]])
 
 slots.temperature = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.temperature, name="temperature", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('temperature'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.temperature, domain=None, range=Optional[Decimal])

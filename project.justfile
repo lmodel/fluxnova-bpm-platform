@@ -28,7 +28,7 @@ gen-bpmn-model *FLAGS:
 
 # Regenerate ALL transformer-produced LinkML schemas (reproducible)
 [group('schema generation')]
-gen-all: gen-bpmn-model gen-linkml overlay-sssom-mappings
+gen-linkml-all: gen-bpmn-model gen-linkml overlay-sssom-mappings
 
 # Apply all SSSOM mappings from mappings/ to generated schema YAML files (deterministic)
 # Reads fluxnova-*.sssom.tsv in sorted order; injects *_mappings and prefixes in-place.
@@ -58,4 +58,4 @@ test-transformers:
 
 # Full schema reproducibility gate: regenerate -> lint -> cross-validate -> test
 [group('schema validation')]
-verify-schema: gen-all lint-schema validate-mybatis test-transformers
+verify-schema: gen-linkml-all lint-schema validate-mybatis test-transformers

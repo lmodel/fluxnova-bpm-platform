@@ -876,11 +876,15 @@
                     ]
                 },
                 "response_message": {
-                    "description": "Assistant or tool message returned by the model as the response.\nInlined as a single PromptMessage with role ASSISTANT or TOOL.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/PromptMessage"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Assistant or tool message returned by the model as the response.\nInlined as a single PromptMessage with role ASSISTANT or TOOL."
                 },
                 "retries": {
                     "description": "Number of retries this job has left. Whenever the jobexecutor fails to execute the job, this value is decremented. When it hits zero, the job is supposed to be dead and not retried again (ie a manu...",

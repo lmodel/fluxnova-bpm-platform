@@ -28877,7 +28877,7 @@ class AiModelInvocation(StepRun):
     invocation_kind: Optional[AiInvocationKind] = Field(default=None, description="""Kind of invocation (chat completion, tool use, embedding, etc.).""", json_schema_extra = { "linkml_meta": {'domain_of': ['AiModelInvocation']} })
     prompt_messages: Optional[list[PromptMessage]] = Field(default=None, description="""Ordered sequence of prompt messages sent to the model.""", json_schema_extra = { "linkml_meta": {'domain_of': ['AiModelInvocation']} })
     tool_calls: Optional[list[ToolCall]] = Field(default=None, description="""Tool / function calls performed by the model during the invocation.""", json_schema_extra = { "linkml_meta": {'domain_of': ['AiModelInvocation']} })
-    response_message: Optional[str] = Field(default=None, description="""Assistant or tool message returned by the model as the response.
+    response_message: Optional[PromptMessage] = Field(default=None, description="""Assistant or tool message returned by the model as the response.
 Inlined as a single PromptMessage with role ASSISTANT or TOOL.""", json_schema_extra = { "linkml_meta": {'domain_of': ['AiModelInvocation']} })
     temperature: Optional[Decimal] = Field(default=None, description="""Sampling temperature requested for the invocation.""", json_schema_extra = { "linkml_meta": {'domain_of': ['AiModelInvocation']} })
     top_p: Optional[Decimal] = Field(default=None, description="""Top-p nucleus sampling parameter.""", json_schema_extra = { "linkml_meta": {'domain_of': ['AiModelInvocation']} })

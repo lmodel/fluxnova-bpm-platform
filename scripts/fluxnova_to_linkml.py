@@ -1753,7 +1753,7 @@ class LinkMLGenerator:
         imports.append("./fluxnova_bpmn_model")
         # Hand-authored provenance overlay (PROV-aligned), not derived from the
         # H2 DDL. Imported here so ProvenanceBundle and friends are part of the
-        # platform root and survive regeneration via gen-all.
+        # platform root and survive regeneration via gen-linkml-all.
         imports.append("./provenance/fluxnova_bpm_provenance")
 
         root: OrderedDict[str, object] = OrderedDict()

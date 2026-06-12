@@ -2701,7 +2701,6 @@
 -- # Class: AiModelInvocation Description: One concrete invocation of an AI model from a workflow step. Captures theruntime call (kind, parameters, prompts, tool calls, response), theconsumption telemetry (token counts, cost), any safety flags raised, andany evaluation results attached. Inherits status, timestamps, parentworkflow run, sequence number, and incident linkage from StepRun.
 --     * Slot: invoked_model Description: AI agent that was invoked to produce the step result.
 --     * Slot: invocation_kind Description: Kind of invocation (chat completion, tool use, embedding, etc.).
---     * Slot: response_message Description: Assistant or tool message returned by the model as the response.Inlined as a single PromptMessage with role ASSISTANT or TOOL.
 --     * Slot: temperature Description: Sampling temperature requested for the invocation.
 --     * Slot: top_p Description: Top-p nucleus sampling parameter.
 --     * Slot: max_tokens Description: Maximum tokens the model was permitted to generate.
@@ -2724,6 +2723,7 @@
 --     * Slot: id Description: Unique identifier.
 --     * Slot: name Description: Human-readable name.
 --     * Slot: external_ref Description: External URI, engine identifier, or source reference for this entity.
+--     * Slot: response_message_id Description: Assistant or tool message returned by the model as the response.Inlined as a single PromptMessage with role ASSISTANT or TOOL.
 -- # Class: PromptMessage Description: A single message turn in an AI model invocation (system, user, assistant,or tool turn). Records the role, the (possibly redacted) content, anordering index inside the invocation, and a data classification.
 --     * Slot: message_role Description: Conversational role of the message (system, user, assistant, tool).
 --     * Slot: content Description: Message content (may be redacted in export).
@@ -5120,7 +5120,6 @@ CREATE INDEX "ix_AiModelDescriptor_id" ON "AiModelDescriptor" (id);
 CREATE TABLE "AiModelInvocation" (
 	invoked_model TEXT,
 	invocation_kind VARCHAR(15),
-	response_message TEXT,
 	temperature NUMERIC,
 	top_p NUMERIC,
 	max_tokens INTEGER,
@@ -5143,15 +5142,16 @@ CREATE TABLE "AiModelInvocation" (
 	id TEXT NOT NULL,
 	name TEXT,
 	external_ref TEXT,
+	response_message_id TEXT,
 	PRIMARY KEY (id),
 	FOREIGN KEY(invoked_model) REFERENCES "AiAgent" (id),
-	FOREIGN KEY(response_message) REFERENCES "PromptMessage" (id),
 	FOREIGN KEY(workflow_run) REFERENCES "WorkflowRun" (id),
 	FOREIGN KEY(step_definition) REFERENCES "StepDefinition" (id),
 	FOREIGN KEY(parent_step_run) REFERENCES "StepRun" (id),
 	FOREIGN KEY(executed_by) REFERENCES "Agent" (id),
 	FOREIGN KEY(environment) REFERENCES "Environment" (id),
-	FOREIGN KEY(execution_resource) REFERENCES "ExecutionResource" (id)
+	FOREIGN KEY(execution_resource) REFERENCES "ExecutionResource" (id),
+	FOREIGN KEY(response_message_id) REFERENCES "PromptMessage" (id)
 );
 CREATE INDEX "ix_AiModelInvocation_id" ON "AiModelInvocation" (id);
 

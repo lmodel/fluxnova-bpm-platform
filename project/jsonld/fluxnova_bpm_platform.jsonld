@@ -11658,6 +11658,7 @@
         "AiModelInvocation"
       ],
       "range": "PromptMessage",
+      "inlined": true,
       "@type": "SlotDefinition"
     },
     {
@@ -23802,9 +23803,9 @@
   ],
   "metamodel_version": "1.11.0",
   "source_file": "fluxnova_bpm_platform.yaml",
-  "source_file_date": "2026-06-12T02:47:46",
+  "source_file_date": "2026-06-12T11:23:52",
   "source_file_size": 4673,
-  "generation_date": "2026-06-12T02:47:58",
+  "generation_date": "2026-06-12T11:23:56",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/fluxnova_bpm_platform.context.jsonld",

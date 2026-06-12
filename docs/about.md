@@ -10,8 +10,8 @@ The schema is **generated, not hand-written**: transformer scripts read the engi
 - **Platform side:** 49 SQL tables -> 51 classes, 192 slots, 7 enums (100% of tables mapped).
 - **BPMN side:** 181 Java interfaces -> 6 modular schemas, 10 enums, 28 Fluxnova extension classes.
 - **Provenance overlay** - a W3C PROV-aligned record of workflow definitions, runs, and per-invocation AI activity.
-- **Ontology cross-walks** - 26 SSSOM mapping files (~4,450 element mappings) to standards like ATT&CK, D3FEND, OCSF, NIST, and the FINOS CDM.
-- **419 tests, all passing**, plus reproducible regeneration and `linkml-lint` clean.
+- **Ontology cross-walks** - 16 SSSOM mapping files (~7,530 element mappings) to standards like D3FEND, OCSF, STIX, NIST CSF, and CIS Controls, plus an AI-provenance crosswalk to IBM AI Atlas Nexus.
+- **484 tests, all passing**, plus reproducible regeneration and `linkml-lint` clean.
 
 ## Links
 
@@ -28,7 +28,7 @@ Every regeneration is checked against these gates:
 | `gen-json-schema` | ✅ Pass |
 | `gen-python` | ✅ Pass |
 | Reproducibility (identical output on re-run) | ✅ Pass |
-| SSSOM overlay (`overlay-sssom-mappings`) | ✅ Pass (idempotent, 26 mapping files loaded) |
+| SSSOM overlay (`overlay-sssom-mappings`) | ✅ Pass (idempotent, 16 mapping files loaded) |
 
 ## What's in the schema
 
@@ -76,7 +76,7 @@ These tie everything together:
 
 A hand-authored, [W3C PROV](https://www.w3.org/TR/prov-overview/)-aligned provenance overlay lives under `src/fluxnova_bpm_platform/schema/provenance/` (base + per-invocation AI overlay + opt-in strict profile). It is not derived from the H2 DDL; the platform root imports it so `ProvenanceBundle` and friends survive regeneration.
 
-See **[elements/provenance/README.md](elements/provenance/README.md)** for the module breakdown, mapping spec, RO-Crate/JSON-LD projection, AI overlay overview, fixtures, and the SSSOM cross-walk to the FINOS AI Governance Framework (`nexus:`).
+See **[elements/provenance/README.md](elements/provenance/README.md)** for the module breakdown, mapping spec, RO-Crate/JSON-LD projection, AI overlay overview, fixtures, and the SSSOM cross-walk to IBM AI Atlas Nexus (`nexus:`), W3C AIRO, and DPV-AI.
 
 ### Enums
 
@@ -187,34 +187,24 @@ python scripts/fluxnova_mybatis_enrichment.py --verbose  # show all field mappin
 
 Cross-walks to external ontologies and standards are kept as [SSSOM](https://mapping-commons.github.io/sssom/) v0.9 TSV files in `src/fluxnova_bpm_platform/mappings/`. `overlay_sssom.py` reads them and injects `*_mappings` and `prefixes` entries into the generated schema YAML - in sorted, deduplicated, comment-preserving, idempotent fashion.
 
-**Coverage - 26 mapping files (~4,451 element mappings):**
+**Coverage - 16 mapping files (~7,533 element mappings):**
 
 | File | Rows | Covers |
 | --- | --- | --- |
-| `fluxnova-attack.sssom.tsv` | 325 | MITRE ATT&CK |
-| `fluxnova-capec.sssom.tsv` | 14 | MITRE CAPEC |
-| `fluxnova-cis-controls.sssom.tsv` | 37 | CIS Controls v8 |
-| `fluxnova-common-domain-model.sssom.tsv` | 659 | FINOS CDM (merged from 23 sub-schemas) |
-| `fluxnova-cra.sssom.tsv` | 99 | EU Cyber Resilience Act |
-| `fluxnova-cve.sssom.tsv` | 61 | MITRE CVE |
-| `fluxnova-cwe.sssom.tsv` | 25 | MITRE CWE |
+| `fluxnova-ai-provenance-to-nexus.sssom.tsv` | 36 | AI-provenance overlay → IBM AI Atlas Nexus, AIRO, DPV-AI, W3C PROV, schema.org |
+| `fluxnova-capec.sssom.tsv` | 4 | MITRE CAPEC |
+| `fluxnova-cis-controls.sssom.tsv` | 22 | CIS Controls v8 |
+| `fluxnova-cve.sssom.tsv` | 19 | MITRE CVE |
+| `fluxnova-cwe.sssom.tsv` | 15 | MITRE CWE |
 | `fluxnova-cyberinfra.sssom.tsv` | 8 | Cyber Infrastructure |
-| `fluxnova-d3fend.sssom.tsv` | 7,523 | MITRE D3FEND |
-| `fluxnova-generic.sssom.tsv` | 1,530 | Generic/cross-cutting concepts |
-| `fluxnova-gist.sssom.tsv` | 40 | Semantic Arts GIST (merged from 4 sub-schemas) |
-| `fluxnova-iso27001.sssom.tsv` | 14 | ISO/IEC 27001 |
-| `fluxnova-iso29100.sssom.tsv` | 58 | ISO/IEC 29100 (Privacy) |
-| `fluxnova-kev-catalog.sssom.tsv` | 58 | CISA KEV Catalog |
-| `fluxnova-mcp.sssom.tsv` | 10 | Model Context Protocol |
-| `fluxnova-nist-csf-v2.sssom.tsv` | 22 | NIST CSF v2 |
-| `fluxnova-nist-nvd.sssom.tsv` | 63 | NIST NVD |
-| `fluxnova-nist-sp-800-171.sssom.tsv` | 10 | NIST SP 800-171 |
-| `fluxnova-nist-sp-800-218.sssom.tsv` | 10 | NIST SP 800-218 (SSDF) |
-| `fluxnova-nist-sp-800-53.sssom.tsv` | 10 | NIST SP 800-53 |
-| `fluxnova-ocsf.sssom.tsv` | 124 | OCSF (merged from 4 sub-schemas) |
-| `fluxnova-oscal.sssom.tsv` | 10 | NIST OSCAL |
-| `fluxnova-slsa.sssom.tsv` | 10 | SLSA Supply-Chain Security |
-| `fluxnova-spdx.sssom.tsv` | 10 | SPDX (Software Package Data Exchange) |
+| `fluxnova-d3fend.sssom.tsv` | 7,162 | MITRE D3FEND |
+| `fluxnova-gist.sssom.tsv` | 3 | Semantic Arts GIST |
+| `fluxnova-iso27001.sssom.tsv` | 4 | ISO/IEC 27001 |
+| `fluxnova-iso29100.sssom.tsv` | 24 | ISO/IEC 29100 (Privacy) |
+| `fluxnova-kev-catalog.sssom.tsv` | 10 | CISA KEV Catalog |
+| `fluxnova-nist-csf-v2.sssom.tsv` | 12 | NIST CSF v2 |
+| `fluxnova-nvd.sssom.tsv` | 12 | NIST NVD |
+| `fluxnova-ocsf.sssom.tsv` | 114 | OCSF |
 | `fluxnova-stix.sssom.tsv` | 58 | OASIS STIX 2.1 |
 | `fluxnova-vulnerability-core.sssom.tsv` | 30 | Vulnerability Core ontology |
 
@@ -222,11 +212,11 @@ Cross-walks to external ontologies and standards are kept as [SSSOM](https://map
 
 | Prefix | URI |
 | --- | --- |
-| `common_domain_model:` | `https://w3id.org/lmodel/common-domain-model/` |
-| `gist:` | `https://w3id.org/lmodel/gist/` |
+| `d3f:` | `http://d3fend.mitre.org/ontologies/d3fend.owl#` |
 | `ocsf:` | `https://w3id.org/lmodel/ocsf/` |
-| `d3f:` | `https://d3fend.mitre.org/ontologies/d3fend.owl#` |
-| `attack:` | `https://w3id.org/lmodel/attack/` |
+| `gist:` | `https://w3id.org/lmodel/gist/` |
+| `core:` | `https://w3id.org/lmodel/vulnerability-core/` |
+| `nexus:` | `https://ibm.github.io/ai-atlas-nexus/ontology/` |
 
 SSSOM predicates map onto LinkML mapping slots as follows:
 
@@ -246,7 +236,7 @@ The overlay step runs automatically after each generation recipe, so you rarely 
 
 ```bash
 # Everything (BPMN model + platform), then overlay mappings
-just gen-all
+just gen-linkml-all
 
 # Just the platform schemas (from H2 DDL)
 just gen-linkml
@@ -280,7 +270,7 @@ pytest tests/ -v
 
 ### Test coverage
 
-419 tests, all passing:
+484 tests, all passing:
 
 | Test module | Tests | What it checks |
 | --- | --- | --- |
@@ -290,6 +280,7 @@ pytest tests/ -v
 | `tests/test_ddl_coverage.py` | 104 | DDL cross-validation: table coverage, column->slot, vendor files |
 | `tests/test_bpmn_model_schema.py` | 4 | BPMN schema validation, lint, JSON Schema generation |
 | `tests/test_fluxnova_bpmn_model_to_linkml.py` | 7 | BPMN transformer (discovery, headers, coverage, inheritance, serialization) |
+| `tests/test_ai_provenance.py` | 65 | AI-provenance overlay: classes, fixtures, PROV alignment, Nexus crosswalk |
 
 The example data is realistic: 33 of the valid files (`tests/data/valid/*-vendor.yaml`) reuse the exact constants the upstream engine uses in its own REST API tests (`engine-rest/.../helper/MockProvider.java`). The invalid files deliberately break things - missing required fields, bad enum values, wrong types - to prove validation rejects them. A few cross-schema cases (`Point-001.yaml`, `Bounds-001.yaml`, `Font-001.yaml`, and their bad counterparts) confirm the platform root correctly validates imported BPMN classes.
 

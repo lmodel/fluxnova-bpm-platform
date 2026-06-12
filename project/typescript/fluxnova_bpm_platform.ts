@@ -4611,7 +4611,7 @@ export interface AiModelInvocation extends StepRun {
     tool_calls?: ToolCall[],
     /** Assistant or tool message returned by the model as the response.
 Inlined as a single PromptMessage with role ASSISTANT or TOOL. */
-    response_message?: PromptMessageId,
+    response_message?: PromptMessage,
     /** Sampling temperature requested for the invocation. */
     temperature?: string,
     /** Top-p nucleus sampling parameter. */
