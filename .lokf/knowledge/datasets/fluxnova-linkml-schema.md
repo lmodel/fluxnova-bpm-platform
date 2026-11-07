@@ -21,7 +21,7 @@ sources:
 generated:
   by: process:ktl-librarian
   at: "2026-11-07T11:20:19Z"
-  revision: 604f4795f62e11dddb453f6d497eff67722c56ef
+  revision: 5ed3c6a8c1320d688a6f21040b5678fc5cbc4fdc
 status: draft
 ---
 
