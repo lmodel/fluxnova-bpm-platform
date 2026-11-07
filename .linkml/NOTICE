@@ -2,9 +2,9 @@ FINOS Fluxnova BPM Platform LinkML Schema (fluxnova-bpm-platform)
 Copyright 2026 Noel McLoughlin
 
 This repository is a fork of FINOS's Fluxnova BPM Platform. Everything in it is
-under the Apache License, Version 2.0, except the knowledge bundle, which is
-under CC BY 4.0. The copyright in each part is its author's, as this notice
-sets out by path.
+under the Apache License, Version 2.0, except the knowledge bundle and the
+LOKF schema's copy, which are under CC BY 4.0. The copyright in each part is
+its author's, as this notice sets out by path.
 
 The schema project, everything under .linkml/, and what this project adds beside
 FINOS's tree (.lokf/, knowledge_bundle, linkml_schema, website/, llms.txt,
@@ -17,7 +17,9 @@ except for what the sections below list.
 
 The concepts under .lokf/knowledge/ are this project's work, licensed under
 the Creative Commons Attribution 4.0 International Public License (CC BY 4.0,
-https://creativecommons.org/licenses/by/4.0/), as .lokf/schema/lokf.yaml states.
+https://creativecommons.org/licenses/by/4.0/), as .lokf/knowledge/index.md
+states. .lokf/schema/lokf.yaml is a copy of the Linked Open Knowledge Format
+(LOKF) schema, version 0.9.0 (https://w3id.org/lokf/schema), under CC BY 4.0.
 
 Everything else is FINOS's, unchanged, and under FINOS's terms: LICENSE and
 NOTICE at the repository's root.
@@ -41,7 +43,7 @@ H2 DDL, and the BPMN model API, from its registerType methods, at Fluxnova
 3.1.1 (tag v3.1.1, commit 3ac64ca2c3d7c93f00395e18b9dc3218e5250264).
 scripts/upstream_pins.tsv lists every file of FINOS's tree the converters read.
 The schema's structure is this project's. Where the Javadoc of the engine's
-Java API describes an engine class or slot, its description is the Javadoc's
+Java API describes an engine table's class or slot, its description is the Javadoc's
 first sentence, in FINOS's and Camunda's words. The other engine descriptions
 are this project's, built from the table or column or written in the
 converter. The BPMN descriptions, in
