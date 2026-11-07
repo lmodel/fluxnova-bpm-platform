@@ -23,8 +23,8 @@ Fluxnova is FINOS's BPM platform, developed from Camunda 7. The schema renders t
 - **Keys.** A composite primary key and each unique constraint of the DDL are unique keys. Where a key's column may be null, two nulls are never equal, as in SQL.
 - **Foreign keys.** A column the DDL makes a foreign key ranges over the class of the table it refers to. The history tables have none, so their ids stay strings.
 - **States.** Where a column holds the engine's text values, such as a historic process instance's `STATE_`, an enum lists them. Where it holds the engine's integer codes, such as `SUSPENSION_STATE_`, it stays an integer bounded by the codes, and a comment names each code.
-- **Descriptions.** A class's description is the first sentence of its interface's Javadoc where the Java API has one, and this project's otherwise. A slot that several tables share carries, in each class, the first sentence of that class's Javadoc for it. Its definition carries a description that fits every table.
-- **Bases.** `FluxnovaResourceDefinition` and `FluxnovaHistoricScopeInstance` group the definitions and the historic scope instances, as the Java API does, and hold only the columns that all their subclasses' tables have.
+- **Descriptions.** A table's class takes the first sentence of its interface's Javadoc where the Java API has one, and this project's words otherwise. A slot that several tables share carries, in each class whose Javadoc describes it, that Javadoc's first sentence. The slot's definition carries a description that fits every table.
+- **Bases.** `FluxnovaResourceDefinition` and `FluxnovaHistoricScopeInstance` group the definitions and the historic scope instances, as the Java API's `ResourceDefinition` and the engine's `HistoricScopeInstanceEvent` do, and hold only the columns that all their subclasses' tables have. Their descriptions are this project's.
 - **Areas.** The subsets `engine_repository`, `engine_runtime`, `engine_history` and the rest group the tables.
 
 ## The BPMN elements
@@ -33,9 +33,9 @@ Fluxnova is FINOS's BPM platform, developed from Camunda 7. The schema renders t
 - **References.** A reference to another element, by id or QName, is a string whose `refers_to` annotation names the class it points to, since BPMN lets an element have no id.
 - **Polymorphic children.** A process's flow elements range over `BpmnFlowElement`, and `element_type` names each child's class.
 - **Text.** `text_content` holds an element's text where the BPMN XML Schema included with the model API gives the element mixed content, and on the extension elements the engine reads as text.
-- **Names.** An attribute in Fluxnova's extension namespace carries the `fluxnova_` prefix, and a slot whose name LOKF defines, such as `id` or `documentation`, carries the `bpmn_` prefix. An assignment's `from` and `to` are `from_expression` and `to_expression`.
-- **Extensions.** `extension_elements` holds any element in `elements`, as BPMN's schema has it, and `element_type` names each one's class. An input or output parameter and a map's entry hold a script, a list or a map in `value`, and a list holds its items in `values`. That is how the model API and the engine read them.
-- **FINOS's files.** `tests/test_bpmn_files.py` reads 176 BPMN files from FINOS's tree into the schema's shape, with `tests/bpmn_xml.py`, and validates each. Four files it lists fail, each for a reason it gives.
+- **Names.** An attribute in Fluxnova's extension namespace carries the `fluxnova_` prefix, and a slot whose name LOKF defines with another meaning, such as `id` or `documentation`, carries the `bpmn_` prefix. An assignment's `from` and `to` are `from_expression` and `to_expression`.
+- **Extensions.** `extension_elements` holds any element in `elements`, and `element_type` names each one's class. BPMN's schema admits there any element of another namespace. An input or output parameter and a map's entry hold a script, a list or a map in `value`, and a list holds its items in `values`. That is how the engine reads them.
+- **FINOS's files.** `tests/test_bpmn_files.py` reads 175 BPMN files from FINOS's tree into the schema's shape, with `tests/bpmn_xml.py`, and validates each. Four files it lists fail, each for a reason it gives.
 - **Descriptions** are this project's own, in `scripts/bpmn_descriptions.yaml`.
 
 ## What is left out

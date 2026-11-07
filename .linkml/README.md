@@ -40,7 +40,7 @@ Run `just` from this folder to list the project's [just](https://github.com/case
 
 ## Knowledge Trust Ladder (KTL)
 
-`.lokf/` holds this project's [KTL](https://w3id.org/ktl/) sidecar. Its domain schema, `.lokf/schema/fluxnova_bpm_platform.yaml`, is the copy `just lokf-adapt` writes from `src/fluxnova_bpm_platform/schema/fluxnova_bpm_platform.yaml`, and `just lokf-adapt-check` says when it is stale. Edit the source, never the copy. Once `KNOWLEDGE_RELEASE_ENABLED` is `true`, a release carries the copy as `schema-<tag>-fluxnova-bpm-platform.yaml`.
+`.lokf/` holds this project's [KTL](https://w3id.org/ktl/) sidecar. Its domain schema, `.lokf/schema/fluxnova_bpm_platform.yaml`, is the copy `just lokf-adapt` writes from `src/fluxnova_bpm_platform/schema/fluxnova_bpm_platform.yaml`, and `just lokf-adapt-check` says when it is stale. Edit the source, never the copy. Once `KNOWLEDGE_RELEASE_ENABLED` is `true`, a release whose bundle or schema changed carries the copy as `schema-<tag>-fluxnova-bpm-platform.yaml`.
 
 In Obsidian, add these to the *Known LOKF types* setting of the KTL Registrar and KTL Curator plugins:
 
@@ -48,9 +48,9 @@ In Obsidian, add these to the *Known LOKF types* setting of the KTL Registrar an
 FluxnovaAttachment, FluxnovaAuthorization, FluxnovaBatch, FluxnovaByteArray, FluxnovaCaseDefinition, FluxnovaCaseExecution, FluxnovaCaseSentryPart, FluxnovaComment, FluxnovaConfiguration, FluxnovaDecisionDefinition, FluxnovaDecisionRequirementsDefinition, FluxnovaDeployment, FluxnovaEventSubscription, FluxnovaExecution, FluxnovaExternalTask, FluxnovaFilter, FluxnovaFormDefinition, FluxnovaGroup, FluxnovaHistoricActivityInstance, FluxnovaHistoricBatch, FluxnovaHistoricCaseActivityInstance, FluxnovaHistoricCaseInstance, FluxnovaHistoricDecisionInputInstance, FluxnovaHistoricDecisionInstance, FluxnovaHistoricDecisionOutputInstance, FluxnovaHistoricDetail, FluxnovaHistoricExternalTaskLog, FluxnovaHistoricIdentityLink, FluxnovaHistoricIncident, FluxnovaHistoricJobLog, FluxnovaHistoricProcessInstance, FluxnovaHistoricTaskInstance, FluxnovaHistoricVariableInstance, FluxnovaIdentityInfo, FluxnovaIdentityLink, FluxnovaIncident, FluxnovaJob, FluxnovaJobDefinition, FluxnovaMeterLog, FluxnovaProcessDefinition, FluxnovaSchemaLogEntry, FluxnovaTask, FluxnovaTaskMeterLog, FluxnovaTenant, FluxnovaTenantMembership, FluxnovaUser, FluxnovaUserOperationLogEntry, FluxnovaVariableInstance
 ```
 
-In the copy, every class that carries the schema's identifier, `id`, descends from LOKF's `Concept`, so a concept's id is the table row's. The BPMN classes carry none, and are not concept types. Ten engine slots whose names LOKF defines, such as `name`, `description` and `type`, take the `fluxnova_bpm_platform_` prefix in the copy. BPMN slots of such names, such as `id`, carry `bpmn_` in the schema itself.
+In the copy, every class that carries the schema's identifier, `id`, descends from LOKF's `Concept`, so a concept's id is the table row's. The BPMN classes carry none, and are not concept types. Ten engine slots whose names LOKF defines, such as `name`, `description` and `type`, take the `fluxnova_bpm_platform_` prefix in the copy. BPMN slots whose names LOKF defines with another meaning, such as `id`, carry `bpmn_` in the schema itself.
 
-Every class carries the `Fluxnova`, `Bpmn`, `Di` or `Dc` prefix, so no class name is also a neighbour's. Column names are ordinary words, so the copy shares some keys with other lmodel copies. `tests/test_schema_rules.py` lists them.
+Every class carries the `Fluxnova`, `Bpmn`, `Di` or `Dc` prefix, so no class name is also a neighbour's. The schema's keys are ordinary words, so the copy shares some with other lmodel copies. `tests/test_schema_rules.py` lists them.
 
 ## Credits
 
@@ -60,4 +60,4 @@ This project uses the template [linkml-project-copier](https://github.com/linkml
 
 The schema project is under the [Apache License 2.0](LICENSE), and the bundle under CC BY 4.0.
 
-Fluxnova and FINOS's tree are FINOS's, under the [Apache License 2.0](../LICENSE). Where the engine's Javadoc describes a class or slot, the schema takes its description from it, under the same terms, and BPMN is the Object Management Group's. [NOTICE](NOTICE) says what comes from where. This project is not a FINOS project, and neither FINOS nor OMG endorses it.
+Fluxnova and FINOS's tree are FINOS's, under the [Apache License 2.0](../LICENSE). Where the engine's Javadoc describes a table's class or one of its slots, the schema takes the description from it, under the same terms, and BPMN is the Object Management Group's. [NOTICE](NOTICE) says what comes from where. This project is not a FINOS project, and neither FINOS nor OMG endorses it.
