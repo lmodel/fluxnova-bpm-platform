@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java
-# HistoricDecisionOutputInstance: it mirrors MockProvider's constants.
+# HistoricDecisionOutputInstance: the values mirror MockProvider's constants.
 id: aDecisionInputInstanceId
 decision_instance_id: aHistoricDecisionInstanceId
 clause_id: aDecisionInputClauseId
