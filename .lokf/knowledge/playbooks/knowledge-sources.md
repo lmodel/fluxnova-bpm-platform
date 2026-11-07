@@ -221,7 +221,7 @@ exclusions:
 generated:
   by: process:ktl-librarian
   at: "2026-11-07T03:39:33Z"
-  revision: 5201fdb877aeca68ac530b10533bca31c7a23ffa
+  revision: 82bf1bcbc9ef43197696c706139d072b72c74d11
 status: draft
 ---
 

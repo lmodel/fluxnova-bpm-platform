@@ -15,7 +15,7 @@ sources:
 generated:
   by: process:ktl-librarian
   at: "2026-11-07T03:39:33Z"
-  revision: 78dcb8aa6e900eca363d48f1f6aa1088ea75a360
+  revision: e7b2e597d0d2a19b6693c17bb563ed3622797808
 status: draft
 ---
 
