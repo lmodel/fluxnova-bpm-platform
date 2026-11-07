@@ -6,6 +6,8 @@ The `v0.0.0` tag is a baseline, not a release: it marks where versioning starts 
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-07
+
 ### Fixed
 
 - **The knowledge bundle's revision pins name commits on `main`.** The rebase merge of #5 left 25 concepts naming the branch's commits, so the knowledge release failed and 0.1.0 has no bundle or schema attached. Each now names its commit's rebased copy on `main`, which holds its cited files unchanged. This release carries the assets.
