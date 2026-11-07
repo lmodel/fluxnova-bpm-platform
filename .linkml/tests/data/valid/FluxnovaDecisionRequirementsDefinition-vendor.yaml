@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java
-# DecisionRequirementsDefinition: it mirrors MockProvider's constants.
+# DecisionRequirementsDefinition: the values mirror MockProvider's constants.
 id: aDecisionRequirementsDefinitionId
 key: aDecisionRequirementsDefinitionKey
 name: aDecisionRequirementsDefinitionName

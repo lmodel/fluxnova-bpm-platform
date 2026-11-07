@@ -1213,8 +1213,8 @@ class LinkMLGenerator:
         A class takes its interface's Javadoc, or a description built from its table.
         A slot's definition takes the Javadoc when every class that has the slot says
         the same. Otherwise it keeps a description that fits every table, from
-        SHARED_DESCRIPTIONS, the slot's registration or its column. Each class whose
-        Javadoc describes the slot says so in its slot_usage, or in its base's when
+        SHARED_DESCRIPTIONS, the slot's registration or its column. Then each class
+        whose Javadoc describes the slot says so in its slot_usage, or in its base's when
         every subclass's Javadoc agrees.
         """
         for class_name, cls in self.classes.items():
