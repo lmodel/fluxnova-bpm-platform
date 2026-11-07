@@ -10,7 +10,7 @@ import java.util.List;
 import lombok.*;
 
 /**
-  Case Execution entity in the process execution runtime.
+  Represent a planned item in a case instance.
 **/
 @Data
 @EqualsAndHashCode(callSuper=false)

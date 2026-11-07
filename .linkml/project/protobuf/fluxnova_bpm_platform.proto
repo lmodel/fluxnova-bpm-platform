@@ -3723,11 +3723,11 @@ message FluxnovaCaseDefinition {
   // Version number.
   int32 version = 10;
 }
-// Case Execution entity in the process execution runtime.
+// Represent a planned item in a case instance.
 message FluxnovaCaseExecution {
-  // Unique identifier.
+  // The unique identifier of the case execution.
   string id = 1;
-  // Reference to the case instance.
+  // Id of the root of the case execution tree representing the case instance.
   FluxnovaCaseExecution case_instance_id = 2;
   // Reference to the super case execution.
   string super_case_execution_id = 3;
@@ -3735,11 +3735,11 @@ message FluxnovaCaseExecution {
   string super_execution_id = 4;
   // Domain-specific business key.
   string business_key = 5;
-  // Reference to a case execution.
+  // The id of the parent of this case execution.
   FluxnovaCaseExecution parent_id = 6;
-  // Reference to the case definition.
+  // The id of the case definition of the case execution.
   FluxnovaCaseDefinition case_definition_id = 7;
-  // BPMN activity element identifier.
+  // The id of the activity associated with this case execution.
   string activity_id = 8;
   // The previous state.
   int32 previous_state = 9;
@@ -5253,13 +5253,13 @@ message FluxnovaResourceDefinition {
   // The id of the tenant this definition belongs to.
   string tenant_id = 6;
 }
-// Schema Log Entry entity in the engine infrastructure.
+// Log entry for database schema version changes.
 message FluxnovaSchemaLogEntry {
-  // Unique identifier.
+  // A unique identifier of a schema log entry.
   string id = 1;
-  // Timestamp for timestamp.
+  // The creation date of this schema log entry.
   string timestamp = 2;
-  // Version number.
+  // The schema version.
   string version = 3;
 }
 // A script whose result is a value, such as a parameter's or a listener's.

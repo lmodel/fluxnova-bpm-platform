@@ -251,6 +251,8 @@ CLASS_JAVA_INTERFACES: dict[str, str] = {
     "Incident": f"{_ENGINE_BASE}/runtime/Incident.java",
     "ExternalTask": f"{_ENGINE_BASE}/externaltask/ExternalTask.java",
     "CaseExecution": f"{_ENGINE_BASE}/runtime/CaseExecution.java",
+    # Management
+    "SchemaLogEntry": f"{_ENGINE_BASE}/management/SchemaLogEntry.java",
     # Repository
     "Deployment": f"{_ENGINE_BASE}/repository/Deployment.java",
     "ProcessDefinition": f"{_ENGINE_BASE}/repository/ProcessDefinition.java",
@@ -491,8 +493,9 @@ def _clean_javadoc(raw: str) -> str:
         # Stop at @param, @return, @author, @see, @since, @throws, etc.
         if line.startswith("@"):
             break
-        # Skip empty lines and HTML tags that are structural
-        if line.startswith("<") and line.endswith(">"):
+        # Skip a line that is one structural HTML tag and nothing else. A line such as
+        # "<p>Text.</p>" keeps its text, and the tags are removed below.
+        if re.fullmatch(r"</?[A-Za-z][^<>]*>", line):
             continue
         if line == "<p>" or line == "</p>" or line == "<ul>" or line == "</ul>":
             continue

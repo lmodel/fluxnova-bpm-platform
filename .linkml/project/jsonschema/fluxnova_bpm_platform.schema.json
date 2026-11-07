@@ -17166,10 +17166,10 @@
         },
         "FluxnovaCaseExecution": {
             "additionalProperties": false,
-            "description": "Case Execution entity in the process execution runtime.",
+            "description": "Represent a planned item in a case instance.",
             "properties": {
                 "activity_id": {
-                    "description": "BPMN activity element identifier.",
+                    "description": "The id of the activity associated with this case execution.",
                     "type": [
                         "string",
                         "null"
@@ -17183,14 +17183,14 @@
                     ]
                 },
                 "case_definition_id": {
-                    "description": "Reference to the case definition.",
+                    "description": "The id of the case definition of the case execution.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "case_instance_id": {
-                    "description": "Reference to the case instance.",
+                    "description": "Id of the root of the case execution tree representing the case instance.",
                     "type": [
                         "string",
                         "null"
@@ -17206,7 +17206,7 @@
                     ]
                 },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "The unique identifier of the case execution.",
                     "type": "string"
                 },
                 "is_required": {
@@ -17217,7 +17217,7 @@
                     ]
                 },
                 "parent_id": {
-                    "description": "Reference to a case execution.",
+                    "description": "The id of the parent of this case execution.",
                     "type": [
                         "string",
                         "null"
@@ -22638,14 +22638,14 @@
         },
         "FluxnovaSchemaLogEntry": {
             "additionalProperties": false,
-            "description": "Schema Log Entry entity in the engine infrastructure.",
+            "description": "Log entry for database schema version changes.",
             "properties": {
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "A unique identifier of a schema log entry.",
                     "type": "string"
                 },
                 "timestamp": {
-                    "description": "Timestamp for timestamp.",
+                    "description": "The creation date of this schema log entry.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -22653,7 +22653,7 @@
                     ]
                 },
                 "version": {
-                    "description": "Version number.",
+                    "description": "The schema version.",
                     "type": [
                         "string",
                         "null"

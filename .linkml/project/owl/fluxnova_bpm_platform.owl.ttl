@@ -1730,7 +1730,7 @@ fluxnova_bpm_platform:FluxnovaCaseDefinition a owl:Class ;
 fluxnova_bpm_platform:FluxnovaCaseExecution a owl:Class ;
 	rdfs:label "FluxnovaCaseExecution" ;
 	rdfs:subClassOf _:c14n1030 , _:c14n1097 , _:c14n1229 , _:c14n1246 , _:c14n158 , _:c14n1596 , _:c14n1634 , _:c14n1675 , _:c14n1903 , _:c14n2041 , _:c14n2091 , _:c14n2138 , _:c14n2140 , _:c14n2441 , _:c14n2492 , _:c14n2556 , _:c14n2894 , _:c14n2924 , _:c14n2960 , _:c14n305 , _:c14n308 , _:c14n3398 , _:c14n351 , _:c14n3642 , _:c14n3668 , _:c14n3784 , _:c14n3811 , _:c14n3845 , _:c14n482 , _:c14n493 , _:c14n601 , _:c14n792 , _:c14n838 , _:c14n88 , _:c14n947 , _:c14n970 ;
-	skos:definition "Case Execution entity in the process execution runtime." ;
+	skos:definition "Represent a planned item in a case instance." ;
 	skos:inScheme fluxnova_bpm_platform:fluxnova_bpm_engine ;
 	fluxnova_bpm_platform:sql_table "ACT_RU_CASE_EXECUTION" .
 fluxnova_bpm_platform:FluxnovaCaseSentryPart a owl:Class ;
@@ -2168,7 +2168,7 @@ fluxnova_bpm_platform:FluxnovaResourceDefinition a owl:Class ;
 fluxnova_bpm_platform:FluxnovaSchemaLogEntry a owl:Class ;
 	rdfs:label "FluxnovaSchemaLogEntry" ;
 	rdfs:subClassOf _:c14n1083 , _:c14n1887 , _:c14n2697 , _:c14n3182 , _:c14n3263 , _:c14n327 , _:c14n3278 , _:c14n3606 , _:c14n3873 ;
-	skos:definition "Schema Log Entry entity in the engine infrastructure." ;
+	skos:definition "Log entry for database schema version changes." ;
 	skos:inScheme fluxnova_bpm_platform:fluxnova_bpm_engine ;
 	fluxnova_bpm_platform:sql_table "ACT_GE_SCHEMA_LOG" .
 fluxnova_bpm_platform:FluxnovaScript a owl:Class ;

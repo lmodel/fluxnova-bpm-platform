@@ -10,7 +10,7 @@ import java.util.List;
 import lombok.*;
 
 /**
-  Schema Log Entry entity in the engine infrastructure.
+  Log entry for database schema version changes.
 **/
 @Data
 @EqualsAndHashCode(callSuper=false)

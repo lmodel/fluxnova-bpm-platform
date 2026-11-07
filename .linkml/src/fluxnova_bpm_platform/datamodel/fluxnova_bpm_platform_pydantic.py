@@ -1176,15 +1176,26 @@ class FluxnovaByteArray(ConfiguredBaseModel):
 
 class FluxnovaCaseExecution(ConfiguredBaseModel):
     """
-    Case Execution entity in the process execution runtime.
+    Represent a planned item in a case instance.
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'annotations': {'sql_table': {'tag': 'sql_table',
                                        'value': 'ACT_RU_CASE_EXECUTION'}},
          'from_schema': 'https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpm_engine',
          'in_subset': ['engine_runtime'],
-         'slot_usage': {'case_definition_id': {'name': 'case_definition_id',
+         'slot_usage': {'activity_id': {'description': 'The id of the activity '
+                                                       'associated with this case '
+                                                       'execution.',
+                                        'name': 'activity_id'},
+                        'case_definition_id': {'description': 'The id of the case '
+                                                              'definition of the case '
+                                                              'execution.',
+                                               'name': 'case_definition_id',
                                                'range': 'FluxnovaCaseDefinition'},
-                        'case_instance_id': {'name': 'case_instance_id',
+                        'case_instance_id': {'description': 'Id of the root of the '
+                                                            'case execution tree '
+                                                            'representing the case '
+                                                            'instance.',
+                                             'name': 'case_instance_id',
                                              'range': 'FluxnovaCaseExecution'},
                         'current_state': {'comments': ['Codes, from '
                                                        'engine/impl/cmmn/execution/CaseExecutionState.java: '
@@ -1201,7 +1212,12 @@ class FluxnovaCaseExecution(ConfiguredBaseModel):
                                           'maximum_value': 14,
                                           'minimum_value': 0,
                                           'name': 'current_state'},
-                        'parent_id': {'name': 'parent_id',
+                        'id': {'description': 'The unique identifier of the case '
+                                              'execution.',
+                               'name': 'id'},
+                        'parent_id': {'description': 'The id of the parent of this '
+                                                     'case execution.',
+                                      'name': 'parent_id',
                                       'range': 'FluxnovaCaseExecution'},
                         'previous_state': {'comments': ['Codes, from '
                                                         'engine/impl/cmmn/execution/CaseExecutionState.java: '
@@ -1223,7 +1239,7 @@ class FluxnovaCaseExecution(ConfiguredBaseModel):
                                                      'execution belongs to.',
                                       'name': 'tenant_id'}}})
 
-    id: str = Field(default=..., description="""Unique identifier.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FluxnovaAttachment',
+    id: str = Field(default=..., description="""The unique identifier of the case execution.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FluxnovaAttachment',
                        'FluxnovaAuthorization',
                        'FluxnovaBatch',
                        'FluxnovaByteArray',
@@ -1263,7 +1279,7 @@ class FluxnovaCaseExecution(ConfiguredBaseModel):
                        'FluxnovaUser',
                        'FluxnovaUserOperationLogEntry',
                        'FluxnovaVariableInstance']} })
-    case_instance_id: Optional[str] = Field(default=None, description="""Reference to the case instance.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FluxnovaCaseExecution',
+    case_instance_id: Optional[str] = Field(default=None, description="""Id of the root of the case execution tree representing the case instance.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FluxnovaCaseExecution',
                        'FluxnovaCaseSentryPart',
                        'FluxnovaExecution',
                        'FluxnovaHistoricCaseActivityInstance',
@@ -1285,11 +1301,11 @@ class FluxnovaCaseExecution(ConfiguredBaseModel):
                        'FluxnovaExecution',
                        'FluxnovaHistoricCaseInstance',
                        'FluxnovaHistoricProcessInstance']} })
-    parent_id: Optional[str] = Field(default=None, description="""Reference to a case execution.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'PARENT_ID_'}},
+    parent_id: Optional[str] = Field(default=None, description="""The id of the parent of this case execution.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'PARENT_ID_'}},
          'domain_of': ['FluxnovaCaseExecution',
                        'FluxnovaExecution',
                        'FluxnovaIdentityInfo']} })
-    case_definition_id: Optional[str] = Field(default=None, description="""Reference to the case definition.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FluxnovaCaseExecution',
+    case_definition_id: Optional[str] = Field(default=None, description="""The id of the case definition of the case execution.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FluxnovaCaseExecution',
                        'FluxnovaHistoricCaseActivityInstance',
                        'FluxnovaHistoricCaseInstance',
                        'FluxnovaHistoricDecisionInstance',
@@ -1298,7 +1314,7 @@ class FluxnovaCaseExecution(ConfiguredBaseModel):
                        'FluxnovaHistoricVariableInstance',
                        'FluxnovaTask',
                        'FluxnovaUserOperationLogEntry']} })
-    activity_id: Optional[str] = Field(default=None, description="""BPMN activity element identifier.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FluxnovaCaseExecution',
+    activity_id: Optional[str] = Field(default=None, description="""The id of the activity associated with this case execution.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FluxnovaCaseExecution',
                        'FluxnovaEventSubscription',
                        'FluxnovaExecution',
                        'FluxnovaExternalTask',
@@ -9339,15 +9355,23 @@ class FluxnovaProcessDefinition(FluxnovaResourceDefinition):
 
 class FluxnovaSchemaLogEntry(ConfiguredBaseModel):
     """
-    Schema Log Entry entity in the engine infrastructure.
+    Log entry for database schema version changes.
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'annotations': {'sql_table': {'tag': 'sql_table',
                                        'value': 'ACT_GE_SCHEMA_LOG'}},
          'from_schema': 'https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpm_engine',
          'in_subset': ['engine_base'],
-         'slot_usage': {'version': {'name': 'version', 'range': 'string'}}})
+         'slot_usage': {'id': {'description': 'A unique identifier of a schema log '
+                                              'entry.',
+                               'name': 'id'},
+                        'timestamp': {'description': 'The creation date of this schema '
+                                                     'log entry.',
+                                      'name': 'timestamp'},
+                        'version': {'description': 'The schema version.',
+                                    'name': 'version',
+                                    'range': 'string'}}})
 
-    id: str = Field(default=..., description="""Unique identifier.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FluxnovaAttachment',
+    id: str = Field(default=..., description="""A unique identifier of a schema log entry.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FluxnovaAttachment',
                        'FluxnovaAuthorization',
                        'FluxnovaBatch',
                        'FluxnovaByteArray',
@@ -9387,7 +9411,7 @@ class FluxnovaSchemaLogEntry(ConfiguredBaseModel):
                        'FluxnovaUser',
                        'FluxnovaUserOperationLogEntry',
                        'FluxnovaVariableInstance']} })
-    timestamp: Optional[datetime ] = Field(default=None, description="""Timestamp for timestamp.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'TIMESTAMP_'}},
+    timestamp: Optional[datetime ] = Field(default=None, description="""The creation date of this schema log entry.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'TIMESTAMP_'}},
          'domain_of': ['FluxnovaHistoricExternalTaskLog',
                        'FluxnovaHistoricIdentityLink',
                        'FluxnovaHistoricJobLog',
@@ -9395,7 +9419,7 @@ class FluxnovaSchemaLogEntry(ConfiguredBaseModel):
                        'FluxnovaSchemaLogEntry',
                        'FluxnovaTaskMeterLog',
                        'FluxnovaUserOperationLogEntry']} })
-    version: Optional[str] = Field(default=None, description="""Version number.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FluxnovaConfiguration',
+    version: Optional[str] = Field(default=None, description="""The schema version.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FluxnovaConfiguration',
                        'FluxnovaResourceDefinition',
                        'FluxnovaSchemaLogEntry']} })
 

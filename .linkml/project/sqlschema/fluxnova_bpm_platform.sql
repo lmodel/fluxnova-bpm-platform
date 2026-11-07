@@ -68,15 +68,15 @@
 --     * Slot: resource_name Description: Name of the resource of this definition.
 --     * Slot: tenant_id Description: The id of the tenant this definition belongs to.
 --     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
--- # Class: FluxnovaCaseExecution Description: Case Execution entity in the process execution runtime.
---     * Slot: id Description: Unique identifier.
---     * Slot: case_instance_id Description: Reference to the case instance.
+-- # Class: FluxnovaCaseExecution Description: Represent a planned item in a case instance.
+--     * Slot: id Description: The unique identifier of the case execution.
+--     * Slot: case_instance_id Description: Id of the root of the case execution tree representing the case instance.
 --     * Slot: super_case_execution_id Description: Reference to the super case execution.
 --     * Slot: super_execution_id Description: Reference to the super execution.
 --     * Slot: business_key Description: Domain-specific business key.
---     * Slot: parent_id Description: Reference to a case execution.
---     * Slot: case_definition_id Description: Reference to the case definition.
---     * Slot: activity_id Description: BPMN activity element identifier.
+--     * Slot: parent_id Description: The id of the parent of this case execution.
+--     * Slot: case_definition_id Description: The id of the case definition of the case execution.
+--     * Slot: activity_id Description: The id of the activity associated with this case execution.
 --     * Slot: previous_state Description: The previous state.
 --     * Slot: current_state Description: The current state.
 --     * Slot: is_required Description: Whether this entity is required.
@@ -671,10 +671,10 @@
 --     * Slot: deployment_id Description: The deployment in which this definition is contained.
 --     * Slot: resource_name Description: Name of the resource of this definition.
 --     * Slot: tenant_id Description: The id of the tenant this definition belongs to.
--- # Class: FluxnovaSchemaLogEntry Description: Schema Log Entry entity in the engine infrastructure.
---     * Slot: id Description: Unique identifier.
---     * Slot: timestamp Description: Timestamp for timestamp.
---     * Slot: version Description: Version number.
+-- # Class: FluxnovaSchemaLogEntry Description: Log entry for database schema version changes.
+--     * Slot: id Description: A unique identifier of a schema log entry.
+--     * Slot: timestamp Description: The creation date of this schema log entry.
+--     * Slot: version Description: The schema version.
 --     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaTask Description: Represents one task for a human user.
 --     * Slot: id Description: DB id of the task.
