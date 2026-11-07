@@ -6,6 +6,8 @@ The `v0.0.0` tag is a baseline, not a release: it marks where versioning starts 
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-11-07
+
 ### Added
 
 - **A schema of Fluxnova 3.1.1.** It has one class per table of the engine's database, from its H2 DDL, with foreign keys as references, unique constraints as unique keys, the columns' defaults, the engine's state values as enums and its integer state codes as bounds. It also has the BPMN 2.0 elements the model API reads, with Fluxnova's extension elements, their XML names and an exact mapping to each element.
