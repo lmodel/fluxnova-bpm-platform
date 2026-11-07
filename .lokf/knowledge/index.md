@@ -18,7 +18,7 @@ A [LOKF](https://lokf.nolan-nichols.com) knowledge base for fluxnova-bpm-platfor
 
 # Services
 
-* [Documentation site](services/documentation-site.md) - The knowledge website at https://lmodel.github.io/fluxnova-bpm-platform, built from the bundle, the sidecar README, the docs pages, the changelog and the schema's pages.
+* [Documentation site](services/documentation-site.md) - The knowledge website at `https://lmodel.github.io/fluxnova-bpm-platform`, built from the bundle, the sidecar README, the docs pages, the changelog and the schema's pages.
 
 # References
 
