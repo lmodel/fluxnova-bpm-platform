@@ -13,13 +13,13 @@ sources:
     title: Knowledge Trust Ladder (KTL)
 generated:
   by: process:ktl-librarian
-  at: "2026-11-07T11:43:55Z"
-  revision: a71fff4ddee5d7e315af09644fae9291cb2e44cc
+  at: "2026-11-07T15:07:04Z"
+  revision: 1f770243479506f66bc5caf29607cb3cb3ab05e6
 status: draft
 ---
 
 # The schema's adapt copy
 
-`just lokf-adapt` writes `.lokf/schema/fluxnova_bpm_platform.yaml` from the schema, and `just lokf-adapt-check` says when it is stale.[^linkml-readme.md] In the copy, every class that carries the schema's identifier, `id`, descends from LOKF's `Concept`. The BPMN classes carry no identifier.[^linkml-readme.md] Once `KNOWLEDGE_RELEASE_ENABLED` is `true`, a release carries the copy as `schema-<tag>-fluxnova-bpm-platform.yaml`.[^linkml-readme.md]
+`just lokf-adapt` writes `.lokf/schema/fluxnova_bpm_platform.yaml` from the schema, and `just lokf-adapt-check` says when it is stale.[^linkml-readme.md] In the copy, every class that carries the schema's identifier, `id`, descends from LOKF's `Concept`. The BPMN classes carry no identifier.[^linkml-readme.md] Once `KNOWLEDGE_RELEASE_ENABLED` is `true`, a release whose bundle or schema changed carries the copy as `schema-<tag>-fluxnova-bpm-platform.yaml`.[^linkml-readme.md]
 
 [^linkml-readme.md]: .linkml/README.md, Knowledge Trust Ladder (KTL)

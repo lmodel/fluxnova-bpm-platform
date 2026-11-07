@@ -18,14 +18,14 @@ sources:
     resource: .linkml/scripts/bpmn_to_linkml.py
 generated:
   by: process:ktl-librarian
-  at: "2026-11-07T11:20:19Z"
-  revision: 604f4795f62e11dddb453f6d497eff67722c56ef
+  at: "2026-11-07T15:07:04Z"
+  revision: 1f770243479506f66bc5caf29607cb3cb3ab05e6
 status: draft
 ---
 
 # BPMN modules
 
-Each element type the model API registers is a class, with its parent, its attributes and its child elements as the API states them.[^about.md] A reference to another element is a string whose `refers_to` annotation names the class it points to, since BPMN lets an element have no id.[^about.md] A process's flow elements range over `BpmnFlowElement`, and `element_type` names each child's class.[^about.md] `extension_elements` holds any element in `elements`. An input or output parameter and a map's entry hold a script, a list or a map in `value`. A list holds its items in `values`.[^about.md] `tests/test_bpmn_files.py` validates 176 BPMN files from FINOS's tree against the schema.[^about.md] The descriptions are this project's own, in `scripts/bpmn_descriptions.yaml`.[^about.md] `scripts/bpmn_to_linkml.py` writes the modules.[^bpmn_to_linkml.py]
+Each element type the model API registers is a class, with its parent, its attributes and its child elements as the API states them.[^about.md] A reference to another element is a string whose `refers_to` annotation names the class it points to, since BPMN lets an element have no id.[^about.md] A process's flow elements range over `BpmnFlowElement`, and `element_type` names each child's class.[^about.md] `extension_elements` holds any element in `elements`. An input or output parameter and a map's entry hold a script, a list or a map in `value`. A list holds its items in `values`.[^about.md] `tests/test_bpmn_files.py` validates 175 BPMN files from FINOS's tree against the schema.[^about.md] The descriptions are this project's own, in `scripts/bpmn_descriptions.yaml`.[^about.md] `scripts/bpmn_to_linkml.py` writes the modules.[^bpmn_to_linkml.py]
 
 [^about.md]: .linkml/docs/about.md, The BPMN elements
 [^bpmn_to_linkml.py]: .linkml/scripts/bpmn_to_linkml.py

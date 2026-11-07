@@ -2,6 +2,11 @@
 
 ## 2026-11-07
 
+* **Changed**: BPMN modules counts 175 of FINOS's BPMN files under test, not 176.
+* **Changed**: Engine tables says a shared slot carries a class's Javadoc only where that Javadoc describes it.
+* **Changed**: Modelling choices says only a BPMN slot whose name LOKF defines with another meaning takes `bpmn_`.
+* **Changed**: The schema's adapt copy says only a release whose bundle or schema changed carries it.
+* **Changed**: Licence and attribution says the Javadoc's words go to a table's class or slot, as NOTICE now does.
 * **Prose**: reworded 4 concept bodies in plain English. No fact, link, number or frontmatter changed.
 * **Changed**: two concepts pin the commit that changed their sources.
 * **Changed**: The schema's adapt copy says a release carries it once `KNOWLEDGE_RELEASE_ENABLED` is `true`.
