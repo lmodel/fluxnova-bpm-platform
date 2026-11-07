@@ -10,13 +10,13 @@ sources:
     resource: .linkml/NOTICE
 generated:
   by: process:ktl-librarian
-  at: "2026-11-07T11:43:55Z"
-  revision: a71fff4ddee5d7e315af09644fae9291cb2e44cc
+  at: "2026-11-07T15:07:04Z"
+  revision: 1f770243479506f66bc5caf29607cb3cb3ab05e6
 status: draft
 ---
 
 # Licence and attribution
 
-The schema project and what it adds beside FINOS's tree are this project's, under the Apache License 2.0, except the knowledge bundle, which is under CC BY 4.0.[^notice] Everything else is FINOS's, unchanged, under FINOS's terms.[^notice] Where the Javadoc of the engine's Java API describes an engine class or slot, its description is the Javadoc's first sentence, in FINOS's and Camunda's words. The other engine descriptions are this project's.[^notice] The BPMN descriptions are this project's, and the schema names BPMN's elements without copying the specification.[^notice]
+The schema project and what it adds beside FINOS's tree are this project's, under the Apache License 2.0, except the knowledge bundle, which is under CC BY 4.0.[^notice] Everything else is FINOS's, unchanged, under FINOS's terms.[^notice] Where the Javadoc of the engine's Java API describes an engine table's class or slot, its description is the Javadoc's first sentence, in FINOS's and Camunda's words. The other engine descriptions are this project's.[^notice] The BPMN descriptions are this project's, and the schema names BPMN's elements without copying the specification.[^notice]
 
 [^notice]: .linkml/NOTICE
