@@ -365,12 +365,12 @@ export interface FluxnovaCaseDefinition extends FluxnovaResourceDefinition {
 
 
 /**
- * Case Execution entity in the process execution runtime.
+ * Represent a planned item in a case instance.
  */
 export interface FluxnovaCaseExecution {
-    /** Unique identifier. */
+    /** The unique identifier of the case execution. */
     id: string,
-    /** Reference to the case instance. */
+    /** Id of the root of the case execution tree representing the case instance. */
     case_instance_id?: FluxnovaCaseExecutionId,
     /** Reference to the super case execution. */
     super_case_execution_id?: string,
@@ -378,11 +378,11 @@ export interface FluxnovaCaseExecution {
     super_execution_id?: string,
     /** Domain-specific business key. */
     business_key?: string,
-    /** Reference to a case execution. */
+    /** The id of the parent of this case execution. */
     parent_id?: FluxnovaCaseExecutionId,
-    /** Reference to the case definition. */
+    /** The id of the case definition of the case execution. */
     case_definition_id?: FluxnovaCaseDefinitionId,
-    /** BPMN activity element identifier. */
+    /** The id of the activity associated with this case execution. */
     activity_id?: string,
     /** The previous state. */
     previous_state?: number,
@@ -1612,14 +1612,14 @@ export interface FluxnovaResourceDefinition {
 
 
 /**
- * Schema Log Entry entity in the engine infrastructure.
+ * Log entry for database schema version changes.
  */
 export interface FluxnovaSchemaLogEntry {
-    /** Unique identifier. */
+    /** A unique identifier of a schema log entry. */
     id: string,
-    /** Timestamp for timestamp. */
+    /** The creation date of this schema log entry. */
     timestamp?: string,
-    /** Version number. */
+    /** The schema version. */
     version?: string,
 }
 

@@ -14756,7 +14756,7 @@ slots:
   FluxnovaCaseExecution_case_instance_id:
     name: FluxnovaCaseExecution_case_instance_id
     definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/case_instance_id
-    description: Reference to the case instance.
+    description: Id of the root of the case execution tree representing the case instance.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpm_engine
     is_a: case_instance_id
     domain: FluxnovaCaseExecution
@@ -14775,7 +14775,7 @@ slots:
       sql_column:
         tag: sql_column
         value: PARENT_ID_
-    description: Reference to a case execution.
+    description: The id of the parent of this case execution.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpm_engine
     is_a: parent_id
     domain: FluxnovaCaseExecution
@@ -14790,7 +14790,7 @@ slots:
   FluxnovaCaseExecution_case_definition_id:
     name: FluxnovaCaseExecution_case_definition_id
     definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/case_definition_id
-    description: Reference to the case definition.
+    description: The id of the case definition of the case execution.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpm_engine
     is_a: case_definition_id
     domain: FluxnovaCaseExecution
@@ -14856,6 +14856,23 @@ slots:
     range: integer
     minimum_value: 0
     maximum_value: 14
+  FluxnovaCaseExecution_id:
+    name: FluxnovaCaseExecution_id
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/id
+    description: The unique identifier of the case execution.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpm_engine
+    is_a: id
+    domain: FluxnovaCaseExecution
+    slot_uri: fluxnova_bpm_platform:id
+    identifier: true
+    alias: id
+    owner: FluxnovaCaseExecution
+    domain_of:
+    - FluxnovaCaseExecution
+    is_usage_slot: true
+    usage_slot_name: id
+    range: string
+    required: true
   FluxnovaCaseExecution_tenant_id:
     name: FluxnovaCaseExecution_tenant_id
     definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/tenant_id
@@ -14870,6 +14887,21 @@ slots:
     - FluxnovaCaseExecution
     is_usage_slot: true
     usage_slot_name: tenant_id
+    range: string
+  FluxnovaCaseExecution_activity_id:
+    name: FluxnovaCaseExecution_activity_id
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/activity_id
+    description: The id of the activity associated with this case execution.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpm_engine
+    is_a: activity_id
+    domain: FluxnovaCaseExecution
+    slot_uri: fluxnova_bpm_platform:activity_id
+    alias: activity_id
+    owner: FluxnovaCaseExecution
+    domain_of:
+    - FluxnovaCaseExecution
+    is_usage_slot: true
+    usage_slot_name: activity_id
     range: string
   FluxnovaCaseSentryPart_case_instance_id:
     name: FluxnovaCaseSentryPart_case_instance_id
@@ -19751,7 +19783,7 @@ slots:
   FluxnovaSchemaLogEntry_version:
     name: FluxnovaSchemaLogEntry_version
     definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/version
-    description: Version number.
+    description: The schema version.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpm_engine
     is_a: version
     domain: FluxnovaSchemaLogEntry
@@ -19763,6 +19795,42 @@ slots:
     is_usage_slot: true
     usage_slot_name: version
     range: string
+  FluxnovaSchemaLogEntry_id:
+    name: FluxnovaSchemaLogEntry_id
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/id
+    description: A unique identifier of a schema log entry.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpm_engine
+    is_a: id
+    domain: FluxnovaSchemaLogEntry
+    slot_uri: fluxnova_bpm_platform:id
+    identifier: true
+    alias: id
+    owner: FluxnovaSchemaLogEntry
+    domain_of:
+    - FluxnovaSchemaLogEntry
+    is_usage_slot: true
+    usage_slot_name: id
+    range: string
+    required: true
+  FluxnovaSchemaLogEntry_timestamp:
+    name: FluxnovaSchemaLogEntry_timestamp
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/timestamp
+    annotations:
+      sql_column:
+        tag: sql_column
+        value: TIMESTAMP_
+    description: The creation date of this schema log entry.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpm_engine
+    is_a: timestamp
+    domain: FluxnovaSchemaLogEntry
+    slot_uri: fluxnova_bpm_platform:timestamp
+    alias: timestamp
+    owner: FluxnovaSchemaLogEntry
+    domain_of:
+    - FluxnovaSchemaLogEntry
+    is_usage_slot: true
+    usage_slot_name: timestamp
+    range: datetime
   FluxnovaTask_execution_id:
     name: FluxnovaTask_execution_id
     definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/execution_id
@@ -21263,19 +21331,19 @@ classes:
       sql_table:
         tag: sql_table
         value: ACT_RU_CASE_EXECUTION
-    description: Case Execution entity in the process execution runtime.
+    description: Represent a planned item in a case instance.
     in_subset:
     - engine_runtime
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpm_engine
     slots:
-    - id
+    - FluxnovaCaseExecution_id
     - FluxnovaCaseExecution_case_instance_id
     - super_case_execution_id
     - super_execution_id
     - business_key
     - FluxnovaCaseExecution_parent_id
     - FluxnovaCaseExecution_case_definition_id
-    - activity_id
+    - FluxnovaCaseExecution_activity_id
     - FluxnovaCaseExecution_previous_state
     - FluxnovaCaseExecution_current_state
     - is_required
@@ -21283,12 +21351,16 @@ classes:
     slot_usage:
       case_instance_id:
         name: case_instance_id
+        description: Id of the root of the case execution tree representing the case
+          instance.
         range: FluxnovaCaseExecution
       parent_id:
         name: parent_id
+        description: The id of the parent of this case execution.
         range: FluxnovaCaseExecution
       case_definition_id:
         name: case_definition_id
+        description: The id of the case definition of the case execution.
         range: FluxnovaCaseDefinition
       previous_state:
         name: previous_state
@@ -21310,9 +21382,15 @@ classes:
           14 suspending on parent suspension.'
         minimum_value: 0
         maximum_value: 14
+      id:
+        name: id
+        description: The unique identifier of the case execution.
       tenant_id:
         name: tenant_id
         description: The id of the tenant this case execution belongs to.
+      activity_id:
+        name: activity_id
+        description: The id of the activity associated with this case execution.
     class_uri: fluxnova_bpm_platform:FluxnovaCaseExecution
   FluxnovaCaseSentryPart:
     name: FluxnovaCaseSentryPart
@@ -23433,18 +23511,25 @@ classes:
       sql_table:
         tag: sql_table
         value: ACT_GE_SCHEMA_LOG
-    description: Schema Log Entry entity in the engine infrastructure.
+    description: Log entry for database schema version changes.
     in_subset:
     - engine_base
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpm_engine
     slots:
-    - id
-    - timestamp
+    - FluxnovaSchemaLogEntry_id
+    - FluxnovaSchemaLogEntry_timestamp
     - FluxnovaSchemaLogEntry_version
     slot_usage:
       version:
         name: version
+        description: The schema version.
         range: string
+      id:
+        name: id
+        description: A unique identifier of a schema log entry.
+      timestamp:
+        name: timestamp
+        description: The creation date of this schema log entry.
     class_uri: fluxnova_bpm_platform:FluxnovaSchemaLogEntry
   FluxnovaTask:
     name: FluxnovaTask
@@ -35919,6 +36004,6 @@ classes:
     class_uri: fluxnova_bpm_platform:BpmnModelElementInstance
 metamodel_version: 1.12.0
 source_file: fluxnova_bpm_platform.yaml
-source_file_date: '2026-11-07T11:03:01'
+source_file_date: '2026-11-07T15:00:20'
 source_file_size: 15967
 

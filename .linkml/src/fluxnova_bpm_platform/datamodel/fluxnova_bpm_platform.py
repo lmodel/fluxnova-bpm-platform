@@ -724,7 +724,7 @@ class FluxnovaByteArray(YAMLRoot):
 @dataclass(repr=False)
 class FluxnovaCaseExecution(YAMLRoot):
     """
-    Case Execution entity in the process execution runtime.
+    Represent a planned item in a case instance.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -3689,7 +3689,7 @@ class FluxnovaProcessDefinition(FluxnovaResourceDefinition):
 @dataclass(repr=False)
 class FluxnovaSchemaLogEntry(YAMLRoot):
     """
-    Schema Log Entry entity in the engine infrastructure.
+    Log entry for database schema version changes.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -12671,8 +12671,14 @@ slots.FluxnovaCaseExecution_previous_state = Slot(uri=FLUXNOVA_BPM_PLATFORM.prev
 slots.FluxnovaCaseExecution_current_state = Slot(uri=FLUXNOVA_BPM_PLATFORM.current_state, name="FluxnovaCaseExecution_current_state", curie=FLUXNOVA_BPM_PLATFORM.curie('current_state'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaCaseExecution_current_state, domain=FluxnovaCaseExecution, range=Optional[int])
 
+slots.FluxnovaCaseExecution_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaCaseExecution_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaCaseExecution_id, domain=FluxnovaCaseExecution, range=Union[str, FluxnovaCaseExecutionId])
+
 slots.FluxnovaCaseExecution_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaCaseExecution_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaCaseExecution_tenant_id, domain=FluxnovaCaseExecution, range=Optional[str])
+
+slots.FluxnovaCaseExecution_activity_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.activity_id, name="FluxnovaCaseExecution_activity_id", curie=FLUXNOVA_BPM_PLATFORM.curie('activity_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaCaseExecution_activity_id, domain=FluxnovaCaseExecution, range=Optional[str])
 
 slots.FluxnovaCaseSentryPart_case_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_instance_id, name="FluxnovaCaseSentryPart_case_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('case_instance_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaCaseSentryPart_case_instance_id, domain=FluxnovaCaseSentryPart, range=Optional[Union[str, FluxnovaCaseExecutionId]])
@@ -13552,6 +13558,12 @@ slots.FluxnovaResourceDefinition_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tena
 
 slots.FluxnovaSchemaLogEntry_version = Slot(uri=FLUXNOVA_BPM_PLATFORM.version, name="FluxnovaSchemaLogEntry_version", curie=FLUXNOVA_BPM_PLATFORM.curie('version'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaSchemaLogEntry_version, domain=FluxnovaSchemaLogEntry, range=Optional[str])
+
+slots.FluxnovaSchemaLogEntry_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaSchemaLogEntry_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaSchemaLogEntry_id, domain=FluxnovaSchemaLogEntry, range=Union[str, FluxnovaSchemaLogEntryId])
+
+slots.FluxnovaSchemaLogEntry_timestamp = Slot(uri=FLUXNOVA_BPM_PLATFORM.timestamp, name="FluxnovaSchemaLogEntry_timestamp", curie=FLUXNOVA_BPM_PLATFORM.curie('timestamp'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaSchemaLogEntry_timestamp, domain=FluxnovaSchemaLogEntry, range=Optional[Union[str, XSDDateTime]])
 
 slots.FluxnovaTask_execution_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.execution_id, name="FluxnovaTask_execution_id", curie=FLUXNOVA_BPM_PLATFORM.curie('execution_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaTask_execution_id, domain=FluxnovaTask, range=Optional[Union[str, FluxnovaExecutionId]])

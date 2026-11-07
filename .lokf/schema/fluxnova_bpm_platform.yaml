@@ -1432,7 +1432,7 @@ classes:
     annotations:
       sql_table: ACT_RE_CASE_DEF
   FluxnovaCaseExecution:
-    description: Case Execution entity in the process execution runtime.
+    description: Represent a planned item in a case instance.
     slots:
     - id
     - case_instance_id
@@ -1449,10 +1449,13 @@ classes:
     slot_usage:
       case_instance_id:
         range: FluxnovaCaseExecution
+        description: Id of the root of the case execution tree representing the case instance.
       parent_id:
         range: FluxnovaCaseExecution
+        description: The id of the parent of this case execution.
       case_definition_id:
         range: FluxnovaCaseDefinition
+        description: The id of the case definition of the case execution.
       previous_state:
         minimum_value: 0
         maximum_value: 14
@@ -1469,8 +1472,12 @@ classes:
           3 disabled, 4 active, 5 suspended, 6 terminated, 7 completed, 8 failed, 9 closed, 10 terminating
           on termination, 11 terminating on parent termination, 12 terminating on exit, 13 suspending
           on suspension, 14 suspending on parent suspension.'
+      id:
+        description: The unique identifier of the case execution.
       tenant_id:
         description: The id of the tenant this case execution belongs to.
+      activity_id:
+        description: The id of the activity associated with this case execution.
     in_subset:
     - engine_runtime
     annotations:
@@ -3008,7 +3015,7 @@ classes:
     - engine_repository
     is_a: Concept
   FluxnovaSchemaLogEntry:
-    description: Schema Log Entry entity in the engine infrastructure.
+    description: Log entry for database schema version changes.
     slots:
     - id
     - fluxnova_bpm_platform_timestamp
@@ -3016,6 +3023,11 @@ classes:
     slot_usage:
       fluxnova_bpm_platform_version:
         range: string
+        description: The schema version.
+      id:
+        description: A unique identifier of a schema log entry.
+      fluxnova_bpm_platform_timestamp:
+        description: The creation date of this schema log entry.
     in_subset:
     - engine_base
     annotations:
