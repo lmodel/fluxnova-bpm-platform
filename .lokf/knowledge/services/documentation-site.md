@@ -3,7 +3,7 @@ type: Service
 id: https://w3id.org/lmodel/fluxnova-bpm-platform/knowledge/services/documentation-site
 genre: reference
 title: Documentation site
-description: The knowledge website at https://lmodel.github.io/fluxnova-bpm-platform, built from the bundle, the sidecar README, the docs pages, the changelog and the schema's pages.
+description: The knowledge website at `https://lmodel.github.io/fluxnova-bpm-platform`, built from the bundle, the sidecar README, the docs pages, the changelog and the schema's pages.
 resource: website/site.config.mjs
 sources:
   - id: site.config.mjs

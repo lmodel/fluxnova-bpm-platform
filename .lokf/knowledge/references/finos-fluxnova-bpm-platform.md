@@ -20,7 +20,7 @@ status: draft
 
 # Fluxnova BPM Platform 3.1.1 (FINOS)
 
-Fluxnova is FINOS's BPM platform, published at https://github.com/finos/fluxnova-bpm-platform under the Apache License 2.0.[^notice] The schema renders the release 3.1.1, the tag `v3.1.1` at commit `3ac64ca2c3d7c93f00395e18b9dc3218e5250264`.[^edition.py] FINOS's tree is merged from its main branch at commit `6a0bf7f412022877109c22c72127138d94effb77`.[^edition.py] Every file the converters read is byte for byte the file at the tag.[^edition.py]
+Fluxnova is FINOS's BPM platform, published at <https://github.com/finos/fluxnova-bpm-platform> under the Apache License 2.0.[^notice] The schema renders the release 3.1.1, the tag `v3.1.1` at commit `3ac64ca2c3d7c93f00395e18b9dc3218e5250264`.[^edition.py] FINOS's tree is merged from its main branch at commit `6a0bf7f412022877109c22c72127138d94effb77`.[^edition.py] Every file the converters read is byte for byte the file at the tag.[^edition.py]
 
 [^notice]: .linkml/NOTICE, Fluxnova
 [^edition.py]: .linkml/scripts/edition.py
