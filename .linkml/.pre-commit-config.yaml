@@ -26,7 +26,7 @@ exclude: >-
     \.linkml/tests/neighbours/|
     \.lokf/(scripts|m365)/|
     \.lokf/schema/(lokf|fluxnova_bpm_platform)\.yaml$|
-    \.github/release/package-lock\.json$
+    \.release/package-lock\.json$
   )
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks

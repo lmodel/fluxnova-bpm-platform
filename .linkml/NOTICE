@@ -10,7 +10,7 @@ The schema project, everything under .linkml/, and what this project adds beside
 FINOS's tree (.lokf/, knowledge_bundle, linkml_schema, website/, llms.txt,
 .releaserc.json, .github/SECURITY.md, .github/dependabot.yml,
 .github/PULL_REQUEST_TEMPLATE/knowledge-sync.md, .github/scripts/,
-.github/release/, and the workflows knowledge-*.yaml, lint-and-docs.yaml,
+.release/, and the workflows knowledge-*.yaml, lint-and-docs.yaml,
 main.yaml, semantic-release.yml and upstream-watch.yaml) is this project's,
 licensed under the Apache License, Version 2.0 (see LICENSE beside this file),
 except for what the sections below list.
