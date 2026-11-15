@@ -220,8 +220,7 @@ exclusions:
     reason: FINOS's tree, unchanged. The converters read only the files .linkml/scripts/upstream_pins.tsv lists.
 generated:
   by: process:ktl-librarian
-  at: "2026-11-07T03:39:33Z"
-  revision: 82bf1bcbc9ef43197696c706139d072b72c74d11
+  at: "2026-11-15T03:29:18Z"
 status: draft
 ---
 
@@ -235,6 +234,6 @@ status: draft
 | `.linkml/CONTRIBUTING.md`, `.linkml/project.justfile` | how to change and release the schema (`Playbook`) | `just --list` from `.linkml/` |
 | `.linkml/NOTICE`, `.linkml/AI_COVENANT.md`, `.github/SECURITY.md` | the policies (`Policy`) | read the files |
 | `.github/workflows/` (this project's four) | the workflows (`Service`) | read each header |
-| `website/` | the documentation site (`Service`) | `website/site.config.mjs` |
+| `website/` | the documentation site (`Service`) | `website/site.toml` |
 
 FINOS's tree outside these paths is FINOS's engine, applications and tools. The converters read from it, and `.linkml/scripts/upstream_pins.tsv` lists those files.
