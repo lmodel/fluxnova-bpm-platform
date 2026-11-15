@@ -10,6 +10,10 @@ The `v0.0.0` tag is a baseline, not a release: it marks where versioning starts 
 
 - **`scorecard.yml` publishes this repository's OpenSSF Scorecard.**
 
+### Changed
+
+- **The knowledge website is built with Hugo from the ktl-website templates**, set by `website/site.toml`, in place of the Astro site.
+
 ### Security
 
 - **The sidecar copies are at Knowledge Trust Ladder [v0.65.0](https://github.com/noelmcloughlin/knowledge-trust-ladder/blob/v0.65.0/CHANGELOG.md), and `.lokf/pyproject.toml` pins `ktl==0.65.0`**, which the librarian installs its skill from. The Python scripts carry no `exclude-newer` date.
