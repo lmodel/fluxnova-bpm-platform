@@ -73,3 +73,28 @@ updates:
       release-tools:
         patterns:
           - "*"
+
+  # FINOS's manifests. FINOS's tree stays byte for byte as FINOS writes it,
+  # so a Dependabot pull request on it can only fail the build: FINOS fixes
+  # its own dependencies, and the next FINOS merge brings the fix here. An
+  # `ignore` of every dependency stops security updates as well as version
+  # updates; `open-pull-requests-limit: 0` stops version updates only. Every
+  # pom.xml is FINOS's, so one glob covers Maven.
+  # tests/test_upstream.py holds both entries to FINOS's tree.
+  - package-ecosystem: npm
+    directories:
+      - "/engine-rest/docs"
+      - "/webapps/frontend"
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 0
+    ignore:
+      - dependency-name: "*"
+  - package-ecosystem: maven
+    directories:
+      - "/**"
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 0
+    ignore:
+      - dependency-name: "*"

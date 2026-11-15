@@ -7,8 +7,9 @@ release tag the schema names, and that the headers, the edition and the watch ag
 
 import hashlib
 import sys
+from fnmatch import fnmatch
 from functools import lru_cache
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 import yaml
 
@@ -17,6 +18,8 @@ TREE = ROOT.parent
 SCHEMA_DIR = ROOT / "src" / "fluxnova_bpm_platform" / "schema"
 MANIFEST = Path(__file__).parent / "upstream_tree.tsv"
 PINS = ROOT / "scripts" / "upstream_pins.tsv"
+DEPENDABOT = TREE / ".github" / "dependabot.yml"
+FINOS_MANIFESTS = {"npm": ("package.json", "package-lock.json"), "maven": ("pom.xml",)}
 
 sys.path.insert(0, str(ROOT / "scripts"))
 from edition import EDITION  # noqa: E402
@@ -62,3 +65,49 @@ def test_the_headers_name_the_edition():
         assert header["version"] == EDITION["version"], path.name
         assert f"/tree/{EDITION['commit']}/" in header["source"], path.name
         assert header["license"] == "Apache-2.0", path.name
+
+
+def _finos_paths():
+    return [
+        line.split("\t", 1)[1]
+        for line in MANIFEST.read_text(encoding="utf-8").splitlines()
+    ]
+
+
+def _dependabot_updates():
+    return yaml.safe_load(DEPENDABOT.read_text(encoding="utf-8"))["updates"]
+
+
+def test_dependabot_ignores_every_finos_manifest():
+    """Each directory that holds a FINOS manifest is in an entry that ignores every
+    dependency, so no Dependabot pull request touches FINOS's tree, and no such entry
+    reaches a directory this project's own entries update."""
+    finos = _finos_paths()
+    for ecosystem, names in FINOS_MANIFESTS.items():
+        entries = [
+            e for e in _dependabot_updates() if e["package-ecosystem"] == ecosystem
+        ]
+        ignored, ours = [], []
+        for entry in entries:
+            directories = entry.get("directories", [entry.get("directory")])
+            everything = {"dependency-name": "*"} in entry.get("ignore", [])
+            (ignored if everything else ours).extend(directories)
+        for path in finos:
+            if PurePosixPath(path).name in names:
+                parent = PurePosixPath(path).parent.as_posix()
+                directory = "/" if parent == "." else "/" + parent
+                assert any(fnmatch(directory, glob) for glob in ignored), path
+        for directory in ours:
+            assert not any(fnmatch(directory, glob) for glob in ignored), directory
+
+
+def test_dependabot_leaves_finos_workflows_alone():
+    """The github-actions entry's exclude-paths match each FINOS workflow and none of ours."""
+    (entry,) = (
+        e for e in _dependabot_updates() if e["package-ecosystem"] == "github-actions"
+    )
+    finos = set(_finos_paths())
+    for workflow in sorted((TREE / ".github" / "workflows").glob("*.y*ml")):
+        path = str(workflow.relative_to(TREE))
+        excluded = any(fnmatch(path, glob) for glob in entry["exclude-paths"])
+        assert excluded == (path in finos), path
