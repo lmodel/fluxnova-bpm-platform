@@ -33,11 +33,10 @@ Never run `just setup` (it nests a repository).
 
 ### Agent skills (optional, only for this repo's `.lokf/` bundle)
 
-The bundle is maintained with the Knowledge Trust Ladder (KTL) skills, **installed, never committed**. Continuous integration (CI) installs the librarian skill at run time, pinned to a release. [The install page](https://w3id.org/ktl/docs/install/) lists every route. With npm:
+The bundle is maintained with the Knowledge Trust Ladder (KTL) skills, **installed, never committed**. Continuous integration (CI) installs the librarian skill at run time, pinned to a release. [The install page](https://w3id.org/ktl/docs/install/) lists every route. From PyPI:
 
 ```bash
-npx skills add noelmcloughlin/knowledge-trust-ladder --skill ktl-librarian --yes   # derive concepts
-npx skills add noelmcloughlin/knowledge-trust-ladder --skill ktl-curator --yes     # confirm them as a person
+uvx ktl skills install --scope user --skill ktl-librarian --skill ktl-curator   # --agent claude-code or codex if not Copilot
 ```
 
 ## Before opening a pull request
@@ -54,7 +53,7 @@ npx skills add noelmcloughlin/knowledge-trust-ladder --skill ktl-curator --yes  
 - **Knowledge-bundle changes**: `cd .lokf && just lokf-validate` must pass, and `knowledge-registrar.yaml` runs on any `.lokf/**` change.
 - **`lint-and-docs.yaml`** runs ShellCheck, actionlint, markdownlint, lychee and codespell over this project's files, never FINOS's.
 - **Actions are pinned to commit hashes**; Dependabot bumps them.
-- **The skills pin moves with the sidecar copies.** When moving `TRUST_LADDER_SKILLS_REF` in `.github/workflows/knowledge-librarian.yaml`, copy the other `knowledge-*.yaml` workflows and `.lokf/scripts/` and `.lokf/m365/` from that release's `skills/ktl-sidecar/templates/` in the same pull request.
+- **The ktl pin and the sidecar copies move together.** The weekly [`knowledge-sync.yaml`](.github/workflows/knowledge-sync.yaml) pull request moves both; to move sooner, run `.lokf/scripts/knowledge-sync.sh --pr <tag>`. Never move `ktl==` in `.lokf/pyproject.toml` alone.
 - **If your change alters behaviour**, add an entry under `## [Unreleased]` in [CHANGELOG.md](CHANGELOG.md).
 
 ## Taking a new release of Fluxnova or FINOS's tree
