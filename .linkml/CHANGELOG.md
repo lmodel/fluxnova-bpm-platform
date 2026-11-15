@@ -15,6 +15,10 @@ The `v0.0.0` tag is a baseline, not a release: it marks where versioning starts 
 - **The knowledge website is built with Hugo from the ktl-website templates**, set by `website/site.toml`, in place of the Astro site.
 - **The bundle's sidecar and the website's tools require Python 3.11 or later**, as KTL's templates do.
 
+### Fixed
+
+- **Dependabot no longer opens pull requests on FINOS's tree.** It had opened one to update FINOS's `fast-xml-parser` and `openapi-sampler` in `engine-rest/docs`, which could only fail the test that holds FINOS's files to the merged commit. `.github/dependabot.yml` now ignores every dependency in FINOS's two npm folders and in every Maven folder, all of which are FINOS's, and two tests hold those entries, and the github-actions entry's exclusions, to FINOS's tree.
+
 ### Security
 
 - **The sidecar copies are at Knowledge Trust Ladder [v0.66.0](https://github.com/noelmcloughlin/knowledge-trust-ladder/blob/v0.66.0/CHANGELOG.md), and `.lokf/pyproject.toml` pins `ktl==0.66.0`**, which the librarian installs its skill from.
