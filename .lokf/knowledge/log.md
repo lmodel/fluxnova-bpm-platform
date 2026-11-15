@@ -2,6 +2,7 @@
 
 ## 2026-11-15
 
+* **Changed**: sources and text follow the move of `.github/release` to `.release`.
 * **Changed**: The concepts that cite the knowledge website describe the Hugo site that replaced the Astro one, set by `website/site.toml`.
 
 ## 2026-11-07

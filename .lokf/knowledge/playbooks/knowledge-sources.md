@@ -50,7 +50,7 @@ exclusions:
     reason: The KTL website's workflow, from the v0.62.0 template; KTL documents it.
   - resource: .github/scripts
     reason: The release job's helpers, which the release playbook names through CONTRIBUTING.
-  - resource: .github/release
+  - resource: .release
     reason: The release job's pinned npm tools.
   - resource: .lokf/README.md
     reason: The sidecar README, from the KTL template, states nothing about this project.
@@ -220,7 +220,7 @@ exclusions:
     reason: FINOS's tree, unchanged. The converters read only the files .linkml/scripts/upstream_pins.tsv lists.
 generated:
   by: process:ktl-librarian
-  at: "2026-11-15T03:29:18Z"
+  at: "2026-11-15T21:01:44Z"
 status: draft
 ---
 
