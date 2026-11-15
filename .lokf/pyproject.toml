@@ -16,7 +16,7 @@ dependencies = [
     "lokf[build]>=0.9.0",
     # The recipe runner the workflows use, pinned here so uv.lock checks it
     # by hash; keep the version in step with the workflows' uvx fallback.
-    "rust-just==1.47.0",
+    "rust-just==1.59.0",
 ]
 
 [tool.uv]
