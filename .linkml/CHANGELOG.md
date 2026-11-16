@@ -6,6 +6,8 @@ The `v0.0.0` tag is a baseline, not a release: it marks where versioning starts 
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-11-16
+
 ### Changed
 
 - **The release tools are in `.release/`**, outside `.github/`, where Dependabot's pull requests for them were refused.
