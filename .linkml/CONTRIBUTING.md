@@ -53,7 +53,7 @@ uvx ktl skills install --scope user --skill ktl-librarian --skill ktl-curator   
 - **Knowledge-bundle changes**: `cd .lokf && just lokf-validate` must pass, and `knowledge-registrar.yaml` runs on any `.lokf/**` change.
 - **`lint-and-docs.yaml`** runs ShellCheck, actionlint, markdownlint, lychee and codespell over this project's files, never FINOS's.
 - **Actions are pinned to commit hashes**; Dependabot bumps them.
-- **The ktl pin and the sidecar copies move together.** The weekly [`knowledge-sync.yaml`](.github/workflows/knowledge-sync.yaml) pull request moves both; to move sooner, run `.lokf/scripts/knowledge-sync.sh --pr <tag>`. Never move `ktl==` in `.lokf/pyproject.toml` alone.
+- **The ktl pin and the sidecar copies move together.** The weekly [`knowledge-sync.yaml`](../.github/workflows/knowledge-sync.yaml) pull request moves both; to move sooner, run `.lokf/scripts/knowledge-sync.sh --pr <tag>`. Never move `ktl==` in `.lokf/pyproject.toml` alone.
 - **If your change alters behaviour**, add an entry under `## [Unreleased]` in [CHANGELOG.md](CHANGELOG.md).
 
 ## Taking a new release of Fluxnova or FINOS's tree
