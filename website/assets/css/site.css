@@ -3,9 +3,10 @@
   the page follows the system's scheme, and the reader's choice in the
   Display menu overrides it by setting color-scheme alone. Every size is in
   rem, so the browser's own text size and the menu's Text size both scale the
-  whole page. Large is the size a reader gets before choosing one. The paper and ink are the Astro site's Catalogue style: one
+  whole page. Medium, the browser's own size, is the size a reader gets
+  before choosing one. The paper and ink are the site's Catalogue style: one
   warm hue, hsl(45), at each lightness, so the page reads as a museum's wall
-  and not a screen's white. The trust colours are the Astro site's too.
+  and not a screen's white. The trust colours are the site's own too.
 */
 @font-face { font-family: "Atkinson Hyperlegible Next"; src: url("../fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2") format("woff2"); font-weight: 200 800; font-display: swap; }
 @font-face { font-family: "Atkinson Hyperlegible Next"; src: url("../fonts/atkinson-hyperlegible-next-latin-wght-italic.woff2") format("woff2"); font-weight: 200 800; font-style: italic; font-display: swap; }
@@ -35,8 +36,8 @@
 }
 :root[data-theme="light"] { color-scheme: light; }
 :root[data-theme="dark"] { color-scheme: dark; }
-:root { font-size: 112.5%; }
-:root[data-size="medium"] { font-size: 100%; }
+:root { font-size: 100%; }
+:root[data-size="large"] { font-size: 112.5%; }
 :root[data-size="larger"] { font-size: 125%; }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--fg); font: 1rem/1.6 var(--sans); overflow-wrap: break-word; }
@@ -89,6 +90,7 @@ main { min-width: 0; padding: 1.5rem 0 4rem; }
 .sidebar ul { list-style: none; margin: 0 0 .3rem; padding: 0; }
 .sidebar li a, .sidebar summary { display: block; padding: .28rem .5rem; border-radius: 6px; color: var(--fg); text-decoration: none; }
 .sidebar :is(li a, summary, .section--link):hover { background: color-mix(in srgb, var(--fg) 8%, transparent); }
+.sidebar .nav-graph a { display: flex; gap: .45rem; align-items: center; margin: .15rem 0; background: color-mix(in srgb, var(--brand) 9%, transparent); color: var(--brand); font-weight: 600; }
 .sidebar a[aria-current] { background: var(--tint); box-shadow: inset 3px 0 var(--brand); font-weight: 600; }
 .sidebar summary { font-weight: 600; cursor: pointer; list-style: none; }
 .sidebar summary::-webkit-details-marker { display: none; }
@@ -160,8 +162,9 @@ pre:hover .copy, .copy:focus-visible { opacity: 1; }
 .alert { margin: 1rem 0; padding: .4rem 1rem; border-left: 4px solid var(--accent); border-radius: 0 6px 6px 0; background: var(--panel); }
 .alert__title { margin: .3rem 0; font-weight: 600; }
 .alert--warning, .alert--caution { border-color: var(--chart-edited); }
-/* The home page's five buttons, in one row of equal widths. One whose page the repository lacks keeps its place, greyed. */
-.actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); gap: .6rem; margin: 0 0 1.5rem; }
+/* The home page's buttons, as near equal in width as the longest label allows, wrapping on a narrow screen. One whose page the repository lacks keeps its place, greyed. */
+.actions { display: flex; flex-wrap: wrap; gap: .6rem; margin: 0 0 1.5rem; }
+.actions > .button { flex: 1 1 0; max-width: 12rem; }
 .button { padding: .45rem .6rem; border: 1px solid var(--brand); border-radius: 999px; background: var(--brand); color: var(--bg); text-align: center; text-decoration: none; font-weight: 600; white-space: nowrap; }
 .button--secondary { background: none; color: var(--brand); }
 .button--missing { border-style: dashed; border-color: var(--rule); background: none; color: var(--muted); font-weight: 400; cursor: not-allowed; }
@@ -212,7 +215,8 @@ a[data-preview]:is(:hover, :focus-visible)::after { content: attr(data-preview) 
 .dot--nobody { border-style: dotted; }
 .dot--retired { border-style: dotted; opacity: .6; }
 .label, .chip { display: inline-block; padding: .1rem .6rem; border-radius: 999px; font-size: .85rem; }
-.label { margin: 0; color: var(--nobody-fg); background: var(--nobody-bg); }
+/* A long label, such as a successor's path, wraps inside its own width: a pill on one line, a rounded box on two. */
+.label { max-width: 100%; margin: 0; border-radius: 1.2em; overflow-wrap: break-word; color: var(--nobody-fg); background: var(--nobody-bg); }
 .label--person { color: var(--person-fg); background: var(--person-bg); }
 .label--edited { color: var(--edited-fg); background: var(--edited-bg); }
 .label--automation { color: var(--automation-fg); background: var(--automation-bg); }
@@ -322,8 +326,8 @@ a[data-preview]:is(:hover, :focus-visible)::after { content: attr(data-preview) 
 /*
   Narrower screens: first a concept's neighbours move under its words, then
   the navigation becomes a menu the header opens. A media query's rem is the
-  browser's own 16px, whatever the Text size, so each width is the one that
-  suits Large, the size a reader starts with.
+  browser's own 16px, whatever the Text size, so each width is one that still
+  suits Large. Medium, the size a reader starts with, has room to spare.
 */
 @media (max-width: 84rem) {
   .layout, .layout:has(> .aside) { grid-template-columns: 16.5rem minmax(0, 1fr); }
